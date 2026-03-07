@@ -14,6 +14,7 @@ namespace NinjaTrader.NinjaScript.xPva.Engine
 			public xPvaEndEffects.State EndEffects;
 			public xPvaTrendTypes.State TrendTypes;
 			public xPvaTurns.State Turns;
+			public xPvaActionResolver.State Actions;
 
             public State(int volPivotWindow)
             {
@@ -24,6 +25,7 @@ namespace NinjaTrader.NinjaScript.xPva.Engine
 				EndEffects = new xPvaEndEffects.State();
 				Turns = new xPvaTurns.State();
 				TrendTypes = new xPvaTrendTypes.State();
+				Actions = new xPvaActionResolver.State();
             }
         }
 
@@ -78,8 +80,14 @@ namespace NinjaTrader.NinjaScript.xPva.Engine
 						    events.Add(EngineEvent.From(turn.Value));
 						
 						    TrendTypeEvent? trendType = xPvaTrendTypes.Step(_s.TrendTypes, turn.Value);
-						    if (trendType.HasValue)
-						        events.Add(EngineEvent.From(trendType.Value));
+							if (trendType.HasValue)
+							{
+							    events.Add(EngineEvent.From(trendType.Value));
+							
+							    ActionEvent? action = xPvaActionResolver.Step(_s.Actions, trendType.Value);
+							    if (action.HasValue)
+							        events.Add(EngineEvent.From(action.Value));
+							}
 						}
 				    }
 				}
@@ -90,6 +98,7 @@ namespace NinjaTrader.NinjaScript.xPva.Engine
         }
     }
 }
+
 
 
 

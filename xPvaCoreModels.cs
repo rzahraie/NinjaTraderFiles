@@ -78,6 +78,7 @@ namespace NinjaTrader.NinjaScript.xPva.Engine
 		EndEffect = 5,
 		Turn = 6,
 		TrendType = 7,
+		Action = 8,
     }
 	
 	public enum EndEffectKind
@@ -121,6 +122,38 @@ namespace NinjaTrader.NinjaScript.xPva.Engine
 	    }
 	}
 	
+	public enum ActionType
+	{
+	    Unknown = 0,
+	    Enter = 1,
+	    Hold = 2,
+	    Reverse = 3,
+	    Sideline = 4,
+	    StayIn = 5,
+	}
+
+	public readonly struct ActionEvent
+	{
+	    public readonly int BarIndex;
+	    public readonly ActionType Action;
+	    public readonly TrendType TrendType;
+	    public readonly TurnType TurnType;
+	    public readonly EndEffectKind SourceKind;
+	    public readonly Band Band;
+	    public readonly long Value;
+	
+	    public ActionEvent(int barIndex, ActionType action, TrendType trendType, TurnType turnType, EndEffectKind sourceKind, Band band, long value)
+	    {
+	        BarIndex = barIndex;
+	        Action = action;
+	        TrendType = trendType;
+	        TurnType = turnType;
+	        SourceKind = sourceKind;
+	        Band = band;
+	        Value = value;
+	    }
+	}
+
 	public readonly struct EndEffectEvent
 	{
 	    public readonly int BarIndex;
@@ -258,6 +291,7 @@ namespace NinjaTrader.NinjaScript.xPva.Engine
 	    public readonly EndEffectEvent? EndEffect;
 	    public readonly TurnEvent? Turn;
 	    public readonly TrendTypeEvent? TrendType;
+	    public readonly ActionEvent? Action;
 	
 	    private EngineEvent(
 	        EventKind kind,
@@ -269,7 +303,8 @@ namespace NinjaTrader.NinjaScript.xPva.Engine
 	        VolOoeEvent? voe,
 	        EndEffectEvent? eee,
 	        TurnEvent? te,
-	        TrendTypeEvent? tte)
+	        TrendTypeEvent? tte,
+	        ActionEvent? ae)
 	    {
 	        Kind = kind;
 	        BarIndex = barIndex;
@@ -281,28 +316,32 @@ namespace NinjaTrader.NinjaScript.xPva.Engine
 	        EndEffect = eee;
 	        Turn = te;
 	        TrendType = tte;
+	        Action = ae;
 	    }
 	
 	    public static EngineEvent From(PriceCaseEvent e) =>
-	        new EngineEvent(EventKind.PriceCase, e.BarIndex, e.Case.ToString(), e, null, null, null, null, null, null);
+	        new EngineEvent(EventKind.PriceCase, e.BarIndex, e.Case.ToString(), e, null, null, null, null, null, null, null);
 	
 	    public static EngineEvent From(PermissionEvent e) =>
-	        new EngineEvent(EventKind.Permission, e.BarIndex, $"{e.Permission}: {e.Reason}", null, e, null, null, null, null, null);
+	        new EngineEvent(EventKind.Permission, e.BarIndex, $"{e.Permission}: {e.Reason}", null, e, null, null, null, null, null, null);
 	
 	    public static EngineEvent From(VolPivotEvent e) =>
-	        new EngineEvent(EventKind.VolPivot, e.BarIndex, $"{e.Kind} V={e.Value}", null, null, e, null, null, null, null);
+	        new EngineEvent(EventKind.VolPivot, e.BarIndex, $"{e.Kind} V={e.Value}", null, null, e, null, null, null, null, null);
 	
 	    public static EngineEvent From(VolOoeEvent e) =>
-	        new EngineEvent(EventKind.VolOoe, e.BarIndex, $"{e.Name} ({e.Band}) V={e.Value}", null, null, null, e, null, null, null);
+	        new EngineEvent(EventKind.VolOoe, e.BarIndex, $"{e.Name} ({e.Band}) V={e.Value}", null, null, null, e, null, null, null, null);
 	
 	    public static EngineEvent From(EndEffectEvent e) =>
-	        new EngineEvent(EventKind.EndEffect, e.BarIndex, $"{e.Kind} [{e.Band}] from {e.Source} V={e.Value}", null, null, null, null, e, null, null);
+	        new EngineEvent(EventKind.EndEffect, e.BarIndex, $"{e.Kind} [{e.Band}] from {e.Source} V={e.Value}", null, null, null, null, e, null, null, null);
 	
 	    public static EngineEvent From(TurnEvent e) =>
-	        new EngineEvent(EventKind.Turn, e.BarIndex, $"{e.Type} from {e.SourceKind} [{e.Band}] via {e.Source} V={e.Value}", null, null, null, null, null, e, null);
+	        new EngineEvent(EventKind.Turn, e.BarIndex, $"{e.Type} from {e.SourceKind} [{e.Band}] via {e.Source} V={e.Value}", null, null, null, null, null, e, null, null);
 	
 	    public static EngineEvent From(TrendTypeEvent e) =>
-	        new EngineEvent(EventKind.TrendType, e.BarIndex, $"{e.Type} from turn {e.SourceTurn} / {e.SourceKind} [{e.Band}] V={e.Value}", null, null, null, null, null, null, e);
+	        new EngineEvent(EventKind.TrendType, e.BarIndex, $"{e.Type} from turn {e.SourceTurn} / {e.SourceKind} [{e.Band}] V={e.Value}", null, null, null, null, null, null, e, null);
+	
+	    public static EngineEvent From(ActionEvent e) =>
+	        new EngineEvent(EventKind.Action, e.BarIndex, $"{e.Action} from trend {e.TrendType} / turn {e.TurnType} / {e.SourceKind} [{e.Band}] V={e.Value}", null, null, null, null, null, null, null, e);
 	}
 
     public sealed class EngineEvents
@@ -317,6 +356,7 @@ namespace NinjaTrader.NinjaScript.xPva.Engine
         public static EngineEvents Empty => new EngineEvents(Array.Empty<EngineEvent>());
     }
 }
+
 
 
 
