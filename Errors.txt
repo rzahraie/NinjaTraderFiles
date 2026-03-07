@@ -1,0 +1,56 @@
+NinjaScript File	Error	Code	Line	Column
+xPvaEngine.cs	The type or namespace name 'BarSnapshot' could not be found (are you missing a using directive or an assembly reference?)	CS0246	33	37
+
+
+NinjaScript File	Error	Code	Line	Column
+xPvaEngine.cs	The type or namespace name 'EngineEvents' could not be found (are you missing a using directive or an assembly reference?)	CS0246	33	16
+
+
+NinjaScript File	Error	Code	Line	Column
+xPvaEngine.cs	The type or namespace name 'BarSnapshot' could not be found (are you missing a using directive or an assembly reference?)	CS0246	10	20
+
+
+NinjaScript File	Error	Code	Line	Column
+xPvaPermission.cs	The type or namespace name 'PriceCase' could not be found (are you missing a using directive or an assembly reference?)	CS0246	5	62
+
+
+NinjaScript File	Error	Code	Line	Column
+xPvaPermission.cs	The type or namespace name 'PermissionEvent' could not be found (are you missing a using directive or an assembly reference?)	CS0246	5	23
+
+
+NinjaScript File	Error	Code	Line	Column
+xPvaPriceCases.cs	The type or namespace name 'BarSnapshot' could not be found (are you missing a using directive or an assembly reference?)	CS0246	5	45
+
+
+NinjaScript File	Error	Code	Line	Column
+xPvaPriceCases.cs	The type or namespace name 'BarSnapshot' could not be found (are you missing a using directive or an assembly reference?)	CS0246	5	65
+
+
+NinjaScript File	Error	Code	Line	Column
+xPvaPriceCases.cs	The type or namespace name 'PriceCase' could not be found (are you missing a using directive or an assembly reference?)	CS0246	5	23
+
+NinjaScript File	Error	Code	Line	Column
+xPvaVolumeOoe.cs	The type or namespace name 'VolPivotEvent' could not be found (are you missing a using directive or an assembly reference?)	CS0246	24	53
+
+
+NinjaScript File	Error	Code	Line	Column
+xPvaVolumeOoe.cs	The type or namespace name 'PermissionEvent' could not be found (are you missing a using directive or an assembly reference?)	CS0246	24	77
+
+NinjaScript File	Error	Code	Line	Column
+xPvaVolumeOoe.cs	The type or namespace name 'VolOoeEvent' could not be found (are you missing a using directive or an assembly reference?)	CS0246	24	23
+
+
+
+NinjaScript File	Error	Code	Line	Column
+xPvaVolumePivots.cs	The type or namespace name 'BarSnapshot' could not be found (are you missing a using directive or an assembly reference?)	CS0246	26	55
+
+NinjaScript File	Error	Code	Line	Column
+xPvaVolumePivots.cs	The type or namespace name 'VolPivotEvent' could not be found (are you missing a using directive or an assembly reference?)	CS0246	26	23
+
+NinjaScript File	Error	Code	Line	Column
+xPvaVolumePivots.cs	The name 'VolPivotKind' does not exist in the current context	CS0103	66	66
+
+NinjaScript File	Error	Code	Line	Column
+xPvaVolumeOoe.cs	The type or namespace name 'VolOoeEvent' could not be found (are you missing a using directive or an assembly reference?)	CS0246	115	36
+
+
