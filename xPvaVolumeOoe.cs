@@ -1,141 +1,201 @@
-namespace NinjaTrader.NinjaScript.xPva
+namespace NinjaTrader.NinjaScript.xPva.Engine
 {
-    public enum OoeLabel
+    public sealed class xPvaVolumeOoe
     {
-        None,
-        P1,
-        T1,
-        P2,
-        T2P,
-        T2F
-    }
-
-    public class OoeEvent
-    {
-        public int BarIndex { get; set; }
-        public double Volume { get; set; }
-        public OoeLabel Label { get; set; }
-    }
-
-    public class xPvaVolumeOoe
-    {
-        private double? p1;
-        private double? t1;
-        private double? p2;
-        private double? t2p;
-
-        public OoeLabel CurrentState { get; private set; } = OoeLabel.None;
-
-        public OoeEvent Step(VolPivotEvent pivot)
+        public sealed class State
         {
-            if (pivot == null)
+            public VolOoeName LastName = VolOoeName.Unknown;
+
+            public long LastP1 = 0;
+            public long LastT1 = 0;
+            public long LastP2 = 0;
+            public long LastT2P = 0;
+            public long LastT2F = 0;
+
+            public Band Band = Band.PP;
+
+            public bool HasP1 => LastP1 > 0;
+            public bool HasT1 => LastT1 > 0;
+            public bool HasP2 => LastP2 > 0;
+            public bool HasT2P => LastT2P > 0;
+            public bool HasT2F => LastT2F > 0;
+        }
+
+        public static VolOoeEvent? Step(State s, in VolPivotEvent pivot, in PermissionEvent perm)
+        {
+            // Keep current Phase-1 behavior: only advance when permission is granted.
+            if (perm.Permission == Permission.Denied)
                 return null;
 
-            if (pivot.IsPeak)
-                return ProcessPeak(pivot);
+            // 1) First peak -> P1
+            if (!s.HasP1)
+            {
+                if (pivot.Kind == VolPivotKind.Peak)
+                {
+                    s.LastP1 = pivot.Value;
+                    s.LastName = VolOoeName.P1;
+                    s.Band = Band.PP;
+                    return new VolOoeEvent(pivot.BarIndex, VolOoeName.P1, s.Band, pivot.Value);
+                }
 
-            if (pivot.IsTrough)
-                return ProcessTrough(pivot);
+                return null;
+            }
+
+            // 2) First trough after P1 -> T1
+            if (!s.HasT1)
+            {
+                if (pivot.Kind == VolPivotKind.Trough)
+                {
+                    s.LastT1 = pivot.Value;
+                    s.LastName = VolOoeName.T1;
+                    s.Band = Band.PP;
+                    return new VolOoeEvent(pivot.BarIndex, VolOoeName.T1, s.Band, pivot.Value);
+                }
+
+                return null;
+            }
+
+            // 3) First peak after T1:
+            //    - if > P1, reset to new P1
+            //    - else P2, enter A band
+            if (!s.HasP2)
+            {
+                if (pivot.Kind == VolPivotKind.Peak)
+                {
+                    if (pivot.Value > s.LastP1)
+                    {
+                        s.LastP1 = pivot.Value;
+                        s.LastT1 = 0;
+                        s.LastP2 = 0;
+                        s.LastT2P = 0;
+                        s.LastT2F = 0;
+                        s.LastName = VolOoeName.P1;
+                        s.Band = Band.PP;
+                        return new VolOoeEvent(pivot.BarIndex, VolOoeName.P1, s.Band, pivot.Value);
+                    }
+
+                    s.LastP2 = pivot.Value;
+                    s.LastName = VolOoeName.P2;
+                    s.Band = Band.A;
+                    return new VolOoeEvent(pivot.BarIndex, VolOoeName.P2, s.Band, pivot.Value);
+                }
+
+                return null;
+            }
+
+            // 4) After P2:
+            //    - higher Peak updates P2 and stays in A band
+            //    - lower Trough than T1 resets to T1 (new structure)
+            //    - otherwise T2P and enter B band
+            if (!s.HasT2P)
+            {
+                if (pivot.Kind == VolPivotKind.Peak)
+                {
+                    if (pivot.Value > s.LastP2)
+                    {
+                        s.LastP2 = pivot.Value;
+                        s.LastName = VolOoeName.P2;
+                        s.Band = Band.A;
+                        return new VolOoeEvent(pivot.BarIndex, VolOoeName.P2, s.Band, pivot.Value);
+                    }
+
+                    return null;
+                }
+
+                if (pivot.Kind == VolPivotKind.Trough)
+                {
+                    if (pivot.Value < s.LastT1)
+                    {
+                        s.LastT1 = pivot.Value;
+                        s.LastP2 = 0;
+                        s.LastT2P = 0;
+                        s.LastT2F = 0;
+                        s.LastName = VolOoeName.T1;
+                        s.Band = Band.PP;
+                        return new VolOoeEvent(pivot.BarIndex, VolOoeName.T1, s.Band, pivot.Value);
+                    }
+
+                    s.LastT2P = pivot.Value;
+                    s.LastName = VolOoeName.T2P;
+                    s.Band = Band.B;
+                    return new VolOoeEvent(pivot.BarIndex, VolOoeName.T2P, s.Band, pivot.Value);
+                }
+
+                return null;
+            }
+
+            // 5) After T2P:
+            //    - trough lower than T2P but higher than T1 -> T2F, enter C band
+            //    - trough below T1 resets to T1
+            //    - higher peak than P2 refreshes P2 and goes back to A band
+            if (!s.HasT2F)
+            {
+                if (pivot.Kind == VolPivotKind.Trough)
+                {
+                    if (pivot.Value < s.LastT1)
+                    {
+                        s.LastT1 = pivot.Value;
+                        s.LastP2 = 0;
+                        s.LastT2P = 0;
+                        s.LastT2F = 0;
+                        s.LastName = VolOoeName.T1;
+                        s.Band = Band.PP;
+                        return new VolOoeEvent(pivot.BarIndex, VolOoeName.T1, s.Band, pivot.Value);
+                    }
+
+                    if (pivot.Value < s.LastT2P && pivot.Value > s.LastT1)
+                    {
+                        s.LastT2F = pivot.Value;
+                        s.LastName = VolOoeName.T2F;
+                        s.Band = Band.C;
+                        return new VolOoeEvent(pivot.BarIndex, VolOoeName.T2F, s.Band, pivot.Value);
+                    }
+
+                    return null;
+                }
+
+                if (pivot.Kind == VolPivotKind.Peak)
+                {
+                    if (pivot.Value > s.LastP2)
+                    {
+                        s.LastP2 = pivot.Value;
+                        s.LastT2P = 0;
+                        s.LastT2F = 0;
+                        s.LastName = VolOoeName.P2;
+                        s.Band = Band.A;
+                        return new VolOoeEvent(pivot.BarIndex, VolOoeName.P2, s.Band, pivot.Value);
+                    }
+
+                    return null;
+                }
+            }
+
+            // 6) After T2F:
+            //    For now, keep it stable until later B..K logic is added.
+            //    We do allow a stronger P2 to restart A-band progression,
+            //    or a lower T1 reset.
+            if (pivot.Kind == VolPivotKind.Peak && pivot.Value > s.LastP2)
+            {
+                s.LastP2 = pivot.Value;
+                s.LastT2P = 0;
+                s.LastT2F = 0;
+                s.LastName = VolOoeName.P2;
+                s.Band = Band.A;
+                return new VolOoeEvent(pivot.BarIndex, VolOoeName.P2, s.Band, pivot.Value);
+            }
+
+            if (pivot.Kind == VolPivotKind.Trough && pivot.Value < s.LastT1)
+            {
+                s.LastT1 = pivot.Value;
+                s.LastP2 = 0;
+                s.LastT2P = 0;
+                s.LastT2F = 0;
+                s.LastName = VolOoeName.T1;
+                s.Band = Band.PP;
+                return new VolOoeEvent(pivot.BarIndex, VolOoeName.T1, s.Band, pivot.Value);
+            }
 
             return null;
-        }
-
-        private OoeEvent ProcessPeak(VolPivotEvent pivot)
-        {
-            double v = pivot.Volume;
-
-            if (CurrentState == OoeLabel.None)
-            {
-                p1 = v;
-                CurrentState = OoeLabel.P1;
-                return Emit(pivot, OoeLabel.P1);
-            }
-
-            if (CurrentState == OoeLabel.T1)
-            {
-                if (p1.HasValue && v > p1.Value)
-                {
-                    p1 = v;
-                    CurrentState = OoeLabel.P1;
-                    return Emit(pivot, OoeLabel.P1);
-                }
-                else
-                {
-                    p2 = v;
-                    CurrentState = OoeLabel.P2;
-                    return Emit(pivot, OoeLabel.P2);
-                }
-            }
-
-            if (CurrentState == OoeLabel.P2)
-            {
-                if (p2.HasValue && v > p2.Value)
-                {
-                    p2 = v;
-                    return Emit(pivot, OoeLabel.P2);
-                }
-            }
-
-            return null;
-        }
-
-        private OoeEvent ProcessTrough(VolPivotEvent pivot)
-        {
-            double v = pivot.Volume;
-
-            if (CurrentState == OoeLabel.P1)
-            {
-                t1 = v;
-                CurrentState = OoeLabel.T1;
-                return Emit(pivot, OoeLabel.T1);
-            }
-
-            if (CurrentState == OoeLabel.P2)
-            {
-                if (t1.HasValue && v < t1.Value)
-                {
-                    t1 = v;
-                    CurrentState = OoeLabel.T1;
-                    return Emit(pivot, OoeLabel.T1);
-                }
-                else
-                {
-                    t2p = v;
-                    CurrentState = OoeLabel.T2P;
-                    return Emit(pivot, OoeLabel.T2P);
-                }
-            }
-
-            if (CurrentState == OoeLabel.T2P)
-            {
-                if (t1.HasValue && v > t1.Value && v < t2p)
-                {
-                    CurrentState = OoeLabel.T2F;
-                    return Emit(pivot, OoeLabel.T2F);
-                }
-            }
-
-            return null;
-        }
-
-        private OoeEvent Emit(VolPivotEvent pivot, OoeLabel label)
-        {
-            return new OoeEvent
-            {
-                BarIndex = pivot.BarIndex,
-                Volume = pivot.Volume,
-                Label = label
-            };
-        }
-
-        public void Reset()
-        {
-            p1 = null;
-            t1 = null;
-            p2 = null;
-            t2p = null;
-            CurrentState = OoeLabel.None;
         }
     }
 }
-
