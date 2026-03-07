@@ -79,6 +79,8 @@ namespace NinjaTrader.NinjaScript.xPva.Engine
 		Turn = 6,
 		TrendType = 7,
 		Action = 8,
+		Container = 9,
+    	Ftt = 10,
     }
 	
 	public enum EndEffectKind
@@ -151,6 +153,53 @@ namespace NinjaTrader.NinjaScript.xPva.Engine
 	        SourceKind = sourceKind;
 	        Band = band;
 	        Value = value;
+	    }
+	}
+	
+	public enum ContainerDirection
+	{
+	    Unknown = 0,
+	    Up = 1,
+	    Down = 2,
+	}
+	
+	public readonly struct FttEvent
+	{
+	    public readonly int BarIndex;
+	    public readonly ContainerDirection Direction;
+	    public readonly PriceCase SourcePriceCase;
+	
+	    public FttEvent(int barIndex, ContainerDirection direction, PriceCase sourcePriceCase)
+	    {
+	        BarIndex = barIndex;
+	        Direction = direction;
+	        SourcePriceCase = sourcePriceCase;
+	    }
+	}
+
+	public readonly struct ContainerEvent
+	{
+	    public readonly int BarIndex;
+	    public readonly ContainerDirection Direction;
+	    public readonly int RunLength;
+	    public readonly bool IsNewContainer;
+	    public readonly bool HasFtt;
+	    public readonly FttEvent? Ftt;
+	
+	    public ContainerEvent(
+	        int barIndex,
+	        ContainerDirection direction,
+	        int runLength,
+	        bool isNewContainer,
+	        bool hasFtt,
+	        FttEvent? ftt)
+	    {
+	        BarIndex = barIndex;
+	        Direction = direction;
+	        RunLength = runLength;
+	        IsNewContainer = isNewContainer;
+	        HasFtt = hasFtt;
+	        Ftt = ftt;
 	    }
 	}
 
@@ -292,6 +341,8 @@ namespace NinjaTrader.NinjaScript.xPva.Engine
 	    public readonly TurnEvent? Turn;
 	    public readonly TrendTypeEvent? TrendType;
 	    public readonly ActionEvent? Action;
+	    public readonly ContainerEvent? Container;
+	    public readonly FttEvent? Ftt;
 	
 	    private EngineEvent(
 	        EventKind kind,
@@ -304,7 +355,9 @@ namespace NinjaTrader.NinjaScript.xPva.Engine
 	        EndEffectEvent? eee,
 	        TurnEvent? te,
 	        TrendTypeEvent? tte,
-	        ActionEvent? ae)
+	        ActionEvent? ae,
+	        ContainerEvent? ce,
+	        FttEvent? fe)
 	    {
 	        Kind = kind;
 	        BarIndex = barIndex;
@@ -317,31 +370,39 @@ namespace NinjaTrader.NinjaScript.xPva.Engine
 	        Turn = te;
 	        TrendType = tte;
 	        Action = ae;
+	        Container = ce;
+	        Ftt = fe;
 	    }
 	
 	    public static EngineEvent From(PriceCaseEvent e) =>
-	        new EngineEvent(EventKind.PriceCase, e.BarIndex, e.Case.ToString(), e, null, null, null, null, null, null, null);
+	        new EngineEvent(EventKind.PriceCase, e.BarIndex, e.Case.ToString(), e, null, null, null, null, null, null, null, null, null);
 	
 	    public static EngineEvent From(PermissionEvent e) =>
-	        new EngineEvent(EventKind.Permission, e.BarIndex, $"{e.Permission}: {e.Reason}", null, e, null, null, null, null, null, null);
+	        new EngineEvent(EventKind.Permission, e.BarIndex, $"{e.Permission}: {e.Reason}", null, e, null, null, null, null, null, null, null, null);
 	
 	    public static EngineEvent From(VolPivotEvent e) =>
-	        new EngineEvent(EventKind.VolPivot, e.BarIndex, $"{e.Kind} V={e.Value}", null, null, e, null, null, null, null, null);
+	        new EngineEvent(EventKind.VolPivot, e.BarIndex, $"{e.Kind} V={e.Value}", null, null, e, null, null, null, null, null, null, null);
 	
 	    public static EngineEvent From(VolOoeEvent e) =>
-	        new EngineEvent(EventKind.VolOoe, e.BarIndex, $"{e.Name} ({e.Band}) V={e.Value}", null, null, null, e, null, null, null, null);
+	        new EngineEvent(EventKind.VolOoe, e.BarIndex, $"{e.Name} ({e.Band}) V={e.Value}", null, null, null, e, null, null, null, null, null, null);
 	
 	    public static EngineEvent From(EndEffectEvent e) =>
-	        new EngineEvent(EventKind.EndEffect, e.BarIndex, $"{e.Kind} [{e.Band}] from {e.Source} V={e.Value}", null, null, null, null, e, null, null, null);
+	        new EngineEvent(EventKind.EndEffect, e.BarIndex, $"{e.Kind} [{e.Band}] from {e.Source} V={e.Value}", null, null, null, null, e, null, null, null, null, null);
 	
 	    public static EngineEvent From(TurnEvent e) =>
-	        new EngineEvent(EventKind.Turn, e.BarIndex, $"{e.Type} from {e.SourceKind} [{e.Band}] via {e.Source} V={e.Value}", null, null, null, null, null, e, null, null);
+	        new EngineEvent(EventKind.Turn, e.BarIndex, $"{e.Type} from {e.SourceKind} [{e.Band}] via {e.Source} V={e.Value}", null, null, null, null, null, e, null, null, null, null);
 	
 	    public static EngineEvent From(TrendTypeEvent e) =>
-	        new EngineEvent(EventKind.TrendType, e.BarIndex, $"{e.Type} from turn {e.SourceTurn} / {e.SourceKind} [{e.Band}] V={e.Value}", null, null, null, null, null, null, e, null);
+	        new EngineEvent(EventKind.TrendType, e.BarIndex, $"{e.Type} from turn {e.SourceTurn} / {e.SourceKind} [{e.Band}] V={e.Value}", null, null, null, null, null, null, e, null, null, null);
 	
 	    public static EngineEvent From(ActionEvent e) =>
-	        new EngineEvent(EventKind.Action, e.BarIndex, $"{e.Action} from trend {e.TrendType} / turn {e.TurnType} / {e.SourceKind} [{e.Band}] V={e.Value}", null, null, null, null, null, null, null, e);
+	        new EngineEvent(EventKind.Action, e.BarIndex, $"{e.Action} from trend {e.TrendType} / turn {e.TurnType} / {e.SourceKind} [{e.Band}] V={e.Value}", null, null, null, null, null, null, null, e, null, null);
+	
+	    public static EngineEvent From(ContainerEvent e) =>
+	        new EngineEvent(EventKind.Container, e.BarIndex, $"{e.Direction} run={e.RunLength} new={e.IsNewContainer} ftt={e.HasFtt}", null, null, null, null, null, null, null, null, e, null);
+	
+	    public static EngineEvent From(FttEvent e) =>
+	        new EngineEvent(EventKind.Ftt, e.BarIndex, $"FTT {e.Direction} via {e.SourcePriceCase}", null, null, null, null, null, null, null, null, null, e);
 	}
 
     public sealed class EngineEvents
@@ -356,6 +417,8 @@ namespace NinjaTrader.NinjaScript.xPva.Engine
         public static EngineEvents Empty => new EngineEvents(Array.Empty<EngineEvent>());
     }
 }
+
+
 
 
 

@@ -15,6 +15,7 @@ namespace NinjaTrader.NinjaScript.xPva.Engine
 			public xPvaTrendTypes.State TrendTypes;
 			public xPvaTurns.State Turns;
 			public xPvaActionResolver.State Actions;
+			public xPvaContainers.State Containers;
 
             public State(int volPivotWindow)
             {
@@ -26,6 +27,7 @@ namespace NinjaTrader.NinjaScript.xPva.Engine
 				Turns = new xPvaTurns.State();
 				TrendTypes = new xPvaTrendTypes.State();
 				Actions = new xPvaActionResolver.State();
+				Containers = new xPvaContainers.State();
             }
         }
 
@@ -51,7 +53,17 @@ namespace NinjaTrader.NinjaScript.xPva.Engine
 
             // 1) PriceCase
             PriceCase pc = xPvaPriceCases.Classify(bar, _s.PrevBar);
-            events.Add(EngineEvent.From(new PriceCaseEvent(bar.Index, pc)));
+			PriceCaseEvent pce = new PriceCaseEvent(bar.Index, pc);
+			events.Add(EngineEvent.From(pce));
+			
+			ContainerEvent? container = xPvaContainers.Step(_s.Containers, pce);
+			if (container.HasValue)
+			{
+			    events.Add(EngineEvent.From(container.Value));
+			
+			    if (container.Value.HasFtt && container.Value.Ftt.HasValue)
+			        events.Add(EngineEvent.From(container.Value.Ftt.Value));
+			}
 
             // 2) Permission (phase1: translations only)
             PermissionEvent perm = xPvaPermission.Evaluate(bar.Index, pc);
@@ -98,6 +110,7 @@ namespace NinjaTrader.NinjaScript.xPva.Engine
         }
     }
 }
+
 
 
 
