@@ -1,0 +1,138 @@
+#region Using declarations
+using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Windows;
+using System.Windows.Input;
+using System.Windows.Media;
+using System.Xml.Serialization;
+using NinjaTrader.Cbi;
+using NinjaTrader.Gui;
+using NinjaTrader.Gui.Chart;
+using NinjaTrader.Gui.SuperDom;
+using NinjaTrader.Gui.Tools;
+using NinjaTrader.Data;
+using NinjaTrader.NinjaScript;
+using NinjaTrader.NinjaScript.Indicators;
+using NinjaTrader.Core.FloatingPoint;
+using NinjaTrader.NinjaScript.DrawingTools;
+using NinjaTrader.NinjaScript.xPva.Engine;
+#endregion
+
+//This namespace holds Indicators in this folder and is required. Do not change it. 
+namespace NinjaTrader.NinjaScript.Indicators
+{
+	public class xPvaEngineHost : Indicator
+	{
+		 private xPvaEngine _engine;
+
+        [NinjaScriptProperty]
+        [Range(1, 10)]
+        [Display(Name = "VolPivotWindow", Order = 1, GroupName = "Parameters")]
+        public int VolPivotWindow { get; set; } = 1;
+		
+		protected override void OnStateChange()
+		{
+			if (State == State.SetDefaults)
+            {
+                Name = "xPvaEngineHost";
+                Calculate = Calculate.OnBarClose;   // start deterministic; later you can do intrabar carefully
+                IsOverlay = true;
+            }
+            else if (State == State.DataLoaded)
+            {
+                _engine = new xPvaEngine(VolPivotWindow);
+            }
+		}
+
+		protected override void OnBarUpdate()
+		{
+			//Add your custom indicator logic here.
+			if (CurrentBar < 1)
+                return;
+
+            // Convert NT bar data into engine snapshot.
+            // Time[0] is exchange time; for now convert to UTC via DateTime.SpecifyKind local assumption.
+            // Better: use your session/timezone normalization later.
+            DateTime time = Time[0];
+            DateTime timeUtc = DateTime.SpecifyKind(time, DateTimeKind.Local).ToUniversalTime();
+
+            var snap = new xPva.Engine.BarSnapshot(
+                timeUtc,
+                Open[0], High[0], Low[0], Close[0],
+                (long)Volume[0],
+                CurrentBar
+            );
+
+            EngineEvents evs = _engine.Step(snap);
+
+            // Phase 2 behavior: print events (later: draw and log JSON).
+            foreach (var e in evs.Events)
+            {
+                // Keep spam manageable: you can gate prints by kind.
+                Print($"{Instrument.FullName} B{e.BarIndex}: {e.Kind} {e.Text}");
+            }
+		}
+	}
+}
+
+#region NinjaScript generated code. Neither change nor remove.
+
+namespace NinjaTrader.NinjaScript.Indicators
+{
+	public partial class Indicator : NinjaTrader.Gui.NinjaScript.IndicatorRenderBase
+	{
+		private xPvaEngineHost[] cachexPvaEngineHost;
+		public xPvaEngineHost xPvaEngineHost(int volPivotWindow)
+		{
+			return xPvaEngineHost(Input, volPivotWindow);
+		}
+
+		public xPvaEngineHost xPvaEngineHost(ISeries<double> input, int volPivotWindow)
+		{
+			if (cachexPvaEngineHost != null)
+				for (int idx = 0; idx < cachexPvaEngineHost.Length; idx++)
+					if (cachexPvaEngineHost[idx] != null && cachexPvaEngineHost[idx].VolPivotWindow == volPivotWindow && cachexPvaEngineHost[idx].EqualsInput(input))
+						return cachexPvaEngineHost[idx];
+			return CacheIndicator<xPvaEngineHost>(new xPvaEngineHost(){ VolPivotWindow = volPivotWindow }, input, ref cachexPvaEngineHost);
+		}
+	}
+}
+
+namespace NinjaTrader.NinjaScript.MarketAnalyzerColumns
+{
+	public partial class MarketAnalyzerColumn : MarketAnalyzerColumnBase
+	{
+		public Indicators.xPvaEngineHost xPvaEngineHost(int volPivotWindow)
+		{
+			return indicator.xPvaEngineHost(Input, volPivotWindow);
+		}
+
+		public Indicators.xPvaEngineHost xPvaEngineHost(ISeries<double> input , int volPivotWindow)
+		{
+			return indicator.xPvaEngineHost(input, volPivotWindow);
+		}
+	}
+}
+
+namespace NinjaTrader.NinjaScript.Strategies
+{
+	public partial class Strategy : NinjaTrader.Gui.NinjaScript.StrategyRenderBase
+	{
+		public Indicators.xPvaEngineHost xPvaEngineHost(int volPivotWindow)
+		{
+			return indicator.xPvaEngineHost(Input, volPivotWindow);
+		}
+
+		public Indicators.xPvaEngineHost xPvaEngineHost(ISeries<double> input , int volPivotWindow)
+		{
+			return indicator.xPvaEngineHost(input, volPivotWindow);
+		}
+	}
+}
+
+#endregion
