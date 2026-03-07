@@ -11,6 +11,7 @@ namespace NinjaTrader.NinjaScript.xPva.Engine
 
             public xPvaVolumePivots.State VolPivots;
             public xPvaVolumeOoe.State VolOoe;
+			public xPvaEndEffects.State EndEffects;
 
             public State(int volPivotWindow)
             {
@@ -18,6 +19,7 @@ namespace NinjaTrader.NinjaScript.xPva.Engine
                 PrevBar = default;
                 VolPivots = new xPvaVolumePivots.State(volPivotWindow);
                 VolOoe = new xPvaVolumeOoe.State();
+				EndEffects = new xPvaEndEffects.State();
             }
         }
 
@@ -57,8 +59,14 @@ namespace NinjaTrader.NinjaScript.xPva.Engine
 
                 // 4) Volume OOE (minimal)
                 VolOoeEvent? ooe = xPvaVolumeOoe.Step(_s.VolOoe, pivot.Value, perm);
-                if (ooe.HasValue)
-                    events.Add(EngineEvent.From(ooe.Value));
+				if (ooe.HasValue)
+				{
+				    events.Add(EngineEvent.From(ooe.Value));
+				
+				    EndEffectEvent? ee = xPvaEndEffects.Step(_s.EndEffects, ooe.Value);
+				    if (ee.HasValue)
+				        events.Add(EngineEvent.From(ee.Value));
+				}
             }
 
             _s.PrevBar = bar;
@@ -66,3 +74,4 @@ namespace NinjaTrader.NinjaScript.xPva.Engine
         }
     }
 }
+
