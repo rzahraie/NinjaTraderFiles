@@ -76,6 +76,7 @@ namespace NinjaTrader.NinjaScript.xPva.Engine
         VolPivot = 3,
         VolOoe = 4,
 		EndEffect = 5,
+		Turn = 6,
     }
 	
 	public enum EndEffectKind
@@ -108,6 +109,34 @@ namespace NinjaTrader.NinjaScript.xPva.Engine
 	    }
 	}
 
+	public enum TurnType
+{
+    Unknown = 0,
+    A = 1, // dominant -> non-dominant
+    B = 2, // non-dominant -> dominant
+    C = 3, // dominant -> opposite dominant
+}
+
+	public readonly struct TurnEvent
+	{
+	    public readonly int BarIndex;
+	    public readonly TurnType Type;
+	    public readonly EndEffectKind SourceKind;
+	    public readonly Band Band;
+	    public readonly VolOoeName Source;
+	    public readonly long Value;
+	
+	    public TurnEvent(int barIndex, TurnType type, EndEffectKind sourceKind, Band band, VolOoeName source, long value)
+	    {
+	        BarIndex = barIndex;
+	        Type = type;
+	        SourceKind = sourceKind;
+	        Band = band;
+	        Source = source;
+	        Value = value;
+	    }
+	}
+	
     public readonly struct BarSnapshot
     {
         public readonly DateTime TimeUtc;
@@ -197,6 +226,7 @@ namespace NinjaTrader.NinjaScript.xPva.Engine
 	    public readonly VolPivotEvent? VolPivot;
 	    public readonly VolOoeEvent? VolOoe;
 	    public readonly EndEffectEvent? EndEffect;
+	    public readonly TurnEvent? Turn;
 	
 	    private EngineEvent(
 	        EventKind kind,
@@ -206,7 +236,8 @@ namespace NinjaTrader.NinjaScript.xPva.Engine
 	        PermissionEvent? pe,
 	        VolPivotEvent? vpe,
 	        VolOoeEvent? voe,
-	        EndEffectEvent? eee)
+	        EndEffectEvent? eee,
+	        TurnEvent? te)
 	    {
 	        Kind = kind;
 	        BarIndex = barIndex;
@@ -216,22 +247,26 @@ namespace NinjaTrader.NinjaScript.xPva.Engine
 	        VolPivot = vpe;
 	        VolOoe = voe;
 	        EndEffect = eee;
+	        Turn = te;
 	    }
 	
 	    public static EngineEvent From(PriceCaseEvent e) =>
-	        new EngineEvent(EventKind.PriceCase, e.BarIndex, e.Case.ToString(), e, null, null, null, null);
+	        new EngineEvent(EventKind.PriceCase, e.BarIndex, e.Case.ToString(), e, null, null, null, null, null);
 	
 	    public static EngineEvent From(PermissionEvent e) =>
-	        new EngineEvent(EventKind.Permission, e.BarIndex, $"{e.Permission}: {e.Reason}", null, e, null, null, null);
+	        new EngineEvent(EventKind.Permission, e.BarIndex, $"{e.Permission}: {e.Reason}", null, e, null, null, null, null);
 	
 	    public static EngineEvent From(VolPivotEvent e) =>
-	        new EngineEvent(EventKind.VolPivot, e.BarIndex, $"{e.Kind} V={e.Value}", null, null, e, null, null);
+	        new EngineEvent(EventKind.VolPivot, e.BarIndex, $"{e.Kind} V={e.Value}", null, null, e, null, null, null);
 	
 	    public static EngineEvent From(VolOoeEvent e) =>
-	        new EngineEvent(EventKind.VolOoe, e.BarIndex, $"{e.Name} ({e.Band}) V={e.Value}", null, null, null, e, null);
+	        new EngineEvent(EventKind.VolOoe, e.BarIndex, $"{e.Name} ({e.Band}) V={e.Value}", null, null, null, e, null, null);
 	
 	    public static EngineEvent From(EndEffectEvent e) =>
-	        new EngineEvent(EventKind.EndEffect, e.BarIndex, $"{e.Kind} [{e.Band}] from {e.Source} V={e.Value}", null, null, null, null, e);
+	        new EngineEvent(EventKind.EndEffect, e.BarIndex, $"{e.Kind} [{e.Band}] from {e.Source} V={e.Value}", null, null, null, null, e, null);
+	
+	    public static EngineEvent From(TurnEvent e) =>
+	        new EngineEvent(EventKind.Turn, e.BarIndex, $"{e.Type} from {e.SourceKind} [{e.Band}] via {e.Source} V={e.Value}", null, null, null, null, null, e);
 	}
 
     public sealed class EngineEvents
@@ -246,5 +281,6 @@ namespace NinjaTrader.NinjaScript.xPva.Engine
         public static EngineEvents Empty => new EngineEvents(Array.Empty<EngineEvent>());
     }
 }
+
 
 

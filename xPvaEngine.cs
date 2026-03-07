@@ -8,10 +8,12 @@ namespace NinjaTrader.NinjaScript.xPva.Engine
         {
             public bool HasPrevBar;
             public BarSnapshot PrevBar;
-
+			
             public xPvaVolumePivots.State VolPivots;
             public xPvaVolumeOoe.State VolOoe;
 			public xPvaEndEffects.State EndEffects;
+			
+			public xPvaTurns.State Turns;
 
             public State(int volPivotWindow)
             {
@@ -20,6 +22,7 @@ namespace NinjaTrader.NinjaScript.xPva.Engine
                 VolPivots = new xPvaVolumePivots.State(volPivotWindow);
                 VolOoe = new xPvaVolumeOoe.State();
 				EndEffects = new xPvaEndEffects.State();
+				Turns = new xPvaTurns.State();
             }
         }
 
@@ -65,7 +68,13 @@ namespace NinjaTrader.NinjaScript.xPva.Engine
 				
 				    EndEffectEvent? ee = xPvaEndEffects.Step(_s.EndEffects, ooe.Value);
 				    if (ee.HasValue)
+				    {
 				        events.Add(EngineEvent.From(ee.Value));
+				
+				        TurnEvent? turn = xPvaTurns.Step(_s.Turns, ee.Value);
+				        if (turn.HasValue)
+				            events.Add(EngineEvent.From(turn.Value));
+				    }
 				}
             }
 
@@ -74,4 +83,5 @@ namespace NinjaTrader.NinjaScript.xPva.Engine
         }
     }
 }
+
 
