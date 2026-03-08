@@ -34,6 +34,7 @@ namespace NinjaTrader.NinjaScript.xPva.Engine
 
             return new StructureEvent(
 			    ftt.BarIndex,
+			    ftt.ContainerId,
 			    state,
 			    trend.Type,
 			    direction);
@@ -73,4 +74,5 @@ namespace NinjaTrader.NinjaScript.xPva.Engine
         }
     }
 }
+
 

@@ -40,13 +40,14 @@ namespace NinjaTrader.NinjaScript.xPva.Engine
             }
 
             return new ActionEvent(
-                structure.BarIndex,
-                action,
-                structure.TrendType,
-                turn.Type,
-                turn.SourceKind,
-                turn.Band,
-                turn.Value);
+				    structure.BarIndex,
+				    structure.ContainerId,
+				    action,
+				    structure.TrendType,
+				    turn.Type,
+				    turn.SourceKind,
+				    turn.Band,
+				    turn.Value);
         }
 
         private static ActionType Resolve(
@@ -93,4 +94,5 @@ namespace NinjaTrader.NinjaScript.xPva.Engine
         }
     }
 }
+
 

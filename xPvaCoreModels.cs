@@ -140,6 +140,7 @@ namespace NinjaTrader.NinjaScript.xPva.Engine
 	public readonly struct ActionEvent
 	{
 	    public readonly int BarIndex;
+	    public readonly int ContainerId;
 	    public readonly ActionType Action;
 	    public readonly TrendType TrendType;
 	    public readonly TurnType TurnType;
@@ -147,9 +148,10 @@ namespace NinjaTrader.NinjaScript.xPva.Engine
 	    public readonly Band Band;
 	    public readonly long Value;
 	
-	    public ActionEvent(int barIndex, ActionType action, TrendType trendType, TurnType turnType, EndEffectKind sourceKind, Band band, long value)
+	    public ActionEvent(int barIndex, int containerId, ActionType action, TrendType trendType, TurnType turnType, EndEffectKind sourceKind, Band band, long value)
 	    {
 	        BarIndex = barIndex;
+	        ContainerId = containerId;
 	        Action = action;
 	        TrendType = trendType;
 	        TurnType = turnType;
@@ -169,13 +171,15 @@ namespace NinjaTrader.NinjaScript.xPva.Engine
 	public readonly struct DirectionBreakEvent
 	{
 	    public readonly int BarIndex;
+	    public readonly int ContainerId;
 	    public readonly ContainerDirection PriorDirection;
 	    public readonly PriceCase SourcePriceCase;
 	    public readonly int PriorRunLength;
 	
-	    public DirectionBreakEvent(int barIndex, ContainerDirection priorDirection, PriceCase sourcePriceCase, int priorRunLength)
+	    public DirectionBreakEvent(int barIndex, int containerId, ContainerDirection priorDirection, PriceCase sourcePriceCase, int priorRunLength)
 	    {
 	        BarIndex = barIndex;
+	        ContainerId = containerId;
 	        PriorDirection = priorDirection;
 	        SourcePriceCase = sourcePriceCase;
 	        PriorRunLength = priorRunLength;
@@ -185,13 +189,15 @@ namespace NinjaTrader.NinjaScript.xPva.Engine
 	public readonly struct FttCandidateEvent
 	{
 	    public readonly int BarIndex;
+	    public readonly int ContainerId;
 	    public readonly ContainerDirection PriorDirection;
 	    public readonly PriceCase SourcePriceCase;
 	    public readonly int PriorRunLength;
 	
-	    public FttCandidateEvent(int barIndex, ContainerDirection priorDirection, PriceCase sourcePriceCase, int priorRunLength)
+	    public FttCandidateEvent(int barIndex, int containerId, ContainerDirection priorDirection, PriceCase sourcePriceCase, int priorRunLength)
 	    {
 	        BarIndex = barIndex;
+	        ContainerId = containerId;
 	        PriorDirection = priorDirection;
 	        SourcePriceCase = sourcePriceCase;
 	        PriorRunLength = priorRunLength;
@@ -201,13 +207,15 @@ namespace NinjaTrader.NinjaScript.xPva.Engine
 	public readonly struct FttConfirmedEvent
 	{
 	    public readonly int BarIndex;
+	    public readonly int ContainerId;
 	    public readonly ContainerDirection PriorDirection;
 	    public readonly PriceCase SourcePriceCase;
 	    public readonly int PriorRunLength;
 	
-	    public FttConfirmedEvent(int barIndex, ContainerDirection priorDirection, PriceCase sourcePriceCase, int priorRunLength)
+	    public FttConfirmedEvent(int barIndex, int containerId, ContainerDirection priorDirection, PriceCase sourcePriceCase, int priorRunLength)
 	    {
 	        BarIndex = barIndex;
+	        ContainerId = containerId;
 	        PriorDirection = priorDirection;
 	        SourcePriceCase = sourcePriceCase;
 	        PriorRunLength = priorRunLength;
@@ -217,6 +225,7 @@ namespace NinjaTrader.NinjaScript.xPva.Engine
 	public readonly struct ContainerEvent
 	{
 	    public readonly int BarIndex;
+	    public readonly int ContainerId;
 	    public readonly ContainerDirection Direction;
 	    public readonly int RunLength;
 	    public readonly bool IsNewContainer;
@@ -232,6 +241,7 @@ namespace NinjaTrader.NinjaScript.xPva.Engine
 	
 	    public ContainerEvent(
 	        int barIndex,
+	        int containerId,
 	        ContainerDirection direction,
 	        int runLength,
 	        bool isNewContainer,
@@ -243,6 +253,7 @@ namespace NinjaTrader.NinjaScript.xPva.Engine
 	        FttConfirmedEvent? fttConfirmed)
 	    {
 	        BarIndex = barIndex;
+	        ContainerId = containerId;
 	        Direction = direction;
 	        RunLength = runLength;
 	        IsNewContainer = isNewContainer;
@@ -267,17 +278,20 @@ namespace NinjaTrader.NinjaScript.xPva.Engine
 	public readonly struct StructureEvent
 	{
 	    public readonly int BarIndex;
+	    public readonly int ContainerId;
 	    public readonly StructureState State;
 	    public readonly TrendType TrendType;
 	    public readonly ContainerDirection Direction;
 	
 	    public StructureEvent(
 	        int barIndex,
+	        int containerId,
 	        StructureState state,
 	        TrendType trendType,
 	        ContainerDirection direction)
 	    {
 	        BarIndex = barIndex;
+	        ContainerId = containerId;
 	        State = state;
 	        TrendType = trendType;
 	        Direction = direction;
@@ -500,19 +514,19 @@ namespace NinjaTrader.NinjaScript.xPva.Engine
 	        new EngineEvent(EventKind.TrendType, e.BarIndex, $"{e.Type} from turn {e.SourceTurn} / {e.SourceKind} [{e.Band}] V={e.Value}", null, null, null, null, null, null, e, null, null, null, null, null, null);
 	
 	    public static EngineEvent From(ActionEvent e) =>
-	        new EngineEvent(EventKind.Action, e.BarIndex, $"{e.Action} from trend {e.TrendType} / turn {e.TurnType} / {e.SourceKind} [{e.Band}] V={e.Value}", null, null, null, null, null, null, null, e, null, null, null, null, null);
+    		new EngineEvent(EventKind.Action, e.BarIndex, $"C#{e.ContainerId} {e.Action} trend={e.TrendType} turn={e.TurnType} {e.SourceKind} [{e.Band}] V={e.Value}", null, null, null, null, null, null, null, e, null, null, null, null, null);
 	
 	    public static EngineEvent From(ContainerEvent e) =>
-	        new EngineEvent(EventKind.Container, e.BarIndex, $"{e.Direction} run={e.RunLength} new={e.IsNewContainer} break={e.HasDirectionBreak} cand={e.HasFttCandidate} conf={e.HasFttConfirmed}", null, null, null, null, null, null, null, null, e, null, null, null, null);
+    		new EngineEvent(EventKind.Container, e.BarIndex, $"C#{e.ContainerId} {e.Direction} run={e.RunLength} new={e.IsNewContainer} break={e.HasDirectionBreak} cand={e.HasFttCandidate} conf={e.HasFttConfirmed}", null, null, null, null, null, null, null, null, e, null, null, null, null);
 	
 	    public static EngineEvent From(DirectionBreakEvent e) =>
-	        new EngineEvent(EventKind.DirectionBreak, e.BarIndex, $"DirectionBreak {e.PriorDirection} via {e.SourcePriceCase} run={e.PriorRunLength}", null, null, null, null, null, null, null, null, null, e, null, null, null);
+    		new EngineEvent(EventKind.DirectionBreak, e.BarIndex, $"C#{e.ContainerId} DirectionBreak {e.PriorDirection} via {e.SourcePriceCase} run={e.PriorRunLength}", null, null, null, null, null, null, null, null, null, e, null, null, null);
 	
 	    public static EngineEvent From(FttCandidateEvent e) =>
-	        new EngineEvent(EventKind.FttCandidate, e.BarIndex, $"FTT-Candidate {e.PriorDirection} via {e.SourcePriceCase} run={e.PriorRunLength}", null, null, null, null, null, null, null, null, null, null, e, null, null);
+    		new EngineEvent(EventKind.FttCandidate, e.BarIndex, $"C#{e.ContainerId} FTT-Candidate {e.PriorDirection} via {e.SourcePriceCase} run={e.PriorRunLength}", null, null, null, null, null, null, null, null, null, null, e, null, null);
 	
 	    public static EngineEvent From(FttConfirmedEvent e) =>
-	        new EngineEvent(EventKind.FttConfirmed, e.BarIndex, $"FTT-Confirmed {e.PriorDirection} via {e.SourcePriceCase} run={e.PriorRunLength}", null, null, null, null, null, null, null, null, null, null, null, e, null);
+    		new EngineEvent(EventKind.FttConfirmed, e.BarIndex, $"C#{e.ContainerId} FTT-Confirmed {e.PriorDirection} via {e.SourcePriceCase} run={e.PriorRunLength}", null, null, null, null, null, null, null, null, null, null, null, e, null);
 	
 	    public static EngineEvent From(StructureEvent e) =>
     		new EngineEvent(EventKind.Structure, e.BarIndex, $"{e.State} dir={e.Direction} trend={e.TrendType}", null, null, null, null, null, null, null, null, null, null, null, null, e);
@@ -530,6 +544,7 @@ namespace NinjaTrader.NinjaScript.xPva.Engine
         public static EngineEvents Empty => new EngineEvents(Array.Empty<EngineEvent>());
     }
 }
+
 
 
 

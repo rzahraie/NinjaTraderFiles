@@ -17,6 +17,9 @@ namespace NinjaTrader.NinjaScript.xPva.Engine
             public int LastConfirmedFttBarIndex = -1000000;
 			
 			public int PendingContinuationCount = 0;
+			
+			public int CurrentContainerId = 0;
+			public int PendingContainerId = 0;
         }
 
         private const int MinRunForCandidate = 4;
@@ -43,23 +46,25 @@ namespace NinjaTrader.NinjaScript.xPva.Engine
             if (!s.HasActiveContainer)
             {
                 s.HasActiveContainer = true;
-                s.CurrentDirection = dir;
-                s.RunLength = 1;
+				s.CurrentContainerId = 1;
+				s.CurrentDirection = dir;
+				s.RunLength = 1;
                 s.LastBarIndex = priceCase.BarIndex;
                 s.PendingCandidate = false;
                 isNewContainer = true;
 
-                return new ContainerEvent(
-                    priceCase.BarIndex,
-                    s.CurrentDirection,
-                    s.RunLength,
-                    isNewContainer,
-                    false,
-                    null,
-                    false,
-                    null,
-                    false,
-                    null);
+               return new ContainerEvent(
+				    priceCase.BarIndex,
+				    s.CurrentContainerId,
+				    s.CurrentDirection,
+				    s.RunLength,
+				    isNewContainer,
+				    false,
+				    null,
+				    false,
+				    null,
+				    false,
+				    null);
             }
 
             // Same direction: extend run and possibly confirm pending candidate.
@@ -82,10 +87,11 @@ namespace NinjaTrader.NinjaScript.xPva.Engine
 				    {
 				        hasFttConfirmed = true;
 				        fttConfirmed = new FttConfirmedEvent(
-				            priceCase.BarIndex,
-				            s.PendingPriorDirection,
-				            priceCase.Case,
-				            s.PendingPriorRunLength);
+						    priceCase.BarIndex,
+						    s.PendingContainerId,
+						    s.PendingPriorDirection,
+						    priceCase.Case,
+						    s.PendingPriorRunLength);
 				
 				        s.LastConfirmedFttBarIndex = priceCase.BarIndex;
 				        s.PendingCandidate = false;
@@ -101,25 +107,27 @@ namespace NinjaTrader.NinjaScript.xPva.Engine
                 s.LastBarIndex = priceCase.BarIndex;
 
                 return new ContainerEvent(
-                    priceCase.BarIndex,
-                    s.CurrentDirection,
-                    s.RunLength,
-                    false,
-                    false,
-                    null,
-                    false,
-                    null,
-                    hasFttConfirmed,
-                    fttConfirmed);
+				    priceCase.BarIndex,
+				    s.CurrentContainerId,
+				    s.CurrentDirection,
+				    s.RunLength,
+				    false,
+				    false,
+				    null,
+				    false,
+				    null,
+				    hasFttConfirmed,
+				    fttConfirmed);
             }
 
             // Direction break
             hasDirectionBreak = true;
             directionBreak = new DirectionBreakEvent(
-                priceCase.BarIndex,
-                s.CurrentDirection,
-                priceCase.Case,
-                s.RunLength);
+			    priceCase.BarIndex,
+			    s.CurrentContainerId,
+			    s.CurrentDirection,
+			    priceCase.Case,
+			    s.RunLength);
 
             // Candidate only if established run was long enough and cooldown passed
             if (s.RunLength >= MinRunForCandidate &&
@@ -127,16 +135,18 @@ namespace NinjaTrader.NinjaScript.xPva.Engine
             {
                 hasFttCandidate = true;
                 fttCandidate = new FttCandidateEvent(
-                    priceCase.BarIndex,
-                    s.CurrentDirection,
-                    priceCase.Case,
-                    s.RunLength);
-
-                s.PendingCandidate = true;
+			    priceCase.BarIndex,
+			    s.CurrentContainerId,
+			    s.CurrentDirection,
+			    priceCase.Case,
+			    s.RunLength);
+			
+				s.PendingCandidate = true;
 				s.PendingPriorDirection = s.CurrentDirection;
 				s.PendingPriorRunLength = s.RunLength;
 				s.PendingBarIndex = priceCase.BarIndex;
 				s.PendingContinuationCount = 0;
+				s.PendingContainerId = s.CurrentContainerId;
             }
             else
             {
@@ -148,18 +158,20 @@ namespace NinjaTrader.NinjaScript.xPva.Engine
             s.RunLength = 1;
             s.LastBarIndex = priceCase.BarIndex;
             isNewContainer = true;
+			s.CurrentContainerId++;
 
             return new ContainerEvent(
-                priceCase.BarIndex,
-                s.CurrentDirection,
-                s.RunLength,
-                isNewContainer,
-                hasDirectionBreak,
-                directionBreak,
-                hasFttCandidate,
-                fttCandidate,
-                false,
-                null);
+			    priceCase.BarIndex,
+			    s.CurrentContainerId,
+			    s.CurrentDirection,
+			    s.RunLength,
+			    isNewContainer,
+			    hasDirectionBreak,
+			    directionBreak,
+			    hasFttCandidate,
+			    fttCandidate,
+			    false,
+			    null);
         }
 
         private static ContainerDirection MapDirection(PriceCase pc)
@@ -174,5 +186,6 @@ namespace NinjaTrader.NinjaScript.xPva.Engine
         }
     }
 }
+
 
 
