@@ -15,6 +15,8 @@ namespace NinjaTrader.NinjaScript.xPva.Engine
             public int PendingBarIndex = -1;
 
             public int LastConfirmedFttBarIndex = -1000000;
+			
+			public int PendingContinuationCount = 0;
         }
 
         private const int MinRunForCandidate = 4;
@@ -71,10 +73,12 @@ namespace NinjaTrader.NinjaScript.xPva.Engine
 				    bool withinWindow = barsSinceCandidate <= ConfirmWithinBars;
 				    bool cooldownOk = (priceCase.BarIndex - s.LastConfirmedFttBarIndex) >= CooldownBars;
 				
-				    // Require at least one full bar after the candidate bar.
-				    bool hasFollowThrough = barsSinceCandidate >= 1;
+				    s.PendingContinuationCount++;
 				
-				    if (withinWindow && cooldownOk && hasFollowThrough)
+				    // Require two continuation bars after the candidate bar.
+				    bool enoughContinuation = s.PendingContinuationCount >= 2;
+				
+				    if (withinWindow && cooldownOk && enoughContinuation)
 				    {
 				        hasFttConfirmed = true;
 				        fttConfirmed = new FttConfirmedEvent(
@@ -84,9 +88,14 @@ namespace NinjaTrader.NinjaScript.xPva.Engine
 				            s.PendingPriorRunLength);
 				
 				        s.LastConfirmedFttBarIndex = priceCase.BarIndex;
+				        s.PendingCandidate = false;
+				        s.PendingContinuationCount = 0;
 				    }
-				
-				    s.PendingCandidate = false;
+				    else if (!withinWindow)
+				    {
+				        s.PendingCandidate = false;
+				        s.PendingContinuationCount = 0;
+				    }
 				}
 
                 s.LastBarIndex = priceCase.BarIndex;
@@ -124,9 +133,10 @@ namespace NinjaTrader.NinjaScript.xPva.Engine
                     s.RunLength);
 
                 s.PendingCandidate = true;
-                s.PendingPriorDirection = s.CurrentDirection;
-                s.PendingPriorRunLength = s.RunLength;
-                s.PendingBarIndex = priceCase.BarIndex;
+				s.PendingPriorDirection = s.CurrentDirection;
+				s.PendingPriorRunLength = s.RunLength;
+				s.PendingBarIndex = priceCase.BarIndex;
+				s.PendingContinuationCount = 0;
             }
             else
             {
@@ -164,4 +174,5 @@ namespace NinjaTrader.NinjaScript.xPva.Engine
         }
     }
 }
+
 
