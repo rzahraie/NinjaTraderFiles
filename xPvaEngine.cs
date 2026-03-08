@@ -16,6 +16,7 @@ namespace NinjaTrader.NinjaScript.xPva.Engine
 			public xPvaTurns.State Turns;
 			public xPvaActionResolver.State Actions;
 			public xPvaContainers.State Containers;
+			public xPvaStructureResolver.State Structures;
 
             public State(int volPivotWindow)
             {
@@ -28,6 +29,7 @@ namespace NinjaTrader.NinjaScript.xPva.Engine
 				TrendTypes = new xPvaTrendTypes.State();
 				Actions = new xPvaActionResolver.State();
 				Containers = new xPvaContainers.State();
+				Structures = new xPvaStructureResolver.State();
             }
         }
 
@@ -42,6 +44,9 @@ namespace NinjaTrader.NinjaScript.xPva.Engine
 
         public EngineEvents Step(in BarSnapshot bar)
         {
+			TrendTypeEvent? latestTrendType = null;
+			ActionEvent? latestAction = null;
+			
             var events = new List<EngineEvent>(capacity: 6);
 
             if (!_s.HasPrevBar)
@@ -68,7 +73,22 @@ namespace NinjaTrader.NinjaScript.xPva.Engine
 			        events.Add(EngineEvent.From(container.Value.FttCandidate.Value));
 			
 			    if (container.Value.HasFttConfirmed && container.Value.FttConfirmed.HasValue)
-			        events.Add(EngineEvent.From(container.Value.FttConfirmed.Value));
+				{
+				    FttConfirmedEvent confirmed = container.Value.FttConfirmed.Value;
+				    events.Add(EngineEvent.From(confirmed));
+				
+				    if (latestTrendType.HasValue && latestAction.HasValue)
+				    {
+				        StructureEvent? structure = xPvaStructureResolver.Step(
+				            _s.Structures,
+				            confirmed,
+				            latestTrendType.Value,
+				            latestAction.Value);
+				
+				        if (structure.HasValue)
+				            events.Add(EngineEvent.From(structure.Value));
+				    }
+				}
 			}
 
             // 2) Permission (phase1: translations only)
@@ -100,11 +120,15 @@ namespace NinjaTrader.NinjaScript.xPva.Engine
 						    TrendTypeEvent? trendType = xPvaTrendTypes.Step(_s.TrendTypes, turn.Value);
 							if (trendType.HasValue)
 							{
+							    latestTrendType = trendType.Value;
 							    events.Add(EngineEvent.From(trendType.Value));
 							
 							    ActionEvent? action = xPvaActionResolver.Step(_s.Actions, trendType.Value);
 							    if (action.HasValue)
+							    {
+							        latestAction = action.Value;
 							        events.Add(EngineEvent.From(action.Value));
+							    }
 							}
 						}
 				    }
@@ -116,6 +140,7 @@ namespace NinjaTrader.NinjaScript.xPva.Engine
         }
     }
 }
+
 
 
 
