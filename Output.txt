@@ -199,6 +199,7 @@
 6E MAR26 B44: PriceCase XB
 6E MAR26 B44: Container Up run=2 new=False break=False cand=False conf=True
 6E MAR26 B44: FttConfirmed FTT-Confirmed Down via XB run=6
+6E MAR26 B44: Structure Transition dir=Up trend=C action=Reverse
 6E MAR26 B44: Permission Granted: Translation
 6E MAR26 B45: PriceCase XR
 6E MAR26 B45: Container Down run=1 new=True break=True cand=False conf=False
@@ -306,6 +307,7 @@
 6E MAR26 B66: PriceCase XB
 6E MAR26 B66: Container Up run=2 new=False break=False cand=False conf=True
 6E MAR26 B66: FttConfirmed FTT-Confirmed Down via XB run=5
+6E MAR26 B66: Structure Mature dir=Up trend=B action=StayIn
 6E MAR26 B66: Permission Granted: Translation
 6E MAR26 B65: VolPivot Trough V=94
 6E MAR26 B65: VolOoe T2P (B) V=94
@@ -546,6 +548,7 @@
 6E MAR26 B116: PriceCase XB
 6E MAR26 B116: Container Up run=2 new=False break=False cand=False conf=True
 6E MAR26 B116: FttConfirmed FTT-Confirmed Down via XB run=4
+6E MAR26 B116: Structure Transition dir=Up trend=C action=Reverse
 6E MAR26 B116: Permission Granted: Translation
 6E MAR26 B115: VolPivot Trough V=1696
 6E MAR26 B117: PriceCase XB
@@ -580,6 +583,7 @@
 6E MAR26 B125: PriceCase XR
 6E MAR26 B125: Container Down run=2 new=False break=False cand=False conf=True
 6E MAR26 B125: FttConfirmed FTT-Confirmed Up via XR run=7
+6E MAR26 B125: Structure Transition dir=Down trend=C action=Reverse
 6E MAR26 B125: Permission Granted: Translation
 6E MAR26 B124: VolPivot Trough V=1164
 6E MAR26 B124: VolOoe T2F (C) V=1164
@@ -772,6 +776,7 @@
 6E MAR26 B175: PriceCase XR
 6E MAR26 B175: Container Down run=2 new=False break=False cand=False conf=True
 6E MAR26 B175: FttConfirmed FTT-Confirmed Up via XR run=4
+6E MAR26 B175: Structure Broken dir=Down trend=D action=Sideline
 6E MAR26 B175: Permission Granted: Translation
 6E MAR26 B176: PriceCase XR
 6E MAR26 B176: Container Down run=3 new=False break=False cand=False conf=False
@@ -911,6 +916,7 @@
 6E MAR26 B211: PriceCase XB
 6E MAR26 B211: Container Up run=2 new=False break=False cand=False conf=True
 6E MAR26 B211: FttConfirmed FTT-Confirmed Down via XB run=13
+6E MAR26 B211: Structure Transition dir=Up trend=C action=Reverse
 6E MAR26 B211: Permission Granted: Translation
 6E MAR26 B210: VolPivot Peak V=4486
 6E MAR26 B212: PriceCase XB
@@ -958,6 +964,7 @@
 6E MAR26 B222: PriceCase XR
 6E MAR26 B222: Container Down run=2 new=False break=False cand=False conf=True
 6E MAR26 B222: FttConfirmed FTT-Confirmed Up via XR run=9
+6E MAR26 B222: Structure Broken dir=Down trend=D action=Sideline
 6E MAR26 B222: Permission Granted: Translation
 6E MAR26 B221: VolPivot Peak V=2380
 6E MAR26 B223: PriceCase XR
@@ -1025,6 +1032,7 @@
 6E MAR26 B238: PriceCase XB
 6E MAR26 B238: Container Up run=2 new=False break=False cand=False conf=True
 6E MAR26 B238: FttConfirmed FTT-Confirmed Down via XB run=4
+6E MAR26 B238: Structure Broken dir=Up trend=D action=Sideline
 6E MAR26 B238: Permission Granted: Translation
 6E MAR26 B237: VolPivot Peak V=712
 6E MAR26 B239: PriceCase XB
@@ -1084,6 +1092,7 @@
 6E MAR26 B254: PriceCase XR
 6E MAR26 B254: Container Down run=2 new=False break=False cand=False conf=True
 6E MAR26 B254: FttConfirmed FTT-Confirmed Up via XR run=12
+6E MAR26 B254: Structure Broken dir=Down trend=D action=Sideline
 6E MAR26 B254: Permission Granted: Translation
 6E MAR26 B253: VolPivot Peak V=4342
 6E MAR26 B255: PriceCase XR
@@ -1315,6 +1324,7 @@
 6E MAR26 B318: PriceCase XB
 6E MAR26 B318: Container Up run=2 new=False break=False cand=False conf=True
 6E MAR26 B318: FttConfirmed FTT-Confirmed Down via XB run=7
+6E MAR26 B318: Structure Broken dir=Up trend=D action=Sideline
 6E MAR26 B318: Permission Granted: Translation
 6E MAR26 B319: PriceCase XB
 6E MAR26 B319: Container Up run=3 new=False break=False cand=False conf=False
@@ -1367,6 +1377,7 @@
 6E MAR26 B332: PriceCase XB
 6E MAR26 B332: Container Up run=2 new=False break=False cand=False conf=True
 6E MAR26 B332: FttConfirmed FTT-Confirmed Down via XB run=4
+6E MAR26 B332: Structure Broken dir=Up trend=D action=Sideline
 6E MAR26 B332: Permission Granted: Translation
 6E MAR26 B331: VolPivot Peak V=161
 6E MAR26 B333: PriceCase STR
@@ -1431,6 +1442,7 @@
 6E MAR26 B349: PriceCase XB
 6E MAR26 B349: Container Up run=2 new=False break=False cand=False conf=True
 6E MAR26 B349: FttConfirmed FTT-Confirmed Down via XB run=6
+6E MAR26 B349: Structure Broken dir=Up trend=D action=Sideline
 6E MAR26 B349: Permission Granted: Translation
 6E MAR26 B348: VolPivot Peak V=541
 6E MAR26 B350: PriceCase XR
@@ -1486,6 +1498,7 @@
 6E MAR26 B364: PriceCase XB
 6E MAR26 B364: Container Up run=2 new=False break=False cand=False conf=True
 6E MAR26 B364: FttConfirmed FTT-Confirmed Down via XB run=5
+6E MAR26 B364: Structure Broken dir=Up trend=D action=Sideline
 6E MAR26 B364: Permission Granted: Translation
 6E MAR26 B363: VolPivot Trough V=226
 6E MAR26 B365: PriceCase STB
@@ -1664,6 +1677,7 @@
 6E MAR26 B408: PriceCase XB
 6E MAR26 B408: Container Up run=2 new=False break=False cand=False conf=True
 6E MAR26 B408: FttConfirmed FTT-Confirmed Down via XB run=6
+6E MAR26 B408: Structure Broken dir=Up trend=D action=Sideline
 6E MAR26 B408: Permission Granted: Translation
 6E MAR26 B407: VolPivot Peak V=4846
 6E MAR26 B409: PriceCase STR
@@ -1753,6 +1767,7 @@
 6E MAR26 B432: PriceCase XR
 6E MAR26 B432: Container Down run=2 new=False break=False cand=False conf=True
 6E MAR26 B432: FttConfirmed FTT-Confirmed Up via XR run=4
+6E MAR26 B432: Structure Broken dir=Down trend=D action=Sideline
 6E MAR26 B432: Permission Granted: Translation
 6E MAR26 B431: VolPivot Trough V=989
 6E MAR26 B433: PriceCase STB
@@ -1930,6 +1945,7 @@
 6E MAR26 B474: PriceCase XB
 6E MAR26 B474: Container Up run=2 new=False break=False cand=False conf=True
 6E MAR26 B474: FttConfirmed FTT-Confirmed Down via XB run=5
+6E MAR26 B474: Structure Transition dir=Up trend=C action=Reverse
 6E MAR26 B474: Permission Granted: Translation
 6E MAR26 B473: VolPivot Trough V=3366
 6E MAR26 B473: VolOoe T2F (C) V=3366
@@ -2019,6 +2035,7 @@
 6E MAR26 B497: PriceCase XB
 6E MAR26 B497: Container Up run=2 new=False break=False cand=False conf=True
 6E MAR26 B497: FttConfirmed FTT-Confirmed Down via XB run=4
+6E MAR26 B497: Structure Broken dir=Up trend=D action=Sideline
 6E MAR26 B497: Permission Granted: Translation
 6E MAR26 B496: VolPivot Trough V=2184
 6E MAR26 B498: PriceCase XR
@@ -2338,6 +2355,7 @@
 6E MAR26 B584: PriceCase XB
 6E MAR26 B584: Container Up run=2 new=False break=False cand=False conf=True
 6E MAR26 B584: FttConfirmed FTT-Confirmed Down via XB run=4
+6E MAR26 B584: Structure Broken dir=Up trend=D action=Sideline
 6E MAR26 B584: Permission Granted: Translation
 6E MAR26 B585: PriceCase SYM
 6E MAR26 B585: Permission Denied: Non-translation (Phase1 policy)
@@ -2376,6 +2394,7 @@
 6E MAR26 B595: PriceCase XR
 6E MAR26 B595: Container Down run=2 new=False break=False cand=False conf=True
 6E MAR26 B595: FttConfirmed FTT-Confirmed Up via XR run=6
+6E MAR26 B595: Structure Broken dir=Down trend=D action=Sideline
 6E MAR26 B595: Permission Granted: Translation
 6E MAR26 B596: PriceCase XB
 6E MAR26 B596: Container Up run=1 new=True break=True cand=False conf=False
@@ -2494,6 +2513,7 @@
 6E MAR26 B626: PriceCase XB
 6E MAR26 B626: Container Up run=2 new=False break=False cand=False conf=True
 6E MAR26 B626: FttConfirmed FTT-Confirmed Down via XB run=8
+6E MAR26 B626: Structure Broken dir=Up trend=D action=Sideline
 6E MAR26 B626: Permission Granted: Translation
 6E MAR26 B625: VolPivot Trough V=143
 6E MAR26 B627: PriceCase STR
@@ -2573,6 +2593,7 @@
 6E MAR26 B647: PriceCase XR
 6E MAR26 B647: Container Down run=2 new=False break=False cand=False conf=True
 6E MAR26 B647: FttConfirmed FTT-Confirmed Up via XR run=7
+6E MAR26 B647: Structure Broken dir=Down trend=D action=Sideline
 6E MAR26 B647: Permission Granted: Translation
 6E MAR26 B648: PriceCase OUTB
 6E MAR26 B648: Permission Denied: Non-translation (Phase1 policy)
@@ -2763,6 +2784,7 @@
 6E MAR26 B702: PriceCase XR
 6E MAR26 B702: Container Down run=2 new=False break=False cand=False conf=True
 6E MAR26 B702: FttConfirmed FTT-Confirmed Up via XR run=4
+6E MAR26 B702: Structure Broken dir=Down trend=D action=Sideline
 6E MAR26 B702: Permission Granted: Translation
 6E MAR26 B701: VolPivot Trough V=1102
 6E MAR26 B703: PriceCase XR
@@ -2949,6 +2971,7 @@
 6E MAR26 B752: PriceCase XR
 6E MAR26 B752: Container Down run=2 new=False break=False cand=False conf=True
 6E MAR26 B752: FttConfirmed FTT-Confirmed Up via XR run=4
+6E MAR26 B752: Structure Broken dir=Down trend=D action=Sideline
 6E MAR26 B752: Permission Granted: Translation
 6E MAR26 B751: VolPivot Trough V=890
 6E MAR26 B753: PriceCase XR
@@ -3042,6 +3065,7 @@
 6E MAR26 B778: PriceCase XB
 6E MAR26 B778: Container Up run=2 new=False break=False cand=False conf=True
 6E MAR26 B778: FttConfirmed FTT-Confirmed Down via XB run=4
+6E MAR26 B778: Structure Broken dir=Up trend=D action=Sideline
 6E MAR26 B778: Permission Granted: Translation
 6E MAR26 B777: VolPivot Peak V=535
 6E MAR26 B779: PriceCase XR
@@ -3080,6 +3104,7 @@
 6E MAR26 B789: PriceCase XB
 6E MAR26 B789: Container Up run=2 new=False break=False cand=False conf=True
 6E MAR26 B789: FttConfirmed FTT-Confirmed Down via XB run=4
+6E MAR26 B789: Structure Broken dir=Up trend=D action=Sideline
 6E MAR26 B789: Permission Granted: Translation
 6E MAR26 B788: VolPivot Peak V=270
 6E MAR26 B790: PriceCase XB
@@ -3451,6 +3476,7 @@
 6E MAR26 B873: PriceCase XB
 6E MAR26 B873: Container Up run=2 new=False break=False cand=False conf=True
 6E MAR26 B873: FttConfirmed FTT-Confirmed Down via XB run=6
+6E MAR26 B873: Structure Broken dir=Up trend=D action=Sideline
 6E MAR26 B873: Permission Granted: Translation
 6E MAR26 B874: PriceCase OUTR
 6E MAR26 B874: Permission Denied: Non-translation (Phase1 policy)
@@ -3489,6 +3515,7 @@
 6E MAR26 B884: PriceCase XB
 6E MAR26 B884: Container Up run=2 new=False break=False cand=False conf=True
 6E MAR26 B884: FttConfirmed FTT-Confirmed Down via XB run=5
+6E MAR26 B884: Structure Broken dir=Up trend=D action=Sideline
 6E MAR26 B884: Permission Granted: Translation
 6E MAR26 B885: PriceCase XR
 6E MAR26 B885: Container Down run=1 new=True break=True cand=False conf=False
@@ -3543,6 +3570,7 @@
 6E MAR26 B899: PriceCase XB
 6E MAR26 B899: Container Up run=2 new=False break=False cand=False conf=True
 6E MAR26 B899: FttConfirmed FTT-Confirmed Down via XB run=4
+6E MAR26 B899: Structure Broken dir=Up trend=D action=Sideline
 6E MAR26 B899: Permission Granted: Translation
 6E MAR26 B898: VolPivot Trough V=202
 6E MAR26 B900: PriceCase XR
@@ -3622,6 +3650,7 @@
 6E MAR26 B917: PriceCase XB
 6E MAR26 B917: Container Up run=2 new=False break=False cand=False conf=True
 6E MAR26 B917: FttConfirmed FTT-Confirmed Down via XB run=8
+6E MAR26 B917: Structure Transition dir=Up trend=C action=Reverse
 6E MAR26 B917: Permission Granted: Translation
 6E MAR26 B918: PriceCase OUTB
 6E MAR26 B918: Permission Denied: Non-translation (Phase1 policy)
@@ -3656,6 +3685,7 @@
 6E MAR26 B927: PriceCase XR
 6E MAR26 B927: Container Down run=2 new=False break=False cand=False conf=True
 6E MAR26 B927: FttConfirmed FTT-Confirmed Up via XR run=6
+6E MAR26 B927: Structure Transition dir=Down trend=C action=Reverse
 6E MAR26 B927: Permission Granted: Translation
 6E MAR26 B928: PriceCase XB
 6E MAR26 B928: Container Up run=1 new=True break=True cand=False conf=False
@@ -3788,6 +3818,7 @@
 6E MAR26 B955: PriceCase XR
 6E MAR26 B955: Container Down run=2 new=False break=False cand=False conf=True
 6E MAR26 B955: FttConfirmed FTT-Confirmed Up via XR run=6
+6E MAR26 B955: Structure Transition dir=Down trend=C action=Reverse
 6E MAR26 B955: Permission Granted: Translation
 6E MAR26 B954: VolPivot Trough V=1083
 6E MAR26 B956: PriceCase XR
@@ -4011,6 +4042,7 @@
 6E MAR26 B1008: PriceCase XB
 6E MAR26 B1008: Container Up run=2 new=False break=False cand=False conf=True
 6E MAR26 B1008: FttConfirmed FTT-Confirmed Down via XB run=5
+6E MAR26 B1008: Structure Broken dir=Up trend=D action=Sideline
 6E MAR26 B1008: Permission Granted: Translation
 6E MAR26 B1007: VolPivot Trough V=1054
 6E MAR26 B1009: PriceCase XB
@@ -4109,6 +4141,7 @@
 6E MAR26 B1031: PriceCase XB
 6E MAR26 B1031: Container Up run=2 new=False break=False cand=False conf=True
 6E MAR26 B1031: FttConfirmed FTT-Confirmed Down via XB run=5
+6E MAR26 B1031: Structure Broken dir=Up trend=D action=Sideline
 6E MAR26 B1031: Permission Granted: Translation
 6E MAR26 B1030: VolPivot Trough V=1451
 6E MAR26 B1032: PriceCase OUTR
@@ -4242,6 +4275,7 @@
 6E MAR26 B1064: PriceCase XB
 6E MAR26 B1064: Container Up run=2 new=False break=False cand=False conf=True
 6E MAR26 B1064: FttConfirmed FTT-Confirmed Down via XB run=4
+6E MAR26 B1064: Structure Transition dir=Up trend=C action=Reverse
 6E MAR26 B1064: Permission Granted: Translation
 6E MAR26 B1063: VolPivot Trough V=668
 6E MAR26 B1065: PriceCase XR
@@ -4887,6 +4921,7 @@
 6E MAR26 B1237: PriceCase XB
 6E MAR26 B1237: Container Up run=2 new=False break=False cand=False conf=True
 6E MAR26 B1237: FttConfirmed FTT-Confirmed Down via XB run=11
+6E MAR26 B1237: Structure Broken dir=Up trend=D action=Sideline
 6E MAR26 B1237: Permission Granted: Translation
 6E MAR26 B1238: PriceCase XR
 6E MAR26 B1238: Container Down run=1 new=True break=True cand=False conf=False
@@ -4983,6 +5018,7 @@
 6E MAR26 B1264: PriceCase XB
 6E MAR26 B1264: Container Up run=2 new=False break=False cand=False conf=True
 6E MAR26 B1264: FttConfirmed FTT-Confirmed Down via XB run=10
+6E MAR26 B1264: Structure Broken dir=Up trend=D action=Sideline
 6E MAR26 B1264: Permission Granted: Translation
 6E MAR26 B1265: PriceCase SYM
 6E MAR26 B1265: Permission Denied: Non-translation (Phase1 policy)
@@ -5140,6 +5176,7 @@
 6E MAR26 B1301: PriceCase XR
 6E MAR26 B1301: Container Down run=2 new=False break=False cand=False conf=True
 6E MAR26 B1301: FttConfirmed FTT-Confirmed Up via XR run=5
+6E MAR26 B1301: Structure Broken dir=Down trend=D action=Sideline
 6E MAR26 B1301: Permission Granted: Translation
 6E MAR26 B1302: PriceCase SYM
 6E MAR26 B1302: Permission Denied: Non-translation (Phase1 policy)
@@ -5404,6 +5441,7 @@
 6E MAR26 B1376: PriceCase XR
 6E MAR26 B1376: Container Down run=2 new=False break=False cand=False conf=True
 6E MAR26 B1376: FttConfirmed FTT-Confirmed Up via XR run=6
+6E MAR26 B1376: Structure Broken dir=Down trend=D action=Sideline
 6E MAR26 B1376: Permission Granted: Translation
 6E MAR26 B1377: PriceCase XR
 6E MAR26 B1377: Container Down run=3 new=False break=False cand=False conf=False
