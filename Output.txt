@@ -5396,4 +5396,25 @@
 6E MAR26 B1373: Container Up run=6 new=False break=False cand=False conf=False
 6E MAR26 B1373: Permission Granted: Translation
 6E MAR26 B1374: PriceCase XR
-6E MAR26 B1374: Container Down run=1
+6E MAR26 B1374: Container Down run=1 new=True break=True cand=True conf=False
+6E MAR26 B1374: DirectionBreak DirectionBreak Up via XR run=6
+6E MAR26 B1374: FttCandidate FTT-Candidate Up via XR run=6
+6E MAR26 B1374: Permission Granted: Translation
+6E MAR26 B1373: VolPivot Peak V=249
+6E MAR26 B1375: PriceCase SYM
+6E MAR26 B1375: Permission Denied: Non-translation (Phase1 policy)
+6E MAR26 B1376: PriceCase XR
+6E MAR26 B1376: Container Down run=2 new=False break=False cand=False conf=True
+6E MAR26 B1376: FttConfirmed FTT-Confirmed Up via XR run=6
+6E MAR26 B1376: Structure Broken dir=Down trend=D
+6E MAR26 B1376: Action Sideline from trend D / turn C / TroughContext [C] V=0
+6E MAR26 B1376: Permission Granted: Translation
+6E MAR26 B1377: PriceCase XR
+6E MAR26 B1377: Container Down run=3 new=False break=False cand=False conf=False
+6E MAR26 B1377: Permission Granted: Translation
+6E MAR26 B1376: VolPivot Trough V=55
+6E MAR26 B1378: PriceCase XB
+6E MAR26 B1378: Container Up run=1 new=True break=True cand=False conf=False
+6E MAR26 B1378: DirectionBreak DirectionBreak Down via XB run=3
+6E MAR26 B1378: Permission Granted: Translation
+6E MAR26 B1377: VolPivot Peak V=325

@@ -66,25 +66,28 @@ namespace NinjaTrader.NinjaScript.xPva.Engine
                 s.RunLength++;
 
                 if (s.PendingCandidate)
-                {
-                    int barsSinceCandidate = priceCase.BarIndex - s.PendingBarIndex;
-                    bool withinWindow = barsSinceCandidate <= ConfirmWithinBars;
-                    bool cooldownOk = (priceCase.BarIndex - s.LastConfirmedFttBarIndex) >= CooldownBars;
-
-                    if (withinWindow && cooldownOk)
-                    {
-                        hasFttConfirmed = true;
-                        fttConfirmed = new FttConfirmedEvent(
-                            priceCase.BarIndex,
-                            s.PendingPriorDirection,
-                            priceCase.Case,
-                            s.PendingPriorRunLength);
-
-                        s.LastConfirmedFttBarIndex = priceCase.BarIndex;
-                    }
-
-                    s.PendingCandidate = false;
-                }
+				{
+				    int barsSinceCandidate = priceCase.BarIndex - s.PendingBarIndex;
+				    bool withinWindow = barsSinceCandidate <= ConfirmWithinBars;
+				    bool cooldownOk = (priceCase.BarIndex - s.LastConfirmedFttBarIndex) >= CooldownBars;
+				
+				    // Require at least one full bar after the candidate bar.
+				    bool hasFollowThrough = barsSinceCandidate >= 1;
+				
+				    if (withinWindow && cooldownOk && hasFollowThrough)
+				    {
+				        hasFttConfirmed = true;
+				        fttConfirmed = new FttConfirmedEvent(
+				            priceCase.BarIndex,
+				            s.PendingPriorDirection,
+				            priceCase.Case,
+				            s.PendingPriorRunLength);
+				
+				        s.LastConfirmedFttBarIndex = priceCase.BarIndex;
+				    }
+				
+				    s.PendingCandidate = false;
+				}
 
                 s.LastBarIndex = priceCase.BarIndex;
 
@@ -161,3 +164,4 @@ namespace NinjaTrader.NinjaScript.xPva.Engine
         }
     }
 }
+
