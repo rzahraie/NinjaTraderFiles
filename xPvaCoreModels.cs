@@ -269,20 +269,17 @@ namespace NinjaTrader.NinjaScript.xPva.Engine
 	    public readonly int BarIndex;
 	    public readonly StructureState State;
 	    public readonly TrendType TrendType;
-	    public readonly ActionType ActionType;
 	    public readonly ContainerDirection Direction;
 	
 	    public StructureEvent(
 	        int barIndex,
 	        StructureState state,
 	        TrendType trendType,
-	        ActionType actionType,
 	        ContainerDirection direction)
 	    {
 	        BarIndex = barIndex;
 	        State = state;
 	        TrendType = trendType;
-	        ActionType = actionType;
 	        Direction = direction;
 	    }
 	}
@@ -518,7 +515,7 @@ namespace NinjaTrader.NinjaScript.xPva.Engine
 	        new EngineEvent(EventKind.FttConfirmed, e.BarIndex, $"FTT-Confirmed {e.PriorDirection} via {e.SourcePriceCase} run={e.PriorRunLength}", null, null, null, null, null, null, null, null, null, null, null, e, null);
 	
 	    public static EngineEvent From(StructureEvent e) =>
-	        new EngineEvent(EventKind.Structure, e.BarIndex, $"{e.State} dir={e.Direction} trend={e.TrendType} action={e.ActionType}", null, null, null, null, null, null, null, null, null, null, null, null, e);
+    		new EngineEvent(EventKind.Structure, e.BarIndex, $"{e.State} dir={e.Direction} trend={e.TrendType}", null, null, null, null, null, null, null, null, null, null, null, null, e);
 	}
 
     public sealed class EngineEvents
@@ -533,6 +530,7 @@ namespace NinjaTrader.NinjaScript.xPva.Engine
         public static EngineEvents Empty => new EngineEvents(Array.Empty<EngineEvent>());
     }
 }
+
 
 
 

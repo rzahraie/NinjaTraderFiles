@@ -48,7 +48,6 @@
 6E MAR26 B13: EndEffect Prelim [PP] from P1 V=918
 6E MAR26 B13: Turn A from Prelim [PP] via P1 V=918
 6E MAR26 B13: TrendType A from turn A / Prelim [PP] V=918
-6E MAR26 B13: Action Enter from trend A / turn A / Prelim [PP] V=918
 6E MAR26 B15: PriceCase XB
 6E MAR26 B15: Container Up run=3 new=False break=False cand=False conf=False
 6E MAR26 B15: Permission Granted: Translation
@@ -57,7 +56,6 @@
 6E MAR26 B14: EndEffect Prelim [PP] from T1 V=449
 6E MAR26 B14: Turn A from Prelim [PP] via T1 V=449
 6E MAR26 B14: TrendType A from turn A / Prelim [PP] V=449
-6E MAR26 B14: Action Hold from trend A / turn A / Prelim [PP] V=449
 6E MAR26 B16: PriceCase SYM
 6E MAR26 B16: Permission Denied: Non-translation (Phase1 policy)
 6E MAR26 B15: VolPivot Peak V=861
@@ -73,7 +71,6 @@
 6E MAR26 B17: EndEffect PeakContext [A] from P2 V=389
 6E MAR26 B17: Turn B from PeakContext [A] via P2 V=389
 6E MAR26 B17: TrendType B from turn B / PeakContext [A] V=389
-6E MAR26 B17: Action StayIn from trend B / turn B / PeakContext [A] V=389
 6E MAR26 B19: PriceCase XR
 6E MAR26 B19: Container Down run=2 new=False break=False cand=False conf=False
 6E MAR26 B19: Permission Granted: Translation
@@ -82,7 +79,6 @@
 6E MAR26 B18: EndEffect Prelim [PP] from T1 V=265
 6E MAR26 B18: Turn A from Prelim [PP] via T1 V=265
 6E MAR26 B18: TrendType A from turn A / Prelim [PP] V=265
-6E MAR26 B18: Action Hold from trend A / turn A / Prelim [PP] V=265
 6E MAR26 B20: PriceCase XB
 6E MAR26 B20: Container Up run=1 new=True break=True cand=False conf=False
 6E MAR26 B20: DirectionBreak DirectionBreak Down via XB run=2
@@ -92,7 +88,6 @@
 6E MAR26 B19: EndEffect PeakContext [A] from P2 V=304
 6E MAR26 B19: Turn B from PeakContext [A] via P2 V=304
 6E MAR26 B19: TrendType B from turn B / PeakContext [A] V=304
-6E MAR26 B19: Action StayIn from trend B / turn B / PeakContext [A] V=304
 6E MAR26 B21: PriceCase STB
 6E MAR26 B21: Permission Denied: Non-translation (Phase1 policy)
 6E MAR26 B20: VolPivot Trough V=185
@@ -112,7 +107,6 @@
 6E MAR26 B23: EndEffect PeakContext [A] from P2 V=675
 6E MAR26 B23: Turn B from PeakContext [A] via P2 V=675
 6E MAR26 B23: TrendType B from turn B / PeakContext [A] V=675
-6E MAR26 B23: Action StayIn from trend B / turn B / PeakContext [A] V=675
 6E MAR26 B25: PriceCase FTP
 6E MAR26 B25: Permission Denied: Non-translation (Phase1 policy)
 6E MAR26 B26: PriceCase XB
@@ -123,7 +117,6 @@
 6E MAR26 B25: EndEffect CandidateEnd [B] from T2P V=350
 6E MAR26 B25: Turn C from CandidateEnd [B] via T2P V=350
 6E MAR26 B25: TrendType C from turn C / CandidateEnd [B] V=350
-6E MAR26 B25: Action Reverse from trend C / turn C / CandidateEnd [B] V=350
 6E MAR26 B27: PriceCase SYM
 6E MAR26 B27: Permission Denied: Non-translation (Phase1 policy)
 6E MAR26 B26: VolPivot Peak V=659
@@ -142,7 +135,6 @@
 6E MAR26 B29: EndEffect Prelim [PP] from T1 V=252
 6E MAR26 B29: Turn A from Prelim [PP] via T1 V=252
 6E MAR26 B29: TrendType A from turn A / Prelim [PP] V=252
-6E MAR26 B29: Action Hold from trend A / turn A / Prelim [PP] V=252
 6E MAR26 B31: PriceCase XB
 6E MAR26 B31: Container Up run=2 new=False break=False cand=False conf=False
 6E MAR26 B31: Permission Granted: Translation
@@ -155,7 +147,6 @@
 6E MAR26 B31: EndEffect PeakContext [A] from P2 V=533
 6E MAR26 B31: Turn B from PeakContext [A] via P2 V=533
 6E MAR26 B31: TrendType B from turn B / PeakContext [A] V=533
-6E MAR26 B31: Action StayIn from trend B / turn B / PeakContext [A] V=533
 6E MAR26 B33: PriceCase XR
 6E MAR26 B33: Container Down run=2 new=False break=False cand=False conf=False
 6E MAR26 B33: Permission Granted: Translation
@@ -164,7 +155,6 @@
 6E MAR26 B32: EndEffect CandidateEnd [B] from T2P V=349
 6E MAR26 B32: Turn C from CandidateEnd [B] via T2P V=349
 6E MAR26 B32: TrendType C from turn C / CandidateEnd [B] V=349
-6E MAR26 B32: Action Reverse from trend C / turn C / CandidateEnd [B] V=349
 6E MAR26 B34: PriceCase OUTR
 6E MAR26 B34: Permission Denied: Non-translation (Phase1 policy)
 6E MAR26 B33: VolPivot Peak V=376
@@ -199,7 +189,8 @@
 6E MAR26 B44: PriceCase XB
 6E MAR26 B44: Container Up run=2 new=False break=False cand=False conf=True
 6E MAR26 B44: FttConfirmed FTT-Confirmed Down via XB run=6
-6E MAR26 B44: Structure Transition dir=Up trend=C action=Reverse
+6E MAR26 B44: Structure Transition dir=Up trend=C
+6E MAR26 B44: Action Enter from trend C / turn C / CandidateEnd [B] V=0
 6E MAR26 B44: Permission Granted: Translation
 6E MAR26 B45: PriceCase XR
 6E MAR26 B45: Container Down run=1 new=True break=True cand=False conf=False
@@ -217,7 +208,6 @@
 6E MAR26 B46: EndEffect Prelim [PP] from T1 V=123
 6E MAR26 B46: Turn A from Prelim [PP] via T1 V=123
 6E MAR26 B46: TrendType A from turn A / Prelim [PP] V=123
-6E MAR26 B46: Action Hold from trend A / turn A / Prelim [PP] V=123
 6E MAR26 B48: PriceCase XB
 6E MAR26 B48: Container Up run=2 new=False break=False cand=False conf=False
 6E MAR26 B48: Permission Granted: Translation
@@ -229,7 +219,6 @@
 6E MAR26 B48: EndEffect PeakContext [A] from P2 V=200
 6E MAR26 B48: Turn B from PeakContext [A] via P2 V=200
 6E MAR26 B48: TrendType B from turn B / PeakContext [A] V=200
-6E MAR26 B48: Action StayIn from trend B / turn B / PeakContext [A] V=200
 6E MAR26 B50: PriceCase XR
 6E MAR26 B50: Container Down run=1 new=True break=True cand=False conf=False
 6E MAR26 B50: DirectionBreak DirectionBreak Up via XR run=3
@@ -245,7 +234,6 @@
 6E MAR26 B51: EndEffect Prelim [PP] from T1 V=50
 6E MAR26 B51: Turn A from Prelim [PP] via T1 V=50
 6E MAR26 B51: TrendType A from turn A / Prelim [PP] V=50
-6E MAR26 B51: Action Hold from trend A / turn A / Prelim [PP] V=50
 6E MAR26 B53: PriceCase XB
 6E MAR26 B53: Container Up run=2 new=False break=False cand=False conf=False
 6E MAR26 B53: Permission Granted: Translation
@@ -261,7 +249,6 @@
 6E MAR26 B54: EndEffect PeakContext [A] from P2 V=362
 6E MAR26 B54: Turn B from PeakContext [A] via P2 V=362
 6E MAR26 B54: TrendType B from turn B / PeakContext [A] V=362
-6E MAR26 B54: Action StayIn from trend B / turn B / PeakContext [A] V=362
 6E MAR26 B56: PriceCase OUTB
 6E MAR26 B56: Permission Denied: Non-translation (Phase1 policy)
 6E MAR26 B57: PriceCase FBP
@@ -276,7 +263,6 @@
 6E MAR26 B58: EndEffect Prelim [PP] from T1 V=28
 6E MAR26 B58: Turn A from Prelim [PP] via T1 V=28
 6E MAR26 B58: TrendType A from turn A / Prelim [PP] V=28
-6E MAR26 B58: Action Hold from trend A / turn A / Prelim [PP] V=28
 6E MAR26 B60: PriceCase SYM
 6E MAR26 B60: Permission Denied: Non-translation (Phase1 policy)
 6E MAR26 B59: VolPivot Peak V=108
@@ -298,7 +284,6 @@
 6E MAR26 B63: EndEffect PeakContext [A] from P2 V=201
 6E MAR26 B63: Turn B from PeakContext [A] via P2 V=201
 6E MAR26 B63: TrendType B from turn B / PeakContext [A] V=201
-6E MAR26 B63: Action StayIn from trend B / turn B / PeakContext [A] V=201
 6E MAR26 B65: PriceCase XB
 6E MAR26 B65: Container Up run=1 new=True break=True cand=True conf=False
 6E MAR26 B65: DirectionBreak DirectionBreak Down via XB run=5
@@ -307,14 +292,14 @@
 6E MAR26 B66: PriceCase XB
 6E MAR26 B66: Container Up run=2 new=False break=False cand=False conf=True
 6E MAR26 B66: FttConfirmed FTT-Confirmed Down via XB run=5
-6E MAR26 B66: Structure Mature dir=Up trend=B action=StayIn
+6E MAR26 B66: Structure Mature dir=Up trend=B
+6E MAR26 B66: Action StayIn from trend B / turn B / PeakContext [A] V=0
 6E MAR26 B66: Permission Granted: Translation
 6E MAR26 B65: VolPivot Trough V=94
 6E MAR26 B65: VolOoe T2P (B) V=94
 6E MAR26 B65: EndEffect CandidateEnd [B] from T2P V=94
 6E MAR26 B65: Turn C from CandidateEnd [B] via T2P V=94
 6E MAR26 B65: TrendType C from turn C / CandidateEnd [B] V=94
-6E MAR26 B65: Action Reverse from trend C / turn C / CandidateEnd [B] V=94
 6E MAR26 B67: PriceCase STR
 6E MAR26 B67: Permission Denied: Non-translation (Phase1 policy)
 6E MAR26 B66: VolPivot Peak V=167
@@ -337,7 +322,6 @@
 6E MAR26 B70: EndEffect TroughContext [C] from T2F V=69
 6E MAR26 B70: Turn C from TroughContext [C] via T2F V=69
 6E MAR26 B70: TrendType D from turn C / TroughContext [C] V=69
-6E MAR26 B70: Action Sideline from trend D / turn C / TroughContext [C] V=69
 6E MAR26 B72: PriceCase STR
 6E MAR26 B72: Permission Denied: Non-translation (Phase1 policy)
 6E MAR26 B71: VolPivot Peak V=194
@@ -357,7 +341,6 @@
 6E MAR26 B74: EndEffect PeakContext [A] from P2 V=241
 6E MAR26 B74: Turn B from PeakContext [A] via P2 V=241
 6E MAR26 B74: TrendType B from turn B / PeakContext [A] V=241
-6E MAR26 B74: Action Enter from trend B / turn B / PeakContext [A] V=241
 6E MAR26 B76: PriceCase STR
 6E MAR26 B76: Permission Denied: Non-translation (Phase1 policy)
 6E MAR26 B75: VolPivot Trough V=91
@@ -385,7 +368,6 @@
 6E MAR26 B80: EndEffect CandidateEnd [B] from T2P V=74
 6E MAR26 B80: Turn C from CandidateEnd [B] via T2P V=74
 6E MAR26 B80: TrendType C from turn C / CandidateEnd [B] V=74
-6E MAR26 B80: Action Reverse from trend C / turn C / CandidateEnd [B] V=74
 6E MAR26 B82: PriceCase FTP
 6E MAR26 B82: Permission Denied: Non-translation (Phase1 policy)
 6E MAR26 B81: VolPivot Peak V=215
@@ -411,7 +393,6 @@
 6E MAR26 B86: EndEffect PeakContext [A] from P2 V=855
 6E MAR26 B86: Turn B from PeakContext [A] via P2 V=855
 6E MAR26 B86: TrendType B from turn B / PeakContext [A] V=855
-6E MAR26 B86: Action StayIn from trend B / turn B / PeakContext [A] V=855
 6E MAR26 B88: PriceCase XR
 6E MAR26 B88: Container Down run=7 new=False break=False cand=False conf=False
 6E MAR26 B88: Permission Granted: Translation
@@ -420,7 +401,6 @@
 6E MAR26 B87: EndEffect CandidateEnd [B] from T2P V=805
 6E MAR26 B87: Turn C from CandidateEnd [B] via T2P V=805
 6E MAR26 B87: TrendType C from turn C / CandidateEnd [B] V=805
-6E MAR26 B87: Action Reverse from trend C / turn C / CandidateEnd [B] V=805
 6E MAR26 B89: PriceCase XR
 6E MAR26 B89: Container Down run=8 new=False break=False cand=False conf=False
 6E MAR26 B89: Permission Granted: Translation
@@ -429,7 +409,6 @@
 6E MAR26 B88: EndEffect PeakContext [A] from P2 V=2046
 6E MAR26 B88: Turn B from PeakContext [A] via P2 V=2046
 6E MAR26 B88: TrendType B from turn B / PeakContext [A] V=2046
-6E MAR26 B88: Action StayIn from trend B / turn B / PeakContext [A] V=2046
 6E MAR26 B90: PriceCase SYM
 6E MAR26 B90: Permission Denied: Non-translation (Phase1 policy)
 6E MAR26 B91: PriceCase OUTR
@@ -468,7 +447,6 @@
 6E MAR26 B97: EndEffect CandidateEnd [B] from T2P V=958
 6E MAR26 B97: Turn C from CandidateEnd [B] via T2P V=958
 6E MAR26 B97: TrendType C from turn C / CandidateEnd [B] V=958
-6E MAR26 B97: Action Reverse from trend C / turn C / CandidateEnd [B] V=958
 6E MAR26 B99: PriceCase XR
 6E MAR26 B99: Container Down run=1 new=True break=True cand=False conf=False
 6E MAR26 B99: DirectionBreak DirectionBreak Up via XR run=1
@@ -513,7 +491,6 @@
 6E MAR26 B108: EndEffect PeakContext [A] from P2 V=3160
 6E MAR26 B108: Turn B from PeakContext [A] via P2 V=3160
 6E MAR26 B108: TrendType B from turn B / PeakContext [A] V=3160
-6E MAR26 B108: Action StayIn from trend B / turn B / PeakContext [A] V=3160
 6E MAR26 B110: PriceCase XB
 6E MAR26 B110: Container Up run=1 new=True break=True cand=False conf=False
 6E MAR26 B110: DirectionBreak DirectionBreak Down via XB run=1
@@ -530,7 +507,6 @@
 6E MAR26 B111: EndEffect CandidateEnd [B] from T2P V=1214
 6E MAR26 B111: Turn C from CandidateEnd [B] via T2P V=1214
 6E MAR26 B111: TrendType C from turn C / CandidateEnd [B] V=1214
-6E MAR26 B111: Action Reverse from trend C / turn C / CandidateEnd [B] V=1214
 6E MAR26 B113: PriceCase XR
 6E MAR26 B113: Container Down run=3 new=False break=False cand=False conf=False
 6E MAR26 B113: Permission Granted: Translation
@@ -548,7 +524,8 @@
 6E MAR26 B116: PriceCase XB
 6E MAR26 B116: Container Up run=2 new=False break=False cand=False conf=True
 6E MAR26 B116: FttConfirmed FTT-Confirmed Down via XB run=4
-6E MAR26 B116: Structure Transition dir=Up trend=C action=Reverse
+6E MAR26 B116: Structure Transition dir=Up trend=C
+6E MAR26 B116: Action Reverse from trend C / turn C / CandidateEnd [B] V=0
 6E MAR26 B116: Permission Granted: Translation
 6E MAR26 B115: VolPivot Trough V=1696
 6E MAR26 B117: PriceCase XB
@@ -583,14 +560,14 @@
 6E MAR26 B125: PriceCase XR
 6E MAR26 B125: Container Down run=2 new=False break=False cand=False conf=True
 6E MAR26 B125: FttConfirmed FTT-Confirmed Up via XR run=7
-6E MAR26 B125: Structure Transition dir=Down trend=C action=Reverse
+6E MAR26 B125: Structure Transition dir=Down trend=C
+6E MAR26 B125: Action Reverse from trend C / turn C / CandidateEnd [B] V=0
 6E MAR26 B125: Permission Granted: Translation
 6E MAR26 B124: VolPivot Trough V=1164
 6E MAR26 B124: VolOoe T2F (C) V=1164
 6E MAR26 B124: EndEffect TroughContext [C] from T2F V=1164
 6E MAR26 B124: Turn C from TroughContext [C] via T2F V=1164
 6E MAR26 B124: TrendType D from turn C / TroughContext [C] V=1164
-6E MAR26 B124: Action Sideline from trend D / turn C / TroughContext [C] V=1164
 6E MAR26 B126: PriceCase XB
 6E MAR26 B126: Container Up run=1 new=True break=True cand=False conf=False
 6E MAR26 B126: DirectionBreak DirectionBreak Down via XB run=2
@@ -776,7 +753,8 @@
 6E MAR26 B175: PriceCase XR
 6E MAR26 B175: Container Down run=2 new=False break=False cand=False conf=True
 6E MAR26 B175: FttConfirmed FTT-Confirmed Up via XR run=4
-6E MAR26 B175: Structure Broken dir=Down trend=D action=Sideline
+6E MAR26 B175: Structure Broken dir=Down trend=D
+6E MAR26 B175: Action Sideline from trend D / turn C / TroughContext [C] V=0
 6E MAR26 B175: Permission Granted: Translation
 6E MAR26 B176: PriceCase XR
 6E MAR26 B176: Container Down run=3 new=False break=False cand=False conf=False
@@ -887,7 +865,6 @@
 6E MAR26 B203: EndEffect PeakContext [A] from P2 V=5480
 6E MAR26 B203: Turn B from PeakContext [A] via P2 V=5480
 6E MAR26 B203: TrendType B from turn B / PeakContext [A] V=5480
-6E MAR26 B203: Action Enter from trend B / turn B / PeakContext [A] V=5480
 6E MAR26 B205: PriceCase XR
 6E MAR26 B205: Container Down run=12 new=False break=False cand=False conf=False
 6E MAR26 B205: Permission Granted: Translation
@@ -910,13 +887,13 @@
 6E MAR26 B208: EndEffect CandidateEnd [B] from T2P V=2276
 6E MAR26 B208: Turn C from CandidateEnd [B] via T2P V=2276
 6E MAR26 B208: TrendType C from turn C / CandidateEnd [B] V=2276
-6E MAR26 B208: Action Reverse from trend C / turn C / CandidateEnd [B] V=2276
 6E MAR26 B210: PriceCase STR
 6E MAR26 B210: Permission Denied: Non-translation (Phase1 policy)
 6E MAR26 B211: PriceCase XB
 6E MAR26 B211: Container Up run=2 new=False break=False cand=False conf=True
 6E MAR26 B211: FttConfirmed FTT-Confirmed Down via XB run=13
-6E MAR26 B211: Structure Transition dir=Up trend=C action=Reverse
+6E MAR26 B211: Structure Transition dir=Up trend=C
+6E MAR26 B211: Action Enter from trend C / turn C / CandidateEnd [B] V=0
 6E MAR26 B211: Permission Granted: Translation
 6E MAR26 B210: VolPivot Peak V=4486
 6E MAR26 B212: PriceCase XB
@@ -930,7 +907,6 @@
 6E MAR26 B212: EndEffect TroughContext [C] from T2F V=1253
 6E MAR26 B212: Turn C from TroughContext [C] via T2F V=1253
 6E MAR26 B212: TrendType D from turn C / TroughContext [C] V=1253
-6E MAR26 B212: Action Sideline from trend D / turn C / TroughContext [C] V=1253
 6E MAR26 B214: PriceCase XB
 6E MAR26 B214: Container Up run=5 new=False break=False cand=False conf=False
 6E MAR26 B214: Permission Granted: Translation
@@ -964,7 +940,8 @@
 6E MAR26 B222: PriceCase XR
 6E MAR26 B222: Container Down run=2 new=False break=False cand=False conf=True
 6E MAR26 B222: FttConfirmed FTT-Confirmed Up via XR run=9
-6E MAR26 B222: Structure Broken dir=Down trend=D action=Sideline
+6E MAR26 B222: Structure Broken dir=Down trend=D
+6E MAR26 B222: Action Sideline from trend D / turn C / TroughContext [C] V=0
 6E MAR26 B222: Permission Granted: Translation
 6E MAR26 B221: VolPivot Peak V=2380
 6E MAR26 B223: PriceCase XR
@@ -1032,7 +1009,8 @@
 6E MAR26 B238: PriceCase XB
 6E MAR26 B238: Container Up run=2 new=False break=False cand=False conf=True
 6E MAR26 B238: FttConfirmed FTT-Confirmed Down via XB run=4
-6E MAR26 B238: Structure Broken dir=Up trend=D action=Sideline
+6E MAR26 B238: Structure Broken dir=Up trend=D
+6E MAR26 B238: Action Sideline from trend D / turn C / TroughContext [C] V=0
 6E MAR26 B238: Permission Granted: Translation
 6E MAR26 B237: VolPivot Peak V=712
 6E MAR26 B239: PriceCase XB
@@ -1092,7 +1070,8 @@
 6E MAR26 B254: PriceCase XR
 6E MAR26 B254: Container Down run=2 new=False break=False cand=False conf=True
 6E MAR26 B254: FttConfirmed FTT-Confirmed Up via XR run=12
-6E MAR26 B254: Structure Broken dir=Down trend=D action=Sideline
+6E MAR26 B254: Structure Broken dir=Down trend=D
+6E MAR26 B254: Action Sideline from trend D / turn C / TroughContext [C] V=0
 6E MAR26 B254: Permission Granted: Translation
 6E MAR26 B253: VolPivot Peak V=4342
 6E MAR26 B255: PriceCase XR
@@ -1324,7 +1303,8 @@
 6E MAR26 B318: PriceCase XB
 6E MAR26 B318: Container Up run=2 new=False break=False cand=False conf=True
 6E MAR26 B318: FttConfirmed FTT-Confirmed Down via XB run=7
-6E MAR26 B318: Structure Broken dir=Up trend=D action=Sideline
+6E MAR26 B318: Structure Broken dir=Up trend=D
+6E MAR26 B318: Action Sideline from trend D / turn C / TroughContext [C] V=0
 6E MAR26 B318: Permission Granted: Translation
 6E MAR26 B319: PriceCase XB
 6E MAR26 B319: Container Up run=3 new=False break=False cand=False conf=False
@@ -1377,7 +1357,8 @@
 6E MAR26 B332: PriceCase XB
 6E MAR26 B332: Container Up run=2 new=False break=False cand=False conf=True
 6E MAR26 B332: FttConfirmed FTT-Confirmed Down via XB run=4
-6E MAR26 B332: Structure Broken dir=Up trend=D action=Sideline
+6E MAR26 B332: Structure Broken dir=Up trend=D
+6E MAR26 B332: Action Sideline from trend D / turn C / TroughContext [C] V=0
 6E MAR26 B332: Permission Granted: Translation
 6E MAR26 B331: VolPivot Peak V=161
 6E MAR26 B333: PriceCase STR
@@ -1442,7 +1423,8 @@
 6E MAR26 B349: PriceCase XB
 6E MAR26 B349: Container Up run=2 new=False break=False cand=False conf=True
 6E MAR26 B349: FttConfirmed FTT-Confirmed Down via XB run=6
-6E MAR26 B349: Structure Broken dir=Up trend=D action=Sideline
+6E MAR26 B349: Structure Broken dir=Up trend=D
+6E MAR26 B349: Action Sideline from trend D / turn C / TroughContext [C] V=0
 6E MAR26 B349: Permission Granted: Translation
 6E MAR26 B348: VolPivot Peak V=541
 6E MAR26 B350: PriceCase XR
@@ -1498,7 +1480,8 @@
 6E MAR26 B364: PriceCase XB
 6E MAR26 B364: Container Up run=2 new=False break=False cand=False conf=True
 6E MAR26 B364: FttConfirmed FTT-Confirmed Down via XB run=5
-6E MAR26 B364: Structure Broken dir=Up trend=D action=Sideline
+6E MAR26 B364: Structure Broken dir=Up trend=D
+6E MAR26 B364: Action Sideline from trend D / turn C / TroughContext [C] V=0
 6E MAR26 B364: Permission Granted: Translation
 6E MAR26 B363: VolPivot Trough V=226
 6E MAR26 B365: PriceCase STB
@@ -1677,7 +1660,8 @@
 6E MAR26 B408: PriceCase XB
 6E MAR26 B408: Container Up run=2 new=False break=False cand=False conf=True
 6E MAR26 B408: FttConfirmed FTT-Confirmed Down via XB run=6
-6E MAR26 B408: Structure Broken dir=Up trend=D action=Sideline
+6E MAR26 B408: Structure Broken dir=Up trend=D
+6E MAR26 B408: Action Sideline from trend D / turn C / TroughContext [C] V=0
 6E MAR26 B408: Permission Granted: Translation
 6E MAR26 B407: VolPivot Peak V=4846
 6E MAR26 B409: PriceCase STR
@@ -1767,7 +1751,8 @@
 6E MAR26 B432: PriceCase XR
 6E MAR26 B432: Container Down run=2 new=False break=False cand=False conf=True
 6E MAR26 B432: FttConfirmed FTT-Confirmed Up via XR run=4
-6E MAR26 B432: Structure Broken dir=Down trend=D action=Sideline
+6E MAR26 B432: Structure Broken dir=Down trend=D
+6E MAR26 B432: Action Sideline from trend D / turn C / TroughContext [C] V=0
 6E MAR26 B432: Permission Granted: Translation
 6E MAR26 B431: VolPivot Trough V=989
 6E MAR26 B433: PriceCase STB
@@ -1886,7 +1871,6 @@
 6E MAR26 B461: EndEffect PeakContext [A] from P2 V=5742
 6E MAR26 B461: Turn B from PeakContext [A] via P2 V=5742
 6E MAR26 B461: TrendType B from turn B / PeakContext [A] V=5742
-6E MAR26 B461: Action Enter from trend B / turn B / PeakContext [A] V=5742
 6E MAR26 B463: PriceCase SYM
 6E MAR26 B463: Permission Denied: Non-translation (Phase1 policy)
 6E MAR26 B464: PriceCase XR
@@ -1905,7 +1889,6 @@
 6E MAR26 B465: EndEffect CandidateEnd [B] from T2P V=2007
 6E MAR26 B465: Turn C from CandidateEnd [B] via T2P V=2007
 6E MAR26 B465: TrendType C from turn C / CandidateEnd [B] V=2007
-6E MAR26 B465: Action Reverse from trend C / turn C / CandidateEnd [B] V=2007
 6E MAR26 B467: PriceCase XR
 6E MAR26 B467: Container Down run=1 new=True break=True cand=False conf=False
 6E MAR26 B467: DirectionBreak DirectionBreak Up via XR run=1
@@ -1921,7 +1904,6 @@
 6E MAR26 B468: EndEffect PeakContext [A] from P2 V=7846
 6E MAR26 B468: Turn B from PeakContext [A] via P2 V=7846
 6E MAR26 B468: TrendType B from turn B / PeakContext [A] V=7846
-6E MAR26 B468: Action StayIn from trend B / turn B / PeakContext [A] V=7846
 6E MAR26 B470: PriceCase XR
 6E MAR26 B470: Container Down run=4 new=False break=False cand=False conf=False
 6E MAR26 B470: Permission Granted: Translation
@@ -1933,7 +1915,6 @@
 6E MAR26 B470: EndEffect CandidateEnd [B] from T2P V=4877
 6E MAR26 B470: Turn C from CandidateEnd [B] via T2P V=4877
 6E MAR26 B470: TrendType C from turn C / CandidateEnd [B] V=4877
-6E MAR26 B470: Action Reverse from trend C / turn C / CandidateEnd [B] V=4877
 6E MAR26 B472: PriceCase STR
 6E MAR26 B472: Permission Denied: Non-translation (Phase1 policy)
 6E MAR26 B471: VolPivot Peak V=4949
@@ -1945,14 +1926,14 @@
 6E MAR26 B474: PriceCase XB
 6E MAR26 B474: Container Up run=2 new=False break=False cand=False conf=True
 6E MAR26 B474: FttConfirmed FTT-Confirmed Down via XB run=5
-6E MAR26 B474: Structure Transition dir=Up trend=C action=Reverse
+6E MAR26 B474: Structure Transition dir=Up trend=C
+6E MAR26 B474: Action Enter from trend C / turn C / CandidateEnd [B] V=0
 6E MAR26 B474: Permission Granted: Translation
 6E MAR26 B473: VolPivot Trough V=3366
 6E MAR26 B473: VolOoe T2F (C) V=3366
 6E MAR26 B473: EndEffect TroughContext [C] from T2F V=3366
 6E MAR26 B473: Turn C from TroughContext [C] via T2F V=3366
 6E MAR26 B473: TrendType D from turn C / TroughContext [C] V=3366
-6E MAR26 B473: Action Sideline from trend D / turn C / TroughContext [C] V=3366
 6E MAR26 B475: PriceCase XB
 6E MAR26 B475: Container Up run=3 new=False break=False cand=False conf=False
 6E MAR26 B475: Permission Granted: Translation
@@ -2035,7 +2016,8 @@
 6E MAR26 B497: PriceCase XB
 6E MAR26 B497: Container Up run=2 new=False break=False cand=False conf=True
 6E MAR26 B497: FttConfirmed FTT-Confirmed Down via XB run=4
-6E MAR26 B497: Structure Broken dir=Up trend=D action=Sideline
+6E MAR26 B497: Structure Broken dir=Up trend=D
+6E MAR26 B497: Action Sideline from trend D / turn C / TroughContext [C] V=0
 6E MAR26 B497: Permission Granted: Translation
 6E MAR26 B496: VolPivot Trough V=2184
 6E MAR26 B498: PriceCase XR
@@ -2355,7 +2337,8 @@
 6E MAR26 B584: PriceCase XB
 6E MAR26 B584: Container Up run=2 new=False break=False cand=False conf=True
 6E MAR26 B584: FttConfirmed FTT-Confirmed Down via XB run=4
-6E MAR26 B584: Structure Broken dir=Up trend=D action=Sideline
+6E MAR26 B584: Structure Broken dir=Up trend=D
+6E MAR26 B584: Action Sideline from trend D / turn C / TroughContext [C] V=0
 6E MAR26 B584: Permission Granted: Translation
 6E MAR26 B585: PriceCase SYM
 6E MAR26 B585: Permission Denied: Non-translation (Phase1 policy)
@@ -2394,7 +2377,8 @@
 6E MAR26 B595: PriceCase XR
 6E MAR26 B595: Container Down run=2 new=False break=False cand=False conf=True
 6E MAR26 B595: FttConfirmed FTT-Confirmed Up via XR run=6
-6E MAR26 B595: Structure Broken dir=Down trend=D action=Sideline
+6E MAR26 B595: Structure Broken dir=Down trend=D
+6E MAR26 B595: Action Sideline from trend D / turn C / TroughContext [C] V=0
 6E MAR26 B595: Permission Granted: Translation
 6E MAR26 B596: PriceCase XB
 6E MAR26 B596: Container Up run=1 new=True break=True cand=False conf=False
@@ -2513,7 +2497,8 @@
 6E MAR26 B626: PriceCase XB
 6E MAR26 B626: Container Up run=2 new=False break=False cand=False conf=True
 6E MAR26 B626: FttConfirmed FTT-Confirmed Down via XB run=8
-6E MAR26 B626: Structure Broken dir=Up trend=D action=Sideline
+6E MAR26 B626: Structure Broken dir=Up trend=D
+6E MAR26 B626: Action Sideline from trend D / turn C / TroughContext [C] V=0
 6E MAR26 B626: Permission Granted: Translation
 6E MAR26 B625: VolPivot Trough V=143
 6E MAR26 B627: PriceCase STR
@@ -2593,7 +2578,8 @@
 6E MAR26 B647: PriceCase XR
 6E MAR26 B647: Container Down run=2 new=False break=False cand=False conf=True
 6E MAR26 B647: FttConfirmed FTT-Confirmed Up via XR run=7
-6E MAR26 B647: Structure Broken dir=Down trend=D action=Sideline
+6E MAR26 B647: Structure Broken dir=Down trend=D
+6E MAR26 B647: Action Sideline from trend D / turn C / TroughContext [C] V=0
 6E MAR26 B647: Permission Granted: Translation
 6E MAR26 B648: PriceCase OUTB
 6E MAR26 B648: Permission Denied: Non-translation (Phase1 policy)
@@ -2784,7 +2770,8 @@
 6E MAR26 B702: PriceCase XR
 6E MAR26 B702: Container Down run=2 new=False break=False cand=False conf=True
 6E MAR26 B702: FttConfirmed FTT-Confirmed Up via XR run=4
-6E MAR26 B702: Structure Broken dir=Down trend=D action=Sideline
+6E MAR26 B702: Structure Broken dir=Down trend=D
+6E MAR26 B702: Action Sideline from trend D / turn C / TroughContext [C] V=0
 6E MAR26 B702: Permission Granted: Translation
 6E MAR26 B701: VolPivot Trough V=1102
 6E MAR26 B703: PriceCase XR
@@ -2971,7 +2958,8 @@
 6E MAR26 B752: PriceCase XR
 6E MAR26 B752: Container Down run=2 new=False break=False cand=False conf=True
 6E MAR26 B752: FttConfirmed FTT-Confirmed Up via XR run=4
-6E MAR26 B752: Structure Broken dir=Down trend=D action=Sideline
+6E MAR26 B752: Structure Broken dir=Down trend=D
+6E MAR26 B752: Action Sideline from trend D / turn C / TroughContext [C] V=0
 6E MAR26 B752: Permission Granted: Translation
 6E MAR26 B751: VolPivot Trough V=890
 6E MAR26 B753: PriceCase XR
@@ -3065,7 +3053,8 @@
 6E MAR26 B778: PriceCase XB
 6E MAR26 B778: Container Up run=2 new=False break=False cand=False conf=True
 6E MAR26 B778: FttConfirmed FTT-Confirmed Down via XB run=4
-6E MAR26 B778: Structure Broken dir=Up trend=D action=Sideline
+6E MAR26 B778: Structure Broken dir=Up trend=D
+6E MAR26 B778: Action Sideline from trend D / turn C / TroughContext [C] V=0
 6E MAR26 B778: Permission Granted: Translation
 6E MAR26 B777: VolPivot Peak V=535
 6E MAR26 B779: PriceCase XR
@@ -3104,7 +3093,8 @@
 6E MAR26 B789: PriceCase XB
 6E MAR26 B789: Container Up run=2 new=False break=False cand=False conf=True
 6E MAR26 B789: FttConfirmed FTT-Confirmed Down via XB run=4
-6E MAR26 B789: Structure Broken dir=Up trend=D action=Sideline
+6E MAR26 B789: Structure Broken dir=Up trend=D
+6E MAR26 B789: Action Sideline from trend D / turn C / TroughContext [C] V=0
 6E MAR26 B789: Permission Granted: Translation
 6E MAR26 B788: VolPivot Peak V=270
 6E MAR26 B790: PriceCase XB
@@ -3223,7 +3213,6 @@
 6E MAR26 B822: EndEffect Prelim [PP] from T1 V=23
 6E MAR26 B822: Turn A from Prelim [PP] via T1 V=23
 6E MAR26 B822: TrendType A from turn A / Prelim [PP] V=23
-6E MAR26 B822: Action Enter from trend A / turn A / Prelim [PP] V=23
 6E MAR26 B824: PriceCase XR
 6E MAR26 B824: Container Down run=3 new=False break=False cand=False conf=False
 6E MAR26 B824: Permission Granted: Translation
@@ -3232,7 +3221,6 @@
 6E MAR26 B823: EndEffect PeakContext [A] from P2 V=158
 6E MAR26 B823: Turn B from PeakContext [A] via P2 V=158
 6E MAR26 B823: TrendType B from turn B / PeakContext [A] V=158
-6E MAR26 B823: Action StayIn from trend B / turn B / PeakContext [A] V=158
 6E MAR26 B825: PriceCase XB
 6E MAR26 B825: Container Up run=1 new=True break=True cand=False conf=False
 6E MAR26 B825: DirectionBreak DirectionBreak Down via XB run=3
@@ -3242,7 +3230,6 @@
 6E MAR26 B824: EndEffect CandidateEnd [B] from T2P V=50
 6E MAR26 B824: Turn C from CandidateEnd [B] via T2P V=50
 6E MAR26 B824: TrendType C from turn C / CandidateEnd [B] V=50
-6E MAR26 B824: Action Reverse from trend C / turn C / CandidateEnd [B] V=50
 6E MAR26 B826: PriceCase OUTB
 6E MAR26 B826: Permission Denied: Non-translation (Phase1 policy)
 6E MAR26 B827: PriceCase STR
@@ -3272,7 +3259,6 @@
 6E MAR26 B832: EndEffect Prelim [PP] from T1 V=20
 6E MAR26 B832: Turn A from Prelim [PP] via T1 V=20
 6E MAR26 B832: TrendType A from turn A / Prelim [PP] V=20
-6E MAR26 B832: Action Hold from trend A / turn A / Prelim [PP] V=20
 6E MAR26 B834: PriceCase XR
 6E MAR26 B834: Container Down run=1 new=True break=True cand=False conf=False
 6E MAR26 B834: DirectionBreak DirectionBreak Up via XR run=1
@@ -3285,7 +3271,6 @@
 6E MAR26 B834: EndEffect PeakContext [A] from P2 V=84
 6E MAR26 B834: Turn B from PeakContext [A] via P2 V=84
 6E MAR26 B834: TrendType B from turn B / PeakContext [A] V=84
-6E MAR26 B834: Action StayIn from trend B / turn B / PeakContext [A] V=84
 6E MAR26 B836: PriceCase HITCH
 6E MAR26 B836: Permission Denied: Non-translation (Phase1 policy)
 6E MAR26 B837: PriceCase XB
@@ -3297,7 +3282,6 @@
 6E MAR26 B836: EndEffect CandidateEnd [B] from T2P V=37
 6E MAR26 B836: Turn C from CandidateEnd [B] via T2P V=37
 6E MAR26 B836: TrendType C from turn C / CandidateEnd [B] V=37
-6E MAR26 B836: Action Reverse from trend C / turn C / CandidateEnd [B] V=37
 6E MAR26 B838: PriceCase FBP
 6E MAR26 B838: Permission Denied: Non-translation (Phase1 policy)
 6E MAR26 B837: VolPivot Peak V=96
@@ -3317,7 +3301,6 @@
 6E MAR26 B840: EndEffect PeakContext [A] from P2 V=185
 6E MAR26 B840: Turn B from PeakContext [A] via P2 V=185
 6E MAR26 B840: TrendType B from turn B / PeakContext [A] V=185
-6E MAR26 B840: Action StayIn from trend B / turn B / PeakContext [A] V=185
 6E MAR26 B842: PriceCase XB
 6E MAR26 B842: Container Up run=2 new=False break=False cand=False conf=False
 6E MAR26 B842: Permission Granted: Translation
@@ -3332,7 +3315,6 @@
 6E MAR26 B843: EndEffect PeakContext [A] from P2 V=325
 6E MAR26 B843: Turn B from PeakContext [A] via P2 V=325
 6E MAR26 B843: TrendType B from turn B / PeakContext [A] V=325
-6E MAR26 B843: Action StayIn from trend B / turn B / PeakContext [A] V=325
 6E MAR26 B845: PriceCase HITCH
 6E MAR26 B845: Permission Denied: Non-translation (Phase1 policy)
 6E MAR26 B846: PriceCase XR
@@ -3344,7 +3326,6 @@
 6E MAR26 B845: EndEffect CandidateEnd [B] from T2P V=48
 6E MAR26 B845: Turn C from CandidateEnd [B] via T2P V=48
 6E MAR26 B845: TrendType C from turn C / CandidateEnd [B] V=48
-6E MAR26 B845: Action Reverse from trend C / turn C / CandidateEnd [B] V=48
 6E MAR26 B847: PriceCase XB
 6E MAR26 B847: Container Up run=1 new=True break=True cand=False conf=False
 6E MAR26 B847: DirectionBreak DirectionBreak Down via XB run=1
@@ -3363,7 +3344,6 @@
 6E MAR26 B848: EndEffect PeakContext [A] from P2 V=349
 6E MAR26 B848: Turn B from PeakContext [A] via P2 V=349
 6E MAR26 B848: TrendType B from turn B / PeakContext [A] V=349
-6E MAR26 B848: Action StayIn from trend B / turn B / PeakContext [A] V=349
 6E MAR26 B850: PriceCase XB
 6E MAR26 B850: Container Up run=1 new=True break=True cand=False conf=False
 6E MAR26 B850: DirectionBreak DirectionBreak Down via XB run=1
@@ -3373,7 +3353,6 @@
 6E MAR26 B849: EndEffect CandidateEnd [B] from T2P V=91
 6E MAR26 B849: Turn C from CandidateEnd [B] via T2P V=91
 6E MAR26 B849: TrendType C from turn C / CandidateEnd [B] V=91
-6E MAR26 B849: Action Reverse from trend C / turn C / CandidateEnd [B] V=91
 6E MAR26 B851: PriceCase FTP
 6E MAR26 B851: Permission Denied: Non-translation (Phase1 policy)
 6E MAR26 B850: VolPivot Peak V=202
@@ -3393,7 +3372,6 @@
 6E MAR26 B853: EndEffect PeakContext [A] from P2 V=360
 6E MAR26 B853: Turn B from PeakContext [A] via P2 V=360
 6E MAR26 B853: TrendType B from turn B / PeakContext [A] V=360
-6E MAR26 B853: Action StayIn from trend B / turn B / PeakContext [A] V=360
 6E MAR26 B855: PriceCase XB
 6E MAR26 B855: Container Up run=2 new=False break=False cand=False conf=False
 6E MAR26 B855: Permission Granted: Translation
@@ -3402,7 +3380,6 @@
 6E MAR26 B854: EndEffect CandidateEnd [B] from T2P V=207
 6E MAR26 B854: Turn C from CandidateEnd [B] via T2P V=207
 6E MAR26 B854: TrendType C from turn C / CandidateEnd [B] V=207
-6E MAR26 B854: Action Reverse from trend C / turn C / CandidateEnd [B] V=207
 6E MAR26 B856: PriceCase FBP
 6E MAR26 B856: Permission Denied: Non-translation (Phase1 policy)
 6E MAR26 B855: VolPivot Peak V=410
@@ -3421,7 +3398,6 @@
 6E MAR26 B858: EndEffect PeakContext [A] from P2 V=469
 6E MAR26 B858: Turn B from PeakContext [A] via P2 V=469
 6E MAR26 B858: TrendType B from turn B / PeakContext [A] V=469
-6E MAR26 B858: Action StayIn from trend B / turn B / PeakContext [A] V=469
 6E MAR26 B860: PriceCase XR
 6E MAR26 B860: Container Down run=2 new=False break=False cand=False conf=False
 6E MAR26 B860: Permission Granted: Translation
@@ -3433,7 +3409,6 @@
 6E MAR26 B860: EndEffect CandidateEnd [B] from T2P V=424
 6E MAR26 B860: Turn C from CandidateEnd [B] via T2P V=424
 6E MAR26 B860: TrendType C from turn C / CandidateEnd [B] V=424
-6E MAR26 B860: Action Reverse from trend C / turn C / CandidateEnd [B] V=424
 6E MAR26 B862: PriceCase XR
 6E MAR26 B862: Container Down run=4 new=False break=False cand=False conf=False
 6E MAR26 B862: Permission Granted: Translation
@@ -3459,7 +3434,6 @@
 6E MAR26 B867: EndEffect TroughContext [C] from T2F V=153
 6E MAR26 B867: Turn C from TroughContext [C] via T2F V=153
 6E MAR26 B867: TrendType D from turn C / TroughContext [C] V=153
-6E MAR26 B867: Action Sideline from trend D / turn C / TroughContext [C] V=153
 6E MAR26 B869: PriceCase SYM
 6E MAR26 B869: Permission Denied: Non-translation (Phase1 policy)
 6E MAR26 B868: VolPivot Peak V=307
@@ -3476,7 +3450,8 @@
 6E MAR26 B873: PriceCase XB
 6E MAR26 B873: Container Up run=2 new=False break=False cand=False conf=True
 6E MAR26 B873: FttConfirmed FTT-Confirmed Down via XB run=6
-6E MAR26 B873: Structure Broken dir=Up trend=D action=Sideline
+6E MAR26 B873: Structure Broken dir=Up trend=D
+6E MAR26 B873: Action Sideline from trend D / turn C / TroughContext [C] V=0
 6E MAR26 B873: Permission Granted: Translation
 6E MAR26 B874: PriceCase OUTR
 6E MAR26 B874: Permission Denied: Non-translation (Phase1 policy)
@@ -3515,7 +3490,8 @@
 6E MAR26 B884: PriceCase XB
 6E MAR26 B884: Container Up run=2 new=False break=False cand=False conf=True
 6E MAR26 B884: FttConfirmed FTT-Confirmed Down via XB run=5
-6E MAR26 B884: Structure Broken dir=Up trend=D action=Sideline
+6E MAR26 B884: Structure Broken dir=Up trend=D
+6E MAR26 B884: Action Sideline from trend D / turn C / TroughContext [C] V=0
 6E MAR26 B884: Permission Granted: Translation
 6E MAR26 B885: PriceCase XR
 6E MAR26 B885: Container Down run=1 new=True break=True cand=False conf=False
@@ -3570,7 +3546,8 @@
 6E MAR26 B899: PriceCase XB
 6E MAR26 B899: Container Up run=2 new=False break=False cand=False conf=True
 6E MAR26 B899: FttConfirmed FTT-Confirmed Down via XB run=4
-6E MAR26 B899: Structure Broken dir=Up trend=D action=Sideline
+6E MAR26 B899: Structure Broken dir=Up trend=D
+6E MAR26 B899: Action Sideline from trend D / turn C / TroughContext [C] V=0
 6E MAR26 B899: Permission Granted: Translation
 6E MAR26 B898: VolPivot Trough V=202
 6E MAR26 B900: PriceCase XR
@@ -3626,7 +3603,6 @@
 6E MAR26 B911: EndEffect PeakContext [A] from P2 V=551
 6E MAR26 B911: Turn B from PeakContext [A] via P2 V=551
 6E MAR26 B911: TrendType B from turn B / PeakContext [A] V=551
-6E MAR26 B911: Action Enter from trend B / turn B / PeakContext [A] V=551
 6E MAR26 B913: PriceCase XR
 6E MAR26 B913: Container Down run=7 new=False break=False cand=False conf=False
 6E MAR26 B913: Permission Granted: Translation
@@ -3638,7 +3614,6 @@
 6E MAR26 B913: EndEffect CandidateEnd [B] from T2P V=366
 6E MAR26 B913: Turn C from CandidateEnd [B] via T2P V=366
 6E MAR26 B913: TrendType C from turn C / CandidateEnd [B] V=366
-6E MAR26 B913: Action Reverse from trend C / turn C / CandidateEnd [B] V=366
 6E MAR26 B915: PriceCase OUTB
 6E MAR26 B915: Permission Denied: Non-translation (Phase1 policy)
 6E MAR26 B914: VolPivot Peak V=554
@@ -3650,7 +3625,8 @@
 6E MAR26 B917: PriceCase XB
 6E MAR26 B917: Container Up run=2 new=False break=False cand=False conf=True
 6E MAR26 B917: FttConfirmed FTT-Confirmed Down via XB run=8
-6E MAR26 B917: Structure Transition dir=Up trend=C action=Reverse
+6E MAR26 B917: Structure Transition dir=Up trend=C
+6E MAR26 B917: Action Enter from trend C / turn C / CandidateEnd [B] V=0
 6E MAR26 B917: Permission Granted: Translation
 6E MAR26 B918: PriceCase OUTB
 6E MAR26 B918: Permission Denied: Non-translation (Phase1 policy)
@@ -3685,7 +3661,8 @@
 6E MAR26 B927: PriceCase XR
 6E MAR26 B927: Container Down run=2 new=False break=False cand=False conf=True
 6E MAR26 B927: FttConfirmed FTT-Confirmed Up via XR run=6
-6E MAR26 B927: Structure Transition dir=Down trend=C action=Reverse
+6E MAR26 B927: Structure Transition dir=Down trend=C
+6E MAR26 B927: Action Reverse from trend C / turn C / CandidateEnd [B] V=0
 6E MAR26 B927: Permission Granted: Translation
 6E MAR26 B928: PriceCase XB
 6E MAR26 B928: Container Up run=1 new=True break=True cand=False conf=False
@@ -3696,7 +3673,6 @@
 6E MAR26 B927: EndEffect PeakContext [A] from P2 V=1262
 6E MAR26 B927: Turn B from PeakContext [A] via P2 V=1262
 6E MAR26 B927: TrendType B from turn B / PeakContext [A] V=1262
-6E MAR26 B927: Action StayIn from trend B / turn B / PeakContext [A] V=1262
 6E MAR26 B929: PriceCase XB
 6E MAR26 B929: Container Up run=2 new=False break=False cand=False conf=False
 6E MAR26 B929: Permission Granted: Translation
@@ -3708,7 +3684,6 @@
 6E MAR26 B929: EndEffect CandidateEnd [B] from T2P V=287
 6E MAR26 B929: Turn C from CandidateEnd [B] via T2P V=287
 6E MAR26 B929: TrendType C from turn C / CandidateEnd [B] V=287
-6E MAR26 B929: Action Reverse from trend C / turn C / CandidateEnd [B] V=287
 6E MAR26 B931: PriceCase XB
 6E MAR26 B931: Container Up run=4 new=False break=False cand=False conf=False
 6E MAR26 B931: Permission Granted: Translation
@@ -3747,7 +3722,6 @@
 6E MAR26 B938: EndEffect PeakContext [A] from P2 V=1700
 6E MAR26 B938: Turn B from PeakContext [A] via P2 V=1700
 6E MAR26 B938: TrendType B from turn B / PeakContext [A] V=1700
-6E MAR26 B938: Action StayIn from trend B / turn B / PeakContext [A] V=1700
 6E MAR26 B940: PriceCase XR
 6E MAR26 B940: Container Down run=1 new=True break=True cand=False conf=False
 6E MAR26 B940: DirectionBreak DirectionBreak Up via XR run=1
@@ -3757,7 +3731,6 @@
 6E MAR26 B939: EndEffect CandidateEnd [B] from T2P V=760
 6E MAR26 B939: Turn C from CandidateEnd [B] via T2P V=760
 6E MAR26 B939: TrendType C from turn C / CandidateEnd [B] V=760
-6E MAR26 B939: Action Reverse from trend C / turn C / CandidateEnd [B] V=760
 6E MAR26 B941: PriceCase XR
 6E MAR26 B941: Container Down run=2 new=False break=False cand=False conf=False
 6E MAR26 B941: Permission Granted: Translation
@@ -3769,7 +3742,6 @@
 6E MAR26 B941: EndEffect PeakContext [A] from P2 V=1771
 6E MAR26 B941: Turn B from PeakContext [A] via P2 V=1771
 6E MAR26 B941: TrendType B from turn B / PeakContext [A] V=1771
-6E MAR26 B941: Action StayIn from trend B / turn B / PeakContext [A] V=1771
 6E MAR26 B943: PriceCase XB
 6E MAR26 B943: Container Up run=1 new=True break=True cand=False conf=False
 6E MAR26 B943: DirectionBreak DirectionBreak Down via XB run=3
@@ -3779,7 +3751,6 @@
 6E MAR26 B942: EndEffect CandidateEnd [B] from T2P V=610
 6E MAR26 B942: Turn C from CandidateEnd [B] via T2P V=610
 6E MAR26 B942: TrendType C from turn C / CandidateEnd [B] V=610
-6E MAR26 B942: Action Reverse from trend C / turn C / CandidateEnd [B] V=610
 6E MAR26 B944: PriceCase XB
 6E MAR26 B944: Container Up run=2 new=False break=False cand=False conf=False
 6E MAR26 B944: Permission Granted: Translation
@@ -3818,7 +3789,8 @@
 6E MAR26 B955: PriceCase XR
 6E MAR26 B955: Container Down run=2 new=False break=False cand=False conf=True
 6E MAR26 B955: FttConfirmed FTT-Confirmed Up via XR run=6
-6E MAR26 B955: Structure Transition dir=Down trend=C action=Reverse
+6E MAR26 B955: Structure Transition dir=Down trend=C
+6E MAR26 B955: Action Reverse from trend C / turn C / CandidateEnd [B] V=0
 6E MAR26 B955: Permission Granted: Translation
 6E MAR26 B954: VolPivot Trough V=1083
 6E MAR26 B956: PriceCase XR
@@ -3851,7 +3823,6 @@
 6E MAR26 B961: EndEffect PeakContext [A] from P2 V=2004
 6E MAR26 B961: Turn B from PeakContext [A] via P2 V=2004
 6E MAR26 B961: TrendType B from turn B / PeakContext [A] V=2004
-6E MAR26 B961: Action StayIn from trend B / turn B / PeakContext [A] V=2004
 6E MAR26 B963: PriceCase XR
 6E MAR26 B963: Container Down run=2 new=False break=False cand=False conf=False
 6E MAR26 B963: Permission Granted: Translation
@@ -3860,7 +3831,6 @@
 6E MAR26 B962: EndEffect CandidateEnd [B] from T2P V=639
 6E MAR26 B962: Turn C from CandidateEnd [B] via T2P V=639
 6E MAR26 B962: TrendType C from turn C / CandidateEnd [B] V=639
-6E MAR26 B962: Action Reverse from trend C / turn C / CandidateEnd [B] V=639
 6E MAR26 B964: PriceCase XR
 6E MAR26 B964: Container Down run=3 new=False break=False cand=False conf=False
 6E MAR26 B964: Permission Granted: Translation
@@ -3873,7 +3843,6 @@
 6E MAR26 B964: EndEffect TroughContext [C] from T2F V=313
 6E MAR26 B964: Turn C from TroughContext [C] via T2F V=313
 6E MAR26 B964: TrendType D from turn C / TroughContext [C] V=313
-6E MAR26 B964: Action Sideline from trend D / turn C / TroughContext [C] V=313
 6E MAR26 B966: PriceCase XR
 6E MAR26 B966: Container Down run=5 new=False break=False cand=False conf=False
 6E MAR26 B966: Permission Granted: Translation
@@ -3960,7 +3929,6 @@
 6E MAR26 B988: EndEffect PeakContext [A] from P2 V=2702
 6E MAR26 B988: Turn B from PeakContext [A] via P2 V=2702
 6E MAR26 B988: TrendType B from turn B / PeakContext [A] V=2702
-6E MAR26 B988: Action Enter from trend B / turn B / PeakContext [A] V=2702
 6E MAR26 B990: PriceCase XB
 6E MAR26 B990: Container Up run=1 new=True break=True cand=False conf=False
 6E MAR26 B990: DirectionBreak DirectionBreak Down via XB run=1
@@ -3973,7 +3941,6 @@
 6E MAR26 B990: EndEffect CandidateEnd [B] from T2P V=461
 6E MAR26 B990: Turn C from CandidateEnd [B] via T2P V=461
 6E MAR26 B990: TrendType C from turn C / CandidateEnd [B] V=461
-6E MAR26 B990: Action Reverse from trend C / turn C / CandidateEnd [B] V=461
 6E MAR26 B992: PriceCase HITCH
 6E MAR26 B992: Permission Denied: Non-translation (Phase1 policy)
 6E MAR26 B991: VolPivot Peak V=658
@@ -3989,7 +3956,6 @@
 6E MAR26 B993: EndEffect TroughContext [C] from T2F V=418
 6E MAR26 B993: Turn C from TroughContext [C] via T2F V=418
 6E MAR26 B993: TrendType D from turn C / TroughContext [C] V=418
-6E MAR26 B993: Action Sideline from trend D / turn C / TroughContext [C] V=418
 6E MAR26 B995: PriceCase XB
 6E MAR26 B995: Container Up run=1 new=True break=True cand=False conf=False
 6E MAR26 B995: DirectionBreak DirectionBreak Down via XB run=2
@@ -4042,7 +4008,8 @@
 6E MAR26 B1008: PriceCase XB
 6E MAR26 B1008: Container Up run=2 new=False break=False cand=False conf=True
 6E MAR26 B1008: FttConfirmed FTT-Confirmed Down via XB run=5
-6E MAR26 B1008: Structure Broken dir=Up trend=D action=Sideline
+6E MAR26 B1008: Structure Broken dir=Up trend=D
+6E MAR26 B1008: Action Sideline from trend D / turn C / TroughContext [C] V=0
 6E MAR26 B1008: Permission Granted: Translation
 6E MAR26 B1007: VolPivot Trough V=1054
 6E MAR26 B1009: PriceCase XB
@@ -4088,7 +4055,6 @@
 6E MAR26 B1019: EndEffect PeakContext [A] from P2 V=3284
 6E MAR26 B1019: Turn B from PeakContext [A] via P2 V=3284
 6E MAR26 B1019: TrendType B from turn B / PeakContext [A] V=3284
-6E MAR26 B1019: Action Enter from trend B / turn B / PeakContext [A] V=3284
 6E MAR26 B1021: PriceCase XR
 6E MAR26 B1021: Container Down run=1 new=True break=True cand=True conf=False
 6E MAR26 B1021: DirectionBreak DirectionBreak Up via XR run=4
@@ -4097,13 +4063,14 @@
 6E MAR26 B1022: PriceCase XR
 6E MAR26 B1022: Container Down run=2 new=False break=False cand=False conf=True
 6E MAR26 B1022: FttConfirmed FTT-Confirmed Up via XR run=4
+6E MAR26 B1022: Structure Mature dir=Down trend=B
+6E MAR26 B1022: Action Enter from trend B / turn B / PeakContext [A] V=0
 6E MAR26 B1022: Permission Granted: Translation
 6E MAR26 B1021: VolPivot Trough V=1127
 6E MAR26 B1021: VolOoe T2P (B) V=1127
 6E MAR26 B1021: EndEffect CandidateEnd [B] from T2P V=1127
 6E MAR26 B1021: Turn C from CandidateEnd [B] via T2P V=1127
 6E MAR26 B1021: TrendType C from turn C / CandidateEnd [B] V=1127
-6E MAR26 B1021: Action Reverse from trend C / turn C / CandidateEnd [B] V=1127
 6E MAR26 B1023: PriceCase OUTR
 6E MAR26 B1023: Permission Denied: Non-translation (Phase1 policy)
 6E MAR26 B1024: PriceCase XR
@@ -4118,7 +4085,6 @@
 6E MAR26 B1024: EndEffect TroughContext [C] from T2F V=1089
 6E MAR26 B1024: Turn C from TroughContext [C] via T2F V=1089
 6E MAR26 B1024: TrendType D from turn C / TroughContext [C] V=1089
-6E MAR26 B1024: Action Sideline from trend D / turn C / TroughContext [C] V=1089
 6E MAR26 B1026: PriceCase FBP
 6E MAR26 B1026: Permission Denied: Non-translation (Phase1 policy)
 6E MAR26 B1025: VolPivot Peak V=3954
@@ -4141,7 +4107,8 @@
 6E MAR26 B1031: PriceCase XB
 6E MAR26 B1031: Container Up run=2 new=False break=False cand=False conf=True
 6E MAR26 B1031: FttConfirmed FTT-Confirmed Down via XB run=5
-6E MAR26 B1031: Structure Broken dir=Up trend=D action=Sideline
+6E MAR26 B1031: Structure Broken dir=Up trend=D
+6E MAR26 B1031: Action Sideline from trend D / turn C / TroughContext [C] V=0
 6E MAR26 B1031: Permission Granted: Translation
 6E MAR26 B1030: VolPivot Trough V=1451
 6E MAR26 B1032: PriceCase OUTR
@@ -4227,7 +4194,6 @@
 6E MAR26 B1051: EndEffect PeakContext [A] from P2 V=3834
 6E MAR26 B1051: Turn B from PeakContext [A] via P2 V=3834
 6E MAR26 B1051: TrendType B from turn B / PeakContext [A] V=3834
-6E MAR26 B1051: Action Enter from trend B / turn B / PeakContext [A] V=3834
 6E MAR26 B1053: PriceCase XR
 6E MAR26 B1053: Container Down run=1 new=True break=True cand=False conf=False
 6E MAR26 B1053: DirectionBreak DirectionBreak Up via XR run=1
@@ -4258,7 +4224,6 @@
 6E MAR26 B1058: EndEffect CandidateEnd [B] from T2P V=484
 6E MAR26 B1058: Turn C from CandidateEnd [B] via T2P V=484
 6E MAR26 B1058: TrendType C from turn C / CandidateEnd [B] V=484
-6E MAR26 B1058: Action Reverse from trend C / turn C / CandidateEnd [B] V=484
 6E MAR26 B1060: PriceCase XR
 6E MAR26 B1060: Container Down run=4 new=False break=False cand=False conf=False
 6E MAR26 B1060: Permission Granted: Translation
@@ -4275,7 +4240,8 @@
 6E MAR26 B1064: PriceCase XB
 6E MAR26 B1064: Container Up run=2 new=False break=False cand=False conf=True
 6E MAR26 B1064: FttConfirmed FTT-Confirmed Down via XB run=4
-6E MAR26 B1064: Structure Transition dir=Up trend=C action=Reverse
+6E MAR26 B1064: Structure Transition dir=Up trend=C
+6E MAR26 B1064: Action Enter from trend C / turn C / CandidateEnd [B] V=0
 6E MAR26 B1064: Permission Granted: Translation
 6E MAR26 B1063: VolPivot Trough V=668
 6E MAR26 B1065: PriceCase XR
@@ -4295,7 +4261,6 @@
 6E MAR26 B1066: EndEffect TroughContext [C] from T2F V=302
 6E MAR26 B1066: Turn C from TroughContext [C] via T2F V=302
 6E MAR26 B1066: TrendType D from turn C / TroughContext [C] V=302
-6E MAR26 B1066: Action Sideline from trend D / turn C / TroughContext [C] V=302
 6E MAR26 B1068: PriceCase XB
 6E MAR26 B1068: Container Up run=2 new=False break=False cand=False conf=False
 6E MAR26 B1068: Permission Granted: Translation
@@ -4921,7 +4886,8 @@
 6E MAR26 B1237: PriceCase XB
 6E MAR26 B1237: Container Up run=2 new=False break=False cand=False conf=True
 6E MAR26 B1237: FttConfirmed FTT-Confirmed Down via XB run=11
-6E MAR26 B1237: Structure Broken dir=Up trend=D action=Sideline
+6E MAR26 B1237: Structure Broken dir=Up trend=D
+6E MAR26 B1237: Action Sideline from trend D / turn C / TroughContext [C] V=0
 6E MAR26 B1237: Permission Granted: Translation
 6E MAR26 B1238: PriceCase XR
 6E MAR26 B1238: Container Down run=1 new=True break=True cand=False conf=False
@@ -5018,7 +4984,8 @@
 6E MAR26 B1264: PriceCase XB
 6E MAR26 B1264: Container Up run=2 new=False break=False cand=False conf=True
 6E MAR26 B1264: FttConfirmed FTT-Confirmed Down via XB run=10
-6E MAR26 B1264: Structure Broken dir=Up trend=D action=Sideline
+6E MAR26 B1264: Structure Broken dir=Up trend=D
+6E MAR26 B1264: Action Sideline from trend D / turn C / TroughContext [C] V=0
 6E MAR26 B1264: Permission Granted: Translation
 6E MAR26 B1265: PriceCase SYM
 6E MAR26 B1265: Permission Denied: Non-translation (Phase1 policy)
@@ -5089,7 +5056,6 @@
 6E MAR26 B1281: EndEffect PeakContext [A] from P2 V=5989
 6E MAR26 B1281: Turn B from PeakContext [A] via P2 V=5989
 6E MAR26 B1281: TrendType B from turn B / PeakContext [A] V=5989
-6E MAR26 B1281: Action Enter from trend B / turn B / PeakContext [A] V=5989
 6E MAR26 B1283: PriceCase XR
 6E MAR26 B1283: Container Down run=4 new=False break=False cand=False conf=False
 6E MAR26 B1283: Permission Granted: Translation
@@ -5107,7 +5073,6 @@
 6E MAR26 B1284: EndEffect CandidateEnd [B] from T2P V=2506
 6E MAR26 B1284: Turn C from CandidateEnd [B] via T2P V=2506
 6E MAR26 B1284: TrendType C from turn C / CandidateEnd [B] V=2506
-6E MAR26 B1284: Action Reverse from trend C / turn C / CandidateEnd [B] V=2506
 6E MAR26 B1286: PriceCase XB
 6E MAR26 B1286: Container Up run=1 new=True break=True cand=False conf=False
 6E MAR26 B1286: DirectionBreak DirectionBreak Down via XB run=1
@@ -5124,7 +5089,6 @@
 6E MAR26 B1287: EndEffect TroughContext [C] from T2F V=1243
 6E MAR26 B1287: Turn C from TroughContext [C] via T2F V=1243
 6E MAR26 B1287: TrendType D from turn C / TroughContext [C] V=1243
-6E MAR26 B1287: Action Sideline from trend D / turn C / TroughContext [C] V=1243
 6E MAR26 B1289: PriceCase XB
 6E MAR26 B1289: Container Up run=1 new=True break=True cand=False conf=False
 6E MAR26 B1289: DirectionBreak DirectionBreak Down via XB run=1
@@ -5176,7 +5140,8 @@
 6E MAR26 B1301: PriceCase XR
 6E MAR26 B1301: Container Down run=2 new=False break=False cand=False conf=True
 6E MAR26 B1301: FttConfirmed FTT-Confirmed Up via XR run=5
-6E MAR26 B1301: Structure Broken dir=Down trend=D action=Sideline
+6E MAR26 B1301: Structure Broken dir=Down trend=D
+6E MAR26 B1301: Action Sideline from trend D / turn C / TroughContext [C] V=0
 6E MAR26 B1301: Permission Granted: Translation
 6E MAR26 B1302: PriceCase SYM
 6E MAR26 B1302: Permission Denied: Non-translation (Phase1 policy)
@@ -5431,24 +5396,4 @@
 6E MAR26 B1373: Container Up run=6 new=False break=False cand=False conf=False
 6E MAR26 B1373: Permission Granted: Translation
 6E MAR26 B1374: PriceCase XR
-6E MAR26 B1374: Container Down run=1 new=True break=True cand=True conf=False
-6E MAR26 B1374: DirectionBreak DirectionBreak Up via XR run=6
-6E MAR26 B1374: FttCandidate FTT-Candidate Up via XR run=6
-6E MAR26 B1374: Permission Granted: Translation
-6E MAR26 B1373: VolPivot Peak V=249
-6E MAR26 B1375: PriceCase SYM
-6E MAR26 B1375: Permission Denied: Non-translation (Phase1 policy)
-6E MAR26 B1376: PriceCase XR
-6E MAR26 B1376: Container Down run=2 new=False break=False cand=False conf=True
-6E MAR26 B1376: FttConfirmed FTT-Confirmed Up via XR run=6
-6E MAR26 B1376: Structure Broken dir=Down trend=D action=Sideline
-6E MAR26 B1376: Permission Granted: Translation
-6E MAR26 B1377: PriceCase XR
-6E MAR26 B1377: Container Down run=3 new=False break=False cand=False conf=False
-6E MAR26 B1377: Permission Granted: Translation
-6E MAR26 B1376: VolPivot Trough V=55
-6E MAR26 B1378: PriceCase XB
-6E MAR26 B1378: Container Up run=1 new=True break=True cand=False conf=False
-6E MAR26 B1378: DirectionBreak DirectionBreak Down via XB run=3
-6E MAR26 B1378: Permission Granted: Translation
-6E MAR26 B1377: VolPivot Peak V=325
+6E MAR26 B1374: Container Down run=1

@@ -12,10 +12,9 @@ namespace NinjaTrader.NinjaScript.xPva.Engine
         public static StructureEvent? Step(
             State s,
             in FttConfirmedEvent ftt,
-            in TrendTypeEvent trend,
-            in ActionEvent action)
+            in TrendTypeEvent trend)
         {
-            StructureState state = Classify(ftt, trend, action);
+            StructureState state = Classify(ftt, trend);
 
             if (state == StructureState.Unknown)
                 return null;
@@ -34,31 +33,30 @@ namespace NinjaTrader.NinjaScript.xPva.Engine
             s.LastDirection = direction;
 
             return new StructureEvent(
-                ftt.BarIndex,
-                state,
-                trend.Type,
-                action.Action,
-                direction);
+			    ftt.BarIndex,
+			    state,
+			    trend.Type,
+			    direction);
         }
 
         private static StructureState Classify(
             in FttConfirmedEvent ftt,
-            in TrendTypeEvent trend,
-            in ActionEvent action)
+            in TrendTypeEvent trend)
         {
-            if (action.Action == ActionType.Reverse)
-                return StructureState.Transition;
+            switch (trend.Type)
+            {
+                case TrendType.A:
+                    return StructureState.Building;
 
-            if (trend.Type == TrendType.A && action.Action == ActionType.Enter)
-                return StructureState.Building;
+                case TrendType.B:
+                    return StructureState.Mature;
 
-            if (trend.Type == TrendType.B &&
-                (action.Action == ActionType.StayIn || action.Action == ActionType.Hold))
-                return StructureState.Mature;
+                case TrendType.C:
+                    return StructureState.Transition;
 
-            if (trend.Type == TrendType.C || trend.Type == TrendType.D ||
-                action.Action == ActionType.Sideline)
-                return StructureState.Broken;
+                case TrendType.D:
+                    return StructureState.Broken;
+            }
 
             return StructureState.Unknown;
         }
@@ -75,3 +73,4 @@ namespace NinjaTrader.NinjaScript.xPva.Engine
         }
     }
 }
+
