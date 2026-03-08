@@ -61,8 +61,14 @@ namespace NinjaTrader.NinjaScript.xPva.Engine
 			{
 			    events.Add(EngineEvent.From(container.Value));
 			
-			    if (container.Value.HasFtt && container.Value.Ftt.HasValue)
-			        events.Add(EngineEvent.From(container.Value.Ftt.Value));
+			    if (container.Value.HasDirectionBreak && container.Value.DirectionBreak.HasValue)
+			        events.Add(EngineEvent.From(container.Value.DirectionBreak.Value));
+			
+			    if (container.Value.HasFttCandidate && container.Value.FttCandidate.HasValue)
+			        events.Add(EngineEvent.From(container.Value.FttCandidate.Value));
+			
+			    if (container.Value.HasFttConfirmed && container.Value.FttConfirmed.HasValue)
+			        events.Add(EngineEvent.From(container.Value.FttConfirmed.Value));
 			}
 
             // 2) Permission (phase1: translations only)
@@ -110,6 +116,7 @@ namespace NinjaTrader.NinjaScript.xPva.Engine
         }
     }
 }
+
 
 
 

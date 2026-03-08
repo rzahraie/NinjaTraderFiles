@@ -100,10 +100,10 @@ namespace NinjaTrader.NinjaScript.Indicators
 
                 switch (e.Kind)
                 {
-                    case NinjaTrader.NinjaScript.xPva.Engine.EventKind.Ftt:
-                        if (DrawFttMarkers && e.Ftt.HasValue)
-                            DrawFtt(e.Ftt.Value);
-                        break;
+                    case NinjaTrader.NinjaScript.xPva.Engine.EventKind.FttConfirmed:
+					    if (DrawFttMarkers && e.FttConfirmed.HasValue)
+					        DrawFttConfirmed(e.FttConfirmed.Value);
+					    break;
 
                     case NinjaTrader.NinjaScript.xPva.Engine.EventKind.EndEffect:
                         if (DrawEndEffectMarkers && e.EndEffect.HasValue)
@@ -146,20 +146,20 @@ namespace NinjaTrader.NinjaScript.Indicators
             return barsAgo;
         }
 
-        private void DrawFtt(NinjaTrader.NinjaScript.xPva.Engine.FttEvent e)
-        {
-            int barsAgo = BarsAgoFromIndex(e.BarIndex);
-            string tag = string.Format("xPvaFTT_{0}_{1}", e.BarIndex, e.Direction);
-
-            if (e.Direction == NinjaTrader.NinjaScript.xPva.Engine.ContainerDirection.Up)
-            {
-                Draw.ArrowDown(this, tag, false, barsAgo, High[barsAgo] + 2 * TickSize, Brushes.Gold);
-            }
-            else if (e.Direction == NinjaTrader.NinjaScript.xPva.Engine.ContainerDirection.Down)
-            {
-                Draw.ArrowUp(this, tag, false, barsAgo, Low[barsAgo] - 2 * TickSize, Brushes.Gold);
-            }
-        }
+        private void DrawFttConfirmed(NinjaTrader.NinjaScript.xPva.Engine.FttConfirmedEvent e)
+		{
+		    int barsAgo = BarsAgoFromIndex(e.BarIndex);
+		    string tag = string.Format("xPvaFTTCONF_{0}_{1}", e.BarIndex, e.PriorDirection);
+		
+		    if (e.PriorDirection == NinjaTrader.NinjaScript.xPva.Engine.ContainerDirection.Up)
+		    {
+		        Draw.ArrowDown(this, tag, false, barsAgo, High[barsAgo] + 2 * TickSize, Brushes.Gold);
+		    }
+		    else if (e.PriorDirection == NinjaTrader.NinjaScript.xPva.Engine.ContainerDirection.Down)
+		    {
+		        Draw.ArrowUp(this, tag, false, barsAgo, Low[barsAgo] - 2 * TickSize, Brushes.Gold);
+		    }
+		}
 
         private void DrawEndEffect(NinjaTrader.NinjaScript.xPva.Engine.EndEffectEvent e)
         {
