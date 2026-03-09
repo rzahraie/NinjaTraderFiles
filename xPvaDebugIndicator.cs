@@ -65,6 +65,25 @@ namespace NinjaTrader.NinjaScript.Indicators
 		[NinjaScriptProperty]
 		[Display(Name = "Draw Container Geometry", Order = 12, GroupName = "Parameters")]
 		public bool DrawContainerGeometry { get; set; }
+		
+		public enum RiverDisplayMode
+		{
+		    Research = 0,
+		    Trading = 1
+		}
+		
+		private sealed class RiverBarState
+		{
+		    public string ActionToken;
+		    public string TurnTrendToken;
+		    public string VolumeToken;
+		    public string ContainerToken;
+		
+		    public bool HasFtt;
+		    public NinjaTrader.NinjaScript.xPva.Engine.ContainerDirection? FttPriorDirection;
+		
+		    public NinjaTrader.NinjaScript.xPva.Engine.ActionType? ActionType;
+		}
 
         protected override void OnStateChange()
         {
