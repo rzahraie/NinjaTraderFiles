@@ -18,6 +18,7 @@ namespace NinjaTrader.NinjaScript.xPva.Engine
 			public xPvaContainers.State Containers;
 			public xPvaStructureResolver.State Structures;
 			public TrendTypeEvent? LastTrendType;
+			public xPvaContainerReport.State Reports;
 
             public State(int volPivotWindow)
             {
@@ -31,6 +32,7 @@ namespace NinjaTrader.NinjaScript.xPva.Engine
 				Actions = new xPvaActionResolver.State();
 				Containers = new xPvaContainers.State();
 				Structures = new xPvaStructureResolver.State();
+				Reports = new xPvaContainerReport.State();
 				LastTrendType = null;
             }
         }
@@ -64,17 +66,28 @@ namespace NinjaTrader.NinjaScript.xPva.Engine
 			if (container.HasValue)
 			{
 			    events.Add(EngineEvent.From(container.Value));
+				
+				_s.Reports.OnContainer(container.Value);
 			
 			    if (container.Value.HasDirectionBreak && container.Value.DirectionBreak.HasValue)
-			        events.Add(EngineEvent.From(container.Value.DirectionBreak.Value));
+				{
+					var db = container.Value.DirectionBreak.Value;
+			        events.Add(EngineEvent.From(db));
+					_s.Reports.OnDirectionBreak(db);
+				}
 			
-			    if (container.Value.HasFttCandidate && container.Value.FttCandidate.HasValue)
-			        events.Add(EngineEvent.From(container.Value.FttCandidate.Value));
+			    if (container.Value.HasFttCandidate && container.Value.FttCandidate.HasValue) 
+				{
+					var cand = container.Value.FttCandidate.Value;
+			        events.Add(EngineEvent.From(cand));
+					_s.Reports.OnFttCandidate(cand);
+				}
 			
 			    if (container.Value.HasFttConfirmed && container.Value.FttConfirmed.HasValue)
 				{
 				    FttConfirmedEvent confirmed = container.Value.FttConfirmed.Value;
 				    events.Add(EngineEvent.From(confirmed));
+					_s.Reports.OnFttConfirmed(confirmed);
 				
 				    if (_s.LastTrendType.HasValue)
 					{
@@ -86,6 +99,8 @@ namespace NinjaTrader.NinjaScript.xPva.Engine
 					    if (structure.HasValue)
 					    {
 					        events.Add(EngineEvent.From(structure.Value));
+							
+							_s.Reports.OnStructure(structure.Value);
 					
 					        TurnEvent? lastTurn = null;
 					        if (_s.Turns.LastType != TurnType.Unknown)
@@ -106,8 +121,13 @@ namespace NinjaTrader.NinjaScript.xPva.Engine
 					                structure.Value,
 					                lastTurn.Value);
 					
-					            if (action.HasValue)
+					            if (action.HasValue) {
 					                events.Add(EngineEvent.From(action.Value));
+									
+									var report = _s.Reports.OnAction(action.Value);
+								    if (report.HasValue)
+								        events.Add(EngineEvent.From(report.Value));
+								}
 					        }
 					    }
 					}
@@ -156,6 +176,8 @@ namespace NinjaTrader.NinjaScript.xPva.Engine
         }
     }
 }
+
+
 
 
 
