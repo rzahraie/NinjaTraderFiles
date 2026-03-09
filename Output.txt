@@ -1,3 +1,4 @@
+
 6E MAR26 B2: PriceCase XB
 6E MAR26 B2: Container C#1 Up run=1 new=True break=False cand=False conf=False
 6E MAR26 B2: PersistentContainer PC#1 Developing dir=Up start=2 last=2 extremeBar=2 extreme=1.17025 break= conf=
@@ -239,6 +240,7 @@
 6E MAR26 B43: Structure C#12 Transition dir=Up trend=C
 6E MAR26 B43: Action C#12 Enter trend=C turn=C CandidateEnd [B] V=0
 6E MAR26 B43: PersistentContainer PC#12 Closed dir=Down start=32 last=43 extremeBar=40 extreme=1.16935 break=41 conf=43
+6E MAR26 B43: TradeIntent TI C#12 Enter action=Enter struct=Transition trend=C turn=C
 6E MAR26 B43: ContainerReport Report C#12 start=32 break=41 cand=41 conf=43 struct=Transition action=Enter
 6E MAR26 B43: ContainerGeometry CG#12 dir=Down start=32@1.1707 extreme=40@1.16935 confirm=43@1.17035
 6E MAR26 B43: Permission Granted: Translation
@@ -1128,6 +1130,7 @@
 6E MAR26 B199: Structure C#64 Broken dir=Up trend=D
 6E MAR26 B199: Action C#64 Sideline trend=D turn=C TroughContext [C] V=0
 6E MAR26 B199: PersistentContainer PC#64 Closed dir=Down start=191 last=199 extremeBar=195 extreme=1.15395 break=197 conf=199
+6E MAR26 B199: TradeIntent TI C#64 Sideline action=Sideline struct=Broken trend=D turn=C
 6E MAR26 B199: ContainerReport Report C#64 start=191 break=197 cand=197 conf=199 struct=Broken action=Sideline
 6E MAR26 B199: ContainerGeometry CG#64 dir=Down start=191@1.1572 extreme=195@1.15395 confirm=199@1.15715
 6E MAR26 B199: Permission Granted: Translation
@@ -1645,6 +1648,7 @@
 6E MAR26 B310: Structure C#96 Broken dir=Up trend=D
 6E MAR26 B310: Action C#96 Sideline trend=D turn=C TroughContext [C] V=0
 6E MAR26 B310: PersistentContainer PC#96 Closed dir=Down start=301 last=310 extremeBar=305 extreme=1.15815 break=307 conf=310
+6E MAR26 B310: TradeIntent TI C#96 Sideline action=Sideline struct=Broken trend=D turn=C
 6E MAR26 B310: ContainerReport Report C#96 start=301 break=307 cand=307 conf=310 struct=Broken action=Sideline
 6E MAR26 B310: ContainerGeometry CG#96 dir=Down start=301@1.15965 extreme=305@1.15815 confirm=310@1.1599
 6E MAR26 B310: Permission Granted: Translation
@@ -2173,6 +2177,7 @@
 6E MAR26 B427: Structure C#125 Broken dir=Down trend=D
 6E MAR26 B427: Action C#125 Sideline trend=D turn=C TroughContext [C] V=0
 6E MAR26 B427: PersistentContainer PC#125 Closed dir=Up start=420 last=427 extremeBar=424 extreme=1.1662 break=425 conf=427
+6E MAR26 B427: TradeIntent TI C#125 Sideline action=Sideline struct=Broken trend=D turn=C
 6E MAR26 B427: ContainerReport Report C#125 start=420 break=425 cand=425 conf=427 struct=Broken action=Sideline
 6E MAR26 B427: ContainerGeometry CG#125 dir=Up start=420@1.1645 extreme=424@1.1662 confirm=427@1.16485
 6E MAR26 B427: Permission Granted: Translation
@@ -2414,6 +2419,7 @@
 6E MAR26 B477: Structure C#139 Broken dir=Down trend=D
 6E MAR26 B477: Action C#139 Sideline trend=D turn=C TroughContext [C] V=0
 6E MAR26 B477: PersistentContainer PC#139 Closed dir=Up start=470 last=477 extremeBar=473 extreme=1.1647 break=475 conf=477
+6E MAR26 B477: TradeIntent TI C#139 Sideline action=Sideline struct=Broken trend=D turn=C
 6E MAR26 B477: ContainerReport Report C#139 start=470 break=475 cand=475 conf=477 struct=Broken action=Sideline
 6E MAR26 B477: ContainerGeometry CG#139 dir=Up start=470@1.16345 extreme=473@1.1647 confirm=477@1.16415
 6E MAR26 B477: Permission Granted: Translation
@@ -3221,6 +3227,7 @@
 6E MAR26 B643: Structure C#184 Transition dir=Up trend=C
 6E MAR26 B643: Action C#184 Enter trend=C turn=C CandidateEnd [B] V=0
 6E MAR26 B643: PersistentContainer PC#184 Closed dir=Down start=630 last=643 extremeBar=638 extreme=1.1593 break=640 conf=643
+6E MAR26 B643: TradeIntent TI C#184 ReEntry action=Enter struct=Transition trend=C turn=C
 6E MAR26 B643: ContainerReport Report C#184 start=630 break=640 cand=640 conf=643 struct=Transition action=Enter
 6E MAR26 B643: ContainerGeometry CG#184 dir=Down start=630@1.1612 extreme=638@1.1593 confirm=643@1.16015
 6E MAR26 B643: Permission Granted: Translation
@@ -3309,6 +3316,7 @@
 6E MAR26 B659: Structure C#187 Transition dir=Down trend=C
 6E MAR26 B659: Action C#187 Reverse trend=C turn=C CandidateEnd [B] V=0
 6E MAR26 B659: PersistentContainer PC#187 Closed dir=Up start=652 last=659 extremeBar=656 extreme=1.1621 break=657 conf=659
+6E MAR26 B659: TradeIntent TI C#187 Reverse action=Reverse struct=Transition trend=C turn=C
 6E MAR26 B659: ContainerReport Report C#187 start=652 break=657 cand=657 conf=659 struct=Transition action=Reverse
 6E MAR26 B659: ContainerGeometry CG#187 dir=Up start=652@1.16125 extreme=656@1.1621 confirm=659@1.16135
 6E MAR26 B659: Permission Granted: Translation
@@ -3425,6 +3433,7 @@
 6E MAR26 B680: Structure C#191 Transition dir=Down trend=C
 6E MAR26 B680: Action C#191 Reverse trend=C turn=C CandidateEnd [B] V=0
 6E MAR26 B680: PersistentContainer PC#191 Closed dir=Up start=667 last=680 extremeBar=673 extreme=1.165 break=678 conf=680
+6E MAR26 B680: TradeIntent TI C#191 Reverse action=Reverse struct=Transition trend=C turn=C
 6E MAR26 B680: ContainerReport Report C#191 start=667 break=678 cand=678 conf=680 struct=Transition action=Reverse
 6E MAR26 B680: ContainerGeometry CG#191 dir=Up start=667@1.15975 extreme=673@1.165 confirm=680@1.16275
 6E MAR26 B680: Permission Granted: Translation
@@ -3700,6 +3709,7 @@
 6E MAR26 B733: Structure C#206 Broken dir=Up trend=D
 6E MAR26 B733: Action C#206 Sideline trend=D turn=C TroughContext [C] V=0
 6E MAR26 B733: PersistentContainer PC#206 Closed dir=Down start=724 last=733 extremeBar=729 extreme=1.15945 break=730 conf=733
+6E MAR26 B733: TradeIntent TI C#206 Sideline action=Sideline struct=Broken trend=D turn=C
 6E MAR26 B733: ContainerReport Report C#206 start=724 break=730 cand=730 conf=733 struct=Broken action=Sideline
 6E MAR26 B733: ContainerGeometry CG#206 dir=Down start=724@1.1616 extreme=729@1.15945 confirm=733@1.16075
 6E MAR26 B733: Permission Granted: Translation
@@ -3776,6 +3786,7 @@
 6E MAR26 B748: Structure C#209 Transition dir=Down trend=C
 6E MAR26 B748: Action C#209 Enter trend=C turn=C CandidateEnd [B] V=0
 6E MAR26 B748: PersistentContainer PC#209 Closed dir=Up start=738 last=748 extremeBar=744 extreme=1.1614 break=745 conf=748
+6E MAR26 B748: TradeIntent TI C#209 ReEntry action=Enter struct=Transition trend=C turn=C
 6E MAR26 B748: ContainerReport Report C#209 start=738 break=745 cand=745 conf=748 struct=Transition action=Enter
 6E MAR26 B748: ContainerGeometry CG#209 dir=Up start=738@1.1612 extreme=744@1.1614 confirm=748@1.15985
 6E MAR26 B748: Permission Granted: Translation
@@ -4927,6 +4938,7 @@
 6E MAR26 B990: Structure C#288 Broken dir=Up trend=D
 6E MAR26 B990: Action C#288 Sideline trend=D turn=C TroughContext [C] V=0
 6E MAR26 B990: PersistentContainer PC#288 Closed dir=Down start=971 last=990 extremeBar=986 extreme=1.1557 break=987 conf=990
+6E MAR26 B990: TradeIntent TI C#288 Sideline action=Sideline struct=Broken trend=D turn=C
 6E MAR26 B990: ContainerReport Report C#288 start=971 break=987 cand=987 conf=990 struct=Broken action=Sideline
 6E MAR26 B990: ContainerGeometry CG#288 dir=Down start=971@1.1583 extreme=986@1.1557 confirm=990@1.15665
 6E MAR26 B990: Permission Granted: Translation
@@ -5153,6 +5165,7 @@
 6E MAR26 B1033: Structure C#302 Broken dir=Up trend=D
 6E MAR26 B1033: Action C#302 Sideline trend=D turn=C TroughContext [C] V=0
 6E MAR26 B1033: PersistentContainer PC#302 Closed dir=Down start=1024 last=1033 extremeBar=1030 extreme=1.1575 break=1031 conf=1033
+6E MAR26 B1033: TradeIntent TI C#302 Sideline action=Sideline struct=Broken trend=D turn=C
 6E MAR26 B1033: ContainerReport Report C#302 start=1024 break=1031 cand=1031 conf=1033 struct=Broken action=Sideline
 6E MAR26 B1033: ContainerGeometry CG#302 dir=Down start=1024@1.15855 extreme=1030@1.1575 confirm=1033@1.15965
 6E MAR26 B1033: Permission Granted: Translation
@@ -5461,6 +5474,7 @@
 6E MAR26 B1101: Structure C#321 Broken dir=Down trend=D
 6E MAR26 B1101: Action C#321 Sideline trend=D turn=C TroughContext [C] V=0
 6E MAR26 B1101: PersistentContainer PC#321 Closed dir=Up start=1088 last=1101 extremeBar=1097 extreme=1.16225 break=1098 conf=1101
+6E MAR26 B1101: TradeIntent TI C#321 Sideline action=Sideline struct=Broken trend=D turn=C
 6E MAR26 B1101: ContainerReport Report C#321 start=1088 break=1098 cand=1098 conf=1101 struct=Broken action=Sideline
 6E MAR26 B1101: ContainerGeometry CG#321 dir=Up start=1088@1.1611 extreme=1097@1.16225 confirm=1101@1.16155
 6E MAR26 B1101: Permission Granted: Translation
@@ -5825,3 +5839,822 @@
 6E MAR26 B1179: PersistentContainer PC#347 CandidateBreak dir=Up start=1176 last=1179 extremeBar=1177 extreme=1.15295 break=1179 conf=
 6E MAR26 B1179: Permission Granted: Translation
 6E MAR26 B1178: VolPivot Peak V=388
+6E MAR26 B1180: PriceCase XR
+6E MAR26 B1180: Container C#348 Down run=2 new=False break=False cand=False conf=False
+6E MAR26 B1180: PersistentContainer PC#348 Developing dir=Down start=1179 last=1180 extremeBar=1180 extreme=1.15245 break= conf=
+6E MAR26 B1180: Permission Granted: Translation
+6E MAR26 B1181: PriceCase XB
+6E MAR26 B1181: Container C#349 Up run=1 new=True break=True cand=False conf=False
+6E MAR26 B1181: PersistentContainer PC#349 Developing dir=Up start=1181 last=1181 extremeBar=1181 extreme=1.1529 break= conf=
+6E MAR26 B1181: DirectionBreak C#348 DirectionBreak Down via XB run=2
+6E MAR26 B1181: PersistentContainer PC#348 CandidateBreak dir=Down start=1179 last=1181 extremeBar=1180 extreme=1.15245 break=1181 conf=
+6E MAR26 B1181: Permission Granted: Translation
+6E MAR26 B1180: VolPivot Trough V=61
+6E MAR26 B1182: PriceCase OUTB
+6E MAR26 B1182: Permission Denied: Non-translation (Phase1 policy)
+6E MAR26 B1183: PriceCase SYM
+6E MAR26 B1183: Permission Denied: Non-translation (Phase1 policy)
+6E MAR26 B1182: VolPivot Peak V=338
+6E MAR26 B1184: PriceCase XB
+6E MAR26 B1184: Container C#349 Up run=2 new=False break=False cand=False conf=False
+6E MAR26 B1184: PersistentContainer PC#349 Developing dir=Up start=1181 last=1184 extremeBar=1184 extreme=1.15335 break= conf=
+6E MAR26 B1184: Permission Granted: Translation
+6E MAR26 B1183: VolPivot Trough V=230
+6E MAR26 B1185: PriceCase FTP
+6E MAR26 B1185: Permission Denied: Non-translation (Phase1 policy)
+6E MAR26 B1186: PriceCase XR
+6E MAR26 B1186: Container C#350 Down run=1 new=True break=True cand=False conf=False
+6E MAR26 B1186: PersistentContainer PC#350 Developing dir=Down start=1186 last=1186 extremeBar=1186 extreme=1.15285 break= conf=
+6E MAR26 B1186: DirectionBreak C#349 DirectionBreak Up via XR run=2
+6E MAR26 B1186: PersistentContainer PC#349 CandidateBreak dir=Up start=1181 last=1186 extremeBar=1184 extreme=1.15335 break=1186 conf=
+6E MAR26 B1186: Permission Granted: Translation
+6E MAR26 B1185: VolPivot Peak V=268
+6E MAR26 B1187: PriceCase FBP
+6E MAR26 B1187: Permission Denied: Non-translation (Phase1 policy)
+6E MAR26 B1188: PriceCase OUTB
+6E MAR26 B1188: Permission Denied: Non-translation (Phase1 policy)
+6E MAR26 B1187: VolPivot Trough V=81
+6E MAR26 B1189: PriceCase XB
+6E MAR26 B1189: Container C#351 Up run=1 new=True break=True cand=False conf=False
+6E MAR26 B1189: PersistentContainer PC#351 Developing dir=Up start=1189 last=1189 extremeBar=1189 extreme=1.15395 break= conf=
+6E MAR26 B1189: DirectionBreak C#350 DirectionBreak Down via XB run=1
+6E MAR26 B1189: PersistentContainer PC#350 CandidateBreak dir=Down start=1186 last=1189 extremeBar=1186 extreme=1.15285 break=1189 conf=
+6E MAR26 B1189: Permission Granted: Translation
+6E MAR26 B1190: PriceCase XB
+6E MAR26 B1190: Container C#351 Up run=2 new=False break=False cand=False conf=False
+6E MAR26 B1190: PersistentContainer PC#351 Developing dir=Up start=1189 last=1190 extremeBar=1190 extreme=1.154 break= conf=
+6E MAR26 B1190: Permission Granted: Translation
+6E MAR26 B1189: VolPivot Peak V=605
+6E MAR26 B1191: PriceCase XR
+6E MAR26 B1191: Container C#352 Down run=1 new=True break=True cand=False conf=False
+6E MAR26 B1191: PersistentContainer PC#352 Developing dir=Down start=1191 last=1191 extremeBar=1191 extreme=1.1534 break= conf=
+6E MAR26 B1191: DirectionBreak C#351 DirectionBreak Up via XR run=2
+6E MAR26 B1191: PersistentContainer PC#351 CandidateBreak dir=Up start=1189 last=1191 extremeBar=1190 extreme=1.154 break=1191 conf=
+6E MAR26 B1191: Permission Granted: Translation
+6E MAR26 B1190: VolPivot Trough V=312
+6E MAR26 B1192: PriceCase OUTB
+6E MAR26 B1192: Permission Denied: Non-translation (Phase1 policy)
+6E MAR26 B1193: PriceCase SYM
+6E MAR26 B1193: Permission Denied: Non-translation (Phase1 policy)
+6E MAR26 B1192: VolPivot Peak V=3477
+6E MAR26 B1194: PriceCase XB
+6E MAR26 B1194: Container C#353 Up run=1 new=True break=True cand=False conf=False
+6E MAR26 B1194: PersistentContainer PC#353 Developing dir=Up start=1194 last=1194 extremeBar=1194 extreme=1.1567 break= conf=
+6E MAR26 B1194: DirectionBreak C#352 DirectionBreak Down via XB run=1
+6E MAR26 B1194: PersistentContainer PC#352 CandidateBreak dir=Down start=1191 last=1194 extremeBar=1191 extreme=1.1534 break=1194 conf=
+6E MAR26 B1194: Permission Granted: Translation
+6E MAR26 B1195: PriceCase XR
+6E MAR26 B1195: Container C#354 Down run=1 new=True break=True cand=False conf=False
+6E MAR26 B1195: PersistentContainer PC#354 Developing dir=Down start=1195 last=1195 extremeBar=1195 extreme=1.1549 break= conf=
+6E MAR26 B1195: DirectionBreak C#353 DirectionBreak Up via XR run=1
+6E MAR26 B1195: PersistentContainer PC#353 CandidateBreak dir=Up start=1194 last=1195 extremeBar=1194 extreme=1.1567 break=1195 conf=
+6E MAR26 B1195: Permission Granted: Translation
+6E MAR26 B1196: PriceCase XB
+6E MAR26 B1196: Container C#355 Up run=1 new=True break=True cand=False conf=False
+6E MAR26 B1196: PersistentContainer PC#355 Developing dir=Up start=1196 last=1196 extremeBar=1196 extreme=1.1559 break= conf=
+6E MAR26 B1196: DirectionBreak C#354 DirectionBreak Down via XB run=1
+6E MAR26 B1196: PersistentContainer PC#354 CandidateBreak dir=Down start=1195 last=1196 extremeBar=1195 extreme=1.1549 break=1196 conf=
+6E MAR26 B1196: Permission Granted: Translation
+6E MAR26 B1195: VolPivot Trough V=385
+6E MAR26 B1197: PriceCase XB
+6E MAR26 B1197: Container C#355 Up run=2 new=False break=False cand=False conf=False
+6E MAR26 B1197: PersistentContainer PC#355 Developing dir=Up start=1196 last=1197 extremeBar=1197 extreme=1.15725 break= conf=
+6E MAR26 B1197: Permission Granted: Translation
+6E MAR26 B1198: PriceCase XB
+6E MAR26 B1198: Container C#355 Up run=3 new=False break=False cand=False conf=False
+6E MAR26 B1198: PersistentContainer PC#355 Developing dir=Up start=1196 last=1198 extremeBar=1198 extreme=1.15755 break= conf=
+6E MAR26 B1198: Permission Granted: Translation
+6E MAR26 B1197: VolPivot Peak V=1334
+6E MAR26 B1199: PriceCase XR
+6E MAR26 B1199: Container C#356 Down run=1 new=True break=True cand=False conf=False
+6E MAR26 B1199: PersistentContainer PC#356 Developing dir=Down start=1199 last=1199 extremeBar=1199 extreme=1.15665 break= conf=
+6E MAR26 B1199: DirectionBreak C#355 DirectionBreak Up via XR run=3
+6E MAR26 B1199: PersistentContainer PC#355 CandidateBreak dir=Up start=1196 last=1199 extremeBar=1198 extreme=1.15755 break=1199 conf=
+6E MAR26 B1199: Permission Granted: Translation
+6E MAR26 B1200: PriceCase OUTR
+6E MAR26 B1200: Permission Denied: Non-translation (Phase1 policy)
+6E MAR26 B1199: VolPivot Trough V=390
+6E MAR26 B1201: PriceCase XR
+6E MAR26 B1201: Container C#356 Down run=2 new=False break=False cand=False conf=False
+6E MAR26 B1201: PersistentContainer PC#356 Developing dir=Down start=1199 last=1201 extremeBar=1201 extreme=1.15625 break= conf=
+6E MAR26 B1201: Permission Granted: Translation
+6E MAR26 B1200: VolPivot Peak V=1179
+6E MAR26 B1202: PriceCase OUTR
+6E MAR26 B1202: Permission Denied: Non-translation (Phase1 policy)
+6E MAR26 B1201: VolPivot Trough V=758
+6E MAR26 B1203: PriceCase SYM
+6E MAR26 B1203: Permission Denied: Non-translation (Phase1 policy)
+6E MAR26 B1202: VolPivot Peak V=859
+6E MAR26 B1204: PriceCase XR
+6E MAR26 B1204: Container C#356 Down run=3 new=False break=False cand=False conf=False
+6E MAR26 B1204: PersistentContainer PC#356 Developing dir=Down start=1199 last=1204 extremeBar=1204 extreme=1.15555 break= conf=
+6E MAR26 B1204: Permission Granted: Translation
+6E MAR26 B1203: VolPivot Trough V=576
+6E MAR26 B1205: PriceCase SYM
+6E MAR26 B1205: Permission Denied: Non-translation (Phase1 policy)
+6E MAR26 B1204: VolPivot Peak V=1691
+6E MAR26 B1206: PriceCase XB
+6E MAR26 B1206: Container C#357 Up run=1 new=True break=True cand=False conf=False
+6E MAR26 B1206: PersistentContainer PC#357 Developing dir=Up start=1206 last=1206 extremeBar=1206 extreme=1.1568 break= conf=
+6E MAR26 B1206: DirectionBreak C#356 DirectionBreak Down via XB run=3
+6E MAR26 B1206: PersistentContainer PC#356 CandidateBreak dir=Down start=1199 last=1206 extremeBar=1204 extreme=1.15555 break=1206 conf=
+6E MAR26 B1206: Permission Granted: Translation
+6E MAR26 B1205: VolPivot Trough V=386
+6E MAR26 B1207: PriceCase XB
+6E MAR26 B1207: Container C#357 Up run=2 new=False break=False cand=False conf=False
+6E MAR26 B1207: PersistentContainer PC#357 Developing dir=Up start=1206 last=1207 extremeBar=1207 extreme=1.1569 break= conf=
+6E MAR26 B1207: Permission Granted: Translation
+6E MAR26 B1206: VolPivot Peak V=584
+6E MAR26 B1208: PriceCase XR
+6E MAR26 B1208: Container C#358 Down run=1 new=True break=True cand=False conf=False
+6E MAR26 B1208: PersistentContainer PC#358 Developing dir=Down start=1208 last=1208 extremeBar=1208 extreme=1.1561 break= conf=
+6E MAR26 B1208: DirectionBreak C#357 DirectionBreak Up via XR run=2
+6E MAR26 B1208: PersistentContainer PC#357 CandidateBreak dir=Up start=1206 last=1208 extremeBar=1207 extreme=1.1569 break=1208 conf=
+6E MAR26 B1208: Permission Granted: Translation
+6E MAR26 B1209: PriceCase XR
+6E MAR26 B1209: Container C#358 Down run=2 new=False break=False cand=False conf=False
+6E MAR26 B1209: PersistentContainer PC#358 Developing dir=Down start=1208 last=1209 extremeBar=1209 extreme=1.15575 break= conf=
+6E MAR26 B1209: Permission Granted: Translation
+6E MAR26 B1208: VolPivot Trough V=471
+6E MAR26 B1210: PriceCase XR
+6E MAR26 B1210: Container C#358 Down run=3 new=False break=False cand=False conf=False
+6E MAR26 B1210: PersistentContainer PC#358 Developing dir=Down start=1208 last=1210 extremeBar=1210 extreme=1.155 break= conf=
+6E MAR26 B1210: Permission Granted: Translation
+6E MAR26 B1211: PriceCase XR
+6E MAR26 B1211: Container C#358 Down run=4 new=False break=False cand=False conf=False
+6E MAR26 B1211: PersistentContainer PC#358 Developing dir=Down start=1208 last=1211 extremeBar=1211 extreme=1.1549 break= conf=
+6E MAR26 B1211: Permission Granted: Translation
+6E MAR26 B1210: VolPivot Peak V=1136
+6E MAR26 B1212: PriceCase OUTR
+6E MAR26 B1212: Permission Denied: Non-translation (Phase1 policy)
+6E MAR26 B1211: VolPivot Trough V=1061
+6E MAR26 B1213: PriceCase OUTB
+6E MAR26 B1213: Permission Denied: Non-translation (Phase1 policy)
+6E MAR26 B1212: VolPivot Peak V=3531
+6E MAR26 B1214: PriceCase XB
+6E MAR26 B1214: Container C#359 Up run=1 new=True break=True cand=True conf=False
+6E MAR26 B1214: PersistentContainer PC#359 Developing dir=Up start=1214 last=1214 extremeBar=1214 extreme=1.15595 break= conf=
+6E MAR26 B1214: DirectionBreak C#358 DirectionBreak Down via XB run=4
+6E MAR26 B1214: PersistentContainer PC#358 CandidateBreak dir=Down start=1208 last=1214 extremeBar=1211 extreme=1.1549 break=1214 conf=
+6E MAR26 B1214: FttCandidate C#358 FTT-Candidate Down via XB run=4
+6E MAR26 B1214: Permission Granted: Translation
+6E MAR26 B1215: PriceCase XR
+6E MAR26 B1215: Container C#360 Down run=1 new=True break=True cand=False conf=False
+6E MAR26 B1215: PersistentContainer PC#360 Developing dir=Down start=1215 last=1215 extremeBar=1215 extreme=1.15445 break= conf=
+6E MAR26 B1215: DirectionBreak C#359 DirectionBreak Up via XR run=1
+6E MAR26 B1215: PersistentContainer PC#359 CandidateBreak dir=Up start=1214 last=1215 extremeBar=1214 extreme=1.15595 break=1215 conf=
+6E MAR26 B1215: Permission Granted: Translation
+6E MAR26 B1214: VolPivot Trough V=1135
+6E MAR26 B1216: PriceCase XB
+6E MAR26 B1216: Container C#361 Up run=1 new=True break=True cand=False conf=False
+6E MAR26 B1216: PersistentContainer PC#361 Developing dir=Up start=1216 last=1216 extremeBar=1216 extreme=1.1554 break= conf=
+6E MAR26 B1216: DirectionBreak C#360 DirectionBreak Down via XB run=1
+6E MAR26 B1216: PersistentContainer PC#360 CandidateBreak dir=Down start=1215 last=1216 extremeBar=1215 extreme=1.15445 break=1216 conf=
+6E MAR26 B1216: Permission Granted: Translation
+6E MAR26 B1215: VolPivot Peak V=1826
+6E MAR26 B1217: PriceCase XB
+6E MAR26 B1217: Container C#361 Up run=2 new=False break=False cand=False conf=False
+6E MAR26 B1217: PersistentContainer PC#361 Developing dir=Up start=1216 last=1217 extremeBar=1217 extreme=1.15555 break= conf=
+6E MAR26 B1217: Permission Granted: Translation
+6E MAR26 B1218: PriceCase XB
+6E MAR26 B1218: Container C#361 Up run=3 new=False break=False cand=False conf=False
+6E MAR26 B1218: PersistentContainer PC#361 Developing dir=Up start=1216 last=1218 extremeBar=1218 extreme=1.1561 break= conf=
+6E MAR26 B1218: Permission Granted: Translation
+6E MAR26 B1217: VolPivot Trough V=676
+6E MAR26 B1219: PriceCase XB
+6E MAR26 B1219: Container C#361 Up run=4 new=False break=False cand=False conf=False
+6E MAR26 B1219: PersistentContainer PC#361 Developing dir=Up start=1216 last=1219 extremeBar=1219 extreme=1.1566 break= conf=
+6E MAR26 B1219: Permission Granted: Translation
+6E MAR26 B1220: PriceCase HITCH
+6E MAR26 B1220: Permission Denied: Non-translation (Phase1 policy)
+6E MAR26 B1219: VolPivot Peak V=1580
+6E MAR26 B1221: PriceCase FBP
+6E MAR26 B1221: Permission Denied: Non-translation (Phase1 policy)
+6E MAR26 B1222: PriceCase XB
+6E MAR26 B1222: Container C#361 Up run=5 new=False break=False cand=False conf=False
+6E MAR26 B1222: PersistentContainer PC#361 Developing dir=Up start=1216 last=1222 extremeBar=1222 extreme=1.1569 break= conf=
+6E MAR26 B1222: Permission Granted: Translation
+6E MAR26 B1223: PriceCase XB
+6E MAR26 B1223: Container C#361 Up run=6 new=False break=False cand=False conf=False
+6E MAR26 B1223: PersistentContainer PC#361 Developing dir=Up start=1216 last=1223 extremeBar=1223 extreme=1.15695 break= conf=
+6E MAR26 B1223: Permission Granted: Translation
+6E MAR26 B1222: VolPivot Trough V=521
+6E MAR26 B1224: PriceCase STR
+6E MAR26 B1224: Permission Denied: Non-translation (Phase1 policy)
+6E MAR26 B1225: PriceCase XR
+6E MAR26 B1225: Container C#362 Down run=1 new=True break=True cand=True conf=False
+6E MAR26 B1225: PersistentContainer PC#362 Developing dir=Down start=1225 last=1225 extremeBar=1225 extreme=1.1558 break= conf=
+6E MAR26 B1225: DirectionBreak C#361 DirectionBreak Up via XR run=6
+6E MAR26 B1225: PersistentContainer PC#361 CandidateBreak dir=Up start=1216 last=1225 extremeBar=1223 extreme=1.15695 break=1225 conf=
+6E MAR26 B1225: FttCandidate C#361 FTT-Candidate Up via XR run=6
+6E MAR26 B1225: Permission Granted: Translation
+6E MAR26 B1224: VolPivot Peak V=1898
+6E MAR26 B1226: PriceCase XR
+6E MAR26 B1226: Container C#362 Down run=2 new=False break=False cand=False conf=False
+6E MAR26 B1226: PersistentContainer PC#362 Developing dir=Down start=1225 last=1226 extremeBar=1226 extreme=1.15535 break= conf=
+6E MAR26 B1226: Permission Granted: Translation
+6E MAR26 B1227: PriceCase XR
+6E MAR26 B1227: Container C#362 Down run=3 new=False break=False cand=False conf=True
+6E MAR26 B1227: PersistentContainer PC#362 Developing dir=Down start=1225 last=1227 extremeBar=1227 extreme=1.1544 break= conf=
+6E MAR26 B1227: FttConfirmed C#361 FTT-Confirmed Up via XR run=6
+6E MAR26 B1227: PersistentContainer PC#361 ConfirmedBreak dir=Up start=1216 last=1227 extremeBar=1223 extreme=1.15695 break=1225 conf=1227
+6E MAR26 B1227: Structure C#361 Broken dir=Down trend=D
+6E MAR26 B1227: Action C#361 Sideline trend=D turn=C TroughContext [C] V=0
+6E MAR26 B1227: PersistentContainer PC#361 Closed dir=Up start=1216 last=1227 extremeBar=1223 extreme=1.15695 break=1225 conf=1227
+6E MAR26 B1227: TradeIntent TI C#361 Sideline action=Sideline struct=Broken trend=D turn=C
+6E MAR26 B1227: ContainerReport Report C#361 start=1216 break=1225 cand=1225 conf=1227 struct=Broken action=Sideline
+6E MAR26 B1227: ContainerGeometry CG#361 dir=Up start=1216@1.1554 extreme=1223@1.15695 confirm=1227@1.1554
+6E MAR26 B1227: Permission Granted: Translation
+6E MAR26 B1226: VolPivot Trough V=782
+6E MAR26 B1228: PriceCase XR
+6E MAR26 B1228: Container C#362 Down run=4 new=False break=False cand=False conf=False
+6E MAR26 B1228: PersistentContainer PC#362 Developing dir=Down start=1225 last=1228 extremeBar=1228 extreme=1.1535 break= conf=
+6E MAR26 B1228: Permission Granted: Translation
+6E MAR26 B1229: PriceCase XR
+6E MAR26 B1229: Container C#362 Down run=5 new=False break=False cand=False conf=False
+6E MAR26 B1229: PersistentContainer PC#362 Developing dir=Down start=1225 last=1229 extremeBar=1229 extreme=1.1526 break= conf=
+6E MAR26 B1229: Permission Granted: Translation
+6E MAR26 B1228: VolPivot Peak V=1297
+6E MAR26 B1230: PriceCase XR
+6E MAR26 B1230: Container C#362 Down run=6 new=False break=False cand=False conf=False
+6E MAR26 B1230: PersistentContainer PC#362 Developing dir=Down start=1225 last=1230 extremeBar=1230 extreme=1.15215 break= conf=
+6E MAR26 B1230: Permission Granted: Translation
+6E MAR26 B1229: VolPivot Trough V=952
+6E MAR26 B1231: PriceCase XR
+6E MAR26 B1231: Container C#362 Down run=7 new=False break=False cand=False conf=False
+6E MAR26 B1231: PersistentContainer PC#362 Developing dir=Down start=1225 last=1231 extremeBar=1231 extreme=1.15195 break= conf=
+6E MAR26 B1231: Permission Granted: Translation
+6E MAR26 B1230: VolPivot Peak V=1584
+6E MAR26 B1232: PriceCase XB
+6E MAR26 B1232: Container C#363 Up run=1 new=True break=True cand=False conf=False
+6E MAR26 B1232: PersistentContainer PC#363 Developing dir=Up start=1232 last=1232 extremeBar=1232 extreme=1.15315 break= conf=
+6E MAR26 B1232: DirectionBreak C#362 DirectionBreak Down via XB run=7
+6E MAR26 B1232: PersistentContainer PC#362 CandidateBreak dir=Down start=1225 last=1232 extremeBar=1231 extreme=1.15195 break=1232 conf=
+6E MAR26 B1232: Permission Granted: Translation
+6E MAR26 B1231: VolPivot Trough V=1461
+6E MAR26 B1233: PriceCase XB
+6E MAR26 B1233: Container C#363 Up run=2 new=False break=False cand=False conf=False
+6E MAR26 B1233: PersistentContainer PC#363 Developing dir=Up start=1232 last=1233 extremeBar=1233 extreme=1.1534 break= conf=
+6E MAR26 B1233: Permission Granted: Translation
+6E MAR26 B1232: VolPivot Peak V=1905
+6E MAR26 B1234: PriceCase STR
+6E MAR26 B1234: Permission Denied: Non-translation (Phase1 policy)
+6E MAR26 B1233: VolPivot Trough V=1515
+6E MAR26 B1235: PriceCase XB
+6E MAR26 B1235: Container C#363 Up run=3 new=False break=False cand=False conf=False
+6E MAR26 B1235: PersistentContainer PC#363 Developing dir=Up start=1232 last=1235 extremeBar=1235 extreme=1.15395 break= conf=
+6E MAR26 B1235: Permission Granted: Translation
+6E MAR26 B1234: VolPivot Peak V=3230
+6E MAR26 B1236: PriceCase XB
+6E MAR26 B1236: Container C#363 Up run=4 new=False break=False cand=False conf=False
+6E MAR26 B1236: PersistentContainer PC#363 Developing dir=Up start=1232 last=1236 extremeBar=1236 extreme=1.15425 break= conf=
+6E MAR26 B1236: Permission Granted: Translation
+6E MAR26 B1237: PriceCase XB
+6E MAR26 B1237: Container C#363 Up run=5 new=False break=False cand=False conf=False
+6E MAR26 B1237: PersistentContainer PC#363 Developing dir=Up start=1232 last=1237 extremeBar=1237 extreme=1.1543 break= conf=
+6E MAR26 B1237: Permission Granted: Translation
+6E MAR26 B1236: VolPivot Trough V=1776
+6E MAR26 B1238: PriceCase XB
+6E MAR26 B1238: Container C#363 Up run=6 new=False break=False cand=False conf=False
+6E MAR26 B1238: PersistentContainer PC#363 Developing dir=Up start=1232 last=1238 extremeBar=1238 extreme=1.1548 break= conf=
+6E MAR26 B1238: Permission Granted: Translation
+6E MAR26 B1237: VolPivot Peak V=2451
+6E MAR26 B1239: PriceCase XB
+6E MAR26 B1239: Container C#363 Up run=7 new=False break=False cand=False conf=False
+6E MAR26 B1239: PersistentContainer PC#363 Developing dir=Up start=1232 last=1239 extremeBar=1239 extreme=1.1555 break= conf=
+6E MAR26 B1239: Permission Granted: Translation
+6E MAR26 B1238: VolPivot Trough V=1494
+6E MAR26 B1240: PriceCase XB
+6E MAR26 B1240: Container C#363 Up run=8 new=False break=False cand=False conf=False
+6E MAR26 B1240: PersistentContainer PC#363 Developing dir=Up start=1232 last=1240 extremeBar=1240 extreme=1.15595 break= conf=
+6E MAR26 B1240: Permission Granted: Translation
+6E MAR26 B1239: VolPivot Peak V=1649
+6E MAR26 B1241: PriceCase SYM
+6E MAR26 B1241: Permission Denied: Non-translation (Phase1 policy)
+6E MAR26 B1242: PriceCase OUTB
+6E MAR26 B1242: Permission Denied: Non-translation (Phase1 policy)
+6E MAR26 B1241: VolPivot Trough V=784
+6E MAR26 B1243: PriceCase XB
+6E MAR26 B1243: Container C#363 Up run=9 new=False break=False cand=False conf=False
+6E MAR26 B1243: PersistentContainer PC#363 Developing dir=Up start=1232 last=1243 extremeBar=1243 extreme=1.1578 break= conf=
+6E MAR26 B1243: Permission Granted: Translation
+6E MAR26 B1242: VolPivot Peak V=4709
+6E MAR26 B1244: PriceCase XR
+6E MAR26 B1244: Container C#364 Down run=1 new=True break=True cand=True conf=False
+6E MAR26 B1244: PersistentContainer PC#364 Developing dir=Down start=1244 last=1244 extremeBar=1244 extreme=1.1557 break= conf=
+6E MAR26 B1244: DirectionBreak C#363 DirectionBreak Up via XR run=9
+6E MAR26 B1244: PersistentContainer PC#363 CandidateBreak dir=Up start=1232 last=1244 extremeBar=1243 extreme=1.1578 break=1244 conf=
+6E MAR26 B1244: FttCandidate C#363 FTT-Candidate Up via XR run=9
+6E MAR26 B1244: Permission Granted: Translation
+6E MAR26 B1245: PriceCase XB
+6E MAR26 B1245: Container C#365 Up run=1 new=True break=True cand=False conf=False
+6E MAR26 B1245: PersistentContainer PC#365 Developing dir=Up start=1245 last=1245 extremeBar=1245 extreme=1.1565 break= conf=
+6E MAR26 B1245: DirectionBreak C#364 DirectionBreak Down via XB run=1
+6E MAR26 B1245: PersistentContainer PC#364 CandidateBreak dir=Down start=1244 last=1245 extremeBar=1244 extreme=1.1557 break=1245 conf=
+6E MAR26 B1245: Permission Granted: Translation
+6E MAR26 B1244: VolPivot Trough V=967
+6E MAR26 B1246: PriceCase XB
+6E MAR26 B1246: Container C#365 Up run=2 new=False break=False cand=False conf=False
+6E MAR26 B1246: PersistentContainer PC#365 Developing dir=Up start=1245 last=1246 extremeBar=1246 extreme=1.157 break= conf=
+6E MAR26 B1246: Permission Granted: Translation
+6E MAR26 B1247: PriceCase XR
+6E MAR26 B1247: Container C#366 Down run=1 new=True break=True cand=False conf=False
+6E MAR26 B1247: PersistentContainer PC#366 Developing dir=Down start=1247 last=1247 extremeBar=1247 extreme=1.15575 break= conf=
+6E MAR26 B1247: DirectionBreak C#365 DirectionBreak Up via XR run=2
+6E MAR26 B1247: PersistentContainer PC#365 CandidateBreak dir=Up start=1245 last=1247 extremeBar=1246 extreme=1.157 break=1247 conf=
+6E MAR26 B1247: Permission Granted: Translation
+6E MAR26 B1246: VolPivot Peak V=1362
+6E MAR26 B1248: PriceCase OUTB
+6E MAR26 B1248: Permission Denied: Non-translation (Phase1 policy)
+6E MAR26 B1247: VolPivot Trough V=889
+6E MAR26 B1249: PriceCase FBP
+6E MAR26 B1249: Permission Denied: Non-translation (Phase1 policy)
+6E MAR26 B1248: VolPivot Peak V=1155
+6E MAR26 B1250: PriceCase XR
+6E MAR26 B1250: Container C#366 Down run=2 new=False break=False cand=False conf=False
+6E MAR26 B1250: PersistentContainer PC#366 Developing dir=Down start=1247 last=1250 extremeBar=1250 extreme=1.1551 break= conf=
+6E MAR26 B1250: Permission Granted: Translation
+6E MAR26 B1251: PriceCase SYM
+6E MAR26 B1251: Permission Denied: Non-translation (Phase1 policy)
+6E MAR26 B1252: PriceCase OUTR
+6E MAR26 B1252: Permission Denied: Non-translation (Phase1 policy)
+6E MAR26 B1251: VolPivot Trough V=474
+6E MAR26 B1253: PriceCase XB
+6E MAR26 B1253: Container C#367 Up run=1 new=True break=True cand=False conf=False
+6E MAR26 B1253: PersistentContainer PC#367 Developing dir=Up start=1253 last=1253 extremeBar=1253 extreme=1.15635 break= conf=
+6E MAR26 B1253: DirectionBreak C#366 DirectionBreak Down via XB run=2
+6E MAR26 B1253: PersistentContainer PC#366 CandidateBreak dir=Down start=1247 last=1253 extremeBar=1250 extreme=1.1551 break=1253 conf=
+6E MAR26 B1253: Permission Granted: Translation
+6E MAR26 B1254: PriceCase XB
+6E MAR26 B1254: Container C#367 Up run=2 new=False break=False cand=False conf=False
+6E MAR26 B1254: PersistentContainer PC#367 Developing dir=Up start=1253 last=1254 extremeBar=1254 extreme=1.1565 break= conf=
+6E MAR26 B1254: Permission Granted: Translation
+6E MAR26 B1253: VolPivot Peak V=1053
+6E MAR26 B1255: PriceCase XR
+6E MAR26 B1255: Container C#368 Down run=1 new=True break=True cand=False conf=False
+6E MAR26 B1255: PersistentContainer PC#368 Developing dir=Down start=1255 last=1255 extremeBar=1255 extreme=1.1555 break= conf=
+6E MAR26 B1255: DirectionBreak C#367 DirectionBreak Up via XR run=2
+6E MAR26 B1255: PersistentContainer PC#367 CandidateBreak dir=Up start=1253 last=1255 extremeBar=1254 extreme=1.1565 break=1255 conf=
+6E MAR26 B1255: Permission Granted: Translation
+6E MAR26 B1254: VolPivot Trough V=717
+6E MAR26 B1256: PriceCase XB
+6E MAR26 B1256: Container C#369 Up run=1 new=True break=True cand=False conf=False
+6E MAR26 B1256: PersistentContainer PC#369 Developing dir=Up start=1256 last=1256 extremeBar=1256 extreme=1.15675 break= conf=
+6E MAR26 B1256: DirectionBreak C#368 DirectionBreak Down via XB run=1
+6E MAR26 B1256: PersistentContainer PC#368 CandidateBreak dir=Down start=1255 last=1256 extremeBar=1255 extreme=1.1555 break=1256 conf=
+6E MAR26 B1256: Permission Granted: Translation
+6E MAR26 B1255: VolPivot Peak V=2565
+6E MAR26 B1257: PriceCase OUTR
+6E MAR26 B1257: Permission Denied: Non-translation (Phase1 policy)
+6E MAR26 B1256: VolPivot Trough V=942
+6E MAR26 B1258: PriceCase XR
+6E MAR26 B1258: Container C#370 Down run=1 new=True break=True cand=False conf=False
+6E MAR26 B1258: PersistentContainer PC#370 Developing dir=Down start=1258 last=1258 extremeBar=1258 extreme=1.15555 break= conf=
+6E MAR26 B1258: DirectionBreak C#369 DirectionBreak Up via XR run=1
+6E MAR26 B1258: PersistentContainer PC#369 CandidateBreak dir=Up start=1256 last=1258 extremeBar=1256 extreme=1.15675 break=1258 conf=
+6E MAR26 B1258: Permission Granted: Translation
+6E MAR26 B1257: VolPivot Peak V=1143
+6E MAR26 B1259: PriceCase XB
+6E MAR26 B1259: Container C#371 Up run=1 new=True break=True cand=False conf=False
+6E MAR26 B1259: PersistentContainer PC#371 Developing dir=Up start=1259 last=1259 extremeBar=1259 extreme=1.1567 break= conf=
+6E MAR26 B1259: DirectionBreak C#370 DirectionBreak Down via XB run=1
+6E MAR26 B1259: PersistentContainer PC#370 CandidateBreak dir=Down start=1258 last=1259 extremeBar=1258 extreme=1.15555 break=1259 conf=
+6E MAR26 B1259: Permission Granted: Translation
+6E MAR26 B1260: PriceCase STB
+6E MAR26 B1260: Permission Denied: Non-translation (Phase1 policy)
+6E MAR26 B1259: VolPivot Trough V=535
+6E MAR26 B1261: PriceCase XB
+6E MAR26 B1261: Container C#371 Up run=2 new=False break=False cand=False conf=False
+6E MAR26 B1261: PersistentContainer PC#371 Developing dir=Up start=1259 last=1261 extremeBar=1261 extreme=1.1572 break= conf=
+6E MAR26 B1261: Permission Granted: Translation
+6E MAR26 B1260: VolPivot Peak V=880
+6E MAR26 B1262: PriceCase XR
+6E MAR26 B1262: Container C#372 Down run=1 new=True break=True cand=False conf=False
+6E MAR26 B1262: PersistentContainer PC#372 Developing dir=Down start=1262 last=1262 extremeBar=1262 extreme=1.15665 break= conf=
+6E MAR26 B1262: DirectionBreak C#371 DirectionBreak Up via XR run=2
+6E MAR26 B1262: PersistentContainer PC#371 CandidateBreak dir=Up start=1259 last=1262 extremeBar=1261 extreme=1.1572 break=1262 conf=
+6E MAR26 B1262: Permission Granted: Translation
+6E MAR26 B1261: VolPivot Trough V=662
+6E MAR26 B1263: PriceCase HITCH
+6E MAR26 B1263: Permission Denied: Non-translation (Phase1 policy)
+6E MAR26 B1262: VolPivot Peak V=794
+6E MAR26 B1264: PriceCase XR
+6E MAR26 B1264: Container C#372 Down run=2 new=False break=False cand=False conf=False
+6E MAR26 B1264: PersistentContainer PC#372 Developing dir=Down start=1262 last=1264 extremeBar=1264 extreme=1.1562 break= conf=
+6E MAR26 B1264: Permission Granted: Translation
+6E MAR26 B1263: VolPivot Trough V=402
+6E MAR26 B1265: PriceCase XR
+6E MAR26 B1265: Container C#372 Down run=3 new=False break=False cand=False conf=False
+6E MAR26 B1265: PersistentContainer PC#372 Developing dir=Down start=1262 last=1265 extremeBar=1265 extreme=1.15615 break= conf=
+6E MAR26 B1265: Permission Granted: Translation
+6E MAR26 B1264: VolPivot Peak V=920
+6E MAR26 B1266: PriceCase XR
+6E MAR26 B1266: Container C#372 Down run=4 new=False break=False cand=False conf=False
+6E MAR26 B1266: PersistentContainer PC#372 Developing dir=Down start=1262 last=1266 extremeBar=1266 extreme=1.156 break= conf=
+6E MAR26 B1266: Permission Granted: Translation
+6E MAR26 B1265: VolPivot Trough V=546
+6E MAR26 B1267: PriceCase XB
+6E MAR26 B1267: Container C#373 Up run=1 new=True break=True cand=True conf=False
+6E MAR26 B1267: PersistentContainer PC#373 Developing dir=Up start=1267 last=1267 extremeBar=1267 extreme=1.15695 break= conf=
+6E MAR26 B1267: DirectionBreak C#372 DirectionBreak Down via XB run=4
+6E MAR26 B1267: PersistentContainer PC#372 CandidateBreak dir=Down start=1262 last=1267 extremeBar=1266 extreme=1.156 break=1267 conf=
+6E MAR26 B1267: FttCandidate C#372 FTT-Candidate Down via XB run=4
+6E MAR26 B1267: Permission Granted: Translation
+6E MAR26 B1266: VolPivot Peak V=570
+6E MAR26 B1268: PriceCase XR
+6E MAR26 B1268: Container C#374 Down run=1 new=True break=True cand=False conf=False
+6E MAR26 B1268: PersistentContainer PC#374 Developing dir=Down start=1268 last=1268 extremeBar=1268 extreme=1.15595 break= conf=
+6E MAR26 B1268: DirectionBreak C#373 DirectionBreak Up via XR run=1
+6E MAR26 B1268: PersistentContainer PC#373 CandidateBreak dir=Up start=1267 last=1268 extremeBar=1267 extreme=1.15695 break=1268 conf=
+6E MAR26 B1268: Permission Granted: Translation
+6E MAR26 B1267: VolPivot Trough V=424
+6E MAR26 B1269: PriceCase OUTB
+6E MAR26 B1269: Permission Denied: Non-translation (Phase1 policy)
+6E MAR26 B1268: VolPivot Peak V=918
+6E MAR26 B1270: PriceCase XB
+6E MAR26 B1270: Container C#375 Up run=1 new=True break=True cand=False conf=False
+6E MAR26 B1270: PersistentContainer PC#375 Developing dir=Up start=1270 last=1270 extremeBar=1270 extreme=1.15685 break= conf=
+6E MAR26 B1270: DirectionBreak C#374 DirectionBreak Down via XB run=1
+6E MAR26 B1270: PersistentContainer PC#374 CandidateBreak dir=Down start=1268 last=1270 extremeBar=1268 extreme=1.15595 break=1270 conf=
+6E MAR26 B1270: Permission Granted: Translation
+6E MAR26 B1269: VolPivot Trough V=793
+6E MAR26 B1271: PriceCase XR
+6E MAR26 B1271: Container C#376 Down run=1 new=True break=True cand=False conf=False
+6E MAR26 B1271: PersistentContainer PC#376 Developing dir=Down start=1271 last=1271 extremeBar=1271 extreme=1.15595 break= conf=
+6E MAR26 B1271: DirectionBreak C#375 DirectionBreak Up via XR run=1
+6E MAR26 B1271: PersistentContainer PC#375 CandidateBreak dir=Up start=1270 last=1271 extremeBar=1270 extreme=1.15685 break=1271 conf=
+6E MAR26 B1271: Permission Granted: Translation
+6E MAR26 B1272: PriceCase XB
+6E MAR26 B1272: Container C#377 Up run=1 new=True break=True cand=False conf=False
+6E MAR26 B1272: PersistentContainer PC#377 Developing dir=Up start=1272 last=1272 extremeBar=1272 extreme=1.15725 break= conf=
+6E MAR26 B1272: DirectionBreak C#376 DirectionBreak Down via XB run=1
+6E MAR26 B1272: PersistentContainer PC#376 CandidateBreak dir=Down start=1271 last=1272 extremeBar=1271 extreme=1.15595 break=1272 conf=
+6E MAR26 B1272: Permission Granted: Translation
+6E MAR26 B1271: VolPivot Peak V=1355
+6E MAR26 B1273: PriceCase SYM
+6E MAR26 B1273: Permission Denied: Non-translation (Phase1 policy)
+6E MAR26 B1274: PriceCase XR
+6E MAR26 B1274: Container C#378 Down run=1 new=True break=True cand=False conf=False
+6E MAR26 B1274: PersistentContainer PC#378 Developing dir=Down start=1274 last=1274 extremeBar=1274 extreme=1.1563 break= conf=
+6E MAR26 B1274: DirectionBreak C#377 DirectionBreak Up via XR run=1
+6E MAR26 B1274: PersistentContainer PC#377 CandidateBreak dir=Up start=1272 last=1274 extremeBar=1272 extreme=1.15725 break=1274 conf=
+6E MAR26 B1274: Permission Granted: Translation
+6E MAR26 B1273: VolPivot Trough V=584
+6E MAR26 B1275: PriceCase XB
+6E MAR26 B1275: Container C#379 Up run=1 new=True break=True cand=False conf=False
+6E MAR26 B1275: PersistentContainer PC#379 Developing dir=Up start=1275 last=1275 extremeBar=1275 extreme=1.15695 break= conf=
+6E MAR26 B1275: DirectionBreak C#378 DirectionBreak Down via XB run=1
+6E MAR26 B1275: PersistentContainer PC#378 CandidateBreak dir=Down start=1274 last=1275 extremeBar=1274 extreme=1.1563 break=1275 conf=
+6E MAR26 B1275: Permission Granted: Translation
+6E MAR26 B1276: PriceCase XR
+6E MAR26 B1276: Container C#380 Down run=1 new=True break=True cand=False conf=False
+6E MAR26 B1276: PersistentContainer PC#380 Developing dir=Down start=1276 last=1276 extremeBar=1276 extreme=1.1563 break= conf=
+6E MAR26 B1276: DirectionBreak C#379 DirectionBreak Up via XR run=1
+6E MAR26 B1276: PersistentContainer PC#379 CandidateBreak dir=Up start=1275 last=1276 extremeBar=1275 extreme=1.15695 break=1276 conf=
+6E MAR26 B1276: Permission Granted: Translation
+6E MAR26 B1277: PriceCase XB
+6E MAR26 B1277: Container C#381 Up run=1 new=True break=True cand=False conf=False
+6E MAR26 B1277: PersistentContainer PC#381 Developing dir=Up start=1277 last=1277 extremeBar=1277 extreme=1.15675 break= conf=
+6E MAR26 B1277: DirectionBreak C#380 DirectionBreak Down via XB run=1
+6E MAR26 B1277: PersistentContainer PC#380 CandidateBreak dir=Down start=1276 last=1277 extremeBar=1276 extreme=1.1563 break=1277 conf=
+6E MAR26 B1277: Permission Granted: Translation
+6E MAR26 B1276: VolPivot Peak V=1379
+6E MAR26 B1278: PriceCase OUTB
+6E MAR26 B1278: Permission Denied: Non-translation (Phase1 policy)
+6E MAR26 B1277: VolPivot Trough V=770
+6E MAR26 B1279: PriceCase FTP
+6E MAR26 B1279: Permission Denied: Non-translation (Phase1 policy)
+6E MAR26 B1280: PriceCase XR
+6E MAR26 B1280: Container C#382 Down run=1 new=True break=True cand=False conf=False
+6E MAR26 B1280: PersistentContainer PC#382 Developing dir=Down start=1280 last=1280 extremeBar=1280 extreme=1.15625 break= conf=
+6E MAR26 B1280: DirectionBreak C#381 DirectionBreak Up via XR run=1
+6E MAR26 B1280: PersistentContainer PC#381 CandidateBreak dir=Up start=1277 last=1280 extremeBar=1277 extreme=1.15675 break=1280 conf=
+6E MAR26 B1280: Permission Granted: Translation
+6E MAR26 B1279: VolPivot Peak V=1078
+6E MAR26 B1281: PriceCase XR
+6E MAR26 B1281: Container C#382 Down run=2 new=False break=False cand=False conf=False
+6E MAR26 B1281: PersistentContainer PC#382 Developing dir=Down start=1280 last=1281 extremeBar=1281 extreme=1.156 break= conf=
+6E MAR26 B1281: Permission Granted: Translation
+6E MAR26 B1280: VolPivot Trough V=782
+6E MAR26 B1282: PriceCase XR
+6E MAR26 B1282: Container C#382 Down run=3 new=False break=False cand=False conf=False
+6E MAR26 B1282: PersistentContainer PC#382 Developing dir=Down start=1280 last=1282 extremeBar=1282 extreme=1.15565 break= conf=
+6E MAR26 B1282: Permission Granted: Translation
+6E MAR26 B1283: PriceCase XR
+6E MAR26 B1283: Container C#382 Down run=4 new=False break=False cand=False conf=False
+6E MAR26 B1283: PersistentContainer PC#382 Developing dir=Down start=1280 last=1283 extremeBar=1283 extreme=1.1554 break= conf=
+6E MAR26 B1283: Permission Granted: Translation
+6E MAR26 B1284: PriceCase XB
+6E MAR26 B1284: Container C#383 Up run=1 new=True break=True cand=True conf=False
+6E MAR26 B1284: PersistentContainer PC#383 Developing dir=Up start=1284 last=1284 extremeBar=1284 extreme=1.1562 break= conf=
+6E MAR26 B1284: DirectionBreak C#382 DirectionBreak Down via XB run=4
+6E MAR26 B1284: PersistentContainer PC#382 CandidateBreak dir=Down start=1280 last=1284 extremeBar=1283 extreme=1.1554 break=1284 conf=
+6E MAR26 B1284: FttCandidate C#382 FTT-Candidate Down via XB run=4
+6E MAR26 B1284: Permission Granted: Translation
+6E MAR26 B1283: VolPivot Peak V=1625
+6E MAR26 B1285: PriceCase STR
+6E MAR26 B1285: Permission Denied: Non-translation (Phase1 policy)
+6E MAR26 B1284: VolPivot Trough V=812
+6E MAR26 B1286: PriceCase XB
+6E MAR26 B1286: Container C#383 Up run=2 new=False break=False cand=False conf=False
+6E MAR26 B1286: PersistentContainer PC#383 Developing dir=Up start=1284 last=1286 extremeBar=1286 extreme=1.15735 break= conf=
+6E MAR26 B1286: Permission Granted: Translation
+6E MAR26 B1287: PriceCase XB
+6E MAR26 B1287: Container C#383 Up run=3 new=False break=False cand=False conf=True
+6E MAR26 B1287: PersistentContainer PC#383 Developing dir=Up start=1284 last=1287 extremeBar=1287 extreme=1.15745 break= conf=
+6E MAR26 B1287: FttConfirmed C#382 FTT-Confirmed Down via XB run=4
+6E MAR26 B1287: PersistentContainer PC#382 ConfirmedBreak dir=Down start=1280 last=1287 extremeBar=1283 extreme=1.1554 break=1284 conf=1287
+6E MAR26 B1287: Structure C#382 Broken dir=Up trend=D
+6E MAR26 B1287: Action C#382 Sideline trend=D turn=C TroughContext [C] V=0
+6E MAR26 B1287: PersistentContainer PC#382 Closed dir=Down start=1280 last=1287 extremeBar=1283 extreme=1.1554 break=1284 conf=1287
+6E MAR26 B1287: TradeIntent TI C#382 Sideline action=Sideline struct=Broken trend=D turn=C
+6E MAR26 B1287: ContainerReport Report C#382 start=1280 break=1284 cand=1284 conf=1287 struct=Broken action=Sideline
+6E MAR26 B1287: ContainerGeometry CG#382 dir=Down start=1280@1.15625 extreme=1283@1.1554 confirm=1287@1.1569
+6E MAR26 B1287: Permission Granted: Translation
+6E MAR26 B1288: PriceCase SYM
+6E MAR26 B1288: Permission Denied: Non-translation (Phase1 policy)
+6E MAR26 B1287: VolPivot Peak V=2698
+6E MAR26 B1289: PriceCase XB
+6E MAR26 B1289: Container C#383 Up run=4 new=False break=False cand=False conf=False
+6E MAR26 B1289: PersistentContainer PC#383 Developing dir=Up start=1284 last=1289 extremeBar=1289 extreme=1.15825 break= conf=
+6E MAR26 B1289: Permission Granted: Translation
+6E MAR26 B1288: VolPivot Trough V=1358
+6E MAR26 B1290: PriceCase XB
+6E MAR26 B1290: Container C#383 Up run=5 new=False break=False cand=False conf=False
+6E MAR26 B1290: PersistentContainer PC#383 Developing dir=Up start=1284 last=1290 extremeBar=1290 extreme=1.15915 break= conf=
+6E MAR26 B1290: Permission Granted: Translation
+6E MAR26 B1291: PriceCase FTP
+6E MAR26 B1291: Permission Denied: Non-translation (Phase1 policy)
+6E MAR26 B1290: VolPivot Peak V=2695
+6E MAR26 B1292: PriceCase XR
+6E MAR26 B1292: Container C#384 Down run=1 new=True break=True cand=False conf=False
+6E MAR26 B1292: PersistentContainer PC#384 Developing dir=Down start=1292 last=1292 extremeBar=1292 extreme=1.15775 break= conf=
+6E MAR26 B1292: DirectionBreak C#383 DirectionBreak Up via XR run=5
+6E MAR26 B1292: PersistentContainer PC#383 CandidateBreak dir=Up start=1284 last=1292 extremeBar=1290 extreme=1.15915 break=1292 conf=
+6E MAR26 B1292: Permission Granted: Translation
+6E MAR26 B1293: PriceCase XB
+6E MAR26 B1293: Container C#385 Up run=1 new=True break=True cand=False conf=False
+6E MAR26 B1293: PersistentContainer PC#385 Developing dir=Up start=1293 last=1293 extremeBar=1293 extreme=1.15865 break= conf=
+6E MAR26 B1293: DirectionBreak C#384 DirectionBreak Down via XB run=1
+6E MAR26 B1293: PersistentContainer PC#384 CandidateBreak dir=Down start=1292 last=1293 extremeBar=1292 extreme=1.15775 break=1293 conf=
+6E MAR26 B1293: Permission Granted: Translation
+6E MAR26 B1294: PriceCase XR
+6E MAR26 B1294: Container C#386 Down run=1 new=True break=True cand=False conf=False
+6E MAR26 B1294: PersistentContainer PC#386 Developing dir=Down start=1294 last=1294 extremeBar=1294 extreme=1.15755 break= conf=
+6E MAR26 B1294: DirectionBreak C#385 DirectionBreak Up via XR run=1
+6E MAR26 B1294: PersistentContainer PC#385 CandidateBreak dir=Up start=1293 last=1294 extremeBar=1293 extreme=1.15865 break=1294 conf=
+6E MAR26 B1294: Permission Granted: Translation
+6E MAR26 B1293: VolPivot Trough V=1223
+6E MAR26 B1295: PriceCase OUTB
+6E MAR26 B1295: Permission Denied: Non-translation (Phase1 policy)
+6E MAR26 B1294: VolPivot Peak V=2354
+6E MAR26 B1296: PriceCase SYM
+6E MAR26 B1296: Permission Denied: Non-translation (Phase1 policy)
+6E MAR26 B1297: PriceCase OUTR
+6E MAR26 B1297: Permission Denied: Non-translation (Phase1 policy)
+6E MAR26 B1296: VolPivot Trough V=1376
+6E MAR26 B1298: PriceCase XR
+6E MAR26 B1298: Container C#386 Down run=2 new=False break=False cand=False conf=False
+6E MAR26 B1298: PersistentContainer PC#386 Developing dir=Down start=1294 last=1298 extremeBar=1298 extreme=1.15515 break= conf=
+6E MAR26 B1298: Permission Granted: Translation
+6E MAR26 B1297: VolPivot Peak V=6827
+6E MAR26 B1297: VolOoe P2 (A) V=6827
+6E MAR26 B1297: EndEffect PeakContext [A] from P2 V=6827
+6E MAR26 B1297: Turn B from PeakContext [A] via P2 V=6827
+6E MAR26 B1297: TrendType B from turn B / PeakContext [A] V=6827
+6E MAR26 B1299: PriceCase XB
+6E MAR26 B1299: Container C#387 Up run=1 new=True break=True cand=False conf=False
+6E MAR26 B1299: PersistentContainer PC#387 Developing dir=Up start=1299 last=1299 extremeBar=1299 extreme=1.1571 break= conf=
+6E MAR26 B1299: DirectionBreak C#386 DirectionBreak Down via XB run=2
+6E MAR26 B1299: PersistentContainer PC#386 CandidateBreak dir=Down start=1294 last=1299 extremeBar=1298 extreme=1.15515 break=1299 conf=
+6E MAR26 B1299: Permission Granted: Translation
+6E MAR26 B1298: VolPivot Trough V=1643
+6E MAR26 B1298: VolOoe T2P (B) V=1643
+6E MAR26 B1298: EndEffect CandidateEnd [B] from T2P V=1643
+6E MAR26 B1298: Turn C from CandidateEnd [B] via T2P V=1643
+6E MAR26 B1298: TrendType C from turn C / CandidateEnd [B] V=1643
+6E MAR26 B1300: PriceCase XB
+6E MAR26 B1300: Container C#387 Up run=2 new=False break=False cand=False conf=False
+6E MAR26 B1300: PersistentContainer PC#387 Developing dir=Up start=1299 last=1300 extremeBar=1300 extreme=1.15725 break= conf=
+6E MAR26 B1300: Permission Granted: Translation
+6E MAR26 B1299: VolPivot Peak V=2238
+6E MAR26 B1301: PriceCase SYM
+6E MAR26 B1301: Permission Denied: Non-translation (Phase1 policy)
+6E MAR26 B1300: VolPivot Trough V=915
+6E MAR26 B1302: PriceCase XB
+6E MAR26 B1302: Container C#387 Up run=3 new=False break=False cand=False conf=False
+6E MAR26 B1302: PersistentContainer PC#387 Developing dir=Up start=1299 last=1302 extremeBar=1302 extreme=1.1573 break= conf=
+6E MAR26 B1302: Permission Granted: Translation
+6E MAR26 B1303: PriceCase XR
+6E MAR26 B1303: Container C#388 Down run=1 new=True break=True cand=False conf=False
+6E MAR26 B1303: PersistentContainer PC#388 Developing dir=Down start=1303 last=1303 extremeBar=1303 extreme=1.1565 break= conf=
+6E MAR26 B1303: DirectionBreak C#387 DirectionBreak Up via XR run=3
+6E MAR26 B1303: PersistentContainer PC#387 CandidateBreak dir=Up start=1299 last=1303 extremeBar=1302 extreme=1.1573 break=1303 conf=
+6E MAR26 B1303: Permission Granted: Translation
+6E MAR26 B1302: VolPivot Peak V=1090
+6E MAR26 B1304: PriceCase XB
+6E MAR26 B1304: Container C#389 Up run=1 new=True break=True cand=False conf=False
+6E MAR26 B1304: PersistentContainer PC#389 Developing dir=Up start=1304 last=1304 extremeBar=1304 extreme=1.1576 break= conf=
+6E MAR26 B1304: DirectionBreak C#388 DirectionBreak Down via XB run=1
+6E MAR26 B1304: PersistentContainer PC#388 CandidateBreak dir=Down start=1303 last=1304 extremeBar=1303 extreme=1.1565 break=1304 conf=
+6E MAR26 B1304: Permission Granted: Translation
+6E MAR26 B1303: VolPivot Trough V=1069
+6E MAR26 B1303: VolOoe T2F (C) V=1069
+6E MAR26 B1303: EndEffect TroughContext [C] from T2F V=1069
+6E MAR26 B1303: Turn C from TroughContext [C] via T2F V=1069
+6E MAR26 B1303: TrendType D from turn C / TroughContext [C] V=1069
+6E MAR26 B1305: PriceCase XB
+6E MAR26 B1305: Container C#389 Up run=2 new=False break=False cand=False conf=False
+6E MAR26 B1305: PersistentContainer PC#389 Developing dir=Up start=1304 last=1305 extremeBar=1305 extreme=1.15805 break= conf=
+6E MAR26 B1305: Permission Granted: Translation
+6E MAR26 B1304: VolPivot Peak V=1186
+6E MAR26 B1306: PriceCase STR
+6E MAR26 B1306: Permission Denied: Non-translation (Phase1 policy)
+6E MAR26 B1305: VolPivot Trough V=1020
+6E MAR26 B1307: PriceCase SYM
+6E MAR26 B1307: Permission Denied: Non-translation (Phase1 policy)
+6E MAR26 B1308: PriceCase XB
+6E MAR26 B1308: Container C#389 Up run=3 new=False break=False cand=False conf=False
+6E MAR26 B1308: PersistentContainer PC#389 Developing dir=Up start=1304 last=1308 extremeBar=1308 extreme=1.1588 break= conf=
+6E MAR26 B1308: Permission Granted: Translation
+6E MAR26 B1309: PriceCase XB
+6E MAR26 B1309: Container C#389 Up run=4 new=False break=False cand=False conf=False
+6E MAR26 B1309: PersistentContainer PC#389 Developing dir=Up start=1304 last=1309 extremeBar=1309 extreme=1.15885 break= conf=
+6E MAR26 B1309: Permission Granted: Translation
+6E MAR26 B1308: VolPivot Peak V=1937
+6E MAR26 B1310: PriceCase OUTB
+6E MAR26 B1310: Permission Denied: Non-translation (Phase1 policy)
+6E MAR26 B1309: VolPivot Trough V=1095
+6E MAR26 B1311: PriceCase OUTR
+6E MAR26 B1311: Permission Denied: Non-translation (Phase1 policy)
+6E MAR26 B1310: VolPivot Peak V=1179
+6E MAR26 B1312: PriceCase XB
+6E MAR26 B1312: Container C#389 Up run=5 new=False break=False cand=False conf=False
+6E MAR26 B1312: PersistentContainer PC#389 Developing dir=Up start=1304 last=1312 extremeBar=1312 extreme=1.15925 break= conf=
+6E MAR26 B1312: Permission Granted: Translation
+6E MAR26 B1311: VolPivot Trough V=680
+6E MAR26 B1313: PriceCase FTP
+6E MAR26 B1313: Permission Denied: Non-translation (Phase1 policy)
+6E MAR26 B1314: PriceCase XR
+6E MAR26 B1314: Container C#390 Down run=1 new=True break=True cand=True conf=False
+6E MAR26 B1314: PersistentContainer PC#390 Developing dir=Down start=1314 last=1314 extremeBar=1314 extreme=1.1587 break= conf=
+6E MAR26 B1314: DirectionBreak C#389 DirectionBreak Up via XR run=5
+6E MAR26 B1314: PersistentContainer PC#389 CandidateBreak dir=Up start=1304 last=1314 extremeBar=1312 extreme=1.15925 break=1314 conf=
+6E MAR26 B1314: FttCandidate C#389 FTT-Candidate Up via XR run=5
+6E MAR26 B1314: Permission Granted: Translation
+6E MAR26 B1313: VolPivot Peak V=1248
+6E MAR26 B1315: PriceCase XR
+6E MAR26 B1315: Container C#390 Down run=2 new=False break=False cand=False conf=False
+6E MAR26 B1315: PersistentContainer PC#390 Developing dir=Down start=1314 last=1315 extremeBar=1315 extreme=1.1585 break= conf=
+6E MAR26 B1315: Permission Granted: Translation
+6E MAR26 B1316: PriceCase XB
+6E MAR26 B1316: Container C#391 Up run=1 new=True break=True cand=False conf=False
+6E MAR26 B1316: PersistentContainer PC#391 Developing dir=Up start=1316 last=1316 extremeBar=1316 extreme=1.15935 break= conf=
+6E MAR26 B1316: DirectionBreak C#390 DirectionBreak Down via XB run=2
+6E MAR26 B1316: PersistentContainer PC#390 CandidateBreak dir=Down start=1314 last=1316 extremeBar=1315 extreme=1.1585 break=1316 conf=
+6E MAR26 B1316: Permission Granted: Translation
+6E MAR26 B1315: VolPivot Trough V=945
+6E MAR26 B1317: PriceCase XB
+6E MAR26 B1317: Container C#391 Up run=2 new=False break=False cand=False conf=False
+6E MAR26 B1317: PersistentContainer PC#391 Developing dir=Up start=1316 last=1317 extremeBar=1317 extreme=1.1594 break= conf=
+6E MAR26 B1317: Permission Granted: Translation
+6E MAR26 B1316: VolPivot Peak V=1151
+6E MAR26 B1318: PriceCase STB
+6E MAR26 B1318: Permission Denied: Non-translation (Phase1 policy)
+6E MAR26 B1317: VolPivot Trough V=1025
+6E MAR26 B1319: PriceCase XB
+6E MAR26 B1319: Container C#391 Up run=3 new=False break=False cand=False conf=False
+6E MAR26 B1319: PersistentContainer PC#391 Developing dir=Up start=1316 last=1319 extremeBar=1319 extreme=1.15975 break= conf=
+6E MAR26 B1319: Permission Granted: Translation
+6E MAR26 B1320: PriceCase XB
+6E MAR26 B1320: Container C#391 Up run=4 new=False break=False cand=False conf=False
+6E MAR26 B1320: PersistentContainer PC#391 Developing dir=Up start=1316 last=1320 extremeBar=1320 extreme=1.16035 break= conf=
+6E MAR26 B1320: Permission Granted: Translation
+6E MAR26 B1319: VolPivot Peak V=2079
+6E MAR26 B1321: PriceCase XR
+6E MAR26 B1321: Container C#392 Down run=1 new=True break=True cand=True conf=False
+6E MAR26 B1321: PersistentContainer PC#392 Developing dir=Down start=1321 last=1321 extremeBar=1321 extreme=1.15945 break= conf=
+6E MAR26 B1321: DirectionBreak C#391 DirectionBreak Up via XR run=4
+6E MAR26 B1321: PersistentContainer PC#391 CandidateBreak dir=Up start=1316 last=1321 extremeBar=1320 extreme=1.16035 break=1321 conf=
+6E MAR26 B1321: FttCandidate C#391 FTT-Candidate Up via XR run=4
+6E MAR26 B1321: Permission Granted: Translation
+6E MAR26 B1320: VolPivot Trough V=1568
+6E MAR26 B1322: PriceCase FBP
+6E MAR26 B1322: Permission Denied: Non-translation (Phase1 policy)
+6E MAR26 B1321: VolPivot Peak V=1688
+6E MAR26 B1323: PriceCase XR
+6E MAR26 B1323: Container C#392 Down run=2 new=False break=False cand=False conf=False
+6E MAR26 B1323: PersistentContainer PC#392 Developing dir=Down start=1321 last=1323 extremeBar=1323 extreme=1.1593 break= conf=
+6E MAR26 B1323: Permission Granted: Translation
+6E MAR26 B1322: VolPivot Trough V=768
+6E MAR26 B1324: PriceCase OUT_DOJI
+6E MAR26 B1324: Permission Denied: Non-translation (Phase1 policy)
+6E MAR26 B1325: PriceCase SYM
+6E MAR26 B1325: Permission Denied: Non-translation (Phase1 policy)
+6E MAR26 B1324: VolPivot Peak V=2088
+6E MAR26 B1326: PriceCase XB
+6E MAR26 B1326: Container C#393 Up run=1 new=True break=True cand=False conf=False
+6E MAR26 B1326: PersistentContainer PC#393 Developing dir=Up start=1326 last=1326 extremeBar=1326 extreme=1.16005 break= conf=
+6E MAR26 B1326: DirectionBreak C#392 DirectionBreak Down via XB run=2
+6E MAR26 B1326: PersistentContainer PC#392 CandidateBreak dir=Down start=1321 last=1326 extremeBar=1323 extreme=1.1593 break=1326 conf=
+6E MAR26 B1326: Permission Granted: Translation
+6E MAR26 B1325: VolPivot Trough V=1104
+6E MAR26 B1327: PriceCase XB
+6E MAR26 B1327: Container C#393 Up run=2 new=False break=False cand=False conf=False
+6E MAR26 B1327: PersistentContainer PC#393 Developing dir=Up start=1326 last=1327 extremeBar=1327 extreme=1.16025 break= conf=
+6E MAR26 B1327: Permission Granted: Translation
+6E MAR26 B1326: VolPivot Peak V=1770
+6E MAR26 B1328: PriceCase XB
+6E MAR26 B1328: Container C#393 Up run=3 new=False break=False cand=False conf=False
+6E MAR26 B1328: PersistentContainer PC#393 Developing dir=Up start=1326 last=1328 extremeBar=1328 extreme=1.1603 break= conf=
+6E MAR26 B1328: Permission Granted: Translation
+6E MAR26 B1327: VolPivot Trough V=605
+6E MAR26 B1329: PriceCase FTP
+6E MAR26 B1329: Permission Denied: Non-translation (Phase1 policy)
+6E MAR26 B1330: PriceCase XR
+6E MAR26 B1330: Container C#394 Down run=1 new=True break=True cand=False conf=False
+6E MAR26 B1330: PersistentContainer PC#394 Developing dir=Down start=1330 last=1330 extremeBar=1330 extreme=1.1596 break= conf=
+6E MAR26 B1330: DirectionBreak C#393 DirectionBreak Up via XR run=3
+6E MAR26 B1330: PersistentContainer PC#393 CandidateBreak dir=Up start=1326 last=1330 extremeBar=1328 extreme=1.1603 break=1330 conf=
+6E MAR26 B1330: Permission Granted: Translation
+6E MAR26 B1329: VolPivot Peak V=848
+6E MAR26 B1331: PriceCase XR
+6E MAR26 B1331: Container C#394 Down run=2 new=False break=False cand=False conf=False
+6E MAR26 B1331: PersistentContainer PC#394 Developing dir=Down start=1330 last=1331 extremeBar=1331 extreme=1.159 break= conf=
+6E MAR26 B1331: Permission Granted: Translation
+6E MAR26 B1330: VolPivot Trough V=591
+6E MAR26 B1332: PriceCase XR
+6E MAR26 B1332: Container C#394 Down run=3 new=False break=False cand=False conf=False
+6E MAR26 B1332: PersistentContainer PC#394 Developing dir=Down start=1330 last=1332 extremeBar=1332 extreme=1.1589 break= conf=
+6E MAR26 B1332: Permission Granted: Translation
+6E MAR26 B1331: VolPivot Peak V=955
+6E MAR26 B1333: PriceCase XR
+6E MAR26 B1333: Container C#394 Down run=4 new=False break=False cand=False conf=False
+6E MAR26 B1333: PersistentContainer PC#394 Developing dir=Down start=1330 last=1333 extremeBar=1333 extreme=1.1588 break= conf=
+6E MAR26 B1333: Permission Granted: Translation
+6E MAR26 B1332: VolPivot Trough V=581
+6E MAR26 B1334: PriceCase OUT_DOJI
+6E MAR26 B1334: Permission Denied: Non-translation (Phase1 policy)
+6E MAR26 B1335: PriceCase XR
+6E MAR26 B1335: Container C#394 Down run=5 new=False break=False cand=False conf=False
+6E MAR26 B1335: PersistentContainer PC#394 Developing dir=Down start=1330 last=1335 extremeBar=1335 extreme=1.1585 break= conf=
+6E MAR26 B1335: Permission Granted: Translation
+6E MAR26 B1334: VolPivot Peak V=1417
+6E MAR26 B1336: PriceCase XR
+6E MAR26 B1336: Container C#394 Down run=6 new=False break=False cand=False conf=False
+6E MAR26 B1336: PersistentContainer PC#394 Developing dir=Down start=1330 last=1336 extremeBar=1336 extreme=1.15845 break= conf=
+6E MAR26 B1336: Permission Granted: Translation
+6E MAR26 B1337: PriceCase XB
+6E MAR26 B1337: Container C#395 Up run=1 new=True break=True cand=True conf=False
+6E MAR26 B1337: PersistentContainer PC#395 Developing dir=Up start=1337 last=1337 extremeBar=1337 extreme=1.15885 break= conf=
+6E MAR26 B1337: DirectionBreak C#394 DirectionBreak Down via XB run=6
+6E MAR26 B1337: PersistentContainer PC#394 CandidateBreak dir=Down start=1330 last=1337 extremeBar=1336 extreme=1.15845 break=1337 conf=
+6E MAR26 B1337: FttCandidate C#394 FTT-Candidate Down via XB run=6
+6E MAR26 B1337: Permission Granted: Translation
+6E MAR26 B1338: PriceCase XR
+6E MAR26 B1338: Container C#396 Down run=1 new=True break=True cand=False conf=False
+6E MAR26 B1338: PersistentContainer PC#396 Developing dir=Down start=1338 last=1338 extremeBar=1338 extreme=1.1585 break= conf=
+6E MAR26 B1338: DirectionBreak C#395 DirectionBreak Up via XR run=1
+6E MAR26 B1338: PersistentContainer PC#395 CandidateBreak dir=Up start=1337 last=1338 extremeBar=1337 extreme=1.15885 break=1338 conf=
+6E MAR26 B1338: Permission Granted: Translation
+6E MAR26 B1337: VolPivot Trough V=266
+6E MAR26 B1339: PriceCase XB
+6E MAR26 B1339: Container C#397 Up run=1 new=True break=True cand=False conf=False
+6E MAR26 B1339: PersistentContainer PC#397 Developing dir=Up start=1339 last=1339 extremeBar=1339 extreme=1.15885 break= conf=
+6E MAR26 B1339: DirectionBreak C#396 DirectionBreak Down via XB run=1
+6E MAR26 B1339: PersistentContainer PC#396 CandidateBreak dir=Down start=1338 last=1339 extremeBar=1338 extreme=1.1585 break=1339 conf=
+6E MAR26 B1339: Permission Granted: Translation
+6E MAR26 B1338: VolPivot Peak V=435
+6E MAR26 B1340: PriceCase STR
+6E MAR26 B1340: Permission Denied: Non-translation (Phase1 policy)
+6E MAR26 B1339: VolPivot Trough V=378
+6E MAR26 B1341: PriceCase XB
+6E MAR26 B1341: Container C#397 Up run=2 new=False break=False cand=False conf=False
+6E MAR26 B1341: PersistentContainer PC#397 Developing dir=Up start=1339 last=1341 extremeBar=1341 extreme=1.1591 break= conf=
+6E MAR26 B1341: Permission Granted: Translation
+6E MAR26 B1342: PriceCase XR
+6E MAR26 B1342: Container C#398 Down run=1 new=True break=True cand=False conf=False
+6E MAR26 B1342: PersistentContainer PC#398 Developing dir=Down start=1342 last=1342 extremeBar=1342 extreme=1.1586 break= conf=
+6E MAR26 B1342: DirectionBreak C#397 DirectionBreak Up via XR run=2
+6E MAR26 B1342: PersistentContainer PC#397 CandidateBreak dir=Up start=1339 last=1342 extremeBar=1341 extreme=1.1591 break=1342 conf=
+6E MAR26 B1342: Permission Granted: Translation
+6E MAR26 B1341: VolPivot Peak V=654
+6E MAR26 B1343: PriceCase XR
+6E MAR26 B1343: Container C#398 Down run=2 new=False break=False cand=False conf=False
+6E MAR26 B1343: PersistentContainer PC#398 Developing dir=Down start=1342 last=1343 extremeBar=1343 extreme=1.15825 break= conf=
+6E MAR26 B1343: Permission Granted: Translation
+6E MAR26 B1342: VolPivot Trough V=417
+6E MAR26 B1344: PriceCase XR
+6E MAR26 B1344: Container C#398 Down run=3 new=False break=False cand=False conf=False
+6E MAR26 B1344: PersistentContainer PC#398 Developing dir=Down start=1342 last=1344 extremeBar=1344 extreme=1.1582 break= conf=
+6E MAR26 B1344: Permission Granted: Translation
+6E MAR26 B1345: PriceCase STB
+6E MAR26 B1345: Permission Denied: Non-translation (Phase1 policy)
+6E MAR26 B1346: PriceCase SYM
+6E MAR26 B1346: Permission Denied: Non-translation (Phase1 policy)
+6E MAR26 B1345: VolPivot Peak V=790
+6E MAR26 B1347: PriceCase SYM
+6E MAR26 B1347: Permission Denied: Non-translation (Phase1 policy)
+6E MAR26 B1348: PriceCase STR
+6E MAR26 B1348: Permission Denied: Non-translation (Phase1 policy)
+6E MAR26 B1347: VolPivot Trough V=289

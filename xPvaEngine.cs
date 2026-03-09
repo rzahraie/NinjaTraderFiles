@@ -22,6 +22,7 @@ namespace NinjaTrader.NinjaScript.xPva.Engine
 			public xPvaPersistentContainers.State PersistentContainers;
 			public xPvaContainerGeometry.State Geometries;
 			public Dictionary<int, BarSnapshot> BarsByIndex;
+			public xPvaTradeIntent.State TradeIntents;
 
             public State(int volPivotWindow)
             {
@@ -39,6 +40,7 @@ namespace NinjaTrader.NinjaScript.xPva.Engine
 				PersistentContainers = new xPvaPersistentContainers.State();
 				Geometries = new xPvaContainerGeometry.State();
 				BarsByIndex = new Dictionary<int, BarSnapshot>();
+				TradeIntents = new xPvaTradeIntent.State();
 				LastTrendType = null;
             }
         }
@@ -161,6 +163,15 @@ namespace NinjaTrader.NinjaScript.xPva.Engine
 									    _s.Geometries.OnPersistentContainer(pc3.Value);
 									}
 									
+									TradeIntentEvent? tradeIntent = xPvaTradeIntent.Step(
+							        _s.TradeIntents,
+							        structure.Value,
+							        action.Value,
+							        lastTurn.Value);
+							
+							    	if (tradeIntent.HasValue)
+							        	events.Add(EngineEvent.From(tradeIntent.Value));
+									
 									var report = _s.Reports.OnAction(action.Value);
 								    if (report.HasValue)
 								        events.Add(EngineEvent.From(report.Value));
@@ -217,6 +228,7 @@ namespace NinjaTrader.NinjaScript.xPva.Engine
         }
     }
 }
+
 
 
 
