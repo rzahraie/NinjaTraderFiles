@@ -52,6 +52,10 @@ namespace NinjaTrader.NinjaScript.Indicators
 		[NinjaScriptProperty]
 		[Display(Name = "Print Container Reports", Order = 9, GroupName = "Parameters")]
 		public bool PrintContainerReports { get; set; }
+		
+		[NinjaScriptProperty]
+		[Display(Name = "Draw Container Reports", Order = 10, GroupName = "Parameters")]
+		public bool DrawContainerReports { get; set; }
 
         protected override void OnStateChange()
         {
@@ -75,6 +79,7 @@ namespace NinjaTrader.NinjaScript.Indicators
                 DrawActionMarkers = true;
 				DrawStructureMarkers = true;
 				PrintContainerReports = true;
+				DrawContainerReports = true;
             }
             else if (State == State.DataLoaded)
             {
@@ -139,9 +144,67 @@ namespace NinjaTrader.NinjaScript.Indicators
 					    if (DrawStructureMarkers && e.Structure.HasValue)
 					        DrawStructure(e.Structure.Value);
 					    break;
+						
+					case NinjaTrader.NinjaScript.xPva.Engine.EventKind.ContainerReport:
+					    if (DrawContainerReports && e.ContainerReport.HasValue)
+					        DrawContainerReport(e.ContainerReport.Value);
+					    break;
                 }
             }
         }
+		
+		private void DrawContainerReport(NinjaTrader.NinjaScript.xPva.Engine.ContainerReportEvent e)
+		{
+		    int anchorBarIndex = e.FttConfirmedBarIndex ?? e.StartBarIndex;
+		    int barsAgo = BarsAgoFromIndex(anchorBarIndex);
+		
+		    string tag = string.Format("xPvaReport_{0}_{1}", e.ContainerId, anchorBarIndex);
+		
+		    string text = string.Format(
+		        "C#{0}\n{1}\n{2}",
+		        e.ContainerId,
+		        e.StructureState,
+		        e.ActionType);
+		
+		    double y = High[barsAgo] + 4 * TickSize;
+		
+		    Brush brush = Brushes.White;
+		
+		    switch (e.ActionType)
+		    {
+		        case NinjaTrader.NinjaScript.xPva.Engine.ActionType.Enter:
+		            brush = Brushes.LimeGreen;
+		            break;
+		
+		        case NinjaTrader.NinjaScript.xPva.Engine.ActionType.Reverse:
+		            brush = Brushes.OrangeRed;
+		            break;
+		
+		        case NinjaTrader.NinjaScript.xPva.Engine.ActionType.Sideline:
+		            brush = Brushes.Gray;
+		            break;
+		
+		        case NinjaTrader.NinjaScript.xPva.Engine.ActionType.Hold:
+		        case NinjaTrader.NinjaScript.xPva.Engine.ActionType.StayIn:
+		            brush = Brushes.DeepSkyBlue;
+		            break;
+		    }
+		
+		    Draw.Text(
+		        this,
+		        tag,
+		        false,
+		        text,
+		        barsAgo,
+		        y,
+		        0,
+		        brush,
+		        new SimpleFont("Arial", 11),
+		        System.Windows.TextAlignment.Left,
+		        Brushes.Transparent,
+		        Brushes.Black,
+		        0);
+		}
 
 		private void DrawStructure(NinjaTrader.NinjaScript.xPva.Engine.StructureEvent e)
 		{
@@ -250,18 +313,18 @@ namespace NinjaTrader.NinjaScript.Indicators
 	public partial class Indicator : NinjaTrader.Gui.NinjaScript.IndicatorRenderBase
 	{
 		private xPvaDebugIndicator[] cachexPvaDebugIndicator;
-		public xPvaDebugIndicator xPvaDebugIndicator(int volPivotWindow, bool printEvents, bool drawFttMarkers, bool drawEndEffectMarkers, bool drawTurnMarkers, bool drawTrendTypeMarkers, bool drawActionMarkers, bool drawStructureMarkers, bool printContainerReports)
+		public xPvaDebugIndicator xPvaDebugIndicator(int volPivotWindow, bool printEvents, bool drawFttMarkers, bool drawEndEffectMarkers, bool drawTurnMarkers, bool drawTrendTypeMarkers, bool drawActionMarkers, bool drawStructureMarkers, bool printContainerReports, bool drawContainerReports)
 		{
-			return xPvaDebugIndicator(Input, volPivotWindow, printEvents, drawFttMarkers, drawEndEffectMarkers, drawTurnMarkers, drawTrendTypeMarkers, drawActionMarkers, drawStructureMarkers, printContainerReports);
+			return xPvaDebugIndicator(Input, volPivotWindow, printEvents, drawFttMarkers, drawEndEffectMarkers, drawTurnMarkers, drawTrendTypeMarkers, drawActionMarkers, drawStructureMarkers, printContainerReports, drawContainerReports);
 		}
 
-		public xPvaDebugIndicator xPvaDebugIndicator(ISeries<double> input, int volPivotWindow, bool printEvents, bool drawFttMarkers, bool drawEndEffectMarkers, bool drawTurnMarkers, bool drawTrendTypeMarkers, bool drawActionMarkers, bool drawStructureMarkers, bool printContainerReports)
+		public xPvaDebugIndicator xPvaDebugIndicator(ISeries<double> input, int volPivotWindow, bool printEvents, bool drawFttMarkers, bool drawEndEffectMarkers, bool drawTurnMarkers, bool drawTrendTypeMarkers, bool drawActionMarkers, bool drawStructureMarkers, bool printContainerReports, bool drawContainerReports)
 		{
 			if (cachexPvaDebugIndicator != null)
 				for (int idx = 0; idx < cachexPvaDebugIndicator.Length; idx++)
-					if (cachexPvaDebugIndicator[idx] != null && cachexPvaDebugIndicator[idx].VolPivotWindow == volPivotWindow && cachexPvaDebugIndicator[idx].PrintEvents == printEvents && cachexPvaDebugIndicator[idx].DrawFttMarkers == drawFttMarkers && cachexPvaDebugIndicator[idx].DrawEndEffectMarkers == drawEndEffectMarkers && cachexPvaDebugIndicator[idx].DrawTurnMarkers == drawTurnMarkers && cachexPvaDebugIndicator[idx].DrawTrendTypeMarkers == drawTrendTypeMarkers && cachexPvaDebugIndicator[idx].DrawActionMarkers == drawActionMarkers && cachexPvaDebugIndicator[idx].DrawStructureMarkers == drawStructureMarkers && cachexPvaDebugIndicator[idx].PrintContainerReports == printContainerReports && cachexPvaDebugIndicator[idx].EqualsInput(input))
+					if (cachexPvaDebugIndicator[idx] != null && cachexPvaDebugIndicator[idx].VolPivotWindow == volPivotWindow && cachexPvaDebugIndicator[idx].PrintEvents == printEvents && cachexPvaDebugIndicator[idx].DrawFttMarkers == drawFttMarkers && cachexPvaDebugIndicator[idx].DrawEndEffectMarkers == drawEndEffectMarkers && cachexPvaDebugIndicator[idx].DrawTurnMarkers == drawTurnMarkers && cachexPvaDebugIndicator[idx].DrawTrendTypeMarkers == drawTrendTypeMarkers && cachexPvaDebugIndicator[idx].DrawActionMarkers == drawActionMarkers && cachexPvaDebugIndicator[idx].DrawStructureMarkers == drawStructureMarkers && cachexPvaDebugIndicator[idx].PrintContainerReports == printContainerReports && cachexPvaDebugIndicator[idx].DrawContainerReports == drawContainerReports && cachexPvaDebugIndicator[idx].EqualsInput(input))
 						return cachexPvaDebugIndicator[idx];
-			return CacheIndicator<xPvaDebugIndicator>(new xPvaDebugIndicator(){ VolPivotWindow = volPivotWindow, PrintEvents = printEvents, DrawFttMarkers = drawFttMarkers, DrawEndEffectMarkers = drawEndEffectMarkers, DrawTurnMarkers = drawTurnMarkers, DrawTrendTypeMarkers = drawTrendTypeMarkers, DrawActionMarkers = drawActionMarkers, DrawStructureMarkers = drawStructureMarkers, PrintContainerReports = printContainerReports }, input, ref cachexPvaDebugIndicator);
+			return CacheIndicator<xPvaDebugIndicator>(new xPvaDebugIndicator(){ VolPivotWindow = volPivotWindow, PrintEvents = printEvents, DrawFttMarkers = drawFttMarkers, DrawEndEffectMarkers = drawEndEffectMarkers, DrawTurnMarkers = drawTurnMarkers, DrawTrendTypeMarkers = drawTrendTypeMarkers, DrawActionMarkers = drawActionMarkers, DrawStructureMarkers = drawStructureMarkers, PrintContainerReports = printContainerReports, DrawContainerReports = drawContainerReports }, input, ref cachexPvaDebugIndicator);
 		}
 	}
 }
@@ -270,14 +333,14 @@ namespace NinjaTrader.NinjaScript.MarketAnalyzerColumns
 {
 	public partial class MarketAnalyzerColumn : MarketAnalyzerColumnBase
 	{
-		public Indicators.xPvaDebugIndicator xPvaDebugIndicator(int volPivotWindow, bool printEvents, bool drawFttMarkers, bool drawEndEffectMarkers, bool drawTurnMarkers, bool drawTrendTypeMarkers, bool drawActionMarkers, bool drawStructureMarkers, bool printContainerReports)
+		public Indicators.xPvaDebugIndicator xPvaDebugIndicator(int volPivotWindow, bool printEvents, bool drawFttMarkers, bool drawEndEffectMarkers, bool drawTurnMarkers, bool drawTrendTypeMarkers, bool drawActionMarkers, bool drawStructureMarkers, bool printContainerReports, bool drawContainerReports)
 		{
-			return indicator.xPvaDebugIndicator(Input, volPivotWindow, printEvents, drawFttMarkers, drawEndEffectMarkers, drawTurnMarkers, drawTrendTypeMarkers, drawActionMarkers, drawStructureMarkers, printContainerReports);
+			return indicator.xPvaDebugIndicator(Input, volPivotWindow, printEvents, drawFttMarkers, drawEndEffectMarkers, drawTurnMarkers, drawTrendTypeMarkers, drawActionMarkers, drawStructureMarkers, printContainerReports, drawContainerReports);
 		}
 
-		public Indicators.xPvaDebugIndicator xPvaDebugIndicator(ISeries<double> input , int volPivotWindow, bool printEvents, bool drawFttMarkers, bool drawEndEffectMarkers, bool drawTurnMarkers, bool drawTrendTypeMarkers, bool drawActionMarkers, bool drawStructureMarkers, bool printContainerReports)
+		public Indicators.xPvaDebugIndicator xPvaDebugIndicator(ISeries<double> input , int volPivotWindow, bool printEvents, bool drawFttMarkers, bool drawEndEffectMarkers, bool drawTurnMarkers, bool drawTrendTypeMarkers, bool drawActionMarkers, bool drawStructureMarkers, bool printContainerReports, bool drawContainerReports)
 		{
-			return indicator.xPvaDebugIndicator(input, volPivotWindow, printEvents, drawFttMarkers, drawEndEffectMarkers, drawTurnMarkers, drawTrendTypeMarkers, drawActionMarkers, drawStructureMarkers, printContainerReports);
+			return indicator.xPvaDebugIndicator(input, volPivotWindow, printEvents, drawFttMarkers, drawEndEffectMarkers, drawTurnMarkers, drawTrendTypeMarkers, drawActionMarkers, drawStructureMarkers, printContainerReports, drawContainerReports);
 		}
 	}
 }
@@ -286,14 +349,14 @@ namespace NinjaTrader.NinjaScript.Strategies
 {
 	public partial class Strategy : NinjaTrader.Gui.NinjaScript.StrategyRenderBase
 	{
-		public Indicators.xPvaDebugIndicator xPvaDebugIndicator(int volPivotWindow, bool printEvents, bool drawFttMarkers, bool drawEndEffectMarkers, bool drawTurnMarkers, bool drawTrendTypeMarkers, bool drawActionMarkers, bool drawStructureMarkers, bool printContainerReports)
+		public Indicators.xPvaDebugIndicator xPvaDebugIndicator(int volPivotWindow, bool printEvents, bool drawFttMarkers, bool drawEndEffectMarkers, bool drawTurnMarkers, bool drawTrendTypeMarkers, bool drawActionMarkers, bool drawStructureMarkers, bool printContainerReports, bool drawContainerReports)
 		{
-			return indicator.xPvaDebugIndicator(Input, volPivotWindow, printEvents, drawFttMarkers, drawEndEffectMarkers, drawTurnMarkers, drawTrendTypeMarkers, drawActionMarkers, drawStructureMarkers, printContainerReports);
+			return indicator.xPvaDebugIndicator(Input, volPivotWindow, printEvents, drawFttMarkers, drawEndEffectMarkers, drawTurnMarkers, drawTrendTypeMarkers, drawActionMarkers, drawStructureMarkers, printContainerReports, drawContainerReports);
 		}
 
-		public Indicators.xPvaDebugIndicator xPvaDebugIndicator(ISeries<double> input , int volPivotWindow, bool printEvents, bool drawFttMarkers, bool drawEndEffectMarkers, bool drawTurnMarkers, bool drawTrendTypeMarkers, bool drawActionMarkers, bool drawStructureMarkers, bool printContainerReports)
+		public Indicators.xPvaDebugIndicator xPvaDebugIndicator(ISeries<double> input , int volPivotWindow, bool printEvents, bool drawFttMarkers, bool drawEndEffectMarkers, bool drawTurnMarkers, bool drawTrendTypeMarkers, bool drawActionMarkers, bool drawStructureMarkers, bool printContainerReports, bool drawContainerReports)
 		{
-			return indicator.xPvaDebugIndicator(input, volPivotWindow, printEvents, drawFttMarkers, drawEndEffectMarkers, drawTurnMarkers, drawTrendTypeMarkers, drawActionMarkers, drawStructureMarkers, printContainerReports);
+			return indicator.xPvaDebugIndicator(input, volPivotWindow, printEvents, drawFttMarkers, drawEndEffectMarkers, drawTurnMarkers, drawTrendTypeMarkers, drawActionMarkers, drawStructureMarkers, printContainerReports, drawContainerReports);
 		}
 	}
 }

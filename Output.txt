@@ -4556,3 +4556,27 @@
 6E MAR26 B1152: PriceCase SYM
 6E MAR26 B1152: Permission Denied: Non-translation (Phase1 policy)
 6E MAR26 B1151: VolPivot Trough V=232
+6E MAR26 B1153: PriceCase XB
+6E MAR26 B1153: Container C#341 Up run=1 new=True break=True cand=False conf=False
+6E MAR26 B1153: DirectionBreak C#340 DirectionBreak Down via XB run=2
+6E MAR26 B1153: Permission Granted: Translation
+6E MAR26 B1154: PriceCase XB
+6E MAR26 B1154: Container C#341 Up run=2 new=False break=False cand=False conf=False
+6E MAR26 B1154: Permission Granted: Translation
+6E MAR26 B1155: PriceCase XR
+6E MAR26 B1155: Container C#342 Down run=1 new=True break=True cand=False conf=False
+6E MAR26 B1155: DirectionBreak C#341 DirectionBreak Up via XR run=2
+6E MAR26 B1155: Permission Granted: Translation
+6E MAR26 B1154: VolPivot Peak V=756
+6E MAR26 B1156: PriceCase XB
+6E MAR26 B1156: Container C#343 Up run=1 new=True break=True cand=False conf=False
+6E MAR26 B1156: DirectionBreak C#342 DirectionBreak Down via XB run=1
+6E MAR26 B1156: Permission Granted: Translation
+6E MAR26 B1157: PriceCase SYM
+6E MAR26 B1157: Permission Denied: Non-translation (Phase1 policy)
+6E MAR26 B1158: PriceCase OUTB
+6E MAR26 B1158: Permission Denied: Non-translation (Phase1 policy)
+6E MAR26 B1157: VolPivot Trough V=181
+6E MAR26 B1159: PriceCase XB
+6E MAR26 B1159: Container C#343 Up run=2 new=False break=False cand=False conf=False
+6E MAR26 B1159: Permission Granted: Translation
