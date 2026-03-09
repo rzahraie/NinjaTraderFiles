@@ -20,6 +20,8 @@ namespace NinjaTrader.NinjaScript.xPva.Engine
 			public TrendTypeEvent? LastTrendType;
 			public xPvaContainerReport.State Reports;
 			public xPvaPersistentContainers.State PersistentContainers;
+			public xPvaContainerGeometry.State Geometries;
+			public Dictionary<int, BarSnapshot> BarsByIndex;
 
             public State(int volPivotWindow)
             {
@@ -35,6 +37,8 @@ namespace NinjaTrader.NinjaScript.xPva.Engine
 				Structures = new xPvaStructureResolver.State();
 				Reports = new xPvaContainerReport.State();
 				PersistentContainers = new xPvaPersistentContainers.State();
+				Geometries = new xPvaContainerGeometry.State();
+				BarsByIndex = new Dictionary<int, BarSnapshot>();
 				LastTrendType = null;
             }
         }
@@ -51,6 +55,7 @@ namespace NinjaTrader.NinjaScript.xPva.Engine
         public EngineEvents Step(in BarSnapshot bar)
         {	
             var events = new List<EngineEvent>(capacity: 6);
+			_s.BarsByIndex[bar.Index] = bar;
 
             if (!_s.HasPrevBar)
             {
@@ -73,13 +78,25 @@ namespace NinjaTrader.NinjaScript.xPva.Engine
 				
 				PersistentContainerEvent? pc0 = _s.PersistentContainers.OnContainer(container.Value, bar);
 				if (pc0.HasValue)
+				{
 				    events.Add(EngineEvent.From(pc0.Value));
+				    _s.Geometries.OnPersistentContainer(pc0.Value);
+				}
 			
 			    if (container.Value.HasDirectionBreak && container.Value.DirectionBreak.HasValue)
 				{
 					var db = container.Value.DirectionBreak.Value;
-			        events.Add(EngineEvent.From(db));
-					_s.Reports.OnDirectionBreak(db);
+
+				    events.Add(EngineEvent.From(db));
+				
+				    _s.Reports.OnDirectionBreak(db);
+				
+				    PersistentContainerEvent? pc1 = _s.PersistentContainers.OnDirectionBreak(db);
+				    if (pc1.HasValue)
+				    {
+				        events.Add(EngineEvent.From(pc1.Value));
+				        _s.Geometries.OnPersistentContainer(pc1.Value);
+				    }
 				}
 			
 			    if (container.Value.HasFttCandidate && container.Value.FttCandidate.HasValue) 
@@ -97,7 +114,10 @@ namespace NinjaTrader.NinjaScript.xPva.Engine
 					
 					PersistentContainerEvent? pc2 = _s.PersistentContainers.OnFttConfirmed(confirmed);
 					if (pc2.HasValue)
+					{
 					    events.Add(EngineEvent.From(pc2.Value));
+					    _s.Geometries.OnPersistentContainer(pc2.Value);
+					}
 				
 				    if (_s.LastTrendType.HasValue)
 					{
@@ -136,11 +156,18 @@ namespace NinjaTrader.NinjaScript.xPva.Engine
 									
 									PersistentContainerEvent? pc3 = _s.PersistentContainers.OnAction(action.Value);
 									if (pc3.HasValue)
+									{
 									    events.Add(EngineEvent.From(pc3.Value));
+									    _s.Geometries.OnPersistentContainer(pc3.Value);
+									}
 									
 									var report = _s.Reports.OnAction(action.Value);
 								    if (report.HasValue)
 								        events.Add(EngineEvent.From(report.Value));
+									
+									ContainerGeometryEvent? geo = _s.Geometries.OnAction(action.Value, _s.BarsByIndex);
+									if (geo.HasValue)
+									    events.Add(EngineEvent.From(geo.Value));
 								}
 					        }
 					    }
@@ -190,6 +217,9 @@ namespace NinjaTrader.NinjaScript.xPva.Engine
         }
     }
 }
+
+
+
 
 
 
