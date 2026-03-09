@@ -27,62 +27,59 @@ namespace NinjaTrader.NinjaScript.Indicators
         private readonly Dictionary<int, RiverBarState> riverStates = new Dictionary<int, RiverBarState>();
 
         [NinjaScriptProperty]
-        [Range(1, 10)]
-        [Display(Name = "VolPivotWindow", Order = 1, GroupName = "Parameters")]
-        public int VolPivotWindow { get; set; }
-
-        [NinjaScriptProperty]
-        [Display(Name = "Print Events", Order = 2, GroupName = "Parameters")]
-        public bool PrintEvents { get; set; }
-
-        [NinjaScriptProperty]
-        [Display(Name = "Draw FTT", Order = 3, GroupName = "Parameters")]
-        public bool DrawFtt { get; set; }
-
-        [NinjaScriptProperty]
-        [Display(Name = "Draw Action Boxes", Order = 4, GroupName = "Parameters")]
-        public bool DrawActionBoxes { get; set; }
-
-        [NinjaScriptProperty]
-        [Display(Name = "Draw Turn/Trend Lane", Order = 5, GroupName = "Parameters")]
-        public bool DrawTurnTrendLane { get; set; }
-
-        [NinjaScriptProperty]
-        [Display(Name = "Draw OOE Lane", Order = 6, GroupName = "Parameters")]
-        public bool DrawOoeLane { get; set; }
-
-        [NinjaScriptProperty]
-        [Display(Name = "Draw Container IDs", Order = 7, GroupName = "Parameters")]
-        public bool DrawContainerIds { get; set; }
-
-        [NinjaScriptProperty]
-        [Display(Name = "Draw Provisional Geometry", Order = 8, GroupName = "Parameters")]
-        public bool DrawGeometry { get; set; }
-
-        [NinjaScriptProperty]
-        [Display(Name = "Font Size", Order = 9, GroupName = "Parameters")]
-        [Range(8, 18)]
+		[Range(1, 10)]
+		[Display(Name = "VolPivotWindow", Order = 1, GroupName = "Parameters")]
+		public int VolPivotWindow { get; set; }
 		
 		[NinjaScriptProperty]
-		[Display(Name = "Display Mode", Order = 1, GroupName = "Parameters")]
+		[Display(Name = "Print Events", Order = 2, GroupName = "Parameters")]
+		public bool PrintEvents { get; set; }
+		
+		[NinjaScriptProperty]
+		[Display(Name = "Draw FTT", Order = 3, GroupName = "Parameters")]
+		public bool DrawFtt { get; set; }
+		
+		[NinjaScriptProperty]
+		[Display(Name = "Draw Action Boxes", Order = 4, GroupName = "Parameters")]
+		public bool DrawActionBoxes { get; set; }
+		
+		[NinjaScriptProperty]
+		[Display(Name = "Draw Turn/Trend Lane", Order = 5, GroupName = "Parameters")]
+		public bool DrawTurnTrendLane { get; set; }
+		
+		[NinjaScriptProperty]
+		[Display(Name = "Draw OOE Lane", Order = 6, GroupName = "Parameters")]
+		public bool DrawOoeLane { get; set; }
+		
+		[NinjaScriptProperty]
+		[Display(Name = "Draw Container IDs", Order = 7, GroupName = "Parameters")]
+		public bool DrawContainerIds { get; set; }
+		
+		[NinjaScriptProperty]
+		[Display(Name = "Draw Provisional Geometry", Order = 8, GroupName = "Parameters")]
+		public bool DrawGeometry { get; set; }
+		
+		[NinjaScriptProperty]
+		[Display(Name = "Display Mode", Order = 9, GroupName = "Parameters")]
 		public RiverDisplayMode DisplayMode { get; set; }
 		
 		[NinjaScriptProperty]
-		[Display(Name = "Draw Volume Lane", Order = 9, GroupName = "Parameters")]
+		[Display(Name = "Draw Volume Lane", Order = 10, GroupName = "Parameters")]
 		public bool DrawVolumeLane { get; set; }
 		
 		[NinjaScriptProperty]
-		[Display(Name = "Draw Turn/Trend Lane", Order = 10, GroupName = "Parameters")]
+		[Display(Name = "Draw Middle Lane", Order = 11, GroupName = "Parameters")]
 		public bool DrawMiddleLane { get; set; }
 		
 		[NinjaScriptProperty]
-		[Display(Name = "Draw Container Lane", Order = 11, GroupName = "Parameters")]
-
+		[Display(Name = "Draw Container Lane", Order = 12, GroupName = "Parameters")]
 		public bool DrawContainerLane { get; set; }
-
-        public int FontSize { get; set; }
-
 		
+		[NinjaScriptProperty]
+		[Range(8, 18)]
+		[Display(Name = "Font Size", Order = 13, GroupName = "Parameters")]
+		public int FontSize { get; set; }
+
 		
 		private sealed class RiverBarState
 		{
@@ -560,18 +557,18 @@ namespace NinjaTrader.NinjaScript.Indicators
 	public partial class Indicator : NinjaTrader.Gui.NinjaScript.IndicatorRenderBase
 	{
 		private xPvaRiverIndicator[] cachexPvaRiverIndicator;
-		public xPvaRiverIndicator xPvaRiverIndicator(int volPivotWindow, bool printEvents, bool drawFtt, bool drawActionBoxes, bool drawTurnTrendLane, bool drawOoeLane, bool drawContainerIds, bool drawGeometry, RiverDisplayMode displayMode, bool drawVolumeLane, bool drawMiddleLane, bool drawContainerLane)
+		public xPvaRiverIndicator xPvaRiverIndicator(int volPivotWindow, bool printEvents, bool drawFtt, bool drawActionBoxes, bool drawTurnTrendLane, bool drawOoeLane, bool drawContainerIds, bool drawGeometry, RiverDisplayMode displayMode, bool drawVolumeLane, bool drawMiddleLane, bool drawContainerLane, int fontSize)
 		{
-			return xPvaRiverIndicator(Input, volPivotWindow, printEvents, drawFtt, drawActionBoxes, drawTurnTrendLane, drawOoeLane, drawContainerIds, drawGeometry, displayMode, drawVolumeLane, drawMiddleLane, drawContainerLane);
+			return xPvaRiverIndicator(Input, volPivotWindow, printEvents, drawFtt, drawActionBoxes, drawTurnTrendLane, drawOoeLane, drawContainerIds, drawGeometry, displayMode, drawVolumeLane, drawMiddleLane, drawContainerLane, fontSize);
 		}
 
-		public xPvaRiverIndicator xPvaRiverIndicator(ISeries<double> input, int volPivotWindow, bool printEvents, bool drawFtt, bool drawActionBoxes, bool drawTurnTrendLane, bool drawOoeLane, bool drawContainerIds, bool drawGeometry, RiverDisplayMode displayMode, bool drawVolumeLane, bool drawMiddleLane, bool drawContainerLane)
+		public xPvaRiverIndicator xPvaRiverIndicator(ISeries<double> input, int volPivotWindow, bool printEvents, bool drawFtt, bool drawActionBoxes, bool drawTurnTrendLane, bool drawOoeLane, bool drawContainerIds, bool drawGeometry, RiverDisplayMode displayMode, bool drawVolumeLane, bool drawMiddleLane, bool drawContainerLane, int fontSize)
 		{
 			if (cachexPvaRiverIndicator != null)
 				for (int idx = 0; idx < cachexPvaRiverIndicator.Length; idx++)
-					if (cachexPvaRiverIndicator[idx] != null && cachexPvaRiverIndicator[idx].VolPivotWindow == volPivotWindow && cachexPvaRiverIndicator[idx].PrintEvents == printEvents && cachexPvaRiverIndicator[idx].DrawFtt == drawFtt && cachexPvaRiverIndicator[idx].DrawActionBoxes == drawActionBoxes && cachexPvaRiverIndicator[idx].DrawTurnTrendLane == drawTurnTrendLane && cachexPvaRiverIndicator[idx].DrawOoeLane == drawOoeLane && cachexPvaRiverIndicator[idx].DrawContainerIds == drawContainerIds && cachexPvaRiverIndicator[idx].DrawGeometry == drawGeometry && cachexPvaRiverIndicator[idx].DisplayMode == displayMode && cachexPvaRiverIndicator[idx].DrawVolumeLane == drawVolumeLane && cachexPvaRiverIndicator[idx].DrawMiddleLane == drawMiddleLane && cachexPvaRiverIndicator[idx].DrawContainerLane == drawContainerLane && cachexPvaRiverIndicator[idx].EqualsInput(input))
+					if (cachexPvaRiverIndicator[idx] != null && cachexPvaRiverIndicator[idx].VolPivotWindow == volPivotWindow && cachexPvaRiverIndicator[idx].PrintEvents == printEvents && cachexPvaRiverIndicator[idx].DrawFtt == drawFtt && cachexPvaRiverIndicator[idx].DrawActionBoxes == drawActionBoxes && cachexPvaRiverIndicator[idx].DrawTurnTrendLane == drawTurnTrendLane && cachexPvaRiverIndicator[idx].DrawOoeLane == drawOoeLane && cachexPvaRiverIndicator[idx].DrawContainerIds == drawContainerIds && cachexPvaRiverIndicator[idx].DrawGeometry == drawGeometry && cachexPvaRiverIndicator[idx].DisplayMode == displayMode && cachexPvaRiverIndicator[idx].DrawVolumeLane == drawVolumeLane && cachexPvaRiverIndicator[idx].DrawMiddleLane == drawMiddleLane && cachexPvaRiverIndicator[idx].DrawContainerLane == drawContainerLane && cachexPvaRiverIndicator[idx].FontSize == fontSize && cachexPvaRiverIndicator[idx].EqualsInput(input))
 						return cachexPvaRiverIndicator[idx];
-			return CacheIndicator<xPvaRiverIndicator>(new xPvaRiverIndicator(){ VolPivotWindow = volPivotWindow, PrintEvents = printEvents, DrawFtt = drawFtt, DrawActionBoxes = drawActionBoxes, DrawTurnTrendLane = drawTurnTrendLane, DrawOoeLane = drawOoeLane, DrawContainerIds = drawContainerIds, DrawGeometry = drawGeometry, DisplayMode = displayMode, DrawVolumeLane = drawVolumeLane, DrawMiddleLane = drawMiddleLane, DrawContainerLane = drawContainerLane }, input, ref cachexPvaRiverIndicator);
+			return CacheIndicator<xPvaRiverIndicator>(new xPvaRiverIndicator(){ VolPivotWindow = volPivotWindow, PrintEvents = printEvents, DrawFtt = drawFtt, DrawActionBoxes = drawActionBoxes, DrawTurnTrendLane = drawTurnTrendLane, DrawOoeLane = drawOoeLane, DrawContainerIds = drawContainerIds, DrawGeometry = drawGeometry, DisplayMode = displayMode, DrawVolumeLane = drawVolumeLane, DrawMiddleLane = drawMiddleLane, DrawContainerLane = drawContainerLane, FontSize = fontSize }, input, ref cachexPvaRiverIndicator);
 		}
 	}
 }
@@ -580,14 +577,14 @@ namespace NinjaTrader.NinjaScript.MarketAnalyzerColumns
 {
 	public partial class MarketAnalyzerColumn : MarketAnalyzerColumnBase
 	{
-		public Indicators.xPvaRiverIndicator xPvaRiverIndicator(int volPivotWindow, bool printEvents, bool drawFtt, bool drawActionBoxes, bool drawTurnTrendLane, bool drawOoeLane, bool drawContainerIds, bool drawGeometry, RiverDisplayMode displayMode, bool drawVolumeLane, bool drawMiddleLane, bool drawContainerLane)
+		public Indicators.xPvaRiverIndicator xPvaRiverIndicator(int volPivotWindow, bool printEvents, bool drawFtt, bool drawActionBoxes, bool drawTurnTrendLane, bool drawOoeLane, bool drawContainerIds, bool drawGeometry, RiverDisplayMode displayMode, bool drawVolumeLane, bool drawMiddleLane, bool drawContainerLane, int fontSize)
 		{
-			return indicator.xPvaRiverIndicator(Input, volPivotWindow, printEvents, drawFtt, drawActionBoxes, drawTurnTrendLane, drawOoeLane, drawContainerIds, drawGeometry, displayMode, drawVolumeLane, drawMiddleLane, drawContainerLane);
+			return indicator.xPvaRiverIndicator(Input, volPivotWindow, printEvents, drawFtt, drawActionBoxes, drawTurnTrendLane, drawOoeLane, drawContainerIds, drawGeometry, displayMode, drawVolumeLane, drawMiddleLane, drawContainerLane, fontSize);
 		}
 
-		public Indicators.xPvaRiverIndicator xPvaRiverIndicator(ISeries<double> input , int volPivotWindow, bool printEvents, bool drawFtt, bool drawActionBoxes, bool drawTurnTrendLane, bool drawOoeLane, bool drawContainerIds, bool drawGeometry, RiverDisplayMode displayMode, bool drawVolumeLane, bool drawMiddleLane, bool drawContainerLane)
+		public Indicators.xPvaRiverIndicator xPvaRiverIndicator(ISeries<double> input , int volPivotWindow, bool printEvents, bool drawFtt, bool drawActionBoxes, bool drawTurnTrendLane, bool drawOoeLane, bool drawContainerIds, bool drawGeometry, RiverDisplayMode displayMode, bool drawVolumeLane, bool drawMiddleLane, bool drawContainerLane, int fontSize)
 		{
-			return indicator.xPvaRiverIndicator(input, volPivotWindow, printEvents, drawFtt, drawActionBoxes, drawTurnTrendLane, drawOoeLane, drawContainerIds, drawGeometry, displayMode, drawVolumeLane, drawMiddleLane, drawContainerLane);
+			return indicator.xPvaRiverIndicator(input, volPivotWindow, printEvents, drawFtt, drawActionBoxes, drawTurnTrendLane, drawOoeLane, drawContainerIds, drawGeometry, displayMode, drawVolumeLane, drawMiddleLane, drawContainerLane, fontSize);
 		}
 	}
 }
@@ -596,14 +593,14 @@ namespace NinjaTrader.NinjaScript.Strategies
 {
 	public partial class Strategy : NinjaTrader.Gui.NinjaScript.StrategyRenderBase
 	{
-		public Indicators.xPvaRiverIndicator xPvaRiverIndicator(int volPivotWindow, bool printEvents, bool drawFtt, bool drawActionBoxes, bool drawTurnTrendLane, bool drawOoeLane, bool drawContainerIds, bool drawGeometry, RiverDisplayMode displayMode, bool drawVolumeLane, bool drawMiddleLane, bool drawContainerLane)
+		public Indicators.xPvaRiverIndicator xPvaRiverIndicator(int volPivotWindow, bool printEvents, bool drawFtt, bool drawActionBoxes, bool drawTurnTrendLane, bool drawOoeLane, bool drawContainerIds, bool drawGeometry, RiverDisplayMode displayMode, bool drawVolumeLane, bool drawMiddleLane, bool drawContainerLane, int fontSize)
 		{
-			return indicator.xPvaRiverIndicator(Input, volPivotWindow, printEvents, drawFtt, drawActionBoxes, drawTurnTrendLane, drawOoeLane, drawContainerIds, drawGeometry, displayMode, drawVolumeLane, drawMiddleLane, drawContainerLane);
+			return indicator.xPvaRiverIndicator(Input, volPivotWindow, printEvents, drawFtt, drawActionBoxes, drawTurnTrendLane, drawOoeLane, drawContainerIds, drawGeometry, displayMode, drawVolumeLane, drawMiddleLane, drawContainerLane, fontSize);
 		}
 
-		public Indicators.xPvaRiverIndicator xPvaRiverIndicator(ISeries<double> input , int volPivotWindow, bool printEvents, bool drawFtt, bool drawActionBoxes, bool drawTurnTrendLane, bool drawOoeLane, bool drawContainerIds, bool drawGeometry, RiverDisplayMode displayMode, bool drawVolumeLane, bool drawMiddleLane, bool drawContainerLane)
+		public Indicators.xPvaRiverIndicator xPvaRiverIndicator(ISeries<double> input , int volPivotWindow, bool printEvents, bool drawFtt, bool drawActionBoxes, bool drawTurnTrendLane, bool drawOoeLane, bool drawContainerIds, bool drawGeometry, RiverDisplayMode displayMode, bool drawVolumeLane, bool drawMiddleLane, bool drawContainerLane, int fontSize)
 		{
-			return indicator.xPvaRiverIndicator(input, volPivotWindow, printEvents, drawFtt, drawActionBoxes, drawTurnTrendLane, drawOoeLane, drawContainerIds, drawGeometry, displayMode, drawVolumeLane, drawMiddleLane, drawContainerLane);
+			return indicator.xPvaRiverIndicator(input, volPivotWindow, printEvents, drawFtt, drawActionBoxes, drawTurnTrendLane, drawOoeLane, drawContainerIds, drawGeometry, displayMode, drawVolumeLane, drawMiddleLane, drawContainerLane, fontSize);
 		}
 	}
 }
