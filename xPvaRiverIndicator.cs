@@ -76,6 +76,7 @@ namespace NinjaTrader.NinjaScript.Indicators
 		public int FontSize { get; set; }
 
 		
+		
 		private sealed class RiverBarState
 		{
 		    public string ActionToken;
@@ -298,6 +299,11 @@ namespace NinjaTrader.NinjaScript.Indicators
 		private void DrawRiverBar(int barIndex, RiverBarState state)
 		{
 		    int barsAgo = BarsAgoFromIndex(barIndex);
+			
+			double actionY  = High[barsAgo] + 8 * TickSize;
+			double midY     = Low[barsAgo]  - 10 * TickSize;
+			double volumeY  = Low[barsAgo]  - 18 * TickSize;
+			double contY    = High[barsAgo] + 4 * TickSize;
 		
 		    bool tradingMode = DisplayMode == 1;
 		
@@ -312,7 +318,7 @@ namespace NinjaTrader.NinjaScript.Indicators
 		                false,
 		                state.ActionToken,
 		                barsAgo,
-		                High[barsAgo] + 5 * TickSize,
+		                actionY,
 		                0,
 		                ActionBrush(state.ActionType ?? NinjaTrader.NinjaScript.xPva.Engine.ActionType.Unknown),
 		                new SimpleFont("Arial", FontSize),
@@ -334,7 +340,7 @@ namespace NinjaTrader.NinjaScript.Indicators
 		                false,
 		                state.TurnTrendToken,
 		                barsAgo,
-		                Low[barsAgo] - 7 * TickSize,
+		                midY,
 		                0,
 		                Brushes.MediumPurple,
 		                new SimpleFont("Arial", FontSize),
@@ -356,7 +362,7 @@ namespace NinjaTrader.NinjaScript.Indicators
 		                false,
 		                state.VolumeToken,
 		                barsAgo,
-		                Low[barsAgo] - 11 * TickSize,
+		                volumeY,
 		                0,
 		                Brushes.DeepSkyBlue,
 		                new SimpleFont("Arial", FontSize),
@@ -378,7 +384,7 @@ namespace NinjaTrader.NinjaScript.Indicators
 		                false,
 		                state.ContainerToken,
 		                barsAgo,
-		                High[barsAgo] + 2 * TickSize,
+		                contY,
 		                0,
 		                Brushes.LightGray,
 		                new SimpleFont("Arial", FontSize - 1),
