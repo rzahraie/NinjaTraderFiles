@@ -19,6 +19,7 @@ namespace NinjaTrader.NinjaScript.xPva.Engine
 			public xPvaStructureResolver.State Structures;
 			public TrendTypeEvent? LastTrendType;
 			public xPvaContainerReport.State Reports;
+			public xPvaPersistentContainers.State PersistentContainers;
 
             public State(int volPivotWindow)
             {
@@ -33,6 +34,7 @@ namespace NinjaTrader.NinjaScript.xPva.Engine
 				Containers = new xPvaContainers.State();
 				Structures = new xPvaStructureResolver.State();
 				Reports = new xPvaContainerReport.State();
+				PersistentContainers = new xPvaPersistentContainers.State();
 				LastTrendType = null;
             }
         }
@@ -68,6 +70,10 @@ namespace NinjaTrader.NinjaScript.xPva.Engine
 			    events.Add(EngineEvent.From(container.Value));
 				
 				_s.Reports.OnContainer(container.Value);
+				
+				PersistentContainerEvent? pc0 = _s.PersistentContainers.OnContainer(container.Value, bar);
+				if (pc0.HasValue)
+				    events.Add(EngineEvent.From(pc0.Value));
 			
 			    if (container.Value.HasDirectionBreak && container.Value.DirectionBreak.HasValue)
 				{
@@ -88,6 +94,10 @@ namespace NinjaTrader.NinjaScript.xPva.Engine
 				    FttConfirmedEvent confirmed = container.Value.FttConfirmed.Value;
 				    events.Add(EngineEvent.From(confirmed));
 					_s.Reports.OnFttConfirmed(confirmed);
+					
+					PersistentContainerEvent? pc2 = _s.PersistentContainers.OnFttConfirmed(confirmed);
+					if (pc2.HasValue)
+					    events.Add(EngineEvent.From(pc2.Value));
 				
 				    if (_s.LastTrendType.HasValue)
 					{
@@ -123,6 +133,10 @@ namespace NinjaTrader.NinjaScript.xPva.Engine
 					
 					            if (action.HasValue) {
 					                events.Add(EngineEvent.From(action.Value));
+									
+									PersistentContainerEvent? pc3 = _s.PersistentContainers.OnAction(action.Value);
+									if (pc3.HasValue)
+									    events.Add(EngineEvent.From(pc3.Value));
 									
 									var report = _s.Reports.OnAction(action.Value);
 								    if (report.HasValue)
@@ -176,6 +190,8 @@ namespace NinjaTrader.NinjaScript.xPva.Engine
         }
     }
 }
+
+
 
 
 
