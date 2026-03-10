@@ -167,6 +167,45 @@ namespace NinjaTrader.NinjaScript.Indicators
 		        2);
 		}
 		
+		private void DrawLtl(NinjaTrader.NinjaScript.xPva.Engine.ContainerGeometrySnapshot g)
+		{
+		    if (!g.P1.HasValue || !g.P2.HasValue || !g.P3.HasValue)
+		        return;
+		
+		    int i1 = g.P1.Value.BarIndex;
+		    int i2 = g.P2.Value.BarIndex;
+		    int i3 = g.P3.Value.BarIndex;
+		
+		    double p1 = g.P1.Value.Price;
+		    double p2 = g.P2.Value.Price;
+		    double p3 = g.P3.Value.Price;
+		
+		    double slope = (p3 - p1) / (double)(i3 - i1);
+		
+		    double intercept = p2 - slope * i2;
+		
+		    int barsAgo2 = BarsAgoFromIndex(i2);
+		
+		    double yNow = slope * CurrentBar + intercept;
+		
+		    Brush brush =
+		        g.Direction == NinjaTrader.NinjaScript.xPva.Engine.ContainerDirection.Up
+		        ? Brushes.Blue
+		        : Brushes.Red;
+		
+		    Draw.Line(
+		        this,
+		        $"LTL_{g.ContainerId}",
+		        false,
+		        barsAgo2,
+		        p2,
+		        0,
+		        yNow,
+		        brush,
+		        DashStyleHelper.Solid,
+		        2);
+		}
+		
         protected override void OnBarUpdate()
         {
             if (CurrentBar < 1 || engine == null)
@@ -265,13 +304,13 @@ namespace NinjaTrader.NinjaScript.Indicators
 					    break;
 						
 					case NinjaTrader.NinjaScript.xPva.Engine.EventKind.ContainerGeometrySnapshot:
-					   if (DrawGeometryPoints && e.ContainerGeometrySnapshot.HasValue)
-					   {
+					    if (DrawGeometryPoints && e.ContainerGeometrySnapshot.HasValue)
+					    {
 					        var g = e.ContainerGeometrySnapshot.Value;
-					
 					        DrawGeometryPointsEvent(g);
 					        DrawRtl(g);
-					   }
+					        DrawLtl(g);
+					    }
 					    break;
 			    }
 			}
