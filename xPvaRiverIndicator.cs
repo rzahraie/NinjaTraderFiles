@@ -160,7 +160,7 @@ namespace NinjaTrader.NinjaScript.Indicators
 		        false,
 		        barsAgo1,
 		        g.P1.Value.Price,
-		        barsAgo3,
+		        0,
 		        g.P3.Value.Price,
 		        brush,
 		        NinjaTrader.Gui.DashStyleHelper.Solid,
