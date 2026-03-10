@@ -227,20 +227,21 @@ namespace NinjaTrader.NinjaScript.Indicators
 		    double slope = (p3 - p1) / (double)(i3 - i1);
 		
 		    double rtlAtP2 = p1 + slope * (i2 - i1);
-		    double width = g.Direction == NinjaTrader.NinjaScript.xPva.Engine.ContainerDirection.Up
-		        ? p2 - rtlAtP2
-		        : rtlAtP2 - p2;
+			double ltlAtP2 = p2;   // because LTL passes through P2
+			double width = Math.Abs(ltlAtP2 - rtlAtP2);
 		
 		    if (width <= 0)
 		        return;
 		
-		    double veStart = g.Direction == NinjaTrader.NinjaScript.xPva.Engine.ContainerDirection.Up
-		        ? p2 + width
-		        : p2 - width;
-		
-		    double veNow = g.Direction == NinjaTrader.NinjaScript.xPva.Engine.ContainerDirection.Up
-		        ? veStart + slope * (CurrentBar - i2)
-		        : veStart + slope * (CurrentBar - i2);
+		    double ltlNow = p2 + slope * (CurrentBar - i2);
+
+			double veStart = g.Direction == NinjaTrader.NinjaScript.xPva.Engine.ContainerDirection.Up
+			    ? p2 + width
+			    : p2 - width;
+			
+			double veNow = g.Direction == NinjaTrader.NinjaScript.xPva.Engine.ContainerDirection.Up
+			    ? ltlNow + width
+			    : ltlNow - width;
 		
 		    int barsAgo2 = BarsAgoFromIndex(i2);
 		
