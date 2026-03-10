@@ -172,14 +172,14 @@ namespace NinjaTrader.NinjaScript.xPva.Engine
                     break;
 
                 case GeometryState.SeekingP3:
-                    UpdateP3Candidate(s, bar);
-                    if (s.P3.HasValue)
-                    {
-                        BuildLines(s);
-                        if (s.Rtl.HasValue && s.Ltl.HasValue)
-                            s.GeometryState = GeometryState.Active;
-                    }
-                    break;
+				    UpdateP3Candidate(s, bar);
+				    if (s.P3.HasValue)
+				    {
+				        BuildLines(s);
+				        if (s.Rtl.HasValue && s.Ltl.HasValue)
+				            s.GeometryState = GeometryState.Active;
+				    }
+				    break;
 
                 case GeometryState.Active:
                     MaintainActiveGeometry(s, bar);
@@ -232,55 +232,92 @@ namespace NinjaTrader.NinjaScript.xPva.Engine
         }
 
         private static void UpdateP3Candidate(State s, in BarSnapshot bar)
-        {
-            if (!s.P1.HasValue || !s.P2.HasValue)
-                return;
-
-            double candidate = s.Direction == ContainerDirection.Up ? bar.L : bar.H;
-
-            if (!s.P3.HasValue)
-            {
-                // only accept p3 after p2
-                if (bar.Index > s.P2.Value.BarIndex)
-                    s.P3 = new GeometryPoint(bar.Index, candidate);
-                return;
-            }
-
-            if (s.Direction == ContainerDirection.Up)
-            {
-                // p3 is a higher low relative to p1 but after p2
-                bool valid = bar.Index > s.P2.Value.BarIndex &&
-                             candidate >= s.P1.Value.Price;
-                if (valid && candidate <= s.P3.Value.Price)
-                    s.P3 = new GeometryPoint(bar.Index, candidate);
-            }
-            else
-            {
-                // p3 is a lower high relative to p1 but after p2
-                bool valid = bar.Index > s.P2.Value.BarIndex &&
-                             candidate <= s.P1.Value.Price;
-                if (valid && candidate >= s.P3.Value.Price)
-                    s.P3 = new GeometryPoint(bar.Index, candidate);
-            }
-        }
+		{
+		    if (!s.P1.HasValue || !s.P2.HasValue)
+		        return;
+		
+		    // P3 must occur after P2.
+		    if (bar.Index <= s.P2.Value.BarIndex)
+		        return;
+		
+		    if (s.Direction == ContainerDirection.Up)
+		    {
+		        // For an up container:
+		        // - P2 is the high before retrace
+		        // - P3 should be a retrace low after P2
+		        // - but not a full structural collapse below P1
+		        double candidate = bar.L;
+		
+		        bool valid =
+		            candidate >= s.P1.Value.Price &&   // do not undercut P1
+		            candidate < s.P2.Value.Price;      // must actually retrace from P2
+		
+		        if (!valid)
+		            return;
+		
+		        if (!s.P3.HasValue)
+		        {
+		            s.P3 = new GeometryPoint(bar.Index, candidate);
+		            return;
+		        }
+		
+		        // Keep the deepest valid retrace low as P3.
+		        if (candidate <= s.P3.Value.Price)
+		            s.P3 = new GeometryPoint(bar.Index, candidate);
+		    }
+		    else if (s.Direction == ContainerDirection.Down)
+		    {
+		        // For a down container:
+		        // - P2 is the low before retrace
+		        // - P3 should be a retrace high after P2
+		        // - but not a full structural failure above P1
+		        double candidate = bar.H;
+		
+		        bool valid =
+		            candidate <= s.P1.Value.Price &&   // do not exceed P1
+		            candidate > s.P2.Value.Price;      // must actually retrace from P2
+		
+		        if (!valid)
+		            return;
+		
+		        if (!s.P3.HasValue)
+		        {
+		            s.P3 = new GeometryPoint(bar.Index, candidate);
+		            return;
+		        }
+		
+		        // Keep the strongest valid retrace high as P3.
+		        if (candidate >= s.P3.Value.Price)
+		            s.P3 = new GeometryPoint(bar.Index, candidate);
+		    }
+		}
 
         private static void BuildLines(State s)
-        {
-            if (!s.P1.HasValue || !s.P2.HasValue || !s.P3.HasValue)
-                return;
-
-            s.Rtl = new LineDef(s.P1.Value, s.P3.Value);
-
-            // LTL starts from P2, parallel to RTL
-            GeometryPoint p2 = s.P2.Value;
-            double rtlSlope = s.Rtl.Value.Slope;
-
-            GeometryPoint ltlB = new GeometryPoint(
-                p2.BarIndex + 1,
-                p2.Price + rtlSlope);
-
-            s.Ltl = new LineDef(p2, ltlB);
-        }
+		{
+		    if (!s.P1.HasValue || !s.P2.HasValue || !s.P3.HasValue)
+		        return;
+		
+		    // Require ordering: P1 before P2 before P3.
+		    if (!(s.P1.Value.BarIndex < s.P2.Value.BarIndex &&
+		          s.P2.Value.BarIndex < s.P3.Value.BarIndex))
+		        return;
+		
+		    // Prevent zero/near-zero span RTL.
+		    if (s.P3.Value.BarIndex == s.P1.Value.BarIndex)
+		        return;
+		
+		    s.Rtl = new LineDef(s.P1.Value, s.P3.Value);
+		
+		    // LTL starts from P2, parallel to RTL.
+		    GeometryPoint p2 = s.P2.Value;
+		    double rtlSlope = s.Rtl.Value.Slope;
+		
+		    GeometryPoint ltlB = new GeometryPoint(
+		        p2.BarIndex + 1,
+		        p2.Price + rtlSlope);
+		
+		    s.Ltl = new LineDef(p2, ltlB);
+		}
 
         private static void MaintainActiveGeometry(State s, in BarSnapshot bar)
         {
