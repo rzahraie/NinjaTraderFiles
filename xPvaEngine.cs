@@ -23,6 +23,7 @@ namespace NinjaTrader.NinjaScript.xPva.Engine
 			public xPvaContainerGeometry.State Geometries;
 			public Dictionary<int, BarSnapshot> BarsByIndex;
 			public xPvaTradeIntent.State TradeIntents;
+			public xPvaContainerGeometryEngine.State GeometryEngine;
 
             public State(int volPivotWindow)
             {
@@ -41,6 +42,7 @@ namespace NinjaTrader.NinjaScript.xPva.Engine
 				Geometries = new xPvaContainerGeometry.State();
 				BarsByIndex = new Dictionary<int, BarSnapshot>();
 				TradeIntents = new xPvaTradeIntent.State();
+				GeometryEngine = new xPvaContainerGeometryEngine.State();
 				LastTrendType = null;
             }
         }
@@ -83,6 +85,15 @@ namespace NinjaTrader.NinjaScript.xPva.Engine
 				{
 				    events.Add(EngineEvent.From(pc0.Value));
 				    _s.Geometries.OnPersistentContainer(pc0.Value);
+				
+				    ContainerGeometrySnapshot? cgs0 = xPvaContainerGeometryEngine.Step(
+				        _s.GeometryEngine,
+				        bar,
+				        pc0,
+				        null);
+				
+				    if (cgs0.HasValue)
+				        events.Add(EngineEvent.From(cgs0.Value));
 				}
 			
 			    if (container.Value.HasDirectionBreak && container.Value.DirectionBreak.HasValue)
@@ -94,11 +105,20 @@ namespace NinjaTrader.NinjaScript.xPva.Engine
 				    _s.Reports.OnDirectionBreak(db);
 				
 				    PersistentContainerEvent? pc1 = _s.PersistentContainers.OnDirectionBreak(db);
-				    if (pc1.HasValue)
-				    {
-				        events.Add(EngineEvent.From(pc1.Value));
-				        _s.Geometries.OnPersistentContainer(pc1.Value);
-				    }
+					if (pc1.HasValue)
+					{
+					    events.Add(EngineEvent.From(pc1.Value));
+					    _s.Geometries.OnPersistentContainer(pc1.Value);
+					
+					    ContainerGeometrySnapshot? cgs1 = xPvaContainerGeometryEngine.Step(
+					        _s.GeometryEngine,
+					        bar,
+					        pc1,
+					        null);
+					
+					    if (cgs1.HasValue)
+					        events.Add(EngineEvent.From(cgs1.Value));
+					}
 				}
 			
 			    if (container.Value.HasFttCandidate && container.Value.FttCandidate.HasValue) 
@@ -119,6 +139,15 @@ namespace NinjaTrader.NinjaScript.xPva.Engine
 					{
 					    events.Add(EngineEvent.From(pc2.Value));
 					    _s.Geometries.OnPersistentContainer(pc2.Value);
+					
+					    ContainerGeometrySnapshot? cgs2 = xPvaContainerGeometryEngine.Step(
+					        _s.GeometryEngine,
+					        bar,
+					        pc2,
+					        confirmed);
+					
+					    if (cgs2.HasValue)
+					        events.Add(EngineEvent.From(cgs2.Value));
 					}
 				
 				    if (_s.LastTrendType.HasValue)
@@ -161,6 +190,15 @@ namespace NinjaTrader.NinjaScript.xPva.Engine
 									{
 									    events.Add(EngineEvent.From(pc3.Value));
 									    _s.Geometries.OnPersistentContainer(pc3.Value);
+									
+									    ContainerGeometrySnapshot? cgs3 = xPvaContainerGeometryEngine.Step(
+									        _s.GeometryEngine,
+									        bar,
+									        pc3,
+									        null);
+									
+									    if (cgs3.HasValue)
+									        events.Add(EngineEvent.From(cgs3.Value));
 									}
 									
 									TradeIntentEvent? tradeIntent = xPvaTradeIntent.Step(
@@ -228,6 +266,8 @@ namespace NinjaTrader.NinjaScript.xPva.Engine
         }
     }
 }
+
+
 
 
 

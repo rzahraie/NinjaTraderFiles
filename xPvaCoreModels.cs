@@ -88,6 +88,7 @@ namespace NinjaTrader.NinjaScript.xPva.Engine
 		PersistentContainer = 15,
 		ContainerGeometry = 16,
 		TradeIntent = 17,
+		ContainerGeometrySnapshot = 18,
     }
 	
 	public enum EndEffectKind
@@ -574,6 +575,7 @@ namespace NinjaTrader.NinjaScript.xPva.Engine
 		public readonly PersistentContainerEvent? PersistentContainer;
 		public readonly ContainerGeometryEvent? ContainerGeometry;
 		public readonly TradeIntentEvent? TradeIntent;
+		public readonly ContainerGeometrySnapshot? ContainerGeometrySnapshot;
 	
 	    private EngineEvent(
 	        EventKind kind,
@@ -595,7 +597,8 @@ namespace NinjaTrader.NinjaScript.xPva.Engine
 			ContainerReportEvent? cre,
 			PersistentContainerEvent? pce2,
 			ContainerGeometryEvent? cge2,
-			TradeIntentEvent? tie)
+			TradeIntentEvent? tie,
+			ContainerGeometrySnapshot? cgse)
 	    {
 	        Kind = kind;
 	        BarIndex = barIndex;
@@ -617,6 +620,7 @@ namespace NinjaTrader.NinjaScript.xPva.Engine
 			PersistentContainer = pce2;
 			ContainerGeometry = cge2;
 			TradeIntent = tie;
+			ContainerGeometrySnapshot = cgse;
 	    }
 	
 	    public static EngineEvent From(PriceCaseEvent e) =>
@@ -624,119 +628,126 @@ namespace NinjaTrader.NinjaScript.xPva.Engine
 		        EventKind.PriceCase,
 		        e.BarIndex,
 		        e.Case.ToString(),
-		        e, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
+		        e, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
 	
 	    public static EngineEvent From(PermissionEvent e) =>
 		    new EngineEvent(
 		        EventKind.Permission,
 		        e.BarIndex,
 		        $"{e.Permission}: {e.Reason}",
-		        null, e, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
+		        null, e, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
 	
 	    public static EngineEvent From(VolPivotEvent e) =>
 		    new EngineEvent(
 		        EventKind.VolPivot,
 		        e.BarIndex,
 		        $"{e.Kind} V={e.Value}",
-		        null, null, e, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
+		        null, null, e, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
 	
 	    public static EngineEvent From(VolOoeEvent e) =>
 		    new EngineEvent(
 		        EventKind.VolOoe,
 		        e.BarIndex,
 		        $"{e.Name} ({e.Band}) V={e.Value}",
-		        null, null, null, e, null, null, null, null, null, null, null, null, null, null, null, null, null);
+		        null, null, null, e, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
 	
 	    public static EngineEvent From(EndEffectEvent e) =>
 		    new EngineEvent(
 		        EventKind.EndEffect,
 		        e.BarIndex,
 		        $"{e.Kind} [{e.Band}] from {e.Source} V={e.Value}",
-		        null, null, null, null, e, null, null, null, null, null, null, null, null, null, null, null, null);
+		        null, null, null, null, e, null, null, null, null, null, null, null, null, null, null, null, null, null);
 	
 	    public static EngineEvent From(TurnEvent e) =>
 		    new EngineEvent(
 		        EventKind.Turn,
 		        e.BarIndex,
 		        $"{e.Type} from {e.SourceKind} [{e.Band}] via {e.Source} V={e.Value}",
-		        null, null, null, null, null, e, null, null, null, null, null, null, null, null, null, null, null);
+		        null, null, null, null, null, e, null, null, null, null, null, null, null, null, null, null, null, null);
 	
 	    public static EngineEvent From(TrendTypeEvent e) =>
 		    new EngineEvent(
 		        EventKind.TrendType,
 		        e.BarIndex,
 		        $"{e.Type} from turn {e.SourceTurn} / {e.SourceKind} [{e.Band}] V={e.Value}",
-		        null, null, null, null, null, null, e, null, null, null, null, null, null, null, null, null, null);
+		        null, null, null, null, null, null, e, null, null, null, null, null, null, null, null, null, null, null);
 	
 	    public static EngineEvent From(ActionEvent e) =>
 		    new EngineEvent(
 		        EventKind.Action,
 		        e.BarIndex,
 		        $"C#{e.ContainerId} {e.Action} trend={e.TrendType} turn={e.TurnType} {e.SourceKind} [{e.Band}] V={e.Value}",
-		        null, null, null, null, null, null, null, e, null, null, null, null, null, null, null, null, null);
+		        null, null, null, null, null, null, null, e, null, null, null, null, null, null, null, null, null, null);
 	
 	    public static EngineEvent From(ContainerEvent e) =>
 		    new EngineEvent(
 		        EventKind.Container,
 		        e.BarIndex,
 		        $"C#{e.ContainerId} {e.Direction} run={e.RunLength} new={e.IsNewContainer} break={e.HasDirectionBreak} cand={e.HasFttCandidate} conf={e.HasFttConfirmed}",
-		        null, null, null, null, null, null, null, null, e, null, null, null, null, null, null, null, null);
+		        null, null, null, null, null, null, null, null, e, null, null, null, null, null, null, null, null, null);
 	
 	    public static EngineEvent From(DirectionBreakEvent e) =>
 		    new EngineEvent(
 		        EventKind.DirectionBreak,
 		        e.BarIndex,
 		        $"C#{e.ContainerId} DirectionBreak {e.PriorDirection} via {e.SourcePriceCase} run={e.PriorRunLength}",
-		        null, null, null, null, null, null, null, null, null, e, null, null, null, null, null, null, null);
+		        null, null, null, null, null, null, null, null, null, e, null, null, null, null, null, null, null, null);
 	
 	    public static EngineEvent From(FttCandidateEvent e) =>
 		    new EngineEvent(
 		        EventKind.FttCandidate,
 		        e.BarIndex,
 		        $"C#{e.ContainerId} FTT-Candidate {e.PriorDirection} via {e.SourcePriceCase} run={e.PriorRunLength}",
-		        null, null, null, null, null, null, null, null, null, null, e, null, null, null, null, null, null);
+		        null, null, null, null, null, null, null, null, null, null, e, null, null, null, null, null, null, null);
 	
 	    public static EngineEvent From(FttConfirmedEvent e) =>
 		    new EngineEvent(
 		        EventKind.FttConfirmed,
 		        e.BarIndex,
 		        $"C#{e.ContainerId} FTT-Confirmed {e.PriorDirection} via {e.SourcePriceCase} run={e.PriorRunLength}",
-		        null, null, null, null, null, null, null, null, null, null, null, e, null, null, null, null, null);
+		        null, null, null, null, null, null, null, null, null, null, null, e, null, null, null, null, null, null);
 	
 	   public static EngineEvent From(StructureEvent e) =>
 		    new EngineEvent(
 		        EventKind.Structure,
 		        e.BarIndex,
 		        $"C#{e.ContainerId} {e.State} dir={e.Direction} trend={e.TrendType}",
-		        null, null, null, null, null, null, null, null, null, null, null, null, e, null, null, null, null);
+		        null, null, null, null, null, null, null, null, null, null, null, null, e, null, null, null, null, null);
 		
 		public static EngineEvent From(ContainerReportEvent e) =>
 		    new EngineEvent(
 		        EventKind.ContainerReport,
 		        e.FttConfirmedBarIndex ?? e.StartBarIndex,
 		        $"Report C#{e.ContainerId} start={e.StartBarIndex} break={e.DirectionBreakBarIndex} cand={e.FttCandidateBarIndex} conf={e.FttConfirmedBarIndex} struct={e.StructureState} action={e.ActionType}",
-		        null, null, null, null, null, null, null, null, null, null, null, null, null, e, null, null, null);
+		        null, null, null, null, null, null, null, null, null, null, null, null, null, e, null, null, null, null);
 		
 		public static EngineEvent From(PersistentContainerEvent e) =>
 		    new EngineEvent(
 		        EventKind.PersistentContainer,
 		        e.LastBarIndex,
 		        $"PC#{e.ContainerId} {e.LifecycleState} dir={e.Direction} start={e.StartBarIndex} last={e.LastBarIndex} extremeBar={e.ExtremeBarIndex} extreme={e.ExtremePrice} break={e.BreakBarIndex} conf={e.ConfirmBarIndex}",
-		        null, null, null, null, null, null, null, null, null, null, null, null, null, null, e, null, null);
+		        null, null, null, null, null, null, null, null, null, null, null, null, null, null, e, null, null, null);
 		
 		public static EngineEvent From(ContainerGeometryEvent e) =>
 		    new EngineEvent(
 		        EventKind.ContainerGeometry,
 		        e.ConfirmBarIndex,
 		        $"CG#{e.ContainerId} dir={e.Direction} start={e.StartBarIndex}@{e.StartPrice} extreme={e.ExtremeBarIndex}@{e.ExtremePrice} confirm={e.ConfirmBarIndex}@{e.ConfirmPrice}",
-		        null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, e, null);
+		        null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, e, null, null);
 		
 		public static EngineEvent From(TradeIntentEvent e) =>
 		    new EngineEvent(
 		        EventKind.TradeIntent,
 		        e.BarIndex,
 		        $"TI C#{e.ContainerId} {e.Intent} action={e.ActionType} struct={e.StructureState} trend={e.TrendType} turn={e.TurnType}",
-		        null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, e);
+		        null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, e, null);
+		
+		public static EngineEvent From(ContainerGeometrySnapshot e) =>
+		    new EngineEvent(
+		        EventKind.ContainerGeometrySnapshot,
+		        e.CurrentBarIndex,
+		        $"CGS C#{e.ContainerId} state={e.State} p1={(e.P1.HasValue ? e.P1.Value.BarIndex.ToString() : "-")} p2={(e.P2.HasValue ? e.P2.Value.BarIndex.ToString() : "-")} p3={(e.P3.HasValue ? e.P3.Value.BarIndex.ToString() : "-")}",
+		        null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, e);
 	}
 
     public sealed class EngineEvents
@@ -751,6 +762,9 @@ namespace NinjaTrader.NinjaScript.xPva.Engine
         public static EngineEvents Empty => new EngineEvents(Array.Empty<EngineEvent>());
     }
 }
+
+
+
 
 
 

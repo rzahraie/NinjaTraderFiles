@@ -83,6 +83,7 @@ namespace NinjaTrader.NinjaScript.Indicators
 		    public string TurnTrendToken;
 		    public string VolumeToken;
 		    public string ContainerToken;
+			public string TradeIntentToken;
 		
 		    public bool HasFtt;
 		    public NinjaTrader.NinjaScript.xPva.Engine.ContainerDirection? FttPriorDirection;
@@ -227,6 +228,14 @@ namespace NinjaTrader.NinjaScript.Indicators
 			            if (DisplayMode == 0 && DrawGeometry && e.ContainerGeometry.HasValue)
 			                DrawContainerGeometryEvent(e.ContainerGeometry.Value);
 			            break;
+						
+					case NinjaTrader.NinjaScript.xPva.Engine.EventKind.TradeIntent:
+					    if (e.TradeIntent.HasValue)
+					        currentState.TradeIntentToken = TradeIntentToken(e.TradeIntent.Value.Intent);
+					    break;
+						
+					case NinjaTrader.NinjaScript.xPva.Engine.EventKind.ContainerGeometrySnapshot:
+    					break;
 			    }
 			}
 			
@@ -236,6 +245,29 @@ namespace NinjaTrader.NinjaScript.Indicators
 
             DrawRiverBar(CurrentBar, currentState);
         }
+		
+		
+
+		private string TradeIntentToken(NinjaTrader.NinjaScript.xPva.Engine.TradeIntent intent)
+		{
+		    switch (intent)
+		    {
+		        case NinjaTrader.NinjaScript.xPva.Engine.TradeIntent.Enter:
+		            return "ENT";
+		        case NinjaTrader.NinjaScript.xPva.Engine.TradeIntent.Reverse:
+		            return "REV";
+		        case NinjaTrader.NinjaScript.xPva.Engine.TradeIntent.Sideline:
+		            return "SIDE";
+		        case NinjaTrader.NinjaScript.xPva.Engine.TradeIntent.HoldThru:
+		            return "HT";
+		        case NinjaTrader.NinjaScript.xPva.Engine.TradeIntent.EarlyExit:
+		            return "EE";
+		        case NinjaTrader.NinjaScript.xPva.Engine.TradeIntent.ReEntry:
+		            return "RE";
+		        default:
+		            return "";
+		    }
+		}
 		
 		private RiverBarState GetRiverState(int barIndex)
 		{
