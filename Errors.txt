@@ -1,56 +1,20 @@
 NinjaScript File	Error	Code	Line	Column
-xPvaEngine.cs	The type or namespace name 'BarSnapshot' could not be found (are you missing a using directive or an assembly reference?)	CS0246	33	37
-
-
-NinjaScript File	Error	Code	Line	Column
-xPvaEngine.cs	The type or namespace name 'EngineEvents' could not be found (are you missing a using directive or an assembly reference?)	CS0246	33	16
-
+xPvaContainerGeometryEngine.cs	The name 'BarsAgoFromIndex' does not exist in the current context	CS0103	133	22
 
 NinjaScript File	Error	Code	Line	Column
-xPvaEngine.cs	The type or namespace name 'BarSnapshot' could not be found (are you missing a using directive or an assembly reference?)	CS0246	10	20
-
-
-NinjaScript File	Error	Code	Line	Column
-xPvaPermission.cs	The type or namespace name 'PriceCase' could not be found (are you missing a using directive or an assembly reference?)	CS0246	5	62
-
+xPvaContainerGeometryEngine.cs	The name 'BarsAgoFromIndex' does not exist in the current context	CS0103	134	22
 
 NinjaScript File	Error	Code	Line	Column
-xPvaPermission.cs	The type or namespace name 'PermissionEvent' could not be found (are you missing a using directive or an assembly reference?)	CS0246	5	23
-
-
-NinjaScript File	Error	Code	Line	Column
-xPvaPriceCases.cs	The type or namespace name 'BarSnapshot' could not be found (are you missing a using directive or an assembly reference?)	CS0246	5	45
-
+xPvaContainerGeometryEngine.cs	The type or namespace name 'Brush' could not be found (are you missing a using directive or an assembly reference?)	CS0246	136	7
 
 NinjaScript File	Error	Code	Line	Column
-xPvaPriceCases.cs	The type or namespace name 'BarSnapshot' could not be found (are you missing a using directive or an assembly reference?)	CS0246	5	65
-
-
-NinjaScript File	Error	Code	Line	Column
-xPvaPriceCases.cs	The type or namespace name 'PriceCase' could not be found (are you missing a using directive or an assembly reference?)	CS0246	5	23
+xPvaContainerGeometryEngine.cs	The name 'Brushes' does not exist in the current context	CS0103	137	13
 
 NinjaScript File	Error	Code	Line	Column
-xPvaVolumeOoe.cs	The type or namespace name 'VolPivotEvent' could not be found (are you missing a using directive or an assembly reference?)	CS0246	24	53
-
-
-NinjaScript File	Error	Code	Line	Column
-xPvaVolumeOoe.cs	The type or namespace name 'PermissionEvent' could not be found (are you missing a using directive or an assembly reference?)	CS0246	24	77
+xPvaContainerGeometryEngine.cs	The name 'Brushes' does not exist in the current context	CS0103	138	13
 
 NinjaScript File	Error	Code	Line	Column
-xPvaVolumeOoe.cs	The type or namespace name 'VolOoeEvent' could not be found (are you missing a using directive or an assembly reference?)	CS0246	24	23
-
-
+xPvaContainerGeometryEngine.cs	The name 'Draw' does not exist in the current context	CS0103	140	7
 
 NinjaScript File	Error	Code	Line	Column
-xPvaVolumePivots.cs	The type or namespace name 'BarSnapshot' could not be found (are you missing a using directive or an assembly reference?)	CS0246	26	55
-
-NinjaScript File	Error	Code	Line	Column
-xPvaVolumePivots.cs	The type or namespace name 'VolPivotEvent' could not be found (are you missing a using directive or an assembly reference?)	CS0246	26	23
-
-NinjaScript File	Error	Code	Line	Column
-xPvaVolumePivots.cs	The name 'VolPivotKind' does not exist in the current context	CS0103	66	66
-
-NinjaScript File	Error	Code	Line	Column
-xPvaVolumeOoe.cs	The type or namespace name 'VolOoeEvent' could not be found (are you missing a using directive or an assembly reference?)	CS0246	115	36
-
-
+xPvaContainerGeometryEngine.cs	The name 'DashStyleHelper' does not exist in the current context	CS0103	149	11

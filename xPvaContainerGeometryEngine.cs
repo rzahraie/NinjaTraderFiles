@@ -89,6 +89,7 @@ namespace NinjaTrader.NinjaScript.xPva.Engine
         }
     }
 
+	
     public sealed class xPvaContainerGeometryEngine
     {
         public sealed class State
@@ -124,6 +125,31 @@ namespace NinjaTrader.NinjaScript.xPva.Engine
             }
         }
 
+		private void DrawRtl(ContainerGeometrySnapshot g)
+		{
+		    if (!g.P1.HasValue || !g.P3.HasValue)
+		        return;
+		
+		    int barsAgo1 = BarsAgoFromIndex(g.P1.Value.BarIndex);
+		    int barsAgo3 = BarsAgoFromIndex(g.P3.Value.BarIndex);
+		
+		    Brush brush = g.Direction == ContainerDirection.Up
+		        ? Brushes.Blue
+		        : Brushes.Red;
+		
+		    Draw.Line(
+		        this,
+		        $"RTL_{g.ContainerId}_{g.CurrentBarIndex}",
+		        false,
+		        barsAgo1,
+		        g.P1.Value.Price,
+		        barsAgo3,
+		        g.P3.Value.Price,
+		        brush,
+		        DashStyleHelper.Solid,
+		        2);
+		}
+		
         public static ContainerGeometrySnapshot? Step(
             State s,
             in BarSnapshot bar,
@@ -392,3 +418,5 @@ namespace NinjaTrader.NinjaScript.xPva.Engine
         }
     }
 }
+
+
