@@ -265,8 +265,13 @@ namespace NinjaTrader.NinjaScript.Indicators
 					    break;
 						
 					case NinjaTrader.NinjaScript.xPva.Engine.EventKind.ContainerGeometrySnapshot:
-					    if (DrawGeometryPoints && e.ContainerGeometrySnapshot.HasValue)
-					        DrawGeometryPointsEvent(e.ContainerGeometrySnapshot.Value);
+					   if (DrawGeometryPoints && e.ContainerGeometrySnapshot.HasValue)
+					   {
+					        var g = e.ContainerGeometrySnapshot.Value;
+					
+					        DrawGeometryPointsEvent(g);
+					        DrawRtl(g);
+					   }
 					    break;
 			    }
 			}
@@ -297,7 +302,7 @@ namespace NinjaTrader.NinjaScript.Indicators
 		            0,
 		            brush,
 		            new SimpleFont("Arial", FontSize),
-		            TextAlignment.Left,
+		            TextAlignment.Center,
 		            Brushes.Transparent,
 		            Brushes.Transparent,
 		            0);
@@ -316,7 +321,7 @@ namespace NinjaTrader.NinjaScript.Indicators
 		            0,
 		            brush,
 		            new SimpleFont("Arial", FontSize),
-		            TextAlignment.Left,
+		            TextAlignment.Center,
 		            Brushes.Transparent,
 		            Brushes.Transparent,
 		            0);
@@ -335,7 +340,7 @@ namespace NinjaTrader.NinjaScript.Indicators
 		            0,
 		            brush,
 		            new SimpleFont("Arial", FontSize),
-		            TextAlignment.Left,
+		            TextAlignment.Center,
 		            Brushes.Transparent,
 		            Brushes.Transparent,
 		            0);
