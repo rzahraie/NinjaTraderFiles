@@ -148,15 +148,15 @@ namespace NinjaTrader.NinjaScript.Indicators
 		        return;
 		
 		    int barsAgo1 = BarsAgoFromIndex(g.P1.Value.BarIndex);
-		    int barsAgo3 = BarsAgoFromIndex(g.P3.Value.BarIndex);
 		
-		    Brush brush = g.Direction == NinjaTrader.NinjaScript.xPva.Engine.ContainerDirection.Up
+		    Brush brush = g.Direction ==
+		        NinjaTrader.NinjaScript.xPva.Engine.ContainerDirection.Up
 		        ? Brushes.Blue
 		        : Brushes.Red;
 		
 		    Draw.Line(
 		        this,
-		        string.Format("RTL_{0}_{1}", g.ContainerId, g.CurrentBarIndex),
+		        $"RTL_{g.ContainerId}",     // stable tag
 		        false,
 		        barsAgo1,
 		        g.P1.Value.Price,
