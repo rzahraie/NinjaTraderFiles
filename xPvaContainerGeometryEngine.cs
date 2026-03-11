@@ -179,8 +179,16 @@ namespace NinjaTrader.NinjaScript.xPva.Engine
 				    UpdateP3Candidate(s, bar);
 				    if (s.P3.HasValue)
 				    {
-				        s.PendingP3BarIndex = s.P3.Value.BarIndex;
-				        s.GeometryState = GeometryState.PendingConfirmation;
+				        BuildLines(s);
+
+						if (s.Rtl.HasValue && s.Ltl.HasValue)
+						{
+						    s.GeometryState = GeometryState.Active;
+						}
+						else
+						{
+						    s.GeometryState = GeometryState.SeekingP3;
+						}
 				    }
 				    break;
 
@@ -410,6 +418,7 @@ namespace NinjaTrader.NinjaScript.xPva.Engine
         }
     }
 }
+
 
 
 
