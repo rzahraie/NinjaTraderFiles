@@ -110,6 +110,10 @@ namespace NinjaTrader.NinjaScript.xPva.Engine
             public ContainerGeometrySnapshot LastSnapshot;
 			
 			public int PendingP3BarIndex = -1;
+			
+			public GeometryPoint? ProvisionalP2;
+			public int ProvisionalP2BarIndex = -1;
+			public bool SawRetraceAfterProvisionalP2 = false;
 
             public void ResetForContainer(int containerId, ContainerDirection direction)
             {
@@ -125,6 +129,10 @@ namespace NinjaTrader.NinjaScript.xPva.Engine
 
                 HasSnapshot = false;
                 LastSnapshot = default;
+				
+				ProvisionalP2 = null;
+				ProvisionalP2BarIndex = -1;
+				SawRetraceAfterProvisionalP2 = false;
             }
         }
 		
@@ -170,10 +178,12 @@ namespace NinjaTrader.NinjaScript.xPva.Engine
                     break;
 
                 case GeometryState.SeekingP2:
-                    UpdateP2Candidate(s, bar);
-                    if (s.P2.HasValue && IsP2Established(s, pc))
-                        s.GeometryState = GeometryState.SeekingP3;
-                    break;
+				    UpdateP2Candidate(s, bar);
+				
+				    if (s.P2.HasValue)
+				        s.GeometryState = GeometryState.SeekingP3;
+				
+				    break;
 
                 case GeometryState.SeekingP3:
 				    UpdateP3Candidate(s, bar);
@@ -221,35 +231,80 @@ namespace NinjaTrader.NinjaScript.xPva.Engine
         }
 
         private static void BuildP1(State s, in BarSnapshot bar, in PersistentContainerEvent pc)
-        {
-            double p1Price = s.Direction == ContainerDirection.Up ? bar.L : bar.H;
-            s.P1 = new GeometryPoint(pc.StartBarIndex, p1Price);
-        }
+		{
+		    double p1Price = s.Direction == ContainerDirection.Up ? bar.L : bar.H;
+		    s.P1 = new GeometryPoint(bar.Index, p1Price);
+		}
 
         private static void UpdateP2Candidate(State s, in BarSnapshot bar)
-        {
-            if (!s.P1.HasValue)
-                return;
-
-            double candidate = s.Direction == ContainerDirection.Up ? bar.H : bar.L;
-
-            if (!s.P2.HasValue)
-            {
-                s.P2 = new GeometryPoint(bar.Index, candidate);
-                return;
-            }
-
-            if (s.Direction == ContainerDirection.Up)
-            {
-                if (candidate >= s.P2.Value.Price)
-                    s.P2 = new GeometryPoint(bar.Index, candidate);
-            }
-            else
-            {
-                if (candidate <= s.P2.Value.Price)
-                    s.P2 = new GeometryPoint(bar.Index, candidate);
-            }
-        }
+		{
+		    if (!s.P1.HasValue)
+		        return;
+		
+		    double candidate = s.Direction == ContainerDirection.Up ? bar.H : bar.L;
+		
+		    // First provisional P2
+		    if (!s.ProvisionalP2.HasValue)
+		    {
+		        s.ProvisionalP2 = new GeometryPoint(bar.Index, candidate);
+		        s.ProvisionalP2BarIndex = bar.Index;
+		        s.SawRetraceAfterProvisionalP2 = false;
+		        return;
+		    }
+		
+		    // If we make a new extreme before retrace is confirmed, replace provisional P2
+		    if (s.Direction == ContainerDirection.Up)
+		    {
+		        if (candidate >= s.ProvisionalP2.Value.Price)
+		        {
+		            s.ProvisionalP2 = new GeometryPoint(bar.Index, candidate);
+		            s.ProvisionalP2BarIndex = bar.Index;
+		            s.SawRetraceAfterProvisionalP2 = false;
+		            return;
+		        }
+		    }
+		    else
+		    {
+		        if (candidate <= s.ProvisionalP2.Value.Price)
+		        {
+		            s.ProvisionalP2 = new GeometryPoint(bar.Index, candidate);
+		            s.ProvisionalP2BarIndex = bar.Index;
+		            s.SawRetraceAfterProvisionalP2 = false;
+		            return;
+		        }
+		    }
+		
+		    // We are no longer making new extremes, so look for first retrace evidence after provisional P2
+		    if (bar.Index <= s.ProvisionalP2BarIndex)
+		        return;
+		
+		    bool retraceSeen = false;
+		
+		    if (s.Direction == ContainerDirection.Up)
+		    {
+		        // retrace after high extreme = bar low dips below provisional high
+		        retraceSeen = bar.L < s.ProvisionalP2.Value.Price;
+		    }
+		    else
+		    {
+		        // retrace after low extreme = bar high rises above provisional low
+		        retraceSeen = bar.H > s.ProvisionalP2.Value.Price;
+		    }
+		
+		    if (!retraceSeen)
+		        return;
+		
+		    s.SawRetraceAfterProvisionalP2 = true;
+		
+		    // Lock P2 only after at least one bar exists after the provisional extreme
+		    if (bar.Index > s.ProvisionalP2BarIndex)
+		    {
+		        s.P2 = s.ProvisionalP2;
+				s.ProvisionalP2 = null;
+				s.ProvisionalP2BarIndex = -1;
+				s.SawRetraceAfterProvisionalP2 = false;
+		    }
+		}
 
         private static bool IsP2Established(State s, in PersistentContainerEvent pc)
         {
@@ -418,6 +473,7 @@ namespace NinjaTrader.NinjaScript.xPva.Engine
         }
     }
 }
+
 
 
 
