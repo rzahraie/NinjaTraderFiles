@@ -5,11 +5,13 @@ namespace NinjaTrader.NinjaScript.xPva.Engine
     public enum GeometryState
     {
         Unknown = 0,
-        SeekingP1 = 1,
-        SeekingP2 = 2,
-        SeekingP3 = 3,
-        Active = 4,
-        Broken = 5,
+	    SeekingP1 = 1,
+	    SeekingP2 = 2,
+	    SeekingP3 = 3,
+	    PendingConfirmation = 4,
+	    Active = 5,
+	    Broken = 6,
+		WaitingForBreak = 7,
     }
 
     public readonly struct GeometryPoint
@@ -106,6 +108,8 @@ namespace NinjaTrader.NinjaScript.xPva.Engine
 
             public bool HasSnapshot;
             public ContainerGeometrySnapshot LastSnapshot;
+			
+			public int PendingP3BarIndex = -1;
 
             public void ResetForContainer(int containerId, ContainerDirection direction)
             {
@@ -143,7 +147,7 @@ namespace NinjaTrader.NinjaScript.xPva.Engine
             if (confirmed.HasValue && s.ContainerId == confirmed.Value.ContainerId)
             {
                 // A confirmed FTT means the active container is no longer valid geometrically.
-                s.GeometryState = GeometryState.Broken;
+                s.GeometryState = GeometryState.WaitingForBreak;
             }
 
             if (TryBuildSnapshot(s, bar, out ContainerGeometrySnapshot snapshot))
@@ -175,9 +179,8 @@ namespace NinjaTrader.NinjaScript.xPva.Engine
 				    UpdateP3Candidate(s, bar);
 				    if (s.P3.HasValue)
 				    {
-				        BuildLines(s);
-				        if (s.Rtl.HasValue && s.Ltl.HasValue)
-				            s.GeometryState = GeometryState.Active;
+				        s.PendingP3BarIndex = s.P3.Value.BarIndex;
+				        s.GeometryState = GeometryState.PendingConfirmation;
 				    }
 				    break;
 
@@ -185,6 +188,25 @@ namespace NinjaTrader.NinjaScript.xPva.Engine
                     MaintainActiveGeometry(s, bar);
                     break;
 
+				case GeometryState.PendingConfirmation:
+				    if (!s.P3.HasValue)
+				    {
+				        s.GeometryState = GeometryState.SeekingP3;
+				        break;
+				    }
+				
+				    if (bar.Index <= s.PendingP3BarIndex)
+				        break;
+				
+				    BuildLines(s);
+				
+				    if (s.Rtl.HasValue && s.Ltl.HasValue)
+				        s.GeometryState = GeometryState.Active;
+				    else
+				        s.GeometryState = GeometryState.SeekingP3;
+				
+				    break;
+	
                 case GeometryState.Broken:
                     break;
             }
@@ -319,28 +341,24 @@ namespace NinjaTrader.NinjaScript.xPva.Engine
 		    s.Ltl = new LineDef(p2, ltlB);
 		}
 
-        private static void MaintainActiveGeometry(State s, in BarSnapshot bar)
-        {
-            if (!s.Rtl.HasValue || !s.Ltl.HasValue)
-                return;
-
-            double ltlNow = s.Ltl.Value.ValueAt(bar.Index);
-
-            bool brokeLtl =
-                s.Direction == ContainerDirection.Up
-                    ? bar.L < ltlNow
-                    : bar.H > ltlNow;
-
-            if (brokeLtl)
-            {
-                s.GeometryState = GeometryState.Broken;
-                return;
-            }
-
-            // Optional refinement:
-            // If trend continues strongly, allow P2/LTL to step outward later.
-            // Not implemented yet; keep scaffold deterministic and conservative.
-        }
+		private static void MaintainActiveGeometry(State s, in BarSnapshot bar)
+		{
+		    if (!s.Rtl.HasValue || !s.Ltl.HasValue)
+		        return;
+		
+		    double ltlNow = s.Ltl.Value.ValueAt(bar.Index);
+		
+		    bool brokeLtl =
+		        s.Direction == ContainerDirection.Up
+		            ? bar.L < ltlNow
+		            : bar.H > ltlNow;
+		
+		    if (brokeLtl)
+		    {
+		        s.GeometryState = GeometryState.Broken;
+		        return;
+		    }
+		}
 
         private static bool TryBuildSnapshot(
             State s,
@@ -392,6 +410,12 @@ namespace NinjaTrader.NinjaScript.xPva.Engine
         }
     }
 }
+
+
+
+
+
+
 
 
 

@@ -262,6 +262,33 @@ namespace NinjaTrader.NinjaScript.Indicators
 		        1);
 		}
 		
+		private void DrawGeometryStateLabel(NinjaTrader.NinjaScript.xPva.Engine.ContainerGeometrySnapshot g)
+		{
+		    if (!g.P3.HasValue)
+		        return;
+		
+		    int barsAgo = BarsAgoFromIndex(g.P3.Value.BarIndex);
+		
+		    Brush brush = g.Direction == NinjaTrader.NinjaScript.xPva.Engine.ContainerDirection.Up
+		        ? Brushes.Blue
+		        : Brushes.Red;
+		
+		    Draw.Text(
+		        this,
+		        $"GeoState_{g.ContainerId}",
+		        false,
+		        $"C#{g.ContainerId} {g.State}",
+		        barsAgo,
+		        g.P3.Value.Price + 2 * TickSize,
+		        0,
+		        brush,
+		        new SimpleFont("Arial", FontSize - 1),
+		        TextAlignment.Center,
+		        Brushes.Transparent,
+		        Brushes.Transparent,
+		        0);
+		}
+		
         protected override void OnBarUpdate()
         {
             if (CurrentBar < 1 || engine == null)
@@ -363,10 +390,17 @@ namespace NinjaTrader.NinjaScript.Indicators
 					    if (DrawGeometryPoints && e.ContainerGeometrySnapshot.HasValue)
 					    {
 					        var g = e.ContainerGeometrySnapshot.Value;
+					
 					        DrawGeometryPointsEvent(g);
-					        DrawRtl(g);
-					        DrawLtl(g);
-							DrawVe1(g);
+					
+					        if (g.State == NinjaTrader.NinjaScript.xPva.Engine.GeometryState.Active)
+					        {
+					            DrawRtl(g);
+					            DrawLtl(g);
+					            DrawVe1(g);
+					        }
+					
+					        DrawGeometryStateLabel(g);
 					    }
 					    break;
 			    }
