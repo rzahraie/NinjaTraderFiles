@@ -171,8 +171,14 @@ namespace NinjaTrader.NinjaScript.xPva.Engine
 
                case GeometryState.SeekingP2:
 				    UpdateP2Candidate(s, bar);
-				    if (s.P2.HasValue && IsP2Established(s, pc))
+				
+				    if (s.P2.HasValue &&
+				        IsP2Established(s, pc) &&
+				        bar.Index > s.P2.Value.BarIndex)
+				    {
 				        s.GeometryState = GeometryState.SeekingP3;
+				    }
+				
 				    break;
 
                 case GeometryState.SeekingP3:
@@ -418,6 +424,7 @@ namespace NinjaTrader.NinjaScript.xPva.Engine
         }
     }
 }
+
 
 
 
