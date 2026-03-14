@@ -2,7 +2,9 @@ namespace NinjaTrader.NinjaScript.xPva.Engine
 {
     public static class xPvaManualContainerAdapter
     {
-        public static ContainerGeometrySnapshot Adapt(in ManualContainerSnapshot m, int currentBarIndex)
+        public static ContainerGeometrySnapshot FromManual(
+            ManualContainerSnapshot m,
+            int currentBarIndex)
         {
             var p1 = new GeometryPoint(m.P1.BarIndex, m.P1.Price);
             var p2 = new GeometryPoint(m.P2.BarIndex, m.P2.Price);
@@ -10,24 +12,30 @@ namespace NinjaTrader.NinjaScript.xPva.Engine
 
             var rtl = new LineDef(p1, p3);
 
-            GeometryPoint ltlB = new GeometryPoint(
+            var p2b = new GeometryPoint(
                 p2.BarIndex + 1,
                 p2.Price + m.LtlSlope);
 
-            var ltl = new LineDef(p2, ltlB);
+            var ltl = new LineDef(p2, p2b);
 
             double rtlAtP2 = rtl.ValueAt(p2.BarIndex);
             double width = System.Math.Abs(p2.Price - rtlAtP2);
 
             double ltlNow = ltl.ValueAt(currentBarIndex);
 
-            double ve1 = m.IsUpContainer
-                ? ltlNow + width
-                : ltlNow - width;
+            double ve1;
+            double ve2;
 
-            double ve2 = m.IsUpContainer
-                ? ltlNow + 2.0 * width
-                : ltlNow - 2.0 * width;
+            if (m.IsUpContainer)
+            {
+                ve1 = ltlNow + width;
+                ve2 = ltlNow + 2.0 * width;
+            }
+            else
+            {
+                ve1 = ltlNow - width;
+                ve2 = ltlNow - 2.0 * width;
+            }
 
             return new ContainerGeometrySnapshot(
                 m.ContainerId,
