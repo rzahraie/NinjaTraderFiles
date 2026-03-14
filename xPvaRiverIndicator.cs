@@ -19,6 +19,7 @@ namespace NinjaTrader.NinjaScript.Indicators
         private NinjaTrader.NinjaScript.xPva.Engine.xPvaEngine engine;
 
         private readonly Dictionary<int, RiverBarState> riverStates = new Dictionary<int, RiverBarState>();
+		private NinjaTrader.NinjaScript.xPva.Engine.ContainerGeometrySnapshot? manualGeometrySnapshot;
 
         [NinjaScriptProperty]
 		[Range(1, 10)]
@@ -300,6 +301,15 @@ namespace NinjaTrader.NinjaScript.Indicators
 			NinjaTrader.NinjaScript.xPva.Engine.TrendType? latestTrendType = null;
 
             DateTime timeUtc = DateTime.SpecifyKind(Time[0], DateTimeKind.Local).ToUniversalTime();
+			
+			NinjaTrader.NinjaScript.xPva.Engine.ManualContainerSnapshot manualSnapshot;
+			if (NinjaTrader.NinjaScript.xPva.Engine.xPvaManualContainerBridge.TryConsume(out manualSnapshot))
+			{
+			    manualGeometrySnapshot =
+			        NinjaTrader.NinjaScript.xPva.Engine.xPvaManualContainerAdapter.FromManual(
+			            manualSnapshot,
+			            CurrentBar);
+			}
 
             var snap = new NinjaTrader.NinjaScript.xPva.Engine.BarSnapshot(
                 timeUtc,
@@ -398,6 +408,7 @@ namespace NinjaTrader.NinjaScript.Indicators
 					            DrawRtl(g);
 					            DrawLtl(g);
 					            DrawVe1(g);
+								DrawGeometryStateLabel(g);
 					        }
 					
 					        DrawGeometryStateLabel(g);
