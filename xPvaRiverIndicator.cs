@@ -20,6 +20,7 @@ namespace NinjaTrader.NinjaScript.Indicators
 
         private readonly Dictionary<int, RiverBarState> riverStates = new Dictionary<int, RiverBarState>();
 		private NinjaTrader.NinjaScript.xPva.Engine.ContainerGeometrySnapshot? manualGeometrySnapshot;
+		private int lastManualSnapshotVersion = -1;
 
         [NinjaScriptProperty]
 		[Range(1, 10)]
@@ -290,10 +291,42 @@ namespace NinjaTrader.NinjaScript.Indicators
 		        0);
 		}
 		
+		private void RefreshManualGeometrySnapshot()
+		{
+		    NinjaTrader.NinjaScript.xPva.Engine.ManualContainerSnapshot manualSnapshot;
+		    int version;
+		
+		    if (NinjaTrader.NinjaScript.xPva.Engine.xPvaManualContainerBridge.TryGetLatest(out manualSnapshot, out version))
+		    {
+		        if (version != lastManualSnapshotVersion)
+		        {
+		            manualGeometrySnapshot =
+		                NinjaTrader.NinjaScript.xPva.Engine.xPvaManualContainerAdapter.FromManual(
+		                    manualSnapshot,
+		                    CurrentBar);
+		
+		            lastManualSnapshotVersion = version;
+		
+		            var g = manualGeometrySnapshot.Value;
+		            Print($"[River] manual C#{g.ContainerId} state={g.State} P1={g.P1.HasValue} P2={g.P2.HasValue} P3={g.P3.HasValue}");
+		        }
+		    }
+		}
+		
+		protected override void OnRender(ChartControl chartControl, ChartScale chartScale)
+		{
+		    RefreshManualGeometrySnapshot();
+		    base.OnRender(chartControl, chartScale);
+		}
+		
         protected override void OnBarUpdate()
         {
             if (CurrentBar < 1 || engine == null)
                 return;
+			
+			Print($"[River] OnBarUpdate CurrentBar={CurrentBar}");
+			
+			RefreshManualGeometrySnapshot();
 			
 			var currentState = GetRiverState(CurrentBar);
 
@@ -303,12 +336,15 @@ namespace NinjaTrader.NinjaScript.Indicators
             DateTime timeUtc = DateTime.SpecifyKind(Time[0], DateTimeKind.Local).ToUniversalTime();
 			
 			NinjaTrader.NinjaScript.xPva.Engine.ManualContainerSnapshot manualSnapshot;
-			if (NinjaTrader.NinjaScript.xPva.Engine.xPvaManualContainerBridge.TryConsume(out manualSnapshot))
+			if (NinjaTrader.NinjaScript.xPva.Engine.xPvaManualContainerBridge.TryGetLatest(out manualSnapshot, out lastManualSnapshotVersion))
 			{
 			    manualGeometrySnapshot =
 			        NinjaTrader.NinjaScript.xPva.Engine.xPvaManualContainerAdapter.FromManual(
 			            manualSnapshot,
 			            CurrentBar);
+			
+			    var g = manualGeometrySnapshot.Value;
+			    Print($"[River] manual C#{g.ContainerId} state={g.State} P1={g.P1.HasValue} P2={g.P2.HasValue} P3={g.P3.HasValue}");
 			}
 			
 			if (manualGeometrySnapshot.HasValue)
@@ -411,6 +447,7 @@ namespace NinjaTrader.NinjaScript.Indicators
 					
 					        if (g.State == NinjaTrader.NinjaScript.xPva.Engine.GeometryState.Active)
 					        {
+								DrawGeometryPointsEvent(g);
 					            DrawRtl(g);
 					            DrawLtl(g);
 					            DrawVe1(g);
