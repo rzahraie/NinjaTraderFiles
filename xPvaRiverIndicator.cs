@@ -370,33 +370,57 @@ namespace NinjaTrader.NinjaScript.Indicators
 							    int confirmIdx = idx + 1;
 							    if (confirmIdx <= CurrentBar && confirmIdx < Bars.Count)
 							    {
-							        manualHistoricalConfirmedBar = confirmIdx;
-							        Print($"[ManualRuntime-Historical] FTT Confirmed C#{g.ContainerId} at bar {confirmIdx}");
+							        double confirmLtl = g.Ltl.Value.ValueAt(confirmIdx);
+							        double confirmLow = Bars.GetLow(confirmIdx);
+							        double confirmHigh = Bars.GetHigh(confirmIdx);
 							
-							        var structure =
-							            NinjaTrader.NinjaScript.xPva.Engine.xPvaManualStructureResolver.Resolve(
-							                g,
-							                confirmIdx);
+							        bool confirmBroke =
+							            g.Direction == NinjaTrader.NinjaScript.xPva.Engine.ContainerDirection.Up
+							                ? confirmLow < confirmLtl
+							                : confirmHigh > confirmLtl;
 							
-							        var action =
-							            NinjaTrader.NinjaScript.xPva.Engine.xPvaManualActionResolver.Resolve(
-							                g,
-							                structure,
-							                confirmIdx);
+							        Print(string.Format(
+							            "[ManualRuntime-Historical] confirmIdx={0} H={1} L={2} ltlNow={3} confirmBroke={4}",
+							            confirmIdx,
+							            confirmHigh,
+							            confirmLow,
+							            confirmLtl,
+							            confirmBroke));
 							
-							        var tradeIntent =
-							            NinjaTrader.NinjaScript.xPva.Engine.xPvaManualTradeIntentResolver.Resolve(
-							                g,
-							                structure,
-							                action,
-							                confirmIdx);
+							        if (confirmBroke)
+							        {
+							            manualHistoricalConfirmedBar = confirmIdx;
+							            Print($"[ManualRuntime-Historical] FTT Confirmed C#{g.ContainerId} at bar {confirmIdx}");
 							
-							        manualHistoricalStructureToken = structure.State.ToString();
-							        manualHistoricalActionToken = tradeIntent.Intent.ToString();
+							            var structure =
+							                NinjaTrader.NinjaScript.xPva.Engine.xPvaManualStructureResolver.Resolve(
+							                    g,
+							                    confirmIdx);
 							
-							        Print($"[ManualRuntime-Historical] Structure C#{structure.ContainerId} {structure.State} dir={structure.Direction}");
-							        Print($"[ManualRuntime-Historical] Action C#{action.ContainerId} {action.Action}");
-							        Print($"[ManualRuntime-Historical] TradeIntent C#{tradeIntent.ContainerId} {tradeIntent.Intent}");
+							            var action =
+							                NinjaTrader.NinjaScript.xPva.Engine.xPvaManualActionResolver.Resolve(
+							                    g,
+							                    structure,
+							                    confirmIdx);
+							
+							            var tradeIntent =
+							                NinjaTrader.NinjaScript.xPva.Engine.xPvaManualTradeIntentResolver.Resolve(
+							                    g,
+							                    structure,
+							                    action,
+							                    confirmIdx);
+							
+							            manualHistoricalStructureToken = structure.State.ToString();
+							            manualHistoricalActionToken = tradeIntent.Intent.ToString();
+							
+							            Print($"[ManualRuntime-Historical] Structure C#{structure.ContainerId} {structure.State} dir={structure.Direction}");
+							            Print($"[ManualRuntime-Historical] Action C#{action.ContainerId} {action.Action}");
+							            Print($"[ManualRuntime-Historical] TradeIntent C#{tradeIntent.ContainerId} {tradeIntent.Intent}");
+							        }
+							        else
+							        {
+							            Print($"[ManualRuntime-Historical] FTT confirmation rejected for C#{g.ContainerId} at bar {confirmIdx}");
+							        }
 							    }
 							
 							    break;
