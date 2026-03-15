@@ -36,10 +36,10 @@ namespace NinjaTrader.NinjaScript.xPva.Engine
 
             double ltlNow = s.ActiveContainer.Ltl.Value.ValueAt(bar.Index);
 
-            bool broke =
-                s.ActiveContainer.Direction == ContainerDirection.Up
-                    ? bar.L < ltlNow
-                    : bar.H > ltlNow;
+			bool broke =
+			    s.ActiveContainer.Direction == ContainerDirection.Up
+			        ? bar.L < ltlNow
+			        : bar.H > ltlNow;
 
             if (!broke)
                 return null;
@@ -75,3 +75,6 @@ namespace NinjaTrader.NinjaScript.xPva.Engine
         }
     }
 }
+
+
+

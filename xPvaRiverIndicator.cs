@@ -347,8 +347,31 @@ namespace NinjaTrader.NinjaScript.Indicators
 			        NinjaTrader.NinjaScript.xPva.Engine.xPvaManualContainerAdapter.FromManual(
 			            manualSnapshot,
 			            CurrentBar);
+				var g = manualGeometrySnapshot.Value;
+
+				if (g.Ltl.HasValue && g.P3.HasValue)
+				{
+				    for (int idx = g.P3.Value.BarIndex + 1; idx <= CurrentBar; idx++)
+				    {
+				        double ltlNow = g.Ltl.Value.ValueAt(idx);
+				
+				        double low = Low[CurrentBar - idx];
+				        double high = High[CurrentBar - idx];
+				
+				        bool broke =
+				            g.Direction == NinjaTrader.NinjaScript.xPva.Engine.ContainerDirection.Up
+				                ? low < ltlNow
+				                : high > ltlNow;
+				
+				        if (broke)
+				        {
+				            Print($"[ManualRuntime-Historical] FTT Candidate C#{g.ContainerId} at bar {idx}");
+				            break;
+				        }
+				    }
+				}
 			
-			    var g = manualGeometrySnapshot.Value;
+			    g = manualGeometrySnapshot.Value;
 			    Print($"[River] manual C#{g.ContainerId} state={g.State} P1={g.P1.HasValue} P2={g.P2.HasValue} P3={g.P3.HasValue}");
 				Print($"[River] drawing manual C#{g.ContainerId} rtl={g.Rtl.HasValue} ltl={g.Ltl.HasValue}");
 			}
@@ -374,8 +397,27 @@ namespace NinjaTrader.NinjaScript.Indicators
 			        NinjaTrader.NinjaScript.xPva.Engine.xPvaManualContainerRuntime.CheckFttCandidate(
 			            manualRuntimeState,
 			            bar);
-			
-			    if (fttCandidate.HasValue)
+				
+				if (manualRuntimeState.HasActiveManualContainer)
+				{
+				    var g = manualRuntimeState.ActiveContainer;
+				
+				    if (g.Ltl.HasValue)
+				    {
+				        double ltlNow = g.Ltl.Value.ValueAt(CurrentBar);
+				
+				        Print(string.Format(
+				            "[ManualRuntime] C#{0} dir={1} bar={2} H={3} L={4} ltlNow={5}",
+				            g.ContainerId,
+				            g.Direction,
+				            CurrentBar,
+				            High[0],
+				            Low[0],
+				            ltlNow));
+				    }
+				}
+				
+				if (fttCandidate.HasValue)
 			        Print($"[ManualRuntime] FTT Candidate C#{fttCandidate.Value.ContainerId} at bar {CurrentBar}");
 			
 			    var fttConfirmed =
