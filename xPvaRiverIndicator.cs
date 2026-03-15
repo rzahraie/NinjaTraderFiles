@@ -374,18 +374,21 @@ namespace NinjaTrader.NinjaScript.Indicators
 							        double confirmLow = Bars.GetLow(confirmIdx);
 							        double confirmHigh = Bars.GetHigh(confirmIdx);
 							
-							        bool confirmBroke =
-							            g.Direction == NinjaTrader.NinjaScript.xPva.Engine.ContainerDirection.Up
-							                ? confirmLow < confirmLtl
-							                : confirmHigh > confirmLtl;
+							        double confirmClose = Bars.GetClose(confirmIdx);
+
+									bool confirmBroke =
+									    g.Direction == NinjaTrader.NinjaScript.xPva.Engine.ContainerDirection.Up
+									        ? confirmClose < confirmLtl
+									        : confirmClose > confirmLtl;
 							
 							        Print(string.Format(
-							            "[ManualRuntime-Historical] confirmIdx={0} H={1} L={2} ltlNow={3} confirmBroke={4}",
-							            confirmIdx,
-							            confirmHigh,
-							            confirmLow,
-							            confirmLtl,
-							            confirmBroke));
+									    "[ManualRuntime-Historical] confirmIdx={0} H={1} L={2} C={3} ltlNow={4} confirmBroke={5}",
+									    confirmIdx,
+									    confirmHigh,
+									    confirmLow,
+									    confirmClose,
+									    confirmLtl,
+									    confirmBroke));
 							
 							        if (confirmBroke)
 							        {
