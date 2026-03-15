@@ -345,6 +345,7 @@ namespace NinjaTrader.NinjaScript.Indicators
 			
 			    var g = manualGeometrySnapshot.Value;
 			    Print($"[River] manual C#{g.ContainerId} state={g.State} P1={g.P1.HasValue} P2={g.P2.HasValue} P3={g.P3.HasValue}");
+				Print($"[River] drawing manual C#{g.ContainerId} rtl={g.Rtl.HasValue} ltl={g.Ltl.HasValue}");
 			}
 			
 			if (manualGeometrySnapshot.HasValue)
