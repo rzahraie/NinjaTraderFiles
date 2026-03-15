@@ -21,6 +21,8 @@ namespace NinjaTrader.NinjaScript.Indicators
         private readonly Dictionary<int, RiverBarState> riverStates = new Dictionary<int, RiverBarState>();
 		private NinjaTrader.NinjaScript.xPva.Engine.ContainerGeometrySnapshot? manualGeometrySnapshot;
 		private int lastManualSnapshotVersion = -1;
+		private NinjaTrader.NinjaScript.xPva.Engine.xPvaManualContainerRuntime.State manualRuntimeState =
+    								new NinjaTrader.NinjaScript.xPva.Engine.xPvaManualContainerRuntime.State();
 
         [NinjaScriptProperty]
 		[Range(1, 10)]
@@ -304,6 +306,9 @@ namespace NinjaTrader.NinjaScript.Indicators
 		                NinjaTrader.NinjaScript.xPva.Engine.xPvaManualContainerAdapter.FromManual(
 		                    manualSnapshot,
 		                    CurrentBar);
+					
+					NinjaTrader.NinjaScript.xPva.Engine.xPvaManualContainerRuntime.LoadManualContainer(manualRuntimeState,
+									manualGeometrySnapshot.Value);
 		
 		            lastManualSnapshotVersion = version;
 		
@@ -352,6 +357,34 @@ namespace NinjaTrader.NinjaScript.Indicators
 			{
 			    var g = manualGeometrySnapshot.Value;
 			    Print($"[River] manual C#{g.ContainerId} state={g.State} P1={g.P1.HasValue} P2={g.P2.HasValue} P3={g.P3.HasValue}");
+			}
+			
+			if (manualRuntimeState.HasActiveManualContainer)
+			{
+			    var bar = new NinjaTrader.NinjaScript.xPva.Engine.BarSnapshot(
+					    Time[0],
+					    Open[0],
+					    High[0],
+					    Low[0],
+					    Close[0],
+					    (long)Volume[0],
+					    CurrentBar);
+			
+			    var fttCandidate =
+			        NinjaTrader.NinjaScript.xPva.Engine.xPvaManualContainerRuntime.CheckFttCandidate(
+			            manualRuntimeState,
+			            bar);
+			
+			    if (fttCandidate.HasValue)
+			        Print($"[ManualRuntime] FTT Candidate C#{fttCandidate.Value.ContainerId} at bar {CurrentBar}");
+			
+			    var fttConfirmed =
+			        NinjaTrader.NinjaScript.xPva.Engine.xPvaManualContainerRuntime.CheckFttConfirmed(
+			            manualRuntimeState,
+			            bar);
+			
+			    if (fttConfirmed.HasValue)
+			        Print($"[ManualRuntime] FTT Confirmed C#{fttConfirmed.Value.ContainerId} at bar {CurrentBar}");
 			}
 
             var snap = new NinjaTrader.NinjaScript.xPva.Engine.BarSnapshot(
