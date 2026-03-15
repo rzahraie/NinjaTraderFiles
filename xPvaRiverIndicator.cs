@@ -23,6 +23,7 @@ namespace NinjaTrader.NinjaScript.Indicators
 		private int lastManualSnapshotVersion = -1;
 		private NinjaTrader.NinjaScript.xPva.Engine.xPvaManualContainerRuntime.State manualRuntimeState =
     								new NinjaTrader.NinjaScript.xPva.Engine.xPvaManualContainerRuntime.State();
+		private NinjaTrader.NinjaScript.xPva.Engine.ManualContainerSnapshot? latestManualSnapshot = null;
 		private int? manualHistoricalCandidateBar = null;
 		private int? manualHistoricalConfirmedBar = null;
 		private string manualHistoricalActionToken = null;
@@ -321,6 +322,7 @@ namespace NinjaTrader.NinjaScript.Indicators
 					manualHistoricalConfirmedBar = null;
 					manualHistoricalActionToken = null;
 					manualHistoricalStructureToken = null;
+					latestManualSnapshot = manualSnapshot;
 					
 					NinjaTrader.NinjaScript.xPva.Engine.xPvaManualContainerRuntime.LoadManualContainer(manualRuntimeState,
 									manualGeometrySnapshot.Value);
@@ -346,20 +348,46 @@ namespace NinjaTrader.NinjaScript.Indicators
 					        double low = Bars.GetLow(idx);
 					        double high = Bars.GetHigh(idx);
 					
-					        bool broke =
-					            g.Direction == NinjaTrader.NinjaScript.xPva.Engine.ContainerDirection.Up
-					                ? low < ltlNow
-					                : high > ltlNow;
+					        double tolerance = manualSnapshot.BreakToleranceTicks * TickSize;
+							
+							if (!latestManualSnapshot.HasValue)
+							    return;
+							
+							manualSnapshot = latestManualSnapshot.Value;
+
+							bool broke;
+							
+							if (manualSnapshot.BreakMode == NinjaTrader.NinjaScript.xPva.Engine.ManualContainerBreakMode.CloseCross)
+							{
+							    double close = Bars.GetClose(idx);
+							
+							    broke =
+							        g.Direction == NinjaTrader.NinjaScript.xPva.Engine.ContainerDirection.Up
+							            ? close < (ltlNow - tolerance)
+							            : close > (ltlNow + tolerance);
+							}
+							else
+							{
+							    broke =
+							        g.Direction == NinjaTrader.NinjaScript.xPva.Engine.ContainerDirection.Up
+							            ? low < (ltlNow - tolerance)
+							            : high > (ltlNow + tolerance);
+							}
 					
 					        if (idx < g.P3.Value.BarIndex + 5 || broke)
 					        {
-					            Print(string.Format(
-					                "[ManualRuntime-Historical] idx={0} H={1} L={2} ltlNow={3} broke={4}",
-					                idx,
-					                high,
-					                low,
-					                ltlNow,
-					                broke));
+					            double close0 = Bars.GetClose(idx);
+
+								Print(string.Format(
+								    "[ManualRuntime-Historical] idx={0} H={1} L={2} C={3} ltlNow={4} mode={5} tolTicks={6} broke={7}",
+								    idx,
+								    high,
+								    low,
+								    close0,
+								    ltlNow,
+								    manualSnapshot.BreakMode,
+								    manualSnapshot.BreakToleranceTicks,
+								    broke));
 					        }
 					
 					        if (broke)
@@ -375,19 +403,40 @@ namespace NinjaTrader.NinjaScript.Indicators
 							        double confirmHigh = Bars.GetHigh(confirmIdx);
 							
 							        double confirmClose = Bars.GetClose(confirmIdx);
-
-									bool confirmBroke =
-									    g.Direction == NinjaTrader.NinjaScript.xPva.Engine.ContainerDirection.Up
-									        ? confirmClose < confirmLtl
-									        : confirmClose > confirmLtl;
+									double confirmTolerance = manualSnapshot.BreakToleranceTicks * TickSize;
+									
+									bool confirmBroke;
+									
+									if (manualSnapshot.BreakMode == NinjaTrader.NinjaScript.xPva.Engine.ManualContainerBreakMode.CloseCross)
+									{
+									    confirmBroke =
+									        g.Direction == NinjaTrader.NinjaScript.xPva.Engine.ContainerDirection.Up
+									            ? confirmClose < (confirmLtl - confirmTolerance)
+									            : confirmClose > (confirmLtl + confirmTolerance);
+									}
+									else
+									{
+									    confirmLow = Bars.GetLow(confirmIdx);
+									    confirmHigh = Bars.GetHigh(confirmIdx);
+									
+									    confirmBroke =
+									        g.Direction == NinjaTrader.NinjaScript.xPva.Engine.ContainerDirection.Up
+									            ? confirmLow < (confirmLtl - confirmTolerance)
+									            : confirmHigh > (confirmLtl + confirmTolerance);
+									}
 							
-							        Print(string.Format(
-									    "[ManualRuntime-Historical] confirmIdx={0} H={1} L={2} C={3} ltlNow={4} confirmBroke={5}",
+							        confirmLow = Bars.GetLow(confirmIdx);
+									confirmHigh = Bars.GetHigh(confirmIdx);
+									
+									Print(string.Format(
+									    "[ManualRuntime-Historical] confirmIdx={0} H={1} L={2} C={3} ltlNow={4} mode={5} tolTicks={6} confirmBroke={7}",
 									    confirmIdx,
 									    confirmHigh,
 									    confirmLow,
 									    confirmClose,
 									    confirmLtl,
+									    manualSnapshot.BreakMode,
+									    manualSnapshot.BreakToleranceTicks,
 									    confirmBroke));
 							
 							        if (confirmBroke)

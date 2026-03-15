@@ -2,6 +2,12 @@ using System.Collections.Generic;
 
 namespace NinjaTrader.NinjaScript.xPva.Engine
 {
+    public enum ManualContainerBreakMode
+    {
+        HighLowPenetration = 0,
+        CloseCross = 1,
+    }
+	
     public sealed class xPvaEngine
     {
         public sealed class State
@@ -266,6 +272,7 @@ namespace NinjaTrader.NinjaScript.xPva.Engine
         }
     }
 }
+
 
 
 

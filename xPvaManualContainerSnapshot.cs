@@ -23,23 +23,30 @@ namespace NinjaTrader.NinjaScript.xPva.Engine
 
         public readonly double RtlSlope;
         public readonly double LtlSlope;
+		
+		public readonly ManualContainerBreakMode BreakMode;
+		public readonly double BreakToleranceTicks;
 
         public ManualContainerSnapshot(
-            int containerId,
-            bool isUpContainer,
-            ManualContainerPoint p1,
-            ManualContainerPoint p2,
-            ManualContainerPoint p3,
-            double rtlSlope,
-            double ltlSlope)
-        {
-            ContainerId = containerId;
-            IsUpContainer = isUpContainer;
-            P1 = p1;
-            P2 = p2;
-            P3 = p3;
-            RtlSlope = rtlSlope;
-            LtlSlope = ltlSlope;
-        }
+		    int containerId,
+		    bool isUpContainer,
+		    ManualContainerPoint p1,
+		    ManualContainerPoint p2,
+		    ManualContainerPoint p3,
+		    double rtlSlope,
+		    double ltlSlope,
+		    ManualContainerBreakMode breakMode,
+		    double breakToleranceTicks)
+		{
+		    ContainerId = containerId;
+		    IsUpContainer = isUpContainer;
+		    P1 = p1;
+		    P2 = p2;
+		    P3 = p3;
+		    RtlSlope = rtlSlope;
+		    LtlSlope = ltlSlope;
+		    BreakMode = breakMode;
+		    BreakToleranceTicks = breakToleranceTicks;
+		}
     }
 }
