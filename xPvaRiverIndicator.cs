@@ -314,6 +314,28 @@ namespace NinjaTrader.NinjaScript.Indicators
 		
 		            var g = manualGeometrySnapshot.Value;
 		            Print($"[River] manual C#{g.ContainerId} state={g.State} P1={g.P1.HasValue} P2={g.P2.HasValue} P3={g.P3.HasValue}");
+					
+					if (g.Ltl.HasValue && g.P3.HasValue)
+					{
+					    for (int idx = g.P3.Value.BarIndex + 1; idx <= CurrentBar; idx++)
+					    {
+					        double ltlNow = g.Ltl.Value.ValueAt(idx);
+					
+					        double low = Low[CurrentBar - idx];
+					        double high = High[CurrentBar - idx];
+					
+					        bool broke =
+					            g.Direction == NinjaTrader.NinjaScript.xPva.Engine.ContainerDirection.Up
+					                ? low < ltlNow
+					                : high > ltlNow;
+					
+					        if (broke)
+					        {
+					            Print($"[ManualRuntime-Historical] FTT Candidate C#{g.ContainerId} at bar {idx}");
+					            break;
+					        }
+					    }
+					}
 		        }
 		    }
 		}
@@ -339,87 +361,6 @@ namespace NinjaTrader.NinjaScript.Indicators
 			NinjaTrader.NinjaScript.xPva.Engine.TrendType? latestTrendType = null;
 
             DateTime timeUtc = DateTime.SpecifyKind(Time[0], DateTimeKind.Local).ToUniversalTime();
-			
-			NinjaTrader.NinjaScript.xPva.Engine.ManualContainerSnapshot manualSnapshot;
-			if (NinjaTrader.NinjaScript.xPva.Engine.xPvaManualContainerBridge.TryGetLatest(out manualSnapshot, out lastManualSnapshotVersion))
-			{
-			    manualGeometrySnapshot =
-			        NinjaTrader.NinjaScript.xPva.Engine.xPvaManualContainerAdapter.FromManual(
-			            manualSnapshot,
-			            CurrentBar);
-				var g = manualGeometrySnapshot.Value;
-
-				if (g.Ltl.HasValue && g.P3.HasValue)
-				{
-				    for (int idx = g.P3.Value.BarIndex + 1; idx <= CurrentBar; idx++)
-				    {
-				        double ltlNow = g.Ltl.Value.ValueAt(idx);
-				
-				        double low = Low[CurrentBar - idx];
-				        double high = High[CurrentBar - idx];
-				
-				        bool broke =
-				            g.Direction == NinjaTrader.NinjaScript.xPva.Engine.ContainerDirection.Up
-				                ? low < ltlNow
-				                : high > ltlNow;
-				
-				        if (broke)
-				        {
-				            Print($"[ManualRuntime-Historical] FTT Candidate C#{g.ContainerId} at bar {idx}");
-				            break;
-				        }
-				    }
-				}
-			
-			    g = manualGeometrySnapshot.Value;
-			    Print($"[River] manual C#{g.ContainerId} state={g.State} P1={g.P1.HasValue} P2={g.P2.HasValue} P3={g.P3.HasValue}");
-				Print($"[River] drawing manual C#{g.ContainerId} rtl={g.Rtl.HasValue} ltl={g.Ltl.HasValue}");
-				
-				Print($"[ManualRuntime-Historical] entering scan CurrentBar={CurrentBar}");
-
-				if (g.Ltl.HasValue && g.P3.HasValue)
-				{
-				    Print($"[ManualRuntime-Historical] scanning from {g.P3.Value.BarIndex + 1} to {CurrentBar}");
-				
-				    for (int idx = g.P3.Value.BarIndex + 1; idx <= CurrentBar; idx++)
-				    {
-				        int barsAgo = CurrentBar - idx;
-				        if (barsAgo < 0 || barsAgo >= CurrentBar + 1)
-				            continue;
-				
-				        double ltlNow = g.Ltl.Value.ValueAt(idx);
-				        double low = Low[barsAgo];
-				        double high = High[barsAgo];
-				
-				        bool broke =
-				            g.Direction == NinjaTrader.NinjaScript.xPva.Engine.ContainerDirection.Up
-				                ? low < ltlNow
-				                : high > ltlNow;
-				
-				        if (idx < g.P3.Value.BarIndex + 5 || broke)
-				        {
-				            Print(string.Format(
-				                "[ManualRuntime-Historical] idx={0} barsAgo={1} H={2} L={3} ltlNow={4} broke={5}",
-				                idx,
-				                barsAgo,
-				                high,
-				                low,
-				                ltlNow,
-				                broke));
-				        }
-				
-				        if (broke)
-				        {
-				            Print($"[ManualRuntime-Historical] FTT Candidate C#{g.ContainerId} at bar {idx}");
-				            break;
-				        }
-				    }
-				}
-				else
-				{
-				    Print($"[ManualRuntime-Historical] scan skipped LTL={g.Ltl.HasValue} P3={g.P3.HasValue}");
-				}
-			}
 			
 			if (manualGeometrySnapshot.HasValue)
 			{
