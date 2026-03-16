@@ -31,6 +31,7 @@ namespace NinjaTrader.NinjaScript.Indicators
 		private bool manualHistoricalScanPending = false;
 		private int lastManualInterpretedContainerId = -1;
 		private int lastManualInterpretedP3BarIndex = -1;
+		private string manualHistoricalDecisionCompact = null;
 
         [NinjaScriptProperty]
 		[Range(1, 10)]
@@ -159,21 +160,35 @@ namespace NinjaTrader.NinjaScript.Indicators
 		    if (!g.P1.HasValue || !g.P3.HasValue)
 		        return;
 		
-		    int barsAgo1 = BarsAgoFromIndex(g.P1.Value.BarIndex);
+		    int i1 = g.P1.Value.BarIndex;
+		    int i3 = g.P3.Value.BarIndex;
 		
-		    Brush brush = g.Direction ==
-		        NinjaTrader.NinjaScript.xPva.Engine.ContainerDirection.Up
-		        ? Brushes.Blue
-		        : Brushes.Red;
+		    double p1 = g.P1.Value.Price;
+		    double p3 = g.P3.Value.Price;
+		
+		    if (i3 <= i1)
+		        return;
+		
+		    double slope = (p3 - p1) / (double)(i3 - i1);
+		    double rtlNow = p1 + slope * (CurrentBar - i1);
+		
+		    int barsAgo1 = BarsAgoFromIndex(i1);
+		    if (barsAgo1 < 0 || barsAgo1 > CurrentBar)
+		        return;
+		
+		    Brush brush =
+		        g.Direction == NinjaTrader.NinjaScript.xPva.Engine.ContainerDirection.Up
+		            ? Brushes.Blue
+		            : Brushes.Red;
 		
 		    Draw.Line(
 		        this,
-		        $"RTL_{g.ContainerId}",     // stable tag
+		        $"RTL_{g.ContainerId}",
 		        false,
 		        barsAgo1,
-		        g.P1.Value.Price,
+		        p1,
 		        0,
-		        g.P3.Value.Price,
+		        rtlNow,
 		        brush,
 		        NinjaTrader.Gui.DashStyleHelper.Solid,
 		        2);
@@ -233,33 +248,45 @@ namespace NinjaTrader.NinjaScript.Indicators
 		    double p2 = g.P2.Value.Price;
 		    double p3 = g.P3.Value.Price;
 		
-		    if (i3 == i1)
+		    if (i3 <= i1)
 		        return;
 		
 		    double slope = (p3 - p1) / (double)(i3 - i1);
 		
+		    // RTL evaluated at P2
 		    double rtlAtP2 = p1 + slope * (i2 - i1);
-			double ltlAtP2 = p2;   // because LTL passes through P2
-			double width = Math.Abs(ltlAtP2 - rtlAtP2);
 		
-		    if (width <= 0)
+		    // Channel width measured between RTL and LTL at P2
+		    double width = System.Math.Abs(p2 - rtlAtP2);
+		    if (width <= 0.0)
 		        return;
 		
+		    // LTL projected to current bar
 		    double ltlNow = p2 + slope * (CurrentBar - i2);
-
-			double veStart = g.Direction == NinjaTrader.NinjaScript.xPva.Engine.ContainerDirection.Up
-			    ? p2 + width
-			    : p2 - width;
-			
-			double veNow = g.Direction == NinjaTrader.NinjaScript.xPva.Engine.ContainerDirection.Up
-			    ? ltlNow + width
-			    : ltlNow - width;
+		
+		    // VE1 is one channel width outside LTL
+		    double veStart;
+		    double veNow;
+		
+		    if (g.Direction == NinjaTrader.NinjaScript.xPva.Engine.ContainerDirection.Up)
+		    {
+		        veStart = p2 + width;
+		        veNow = ltlNow + width;
+		    }
+		    else
+		    {
+		        veStart = p2 - width;
+		        veNow = ltlNow - width;
+		    }
 		
 		    int barsAgo2 = BarsAgoFromIndex(i2);
+		    if (barsAgo2 < 0 || barsAgo2 > CurrentBar)
+		        return;
 		
-		    Brush brush = g.Direction == NinjaTrader.NinjaScript.xPva.Engine.ContainerDirection.Up
-		        ? Brushes.Blue
-		        : Brushes.Red;
+		    Brush brush =
+		        g.Direction == NinjaTrader.NinjaScript.xPva.Engine.ContainerDirection.Up
+		            ? Brushes.Blue
+		            : Brushes.Red;
 		
 		    Draw.Line(
 		        this,
@@ -334,6 +361,7 @@ namespace NinjaTrader.NinjaScript.Indicators
 		        manualHistoricalActionToken = null;
 		        manualHistoricalStructureToken = null;
 		        manualHistoricalScanPending = true;
+				manualHistoricalDecisionCompact = null;
 		    }
 		    else
 		    {
@@ -347,8 +375,8 @@ namespace NinjaTrader.NinjaScript.Indicators
 		}
 		
 		private void DrawManualHistoricalCandidate(
-    		NinjaTrader.NinjaScript.xPva.Engine.ContainerGeometrySnapshot g,
-    		int barIndex)
+		    NinjaTrader.NinjaScript.xPva.Engine.ContainerGeometrySnapshot g,
+		    int barIndex)
 		{
 		    int barsAgo = BarsAgoFromIndex(barIndex);
 		
@@ -364,7 +392,7 @@ namespace NinjaTrader.NinjaScript.Indicators
 		            tag,
 		            false,
 		            barsAgo,
-		            High[barsAgo] + 2 * TickSize,
+		            High[barsAgo] + 1.5 * TickSize,
 		            Brushes.Gold);
 		    }
 		    else
@@ -374,7 +402,7 @@ namespace NinjaTrader.NinjaScript.Indicators
 		            tag,
 		            false,
 		            barsAgo,
-		            Low[barsAgo] - 2 * TickSize,
+		            Low[barsAgo] - 1.5 * TickSize,
 		            Brushes.Gold);
 		    }
 		}
@@ -390,47 +418,30 @@ namespace NinjaTrader.NinjaScript.Indicators
 		
 		    string tag = $"ManualConf_{g.ContainerId}_{barIndex}";
 		
-		    if (g.Direction == NinjaTrader.NinjaScript.xPva.Engine.ContainerDirection.Up)
-		    {
-		        Draw.Text(
-		            this,
-		            tag,
-		            false,
-		            "FTT",
-		            barsAgo,
-		            High[barsAgo] + 4 * TickSize,
-		            0,
-		            Brushes.Gold,
-		            new SimpleFont("Arial", FontSize),
-		            TextAlignment.Center,
-		            Brushes.Transparent,
-		            Brushes.Transparent,
-		            0);
-		    }
-		    else
-		    {
-		        Draw.Text(
-		            this,
-		            tag,
-		            false,
-		            "FTT",
-		            barsAgo,
-		            Low[barsAgo] - 4 * TickSize,
-		            0,
-		            Brushes.Gold,
-		            new SimpleFont("Arial", FontSize),
-		            TextAlignment.Center,
-		            Brushes.Transparent,
-		            Brushes.Transparent,
-		            0);
-		    }
+		    double y = g.Direction == NinjaTrader.NinjaScript.xPva.Engine.ContainerDirection.Up
+		        ? High[barsAgo] + 3 * TickSize
+		        : Low[barsAgo] - 3 * TickSize;
+		
+		    Draw.Text(
+		        this,
+		        tag,
+		        false,
+		        "FTT",
+		        barsAgo,
+		        y,
+		        0,
+		        Brushes.Gold,
+		        new SimpleFont("Arial", FontSize - 1),
+		        TextAlignment.Center,
+		        Brushes.Transparent,
+		        Brushes.Transparent,
+		        0);
 		}
 		
 		private void DrawManualHistoricalDecision(
-		    NinjaTrader.NinjaScript.xPva.Engine.ContainerGeometrySnapshot g,
-		    int barIndex,
-		    string actionToken,
-		    string structureToken)
+	    NinjaTrader.NinjaScript.xPva.Engine.ContainerGeometrySnapshot g,
+	    int barIndex,
+	    string compactToken)
 		{
 		    int barsAgo = BarsAgoFromIndex(barIndex);
 		
@@ -439,24 +450,24 @@ namespace NinjaTrader.NinjaScript.Indicators
 		
 		    string tag = $"ManualDecision_{g.ContainerId}_{barIndex}";
 		
-		    string text = actionToken;
-		    if (!string.IsNullOrEmpty(structureToken))
-		        text = text + "\n" + structureToken;
-		
 		    Brush brush = g.Direction == NinjaTrader.NinjaScript.xPva.Engine.ContainerDirection.Up
 		        ? Brushes.Blue
 		        : Brushes.Red;
+		
+		    double y = g.Direction == NinjaTrader.NinjaScript.xPva.Engine.ContainerDirection.Up
+		        ? High[barsAgo] + 6 * TickSize
+		        : Low[barsAgo] - 6 * TickSize;
 		
 		    Draw.Text(
 		        this,
 		        tag,
 		        false,
-		        text,
+		        compactToken,
 		        barsAgo,
-		        High[barsAgo] + 6 * TickSize,
+		        y,
 		        0,
 		        brush,
-		        new SimpleFont("Arial", FontSize),
+		        new SimpleFont("Arial", FontSize - 1),
 		        TextAlignment.Center,
 		        Brushes.Transparent,
 		        Brushes.Transparent,
@@ -596,6 +607,28 @@ namespace NinjaTrader.NinjaScript.Indicators
 		
 		                            manualHistoricalStructureToken = structure.State.ToString();
 		                            manualHistoricalActionToken = tradeIntent.Intent.ToString();
+									
+									string actionShort = tradeIntent.Intent.ToString();
+									if (actionShort == "Sideline")
+									    actionShort = "SIDE";
+									else if (actionShort == "Enter")
+									    actionShort = "ENT";
+									else if (actionShort == "Reverse")
+									    actionShort = "REV";
+									else if (actionShort == "HoldThru")
+									    actionShort = "HT";
+									else if (actionShort == "EarlyExit")
+									    actionShort = "EE";
+									else if (actionShort == "ReEntry")
+									    actionShort = "RE";
+									
+									string structureShort = structure.State.ToString();
+									if (structureShort == "Broken")
+									    structureShort = "BRK";
+									else if (structureShort == "Transition")
+									    structureShort = "TRN";
+									
+									manualHistoricalDecisionCompact = actionShort + " " + structureShort;
 		
 		                            Print($"[ManualRuntime-Historical] Structure C#{structure.ContainerId} {structure.State} dir={structure.Direction}");
 		                            Print($"[ManualRuntime-Historical] Action C#{action.ContainerId} {action.Action}");
@@ -752,14 +785,13 @@ namespace NinjaTrader.NinjaScript.Indicators
 		        if (manualHistoricalConfirmedBar.HasValue)
 		            DrawManualHistoricalConfirmed(g, manualHistoricalConfirmedBar.Value);
 		
-		        if (manualHistoricalConfirmedBar.HasValue && !string.IsNullOrEmpty(manualHistoricalActionToken))
-		        {
-		            DrawManualHistoricalDecision(
-		                g,
-		                manualHistoricalConfirmedBar.Value,
-		                manualHistoricalActionToken,
-		                manualHistoricalStructureToken);
-		        }
+		        if (manualHistoricalConfirmedBar.HasValue && !string.IsNullOrEmpty(manualHistoricalDecisionCompact))
+				{
+				    DrawManualHistoricalDecision(
+				        g,
+				        manualHistoricalConfirmedBar.Value,
+				        manualHistoricalDecisionCompact);
+				}
 		    }
 		}
 		
