@@ -101,6 +101,8 @@ namespace NinjaTrader.NinjaScript.Indicators
 		    public string VolumeToken;
 		    public string ContainerToken;
 			public string TradeIntentToken;
+			public string ManualDecisionToken;
+			public bool ManualHasFtt;
 		
 		    public bool HasFtt;
 		    public NinjaTrader.NinjaScript.xPva.Engine.ContainerDirection? FttPriorDirection;
@@ -629,6 +631,9 @@ namespace NinjaTrader.NinjaScript.Indicators
 									    structureShort = "TRN";
 									
 									manualHistoricalDecisionCompact = actionShort + " " + structureShort;
+									var manualState = GetRiverState(confirmIdx);
+									manualState.ManualDecisionToken = manualHistoricalDecisionCompact;
+									manualState.ManualHasFtt = true;
 		
 		                            Print($"[ManualRuntime-Historical] Structure C#{structure.ContainerId} {structure.State} dir={structure.Direction}");
 		                            Print($"[ManualRuntime-Historical] Action C#{action.ContainerId} {action.Action}");
@@ -949,17 +954,21 @@ namespace NinjaTrader.NinjaScript.Indicators
 			double contY    = High[barsAgo] + 4 * TickSize;
 		
 		    bool tradingMode = DisplayMode == 1;
-		
+			
 		    // Upper lane: action
 		    if (!string.IsNullOrEmpty(state.ActionToken))
 		    {
+				string upperToken = !string.IsNullOrEmpty(state.ManualDecisionToken)
+				    ? state.ManualDecisionToken
+				    : (!string.IsNullOrEmpty(state.TradeIntentToken) ? state.TradeIntentToken : state.ActionToken);
+				
 		        if (!tradingMode || IsTradeRelevant(state.ActionType))
 		        {
 		            Draw.Text(
 		                this,
 		                string.Format("xPvaRiverActionLane_{0}", barIndex),
 		                false,
-		                state.ActionToken,
+		                upperToken,
 		                barsAgo,
 		                actionY,
 		                0,
