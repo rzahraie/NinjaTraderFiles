@@ -29,6 +29,8 @@ namespace NinjaTrader.NinjaScript.Indicators
 		private string manualHistoricalActionToken = null;
 		private string manualHistoricalStructureToken = null;
 		private bool manualHistoricalScanPending = false;
+		private int lastManualInterpretedContainerId = -1;
+		private int lastManualInterpretedP3BarIndex = -1;
 
         [NinjaScriptProperty]
 		[Range(1, 10)]
@@ -308,6 +310,8 @@ namespace NinjaTrader.NinjaScript.Indicators
 		    {
 		        if (version != lastManualSnapshotVersion)
 		        {
+					latestManualSnapshot = manualSnapshot;
+					
 		            manualGeometrySnapshot =
 		                NinjaTrader.NinjaScript.xPva.Engine.xPvaManualContainerAdapter.FromManual(
 		                    manualSnapshot,
@@ -318,18 +322,29 @@ namespace NinjaTrader.NinjaScript.Indicators
 					        manualSnapshot,
 					        CurrentBar);
 					
-					manualHistoricalCandidateBar = null;
-					manualHistoricalConfirmedBar = null;
-					manualHistoricalActionToken = null;
-					manualHistoricalStructureToken = null;
-					latestManualSnapshot = manualSnapshot;
+					bool manualContainerChanged =
+    				manualSnapshot.ContainerId != lastManualInterpretedContainerId ||
+    				manualSnapshot.P3.BarIndex != lastManualInterpretedP3BarIndex;
+
+					if (manualContainerChanged)
+					{
+					    manualHistoricalCandidateBar = null;
+					    manualHistoricalConfirmedBar = null;
+					    manualHistoricalActionToken = null;
+					    manualHistoricalStructureToken = null;
+					    manualHistoricalScanPending = true;
+					}
+					else
+					{
+					    manualHistoricalScanPending = false;
+					}
 					
 					NinjaTrader.NinjaScript.xPva.Engine.xPvaManualContainerRuntime.LoadManualContainer(manualRuntimeState,
 									manualGeometrySnapshot.Value);
 		
 		            lastManualSnapshotVersion = version;
 					
-					manualHistoricalScanPending = true;
+					
 		
 		            var g = manualGeometrySnapshot.Value;
 		            Print($"[River] manual C#{g.ContainerId} state={g.State} P1={g.P1.HasValue} P2={g.P2.HasValue} P3={g.P3.HasValue}");
@@ -675,7 +690,147 @@ namespace NinjaTrader.NinjaScript.Indicators
 			    if (fttConfirmed.HasValue)
 			        Print($"[ManualRuntime] FTT Confirmed C#{fttConfirmed.Value.ContainerId} at bar {CurrentBar}");
 			}
-
+			
+			if (manualHistoricalScanPending && manualGeometrySnapshot.HasValue)
+			{
+			    var g = manualGeometrySnapshot.Value;
+			
+			    if (g.Ltl.HasValue && g.P3.HasValue && latestManualSnapshot.HasValue)
+			    {
+			        var manualSnapshot = latestManualSnapshot.Value;
+			
+			        Print($"[ManualRuntime-Historical] entering scan CurrentBar={CurrentBar}");
+			        Print($"[ManualRuntime-Historical] scanning from {g.P3.Value.BarIndex + 1} to {CurrentBar}");
+			
+			        for (int idx = g.P3.Value.BarIndex + 1; idx <= CurrentBar; idx++)
+			        {
+			            if (idx < 0 || idx >= Bars.Count)
+			                continue;
+			
+			            double ltlNow = g.Ltl.Value.ValueAt(idx);
+			            double low = Bars.GetLow(idx);
+			            double high = Bars.GetHigh(idx);
+			            double close = Bars.GetClose(idx);
+			            double tolerance = manualSnapshot.BreakToleranceTicks * TickSize;
+			
+			            bool broke;
+			
+			            if (manualSnapshot.BreakMode == NinjaTrader.NinjaScript.xPva.Engine.ManualContainerBreakMode.CloseCross)
+			            {
+			                broke =
+			                    g.Direction == NinjaTrader.NinjaScript.xPva.Engine.ContainerDirection.Up
+			                        ? close < (ltlNow - tolerance)
+			                        : close > (ltlNow + tolerance);
+			            }
+			            else
+			            {
+			                broke =
+			                    g.Direction == NinjaTrader.NinjaScript.xPva.Engine.ContainerDirection.Up
+			                        ? low < (ltlNow - tolerance)
+			                        : high > (ltlNow + tolerance);
+			            }
+			
+			            if (idx < g.P3.Value.BarIndex + 5 || broke)
+			            {
+			                Print(string.Format(
+			                    "[ManualRuntime-Historical] idx={0} H={1} L={2} C={3} ltlNow={4} mode={5} tolTicks={6} broke={7}",
+			                    idx,
+			                    high,
+			                    low,
+			                    close,
+			                    ltlNow,
+			                    manualSnapshot.BreakMode,
+			                    manualSnapshot.BreakToleranceTicks,
+			                    broke));
+			            }
+			
+			            if (broke)
+			            {
+			                manualHistoricalCandidateBar = idx;
+			                Print($"[ManualRuntime-Historical] FTT Candidate C#{g.ContainerId} at bar {idx}");
+			
+			                int confirmIdx = idx + 1;
+			                if (confirmIdx <= CurrentBar && confirmIdx < Bars.Count)
+			                {
+			                    double confirmLtl = g.Ltl.Value.ValueAt(confirmIdx);
+			                    double confirmLow = Bars.GetLow(confirmIdx);
+			                    double confirmHigh = Bars.GetHigh(confirmIdx);
+			                    double confirmClose = Bars.GetClose(confirmIdx);
+			                    double confirmTolerance = manualSnapshot.BreakToleranceTicks * TickSize;
+			
+			                    bool confirmBroke;
+			
+			                    if (manualSnapshot.BreakMode == NinjaTrader.NinjaScript.xPva.Engine.ManualContainerBreakMode.CloseCross)
+			                    {
+			                        confirmBroke =
+			                            g.Direction == NinjaTrader.NinjaScript.xPva.Engine.ContainerDirection.Up
+			                                ? confirmClose < (confirmLtl - confirmTolerance)
+			                                : confirmClose > (confirmLtl + confirmTolerance);
+			                    }
+			                    else
+			                    {
+			                        confirmBroke =
+			                            g.Direction == NinjaTrader.NinjaScript.xPva.Engine.ContainerDirection.Up
+			                                ? confirmLow < (confirmLtl - confirmTolerance)
+			                                : confirmHigh > (confirmLtl + confirmTolerance);
+			                    }
+			
+			                    Print(string.Format(
+			                        "[ManualRuntime-Historical] confirmIdx={0} H={1} L={2} C={3} ltlNow={4} mode={5} tolTicks={6} confirmBroke={7}",
+			                        confirmIdx,
+			                        confirmHigh,
+			                        confirmLow,
+			                        confirmClose,
+			                        confirmLtl,
+			                        manualSnapshot.BreakMode,
+			                        manualSnapshot.BreakToleranceTicks,
+			                        confirmBroke));
+			
+			                    if (confirmBroke)
+			                    {
+			                        manualHistoricalConfirmedBar = confirmIdx;
+			                        Print($"[ManualRuntime-Historical] FTT Confirmed C#{g.ContainerId} at bar {confirmIdx}");
+			
+			                        var structure =
+			                            NinjaTrader.NinjaScript.xPva.Engine.xPvaManualStructureResolver.Resolve(
+			                                g,
+			                                confirmIdx);
+			
+			                        var action =
+			                            NinjaTrader.NinjaScript.xPva.Engine.xPvaManualActionResolver.Resolve(
+			                                g,
+			                                structure,
+			                                confirmIdx);
+			
+			                        var tradeIntent =
+			                            NinjaTrader.NinjaScript.xPva.Engine.xPvaManualTradeIntentResolver.Resolve(
+			                                g,
+			                                structure,
+			                                action,
+			                                confirmIdx);
+			
+			                        manualHistoricalStructureToken = structure.State.ToString();
+			                        manualHistoricalActionToken = tradeIntent.Intent.ToString();
+			
+			                        Print($"[ManualRuntime-Historical] Structure C#{structure.ContainerId} {structure.State} dir={structure.Direction}");
+			                        Print($"[ManualRuntime-Historical] Action C#{action.ContainerId} {action.Action}");
+			                        Print($"[ManualRuntime-Historical] TradeIntent C#{tradeIntent.ContainerId} {tradeIntent.Intent}");
+			                    }
+			                }
+			
+			                break;
+			            }
+			        }
+			    }
+			
+			    manualHistoricalScanPending = false;
+			
+			    if (latestManualSnapshot.HasValue)
+			    {
+			        lastManualInterpretedContainerId = latestManualSnapshot.Value.ContainerId;
+			        lastManualInterpretedP3BarIndex = latestManualSnapshot.Value.P3.BarIndex;
+			    }
+			}
             var snap = new NinjaTrader.NinjaScript.xPva.Engine.BarSnapshot(
                 timeUtc,
                 Open[0],
