@@ -955,30 +955,37 @@ namespace NinjaTrader.NinjaScript.Indicators
 		
 		    bool tradingMode = DisplayMode == 1;
 			
+			string upperToken = null;
+			
+			if (!string.IsNullOrEmpty(state.ManualDecisionToken))
+			    upperToken = state.ManualDecisionToken;
+			else if (!string.IsNullOrEmpty(state.TradeIntentToken))
+			    upperToken = state.TradeIntentToken;
+			else if (!string.IsNullOrEmpty(state.ActionToken))
+			    upperToken = state.ActionToken;
+			
 		    // Upper lane: action
-		    if (!string.IsNullOrEmpty(state.ActionToken))
+		    if (!string.IsNullOrEmpty(upperToken))
 		    {
-				string upperToken = !string.IsNullOrEmpty(state.ManualDecisionToken)
-				    ? state.ManualDecisionToken
-				    : (!string.IsNullOrEmpty(state.TradeIntentToken) ? state.TradeIntentToken : state.ActionToken);
-				
-		        if (!tradingMode || IsTradeRelevant(state.ActionType))
-		        {
-		            Draw.Text(
-		                this,
-		                string.Format("xPvaRiverActionLane_{0}", barIndex),
-		                false,
-		                upperToken,
-		                barsAgo,
-		                actionY,
-		                0,
-		                ActionBrush(state.ActionType ?? NinjaTrader.NinjaScript.xPva.Engine.ActionType.Unknown),
-		                new SimpleFont("Arial", FontSize),
-		                TextAlignment.Left,
-		                Brushes.Transparent,
-		                Brushes.Transparent,
-		                0);
-		        }
+		        if (!tradingMode || !string.IsNullOrEmpty(state.ManualDecisionToken) || IsTradeRelevant(state.ActionType))
+			    {
+			        Draw.Text(
+			            this,
+			            string.Format("xPvaRiverActionLane_{0}", barIndex),
+			            false,
+			            upperToken,
+			            barsAgo,
+			            High[barsAgo] + 5 * TickSize,
+			            0,
+			            !string.IsNullOrEmpty(state.ManualDecisionToken)
+			                ? Brushes.Goldenrod
+			                : ActionBrush(state.ActionType ?? NinjaTrader.NinjaScript.xPva.Engine.ActionType.Unknown),
+			            new SimpleFont("Arial", FontSize),
+			            TextAlignment.Left,
+			            Brushes.Transparent,
+			            Brushes.Transparent,
+			            0);
+			    }
 		    }
 		
 		    // Middle lane: trend/turn token
@@ -1046,6 +1053,24 @@ namespace NinjaTrader.NinjaScript.Indicators
 		                0);
 		        }
 		    }
+			
+			if (state.ManualHasFtt)
+			{
+			    Draw.Text(
+			        this,
+			        string.Format("xPvaRiverManualFtt_{0}", barIndex),
+			        false,
+			        "FTT",
+			        barsAgo,
+			        High[barsAgo] + 3 * TickSize,
+			        0,
+			        Brushes.Gold,
+			        new SimpleFont("Arial", FontSize - 1),
+			        TextAlignment.Center,
+			        Brushes.Transparent,
+			        Brushes.Transparent,
+			        0);
+			}
 		}
 		
 		private bool IsTradeRelevant(NinjaTrader.NinjaScript.xPva.Engine.ActionType? action)
