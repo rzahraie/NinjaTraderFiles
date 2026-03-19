@@ -37,6 +37,9 @@ namespace NinjaTrader.NinjaScript.Indicators
 		
 		private string manualStatusText = null;
 		private int manualStatusBarIndex = -1;
+		
+		private string manualComparisonText = null;
+		private int manualComparisonBarIndex = -1;
 
         [NinjaScriptProperty]
 		[Range(1, 10)]
@@ -477,6 +480,19 @@ namespace NinjaTrader.NinjaScript.Indicators
 		            if (DrawGeometryPoints && e.ContainerGeometrySnapshot.HasValue)
 		            {
 		                var g = e.ContainerGeometrySnapshot.Value;
+						
+						if (latestManualSnapshot.HasValue)
+						{
+						    var cmp =
+						        NinjaTrader.NinjaScript.xPva.Engine.xPvaContainerComparer.Compare(
+						            latestManualSnapshot.Value,
+						            g);
+						
+						    manualComparisonText =
+						        $"CMP P1:{cmp.P1BarError} P2:{cmp.P2BarError} P3:{cmp.P3BarError} S:{cmp.RtlSlopeError:0.########}";
+						    manualComparisonBarIndex = CurrentBar;
+						}
+						
 		                DrawGeometryPointsEvent(g);
 		
 		                if (g.State == NinjaTrader.NinjaScript.xPva.Engine.GeometryState.Active)
@@ -536,6 +552,9 @@ namespace NinjaTrader.NinjaScript.Indicators
 				lastManualLiveConfirmedBar = -1;
 				
 				manualRuntimeState.HasActiveManualContainer = false;
+				
+				manualComparisonText = null;
+				manualComparisonBarIndex = -1;
 		    }
 		    else
 		    {
@@ -585,6 +604,33 @@ namespace NinjaTrader.NinjaScript.Indicators
 		            Low[barsAgo] - 1.5 * TickSize,
 		            Brushes.Gold);
 		    }
+		}
+		
+		private void DrawManualComparisonLabel()
+		{
+		    if (string.IsNullOrEmpty(manualComparisonText))
+		        return;
+		
+		    int barIndex = manualComparisonBarIndex >= 0 ? manualComparisonBarIndex : CurrentBar;
+		    int barsAgo = BarsAgoFromIndex(barIndex);
+		
+		    if (barsAgo < 0 || barsAgo > CurrentBar)
+		        return;
+		
+		    Draw.Text(
+		        this,
+		        "xPvaManualComparison",
+		        false,
+		        manualComparisonText,
+		        barsAgo,
+		        High[barsAgo] + 12 * TickSize,
+		        0,
+		        Brushes.DarkViolet,
+		        new SimpleFont("Arial", FontSize - 1),
+		        TextAlignment.Left,
+		        Brushes.Transparent,
+		        Brushes.Transparent,
+		        0);
 		}
 		
 		private void DrawManualHistoricalConfirmed(
@@ -811,6 +857,7 @@ namespace NinjaTrader.NinjaScript.Indicators
 		    }
 			
 			DrawManualStatusLabel();
+			DrawManualComparisonLabel();
 		}
 		
 		private void DrawManualStatusLabel()
