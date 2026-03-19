@@ -32,6 +32,11 @@ namespace NinjaTrader.NinjaScript.Indicators
 		private int lastManualInterpretedContainerId = -1;
 		private int lastManualInterpretedP3BarIndex = -1;
 		private string manualHistoricalDecisionCompact = null;
+		private int lastManualLiveCandidateBar = -1;
+		private int lastManualLiveConfirmedBar = -1;
+		
+		private string manualStatusText = null;
+		private int manualStatusBarIndex = -1;
 
         [NinjaScriptProperty]
 		[Range(1, 10)]
@@ -330,6 +335,163 @@ namespace NinjaTrader.NinjaScript.Indicators
 		        0);
 		}
 		
+		private void ProcessRiverEvent(
+		    NinjaTrader.NinjaScript.xPva.Engine.EngineEvent e,
+		    RiverBarState currentState,
+		    ref NinjaTrader.NinjaScript.xPva.Engine.TurnType? latestTurnType,
+		    ref NinjaTrader.NinjaScript.xPva.Engine.TrendType? latestTrendType)
+		{
+		    if (PrintEvents)
+		        Print(FormatEventLine(e));
+		
+		    switch (e.Kind)
+		    {
+		        case NinjaTrader.NinjaScript.xPva.Engine.EventKind.FttCandidate:
+		            if (e.FttCandidate.HasValue)
+		            {
+		                manualHistoricalCandidateBar = e.BarIndex;
+		                Print($"[ManualRuntime-Historical] FTT Candidate C#{e.FttCandidate.Value.ContainerId} at bar {e.BarIndex}");
+		            }
+		            break;
+		
+		        case NinjaTrader.NinjaScript.xPva.Engine.EventKind.FttConfirmed:
+		            if (e.FttConfirmed.HasValue)
+		            {
+		                currentState.HasFtt = true;
+		                currentState.FttPriorDirection = e.FttConfirmed.Value.PriorDirection;
+		
+		                manualHistoricalConfirmedBar = e.BarIndex;
+		
+		                var manualState = GetRiverState(e.BarIndex);
+		                manualState.ManualHasFtt = true;
+						
+						manualRuntimeState.HasActiveManualContainer = false;
+						
+						manualStatusText = $"MC C#{e.FttConfirmed.Value.ContainerId} RESOLVED";
+						manualStatusBarIndex = e.BarIndex;
+		
+		                Print($"[ManualRuntime-Historical] FTT Confirmed C#{e.FttConfirmed.Value.ContainerId} at bar {e.BarIndex}");
+		
+		                if (DrawFtt)
+		                    DrawFttConfirmed(e.FttConfirmed.Value);
+		            }
+		            break;
+		
+		        case NinjaTrader.NinjaScript.xPva.Engine.EventKind.Structure:
+		            if (e.Structure.HasValue)
+		            {
+		                manualHistoricalStructureToken = e.Structure.Value.State.ToString();
+		                Print($"[ManualRuntime-Historical] Structure C#{e.Structure.Value.ContainerId} {e.Structure.Value.State} dir={e.Structure.Value.Direction}");
+		            }
+		            break;
+		
+		        case NinjaTrader.NinjaScript.xPva.Engine.EventKind.Action:
+		            if (e.Action.HasValue)
+		            {
+		                currentState.ActionType = e.Action.Value.Action;
+		                currentState.ActionToken = ActionToken(e.Action.Value.Action);
+		
+		                manualHistoricalActionToken = e.Action.Value.Action.ToString();
+		                Print($"[ManualRuntime-Historical] Action C#{e.Action.Value.ContainerId} {e.Action.Value.Action}");
+		
+		                if (DisplayMode == 0 && DrawActionBoxes)
+		                    DrawActionBox(e.Action.Value);
+		            }
+		            break;
+		
+		        case NinjaTrader.NinjaScript.xPva.Engine.EventKind.TradeIntent:
+		            if (e.TradeIntent.HasValue)
+		            {
+		                currentState.TradeIntentToken = TradeIntentToken(e.TradeIntent.Value.Intent);
+		
+		                Print($"[ManualRuntime-Historical] TradeIntent C#{e.TradeIntent.Value.ContainerId} {e.TradeIntent.Value.Intent}");
+		
+		                string actionShort = e.TradeIntent.Value.Intent.ToString();
+		                if (actionShort == "Sideline")
+		                    actionShort = "SIDE";
+		                else if (actionShort == "Enter")
+		                    actionShort = "ENT";
+		                else if (actionShort == "Reverse")
+		                    actionShort = "REV";
+		                else if (actionShort == "HoldThru")
+		                    actionShort = "HT";
+		                else if (actionShort == "EarlyExit")
+		                    actionShort = "EE";
+		                else if (actionShort == "ReEntry")
+		                    actionShort = "RE";
+		
+		                string structureShort = manualHistoricalStructureToken;
+		                if (structureShort == "Broken")
+		                    structureShort = "BRK";
+		                else if (structureShort == "Transition")
+		                    structureShort = "TRN";
+		
+		                manualHistoricalDecisionCompact = actionShort;
+		                if (!string.IsNullOrEmpty(structureShort))
+		                    manualHistoricalDecisionCompact += " " + structureShort;
+		
+		                var manualState = GetRiverState(e.BarIndex);
+		                manualState.ManualDecisionToken = manualHistoricalDecisionCompact;
+		            }
+		            break;
+		
+		        case NinjaTrader.NinjaScript.xPva.Engine.EventKind.ContainerReport:
+		            if (e.ContainerReport.HasValue)
+		            {
+		                currentState.ContainerToken = "C#" + e.ContainerReport.Value.ContainerId;
+		
+		                if (DisplayMode == 0 && DrawContainerIds)
+		                    DrawContainerId(e.ContainerReport.Value);
+		            }
+		            break;
+		
+		        case NinjaTrader.NinjaScript.xPva.Engine.EventKind.Turn:
+		            if (e.Turn.HasValue)
+		                latestTurnType = e.Turn.Value.Type;
+		            break;
+		
+		        case NinjaTrader.NinjaScript.xPva.Engine.EventKind.TrendType:
+		            if (e.TrendType.HasValue)
+		                latestTrendType = e.TrendType.Value.Type;
+		            break;
+		
+		        case NinjaTrader.NinjaScript.xPva.Engine.EventKind.VolOoe:
+		            if (e.VolOoe.HasValue)
+		                currentState.VolumeToken = MergeToken(currentState.VolumeToken, e.VolOoe.Value.Name.ToString());
+		            break;
+		
+		        case NinjaTrader.NinjaScript.xPva.Engine.EventKind.VolPivot:
+		            if (e.VolPivot.HasValue)
+		            {
+		                string pv = e.VolPivot.Value.Kind == NinjaTrader.NinjaScript.xPva.Engine.VolPivotKind.Peak ? "Pk" : "Tr";
+		                currentState.VolumeToken = MergeToken(currentState.VolumeToken, pv);
+		            }
+		            break;
+		
+		        case NinjaTrader.NinjaScript.xPva.Engine.EventKind.ContainerGeometry:
+		            if (DisplayMode == 0 && DrawGeometry && e.ContainerGeometry.HasValue)
+		                DrawContainerGeometryEvent(e.ContainerGeometry.Value);
+		            break;
+		
+		        case NinjaTrader.NinjaScript.xPva.Engine.EventKind.ContainerGeometrySnapshot:
+		            if (DrawGeometryPoints && e.ContainerGeometrySnapshot.HasValue)
+		            {
+		                var g = e.ContainerGeometrySnapshot.Value;
+		                DrawGeometryPointsEvent(g);
+		
+		                if (g.State == NinjaTrader.NinjaScript.xPva.Engine.GeometryState.Active)
+		                {
+		                    DrawRtl(g);
+		                    DrawLtl(g);
+		                    DrawVe1(g);
+		                }
+		
+		                DrawGeometryStateLabel(g);
+		            }
+		            break;
+		    }
+		}
+
 		private void RefreshManualGeometrySnapshot()
 		{
 		    NinjaTrader.NinjaScript.xPva.Engine.ManualContainerSnapshot manualSnapshot;
@@ -351,6 +513,9 @@ namespace NinjaTrader.NinjaScript.Indicators
 		    NinjaTrader.NinjaScript.xPva.Engine.xPvaManualContainerRuntime.LoadManualContainer(
 		        manualRuntimeState,
 		        manualGeometrySnapshot.Value);
+			
+			lastManualLiveCandidateBar = -1;
+			lastManualLiveConfirmedBar = -1;
 		
 		    bool manualContainerChanged =
 		        manualSnapshot.ContainerId != lastManualInterpretedContainerId ||
@@ -364,6 +529,13 @@ namespace NinjaTrader.NinjaScript.Indicators
 		        manualHistoricalStructureToken = null;
 		        manualHistoricalScanPending = true;
 				manualHistoricalDecisionCompact = null;
+				manualStatusText = null;
+				manualStatusBarIndex = -1;
+				
+				lastManualLiveCandidateBar = -1;
+				lastManualLiveConfirmedBar = -1;
+				
+				manualRuntimeState.HasActiveManualContainer = false;
 		    }
 		    else
 		    {
@@ -374,6 +546,12 @@ namespace NinjaTrader.NinjaScript.Indicators
 		
 		    var g = manualGeometrySnapshot.Value;
 		    Print($"[River] manual C#{g.ContainerId} state={g.State} P1={g.P1.HasValue} P2={g.P2.HasValue} P3={g.P3.HasValue}");
+			
+			manualStatusText =
+		    $"MC C#{g.ContainerId} " +
+		    $"{(g.Direction == NinjaTrader.NinjaScript.xPva.Engine.ContainerDirection.Up ? "UP" : "DN")} " +
+		    $"{latestManualSnapshot.Value.BreakMode}";
+			manualStatusBarIndex = CurrentBar;
 		}
 		
 		private void DrawManualHistoricalCandidate(
@@ -489,175 +667,35 @@ namespace NinjaTrader.NinjaScript.Indicators
 		        return;
 		
 		    RefreshManualGeometrySnapshot();
-		
-		    if (manualHistoricalScanPending && manualGeometrySnapshot.HasValue && latestManualSnapshot.HasValue)
-		    {
-		        var g = manualGeometrySnapshot.Value;
-		        var manualSnapshot = latestManualSnapshot.Value;
-		
-		        if (g.Ltl.HasValue && g.P3.HasValue)
-		        {
-		            Print($"[ManualRuntime-Historical] entering scan CurrentBar={CurrentBar}");
-		            Print($"[ManualRuntime-Historical] scanning from {g.P3.Value.BarIndex + 1} to {CurrentBar}");
-		
-		            for (int idx = g.P3.Value.BarIndex + 1; idx <= CurrentBar; idx++)
-		            {
-		                if (idx < 0 || idx >= Bars.Count)
-		                    continue;
-		
-		                double ltlNow = g.Ltl.Value.ValueAt(idx);
-		                double low = Bars.GetLow(idx);
-		                double high = Bars.GetHigh(idx);
-		                double close = Bars.GetClose(idx);
-		                double tolerance = manualSnapshot.BreakToleranceTicks * TickSize;
-		
-		                bool broke;
-		
-		                if (manualSnapshot.BreakMode == NinjaTrader.NinjaScript.xPva.Engine.ManualContainerBreakMode.CloseCross)
-		                {
-		                    broke =
-		                        g.Direction == NinjaTrader.NinjaScript.xPva.Engine.ContainerDirection.Up
-		                            ? close < (ltlNow - tolerance)
-		                            : close > (ltlNow + tolerance);
-		                }
-		                else
-		                {
-		                    broke =
-		                        g.Direction == NinjaTrader.NinjaScript.xPva.Engine.ContainerDirection.Up
-		                            ? low < (ltlNow - tolerance)
-		                            : high > (ltlNow + tolerance);
-		                }
-		
-		                if (idx < g.P3.Value.BarIndex + 5 || broke)
-		                {
-		                    Print(string.Format(
-		                        "[ManualRuntime-Historical] idx={0} H={1} L={2} C={3} ltlNow={4} mode={5} tolTicks={6} broke={7}",
-		                        idx,
-		                        high,
-		                        low,
-		                        close,
-		                        ltlNow,
-		                        manualSnapshot.BreakMode,
-		                        manualSnapshot.BreakToleranceTicks,
-		                        broke));
-		                }
-		
-		                if (broke)
-		                {
-		                    manualHistoricalCandidateBar = idx;
-		                    Print($"[ManualRuntime-Historical] FTT Candidate C#{g.ContainerId} at bar {idx}");
-		
-		                    int confirmIdx = idx + 1;
-		                    if (confirmIdx <= CurrentBar && confirmIdx < Bars.Count)
-		                    {
-		                        double confirmLtl = g.Ltl.Value.ValueAt(confirmIdx);
-		                        double confirmLow = Bars.GetLow(confirmIdx);
-		                        double confirmHigh = Bars.GetHigh(confirmIdx);
-		                        double confirmClose = Bars.GetClose(confirmIdx);
-		                        double confirmTolerance = manualSnapshot.BreakToleranceTicks * TickSize;
-		
-		                        bool confirmBroke;
-		
-		                        if (manualSnapshot.BreakMode == NinjaTrader.NinjaScript.xPva.Engine.ManualContainerBreakMode.CloseCross)
-		                        {
-		                            confirmBroke =
-		                                g.Direction == NinjaTrader.NinjaScript.xPva.Engine.ContainerDirection.Up
-		                                    ? confirmClose < (confirmLtl - confirmTolerance)
-		                                    : confirmClose > (confirmLtl + confirmTolerance);
-		                        }
-		                        else
-		                        {
-		                            confirmBroke =
-		                                g.Direction == NinjaTrader.NinjaScript.xPva.Engine.ContainerDirection.Up
-		                                    ? confirmLow < (confirmLtl - confirmTolerance)
-		                                    : confirmHigh > (confirmLtl + confirmTolerance);
-		                        }
-		
-		                        Print(string.Format(
-		                            "[ManualRuntime-Historical] confirmIdx={0} H={1} L={2} C={3} ltlNow={4} mode={5} tolTicks={6} confirmBroke={7}",
-		                            confirmIdx,
-		                            confirmHigh,
-		                            confirmLow,
-		                            confirmClose,
-		                            confirmLtl,
-		                            manualSnapshot.BreakMode,
-		                            manualSnapshot.BreakToleranceTicks,
-		                            confirmBroke));
-		
-		                        if (confirmBroke)
-		                        {
-		                            manualHistoricalConfirmedBar = confirmIdx;
-		                            Print($"[ManualRuntime-Historical] FTT Confirmed C#{g.ContainerId} at bar {confirmIdx}");
-		
-		                            var structure =
-		                                NinjaTrader.NinjaScript.xPva.Engine.xPvaManualStructureResolver.Resolve(
-		                                    g,
-		                                    confirmIdx);
-		
-		                            var action =
-		                                NinjaTrader.NinjaScript.xPva.Engine.xPvaManualActionResolver.Resolve(
-		                                    g,
-		                                    structure,
-		                                    confirmIdx);
-		
-		                            var tradeIntent =
-		                                NinjaTrader.NinjaScript.xPva.Engine.xPvaManualTradeIntentResolver.Resolve(
-		                                    g,
-		                                    structure,
-		                                    action,
-		                                    confirmIdx);
-		
-		                            manualHistoricalStructureToken = structure.State.ToString();
-		                            manualHistoricalActionToken = tradeIntent.Intent.ToString();
-									
-									string actionShort = tradeIntent.Intent.ToString();
-									if (actionShort == "Sideline")
-									    actionShort = "SIDE";
-									else if (actionShort == "Enter")
-									    actionShort = "ENT";
-									else if (actionShort == "Reverse")
-									    actionShort = "REV";
-									else if (actionShort == "HoldThru")
-									    actionShort = "HT";
-									else if (actionShort == "EarlyExit")
-									    actionShort = "EE";
-									else if (actionShort == "ReEntry")
-									    actionShort = "RE";
-									
-									string structureShort = structure.State.ToString();
-									if (structureShort == "Broken")
-									    structureShort = "BRK";
-									else if (structureShort == "Transition")
-									    structureShort = "TRN";
-									
-									manualHistoricalDecisionCompact = actionShort + " " + structureShort;
-									var manualState = GetRiverState(confirmIdx);
-									manualState.ManualDecisionToken = manualHistoricalDecisionCompact;
-									manualState.ManualHasFtt = true;
-		
-		                            Print($"[ManualRuntime-Historical] Structure C#{structure.ContainerId} {structure.State} dir={structure.Direction}");
-		                            Print($"[ManualRuntime-Historical] Action C#{action.ContainerId} {action.Action}");
-		                            Print($"[ManualRuntime-Historical] TradeIntent C#{tradeIntent.ContainerId} {tradeIntent.Intent}");
-		                        }
-		                        else
-		                        {
-		                            Print($"[ManualRuntime-Historical] FTT confirmation rejected for C#{g.ContainerId} at bar {confirmIdx}");
-		                        }
-		                    }
-		
-		                    break;
-		                }
-		            }
-		        }
-		        else
-		        {
-		            Print($"[ManualRuntime-Historical] scan skipped LTL={g.Ltl.HasValue} P3={g.P3.HasValue}");
-		        }
-		
-		        manualHistoricalScanPending = false;
-		        lastManualInterpretedContainerId = manualSnapshot.ContainerId;
-		        lastManualInterpretedP3BarIndex = manualSnapshot.P3.BarIndex;
-		    }
+			
+			NinjaTrader.NinjaScript.xPva.Engine.TurnType? latestTurnType = null;
+			NinjaTrader.NinjaScript.xPva.Engine.TrendType? latestTrendType = null;
+			
+			if (manualHistoricalScanPending && manualGeometrySnapshot.HasValue && latestManualSnapshot.HasValue)
+			{
+			    var g = manualGeometrySnapshot.Value;
+			    var manualSnapshot = latestManualSnapshot.Value;
+				
+			    var manualEvents =
+			        NinjaTrader.NinjaScript.xPva.Engine.xPvaManualEventSource.BuildHistoricalEvents(
+			            g,
+			            manualSnapshot,
+			            CurrentBar,
+			            idx => Bars.GetHigh(idx),
+			            idx => Bars.GetLow(idx),
+			            idx => Bars.GetClose(idx),
+			            TickSize);
+
+				foreach (var me in manualEvents)
+				{
+				    var stateForEventBar = GetRiverState(me.BarIndex);
+				    ProcessRiverEvent(me, stateForEventBar, ref latestTurnType, ref latestTrendType);
+				}
+			    
+			    manualHistoricalScanPending = false;
+			    lastManualInterpretedContainerId = manualSnapshot.ContainerId;
+			    lastManualInterpretedP3BarIndex = manualSnapshot.P3.BarIndex;
+			}
 		
 		    var snap = new NinjaTrader.NinjaScript.xPva.Engine.BarSnapshot(
 		        Time[0],
@@ -671,103 +709,76 @@ namespace NinjaTrader.NinjaScript.Indicators
 		    var evs = engine.Step(snap);
 		    if (evs == null || evs.Events == null || evs.Events.Length == 0)
 		        return;
+			
+			if (manualRuntimeState.HasActiveManualContainer)
+			{
+			    var liveCandidate =
+			        NinjaTrader.NinjaScript.xPva.Engine.xPvaManualContainerRuntime.CheckFttCandidate(
+			            manualRuntimeState,
+			            snap);
+			
+			    if (liveCandidate.HasValue && liveCandidate.Value.BarIndex != lastManualLiveCandidateBar)
+			    {
+			        lastManualLiveCandidateBar = liveCandidate.Value.BarIndex;
+			
+			        var candidateEvent = NinjaTrader.NinjaScript.xPva.Engine.EngineEvent.From(liveCandidate.Value);
+			        var candidateState = GetRiverState(candidateEvent.BarIndex);
+			        ProcessRiverEvent(candidateEvent, candidateState, ref latestTurnType, ref latestTrendType);
+			    }
+			
+			    var liveConfirmed =
+			        NinjaTrader.NinjaScript.xPva.Engine.xPvaManualContainerRuntime.CheckFttConfirmed(
+			            manualRuntimeState,
+			            snap);
+			
+			    if (liveConfirmed.HasValue && liveConfirmed.Value.BarIndex != lastManualLiveConfirmedBar)
+			    {
+			        lastManualLiveConfirmedBar = liveConfirmed.Value.BarIndex;
+			
+			        var confirmedEvent = NinjaTrader.NinjaScript.xPva.Engine.EngineEvent.From(liveConfirmed.Value);
+			        var confirmedState = GetRiverState(confirmedEvent.BarIndex);
+			        ProcessRiverEvent(confirmedEvent, confirmedState, ref latestTurnType, ref latestTrendType);
+			
+			        var g = manualRuntimeState.ActiveContainer;
+			
+			        var structure =
+			            NinjaTrader.NinjaScript.xPva.Engine.xPvaManualStructureResolver.Resolve(
+			                g,
+			                liveConfirmed.Value.BarIndex);
+			
+			        var structureEvent = NinjaTrader.NinjaScript.xPva.Engine.EngineEvent.From(structure);
+			        ProcessRiverEvent(structureEvent, GetRiverState(structureEvent.BarIndex), ref latestTurnType, ref latestTrendType);
+			
+			        var action =
+			            NinjaTrader.NinjaScript.xPva.Engine.xPvaManualActionResolver.Resolve(
+			                g,
+			                structure,
+			                liveConfirmed.Value.BarIndex);
+			
+			        var actionEvent = NinjaTrader.NinjaScript.xPva.Engine.EngineEvent.From(action);
+			        ProcessRiverEvent(actionEvent, GetRiverState(actionEvent.BarIndex), ref latestTurnType, ref latestTrendType);
+			
+			        var tradeIntent =
+			            NinjaTrader.NinjaScript.xPva.Engine.xPvaManualTradeIntentResolver.Resolve(
+			                g,
+			                structure,
+			                action,
+			                liveConfirmed.Value.BarIndex);
+			
+			        var tradeIntentEvent = NinjaTrader.NinjaScript.xPva.Engine.EngineEvent.From(tradeIntent);
+			        ProcessRiverEvent(tradeIntentEvent, GetRiverState(tradeIntentEvent.BarIndex), ref latestTurnType, ref latestTrendType);
+					manualRuntimeState.HasActiveManualContainer = false;
+
+			    }
+			}
 		
 		    var currentState = GetRiverState(CurrentBar);
 		
-		    NinjaTrader.NinjaScript.xPva.Engine.TurnType? latestTurnType = null;
-		    NinjaTrader.NinjaScript.xPva.Engine.TrendType? latestTrendType = null;
-		
-		    foreach (var e in evs.Events)
-		    {
-		        if (PrintEvents)
-		            Print(FormatEventLine(e));
-		
-		        switch (e.Kind)
-		        {
-		            case NinjaTrader.NinjaScript.xPva.Engine.EventKind.FttConfirmed:
-		                if (e.FttConfirmed.HasValue)
-		                {
-		                    currentState.HasFtt = true;
-		                    currentState.FttPriorDirection = e.FttConfirmed.Value.PriorDirection;
-		
-		                    if (DrawFtt)
-		                        DrawFttConfirmed(e.FttConfirmed.Value);
-		                }
-		                break;
-		
-		            case NinjaTrader.NinjaScript.xPva.Engine.EventKind.Action:
-		                if (e.Action.HasValue)
-		                {
-		                    currentState.ActionType = e.Action.Value.Action;
-		                    currentState.ActionToken = ActionToken(e.Action.Value.Action);
-		
-		                    if (DisplayMode == 0 && DrawActionBoxes)
-		                        DrawActionBox(e.Action.Value);
-		                }
-		                break;
-		
-		            case NinjaTrader.NinjaScript.xPva.Engine.EventKind.TradeIntent:
-		                if (e.TradeIntent.HasValue)
-		                    currentState.TradeIntentToken = TradeIntentToken(e.TradeIntent.Value.Intent);
-		                break;
-		
-		            case NinjaTrader.NinjaScript.xPva.Engine.EventKind.ContainerReport:
-		                if (e.ContainerReport.HasValue)
-		                {
-		                    currentState.ContainerToken = "C#" + e.ContainerReport.Value.ContainerId;
-		
-		                    if (DisplayMode == 0 && DrawContainerIds)
-		                        DrawContainerId(e.ContainerReport.Value);
-		                }
-		                break;
-		
-		            case NinjaTrader.NinjaScript.xPva.Engine.EventKind.Turn:
-		                if (e.Turn.HasValue)
-		                    latestTurnType = e.Turn.Value.Type;
-		                break;
-		
-		            case NinjaTrader.NinjaScript.xPva.Engine.EventKind.TrendType:
-		                if (e.TrendType.HasValue)
-		                    latestTrendType = e.TrendType.Value.Type;
-		                break;
-		
-		            case NinjaTrader.NinjaScript.xPva.Engine.EventKind.VolOoe:
-		                if (e.VolOoe.HasValue)
-		                    currentState.VolumeToken = MergeToken(currentState.VolumeToken, e.VolOoe.Value.Name.ToString());
-		                break;
-		
-		            case NinjaTrader.NinjaScript.xPva.Engine.EventKind.VolPivot:
-		                if (e.VolPivot.HasValue)
-		                {
-		                    string pv = e.VolPivot.Value.Kind == NinjaTrader.NinjaScript.xPva.Engine.VolPivotKind.Peak ? "Pk" : "Tr";
-		                    currentState.VolumeToken = MergeToken(currentState.VolumeToken, pv);
-		                }
-		                break;
-		
-		            case NinjaTrader.NinjaScript.xPva.Engine.EventKind.ContainerGeometry:
-		                if (DisplayMode == 0 && DrawGeometry && e.ContainerGeometry.HasValue)
-		                    DrawContainerGeometryEvent(e.ContainerGeometry.Value);
-		                break;
-		
-		            case NinjaTrader.NinjaScript.xPva.Engine.EventKind.ContainerGeometrySnapshot:
-		                if (DrawGeometryPoints && e.ContainerGeometrySnapshot.HasValue)
-		                {
-		                    var g = e.ContainerGeometrySnapshot.Value;
-		                    DrawGeometryPointsEvent(g);
-		
-		                    if (g.State == NinjaTrader.NinjaScript.xPva.Engine.GeometryState.Active)
-		                    {
-		                        DrawRtl(g);
-		                        DrawLtl(g);
-		                        DrawVe1(g);
-		                    }
-		
-		                    DrawGeometryStateLabel(g);
-		                }
-		                break;
-		        }
-		    }
-		
+			foreach (var e in evs.Events)
+			{
+			    ProcessRiverEvent(e, currentState, ref latestTurnType, ref latestTrendType);
+			}	
+		    
 		    string turnTrend = BuildTurnTrendToken(latestTurnType, latestTrendType);
 		    if (!string.IsNullOrEmpty(turnTrend))
 		        currentState.TurnTrendToken = MergeToken(currentState.TurnTrendToken, turnTrend);
@@ -798,6 +809,35 @@ namespace NinjaTrader.NinjaScript.Indicators
 				        manualHistoricalDecisionCompact);
 				}
 		    }
+			
+			DrawManualStatusLabel();
+		}
+		
+		private void DrawManualStatusLabel()
+		{
+		    if (string.IsNullOrEmpty(manualStatusText))
+		        return;
+		
+		    int barIndex = manualStatusBarIndex >= 0 ? manualStatusBarIndex : CurrentBar;
+		    int barsAgo = BarsAgoFromIndex(barIndex);
+		
+		    if (barsAgo < 0 || barsAgo > CurrentBar)
+		        return;
+		
+		    Draw.Text(
+		        this,
+		        "xPvaManualStatus",
+		        false,
+		        manualStatusText,
+		        barsAgo,
+		        High[barsAgo] + 9 * TickSize,
+		        0,
+		        Brushes.Goldenrod,
+		        new SimpleFont("Arial", FontSize - 1),
+		        TextAlignment.Left,
+		        Brushes.Transparent,
+		        Brushes.Transparent,
+		        0);
 		}
 		
 		private void DrawGeometryPointsEvent(NinjaTrader.NinjaScript.xPva.Engine.ContainerGeometrySnapshot e)
