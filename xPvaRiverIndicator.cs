@@ -40,6 +40,15 @@ namespace NinjaTrader.NinjaScript.Indicators
 		
 		private string manualComparisonText = null;
 		private int manualComparisonBarIndex = -1;
+		
+		private NinjaTrader.NinjaScript.xPva.Engine.ContainerGeometrySnapshot? autoGeometrySnapshot = null;
+		private bool autoContainerActive = false;
+		private int autoP1 = -1;
+		private int autoP2 = -1;
+		private int autoP3 = -1;
+		private bool autoIsUp = true;
+		private int autoContainerId = 0;
+		
 
         [NinjaScriptProperty]
 		[Range(1, 10)]
@@ -479,6 +488,8 @@ namespace NinjaTrader.NinjaScript.Indicators
 		        case NinjaTrader.NinjaScript.xPva.Engine.EventKind.ContainerGeometrySnapshot:
 		            if (DrawGeometryPoints && e.ContainerGeometrySnapshot.HasValue)
 		            {
+						Print($"[AutoGeom] C#{e.ContainerGeometrySnapshot.Value.ContainerId} state={e.ContainerGeometrySnapshot.Value.State}");
+						
 		                var g = e.ContainerGeometrySnapshot.Value;
 						
 						if (latestManualSnapshot.HasValue)
@@ -491,6 +502,9 @@ namespace NinjaTrader.NinjaScript.Indicators
 						    manualComparisonText =
 						        $"CMP P1:{cmp.P1BarError} P2:{cmp.P2BarError} P3:{cmp.P3BarError} S:{cmp.RtlSlopeError:0.########}";
 						    manualComparisonBarIndex = CurrentBar;
+							
+							Print($"[Compare] manual C#{latestManualSnapshot.Value.ContainerId} vs auto C#{g.ContainerId} " +
+                                     $"P1:{cmp.P1BarError} P2:{cmp.P2BarError} P3:{cmp.P3BarError} S:{cmp.RtlSlopeError:0.########}");
 						}
 						
 		                DrawGeometryPointsEvent(g);
@@ -506,6 +520,106 @@ namespace NinjaTrader.NinjaScript.Indicators
 		            }
 		            break;
 		    }
+		}
+		
+		private void UpdateAutoContainerMvp()
+		{
+		    if (CurrentBar < 1)
+		        return;
+		
+		    bool isHHHL =
+		        High[0] > High[1] &&
+		        Low[0] > Low[1];
+		
+		    bool isLHLL =
+		        High[0] < High[1] &&
+		        Low[0] < Low[1];
+		
+		    if (!autoContainerActive)
+		    {
+		        if (isHHHL)
+		        {
+		            autoContainerActive = true;
+		            autoIsUp = true;
+		
+		            autoP1 = CurrentBar - 1;
+		            autoP2 = CurrentBar;
+		            autoP3 = CurrentBar;
+		            autoContainerId++;
+		        }
+		        else if (isLHLL)
+		        {
+		            autoContainerActive = true;
+		            autoIsUp = false;
+		
+		            autoP1 = CurrentBar - 1;
+		            autoP2 = CurrentBar;
+		            autoP3 = CurrentBar;
+		            autoContainerId++;
+		        }
+		    }
+		    else
+		    {
+		        autoP3 = CurrentBar;
+		
+		        bool broken =
+		            autoIsUp
+		                ? Low[0] < Low[CurrentBar - autoP1]
+		                : High[0] > High[CurrentBar - autoP1];
+		
+		        if (broken)
+		        {
+		            autoContainerActive = false;
+		            return;
+		        }
+		    }
+		
+		    if (!autoContainerActive)
+		        return;
+		
+		    if (autoP1 < 0 || autoP2 < 0 || autoP3 < 0)
+		        return;
+		
+		    double p1Price = autoIsUp ? Low[CurrentBar - autoP1] : High[CurrentBar - autoP1];
+		    double p2Price = autoIsUp ? High[CurrentBar - autoP2] : Low[CurrentBar - autoP2];
+		    double p3Price = autoIsUp ? Low[CurrentBar - autoP3] : High[CurrentBar - autoP3];
+		
+		    var p1 = new NinjaTrader.NinjaScript.xPva.Engine.GeometryPoint(autoP1, p1Price);
+		    var p2 = new NinjaTrader.NinjaScript.xPva.Engine.GeometryPoint(autoP2, p2Price);
+		    var p3 = new NinjaTrader.NinjaScript.xPva.Engine.GeometryPoint(autoP3, p3Price);
+		
+		    if (autoP3 <= autoP1)
+		        return;
+		
+		    var rtl = new NinjaTrader.NinjaScript.xPva.Engine.LineDef(p1, p3);
+		
+		    var ltlB = new NinjaTrader.NinjaScript.xPva.Engine.GeometryPoint(
+		        p2.BarIndex + 1,
+		        p2.Price + rtl.Slope);
+		
+		    var ltl = new NinjaTrader.NinjaScript.xPva.Engine.LineDef(p2, ltlB);
+		
+		    double rtlAtP2 = rtl.ValueAt(p2.BarIndex);
+		    double width = System.Math.Abs(p2.Price - rtlAtP2);
+		
+		    double ltlNow = ltl.ValueAt(CurrentBar);
+		    double ve1 = autoIsUp ? ltlNow + width : ltlNow - width;
+		    double ve2 = autoIsUp ? ltlNow + 2.0 * width : ltlNow - 2.0 * width;
+		
+		    autoGeometrySnapshot = new NinjaTrader.NinjaScript.xPva.Engine.ContainerGeometrySnapshot(
+		        autoContainerId,
+		        autoIsUp
+		            ? NinjaTrader.NinjaScript.xPva.Engine.ContainerDirection.Up
+		            : NinjaTrader.NinjaScript.xPva.Engine.ContainerDirection.Down,
+		        NinjaTrader.NinjaScript.xPva.Engine.GeometryState.Active,
+		        p1,
+		        p2,
+		        p3,
+		        rtl,
+		        ltl,
+		        ve1,
+		        ve2,
+		        CurrentBar);
 		}
 
 		private void RefreshManualGeometrySnapshot()
@@ -700,6 +814,33 @@ namespace NinjaTrader.NinjaScript.Indicators
 		        0);
 		}
 		
+		private void PublishAutoContainerSnapshot()
+		{
+		    if (autoP1 < 0 || autoP2 < 0 || autoP3 < 0)
+		        return;
+		
+		    var p1 = new NinjaTrader.NinjaScript.xPva.Engine.BarSnapshot(Time[CurrentBar - autoP1], Open[CurrentBar - autoP1], 
+				High[CurrentBar - autoP1], Low[CurrentBar - autoP1], Close[CurrentBar - autoP1], (long)Volume[CurrentBar - autoP1], autoP1);
+		    var p2 = new NinjaTrader.NinjaScript.xPva.Engine.BarSnapshot(Time[CurrentBar - autoP2], Open[CurrentBar - autoP2], 
+				High[CurrentBar - autoP2], Low[CurrentBar - autoP2], Close[CurrentBar - autoP2], (long)Volume[CurrentBar - autoP2], autoP2);
+		    var p3 = new NinjaTrader.NinjaScript.xPva.Engine.BarSnapshot(Time[CurrentBar - autoP3], Open[CurrentBar - autoP3], 
+				High[CurrentBar - autoP3], Low[CurrentBar - autoP3], Close[CurrentBar - autoP3], (long)Volume[CurrentBar - autoP3], autoP3);
+		
+		    double slope = (p2.H - p1.H) / (autoP2 - autoP1);
+		
+		    /*var snapshot = new NinjaTrader.NinjaScript.xPva.Engine.ContainerGeometrySnapshot(
+		        autoContainerId,
+		        autoIsUp ? NinjaTrader.NinjaScript.xPva.Engine.ContainerDirection.Up : NinjaTrader.NinjaScript.xPva.Engine.ContainerDirection.Down,
+		        p1,
+		        p2,
+		        p3,
+		        slope,
+		        slope,
+		        NinjaTrader.NinjaScript.xPva.Engine.GeometryState.Active);
+		
+		    PublishEvent(snapshot);*/
+		}
+		
 		protected override void OnRender(ChartControl chartControl, ChartScale chartScale)
 		{
 		    RefreshManualGeometrySnapshot();
@@ -712,7 +853,81 @@ namespace NinjaTrader.NinjaScript.Indicators
 		    if (CurrentBar < 1 || engine == null)
 		        return;
 		
+			bool isHHHL = High[0] > High[1] && Low[0] > Low[1];
+			bool isLHLL = High[0] < High[1] && Low[0] < Low[1];
+			
+			if (!autoContainerActive)
+			{
+			    if (isHHHL)
+			    {
+			        autoContainerActive = true;
+			        autoIsUp = true;
+			
+			        autoP1 = CurrentBar - 1;
+			        autoP2 = CurrentBar;
+			        autoP3 = CurrentBar;
+			
+			        autoContainerId++;
+			    }
+			    else if (isLHLL)
+			    {
+			        autoContainerActive = true;
+			        autoIsUp = false;
+			
+			        autoP1 = CurrentBar - 1;
+			        autoP2 = CurrentBar;
+			        autoP3 = CurrentBar;
+			
+			        autoContainerId++;
+			    }
+			}
+			
+			if (autoContainerActive)
+			{
+				PublishAutoContainerSnapshot();
+				
+			    // extend P3 forward
+			    autoP3 = CurrentBar;
+			
+			    // optional: break condition
+			    bool broken =
+			        autoIsUp
+			            ? Low[0] < Low[autoP1 - CurrentBar]   // rough condition
+			            : High[0] > High[autoP1 - CurrentBar];
+			
+			    if (broken)
+			    {
+			        autoContainerActive = false;
+			    }
+			}
+			
 		    RefreshManualGeometrySnapshot();
+			
+			UpdateAutoContainerMvp();
+			
+			if (latestManualSnapshot.HasValue && autoGeometrySnapshot.HasValue)
+			{
+			    var cmp =
+			        NinjaTrader.NinjaScript.xPva.Engine.xPvaContainerComparer.Compare(
+			            latestManualSnapshot.Value,
+			            autoGeometrySnapshot.Value);
+			
+			    manualComparisonText =
+			        $"CMP P1:{cmp.P1BarError} P2:{cmp.P2BarError} P3:{cmp.P3BarError} S:{cmp.RtlSlopeError:0.########}";
+			    manualComparisonBarIndex = CurrentBar;
+			}
+			
+			if (latestManualSnapshot.HasValue && autoGeometrySnapshot.HasValue)
+			{
+			    var cmp =
+			        NinjaTrader.NinjaScript.xPva.Engine.xPvaContainerComparer.Compare(
+			            latestManualSnapshot.Value,
+			            autoGeometrySnapshot.Value);
+			
+			    manualComparisonText =
+			        $"CMP P1:{cmp.P1BarError} P2:{cmp.P2BarError} P3:{cmp.P3BarError} S:{cmp.RtlSlopeError:0.########}";
+			    manualComparisonBarIndex = CurrentBar;
+			}
 			
 			NinjaTrader.NinjaScript.xPva.Engine.TurnType? latestTurnType = null;
 			NinjaTrader.NinjaScript.xPva.Engine.TrendType? latestTrendType = null;
