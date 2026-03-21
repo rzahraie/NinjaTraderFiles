@@ -844,7 +844,7 @@ namespace NinjaTrader.NinjaScript.Indicators
 		protected override void OnRender(ChartControl chartControl, ChartScale chartScale)
 		{
 		    RefreshManualGeometrySnapshot();
-			
+		    DrawManualGeometrySnapshot();
 		    base.OnRender(chartControl, chartScale);
 		}
 		
@@ -1045,34 +1045,29 @@ namespace NinjaTrader.NinjaScript.Indicators
 		        currentState.TurnTrendToken = MergeToken(currentState.TurnTrendToken, turnTrend);
 		
 		    DrawRiverBar(CurrentBar, currentState);
+		}
 		
-		    if (manualGeometrySnapshot.HasValue)
-		    {
-		        var g = manualGeometrySnapshot.Value;
+		private void DrawManualGeometrySnapshot()
+		{
+		    if (!manualGeometrySnapshot.HasValue)
+		        return;
 		
-		        DrawGeometryPointsEvent(g);
-		        DrawRtl(g);
-		        DrawLtl(g);
-		        DrawVe1(g);
-		        DrawGeometryStateLabel(g);
+		    var g = manualGeometrySnapshot.Value;
 		
-		        if (manualHistoricalCandidateBar.HasValue)
-		            DrawManualHistoricalCandidate(g, manualHistoricalCandidateBar.Value);
+		    DrawGeometryPointsEvent(g);
+		    DrawRtl(g);
+		    DrawLtl(g);
+		    DrawVe1(g);
+		    DrawGeometryStateLabel(g);
 		
-		        if (manualHistoricalConfirmedBar.HasValue)
-		            DrawManualHistoricalConfirmed(g, manualHistoricalConfirmedBar.Value);
+		    if (manualHistoricalCandidateBar.HasValue)
+		        DrawManualHistoricalCandidate(g, manualHistoricalCandidateBar.Value);
 		
-		        if (manualHistoricalConfirmedBar.HasValue && !string.IsNullOrEmpty(manualHistoricalDecisionCompact))
-				{
-				    DrawManualHistoricalDecision(
-				        g,
-				        manualHistoricalConfirmedBar.Value,
-				        manualHistoricalDecisionCompact);
-				}
-		    }
-			
-			DrawManualStatusLabel();
-			DrawManualComparisonLabel();
+		    if (manualHistoricalConfirmedBar.HasValue)
+		        DrawManualHistoricalConfirmed(g, manualHistoricalConfirmedBar.Value);
+		
+		    DrawManualStatusLabel();
+		    DrawManualComparisonLabel();
 		}
 		
 		private void DrawManualStatusLabel()
