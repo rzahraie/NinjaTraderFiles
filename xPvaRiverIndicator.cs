@@ -24,6 +24,14 @@ namespace NinjaTrader.NinjaScript.Indicators
 		private NinjaTrader.NinjaScript.xPva.Engine.xPvaManualContainerRuntime.State manualRuntimeState =
     								new NinjaTrader.NinjaScript.xPva.Engine.xPvaManualContainerRuntime.State();
 		private NinjaTrader.NinjaScript.xPva.Engine.ManualContainerSnapshot? latestManualSnapshot = null;
+		private NinjaTrader.NinjaScript.xPva.Engine.xPvaAutoContainerMvp.State autoMvpState =
+		    new NinjaTrader.NinjaScript.xPva.Engine.xPvaAutoContainerMvp.State();
+		
+		private NinjaTrader.NinjaScript.xPva.Engine.ContainerGeometrySnapshot? autoMvpSnapshot = null;
+		
+		private NinjaTrader.NinjaScript.xPva.Engine.ManualVolumeEvent[] manualVolumeEvents =
+    			new NinjaTrader.NinjaScript.xPva.Engine.ManualVolumeEvent[0];
+		
 		private int? manualHistoricalCandidateBar = null;
 		private int? manualHistoricalConfirmedBar = null;
 		private string manualHistoricalActionToken = null;
@@ -669,6 +677,8 @@ namespace NinjaTrader.NinjaScript.Indicators
 				
 				manualComparisonText = null;
 				manualComparisonBarIndex = -1;
+				
+				manualVolumeEvents = new NinjaTrader.NinjaScript.xPva.Engine.ManualVolumeEvent[0];
 		    }
 		    else
 		    {
@@ -679,6 +689,21 @@ namespace NinjaTrader.NinjaScript.Indicators
 		
 		    var g = manualGeometrySnapshot.Value;
 		    Print($"[River] manual C#{g.ContainerId} state={g.State} P1={g.P1.HasValue} P2={g.P2.HasValue} P3={g.P3.HasValue}");
+			
+			if (g.P1.HasValue && g.P3.HasValue)
+			{
+			    manualVolumeEvents =
+			        NinjaTrader.NinjaScript.xPva.Engine.xPvaManualVolumeAnalyzer.Analyze(
+			            g.P1.Value.BarIndex,
+			            g.P3.Value.BarIndex,
+			            idx => (long)Bars.GetVolume(idx));
+			
+			    for (int i = 0; i < manualVolumeEvents.Length; i++)
+			    {
+			        var ve = manualVolumeEvents[i];
+			        Print($"[ManualVolume] C#{g.ContainerId} {ve.Label} at bar {ve.BarIndex} vol={ve.Volume}");
+			    }
+			}
 			
 			manualStatusText =
 		    $"MC C#{g.ContainerId} " +
@@ -827,18 +852,6 @@ namespace NinjaTrader.NinjaScript.Indicators
 				High[CurrentBar - autoP3], Low[CurrentBar - autoP3], Close[CurrentBar - autoP3], (long)Volume[CurrentBar - autoP3], autoP3);
 		
 		    double slope = (p2.H - p1.H) / (autoP2 - autoP1);
-		
-		    /*var snapshot = new NinjaTrader.NinjaScript.xPva.Engine.ContainerGeometrySnapshot(
-		        autoContainerId,
-		        autoIsUp ? NinjaTrader.NinjaScript.xPva.Engine.ContainerDirection.Up : NinjaTrader.NinjaScript.xPva.Engine.ContainerDirection.Down,
-		        p1,
-		        p2,
-		        p3,
-		        slope,
-		        slope,
-		        NinjaTrader.NinjaScript.xPva.Engine.GeometryState.Active);
-		
-		    PublishEvent(snapshot);*/
 		}
 		
 		protected override void OnRender(ChartControl chartControl, ChartScale chartScale)
@@ -902,6 +915,33 @@ namespace NinjaTrader.NinjaScript.Indicators
 			}
 			
 		    RefreshManualGeometrySnapshot();
+			
+			if (CurrentBar >= 1)
+			{
+			    var prevSnap = new NinjaTrader.NinjaScript.xPva.Engine.BarSnapshot(
+			        Time[1],
+			        Open[1],
+			        High[1],
+			        Low[1],
+			        Close[1],
+			        (long)Volume[1],
+			        CurrentBar - 1);
+			
+			    var curSnap = new NinjaTrader.NinjaScript.xPva.Engine.BarSnapshot(
+			        Time[0],
+			        Open[0],
+			        High[0],
+			        Low[0],
+			        Close[0],
+			        (long)Volume[0],
+			        CurrentBar);
+			
+			    autoMvpSnapshot =
+			        NinjaTrader.NinjaScript.xPva.Engine.xPvaAutoContainerMvp.Step(
+			            autoMvpState,
+			            prevSnap,
+			            curSnap);
+			}
 			
 			UpdateAutoContainerMvp();
 			
@@ -1032,6 +1072,15 @@ namespace NinjaTrader.NinjaScript.Indicators
 
 			    }
 			}
+			
+			if (autoMvpSnapshot.HasValue)
+			{
+			    var ag = autoMvpSnapshot.Value;
+			    DrawGeometryPointsEvent(ag);
+			    DrawRtl(ag);
+			    DrawLtl(ag);
+			    DrawVe1(ag);
+			}
 		
 		    var currentState = GetRiverState(CurrentBar);
 		
@@ -1045,6 +1094,40 @@ namespace NinjaTrader.NinjaScript.Indicators
 		        currentState.TurnTrendToken = MergeToken(currentState.TurnTrendToken, turnTrend);
 		
 		    DrawRiverBar(CurrentBar, currentState);
+		}
+		
+		private void DrawManualVolumeLabels(
+    		NinjaTrader.NinjaScript.xPva.Engine.ContainerGeometrySnapshot g)
+		{
+		    if (manualVolumeEvents == null || manualVolumeEvents.Length == 0)
+		        return;
+		
+		    for (int i = 0; i < manualVolumeEvents.Length; i++)
+		    {
+		        var ve = manualVolumeEvents[i];
+		        int barsAgo = BarsAgoFromIndex(ve.BarIndex);
+		
+		        if (barsAgo < 0 || barsAgo > CurrentBar)
+		            continue;
+		
+		        string text = ve.Label.ToString();
+		        Brush brush = Brushes.DarkOrange;
+		
+		        Draw.Text(
+		            this,
+		            $"ManualVol_{g.ContainerId}_{ve.BarIndex}_{ve.Label}",
+		            false,
+		            text,
+		            barsAgo,
+		            Low[barsAgo] - 4 * TickSize,
+		            0,
+		            brush,
+		            new SimpleFont("Arial", FontSize - 1),
+		            TextAlignment.Center,
+		            Brushes.Transparent,
+		            Brushes.Transparent,
+		            0);
+		    }
 		}
 		
 		private void DrawManualGeometrySnapshot()
@@ -1068,6 +1151,7 @@ namespace NinjaTrader.NinjaScript.Indicators
 		
 		    DrawManualStatusLabel();
 		    DrawManualComparisonLabel();
+			DrawManualVolumeLabels(g);
 		}
 		
 		private void DrawManualStatusLabel()
