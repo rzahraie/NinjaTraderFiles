@@ -29,40 +29,44 @@ namespace NinjaTrader.NinjaScript.xPva.Engine
     public static class xPvaManualVolumeAnalyzer
     {
         public static ManualVolumeEvent[] Analyze(
-            int startBar,
-            int endBar,
-            System.Func<int, long> getVolume)
-        {
-            if (endBar - startBar < 2)
-                return new ManualVolumeEvent[0];
-
-            var results = new System.Collections.Generic.List<ManualVolumeEvent>();
-
-            for (int idx = startBar + 1; idx < endBar; idx++)
-            {
-                long vPrev = getVolume(idx - 1);
-                long vCur = getVolume(idx);
-                long vNext = getVolume(idx + 1);
-
-                if (vCur > vPrev && vCur > vNext)
-                    results.Add(new ManualVolumeEvent(idx, ManualVolumeLabel.Peak, vCur));
-                else if (vCur < vPrev && vCur < vNext)
-                    results.Add(new ManualVolumeEvent(idx, ManualVolumeLabel.Trough, vCur));
-            }
-
-            if (results.Count > 0)
-            {
-                var first = results[0];
-                results[0] = new ManualVolumeEvent(first.BarIndex, ManualVolumeLabel.P1, first.Volume);
-
-                if (results.Count > 1)
-                {
-                    var second = results[1];
-                    results[1] = new ManualVolumeEvent(second.BarIndex, ManualVolumeLabel.PP1, second.Volume);
-                }
-            }
-
-            return results.ToArray();
-        }
+		    int startBar,
+		    int endBar,
+		    System.Func<int, long> getVolume)
+		{
+		    if (endBar <= startBar)
+		        return new ManualVolumeEvent[0];
+		
+		    var results = new System.Collections.Generic.List<ManualVolumeEvent>();
+		
+		    int maxIdx = startBar;
+		    long maxVol = getVolume(startBar);
+		
+		    int minIdx = startBar;
+		    long minVol = getVolume(startBar);
+		
+		    for (int idx = startBar + 1; idx <= endBar; idx++)
+		    {
+		        long v = getVolume(idx);
+		
+		        if (v > maxVol)
+		        {
+		            maxVol = v;
+		            maxIdx = idx;
+		        }
+		
+		        if (v < minVol)
+		        {
+		            minVol = v;
+		            minIdx = idx;
+		        }
+		    }
+		
+		    results.Add(new ManualVolumeEvent(maxIdx, ManualVolumeLabel.P1, maxVol));
+		
+		    if (minIdx != maxIdx)
+		        results.Add(new ManualVolumeEvent(minIdx, ManualVolumeLabel.PP1, minVol));
+		
+		    return results.ToArray();
+		}
     }
 }

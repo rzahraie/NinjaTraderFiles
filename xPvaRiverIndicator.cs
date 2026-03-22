@@ -698,6 +698,8 @@ namespace NinjaTrader.NinjaScript.Indicators
 			            g.P3.Value.BarIndex,
 			            idx => (long)Bars.GetVolume(idx));
 			
+				Print($"[ManualVolume] count={manualVolumeEvents.Length} P1Bar={g.P1.Value.BarIndex} P3Bar={g.P3.Value.BarIndex}");
+				
 			    for (int i = 0; i < manualVolumeEvents.Length; i++)
 			    {
 			        var ve = manualVolumeEvents[i];
@@ -1097,7 +1099,7 @@ namespace NinjaTrader.NinjaScript.Indicators
 		}
 		
 		private void DrawManualVolumeLabels(
-    		NinjaTrader.NinjaScript.xPva.Engine.ContainerGeometrySnapshot g)
+    NinjaTrader.NinjaScript.xPva.Engine.ContainerGeometrySnapshot g)
 		{
 		    if (manualVolumeEvents == null || manualVolumeEvents.Length == 0)
 		        return;
@@ -1113,16 +1115,27 @@ namespace NinjaTrader.NinjaScript.Indicators
 		        string text = ve.Label.ToString();
 		        Brush brush = Brushes.DarkOrange;
 		
+		        if (ve.Label == NinjaTrader.NinjaScript.xPva.Engine.ManualVolumeLabel.P1)
+		            brush = Brushes.Gold;
+		        else if (ve.Label == NinjaTrader.NinjaScript.xPva.Engine.ManualVolumeLabel.PP1)
+		            brush = Brushes.OrangeRed;
+		        else if (ve.Label == NinjaTrader.NinjaScript.xPva.Engine.ManualVolumeLabel.Peak)
+		            brush = Brushes.DodgerBlue;
+		        else if (ve.Label == NinjaTrader.NinjaScript.xPva.Engine.ManualVolumeLabel.Trough)
+		            brush = Brushes.LimeGreen;
+		
+		        double y = High[barsAgo] + 10 * TickSize;
+		
 		        Draw.Text(
 		            this,
 		            $"ManualVol_{g.ContainerId}_{ve.BarIndex}_{ve.Label}",
 		            false,
 		            text,
 		            barsAgo,
-		            Low[barsAgo] - 4 * TickSize,
+		            y,
 		            0,
 		            brush,
-		            new SimpleFont("Arial", FontSize - 1),
+		            new SimpleFont("Arial", FontSize),
 		            TextAlignment.Center,
 		            Brushes.Transparent,
 		            Brushes.Transparent,
