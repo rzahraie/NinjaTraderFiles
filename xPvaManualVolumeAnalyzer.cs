@@ -14,59 +14,149 @@ namespace NinjaTrader.NinjaScript.xPva.Engine
         public readonly int BarIndex;
         public readonly ManualVolumeLabel Label;
         public readonly long Volume;
+        public readonly ManualBarPolarity Polarity;
 
         public ManualVolumeEvent(
             int barIndex,
             ManualVolumeLabel label,
-            long volume)
+            long volume,
+            ManualBarPolarity polarity)
         {
             BarIndex = barIndex;
             Label = label;
             Volume = volume;
+            Polarity = polarity;
         }
     }
 
     public static class xPvaManualVolumeAnalyzer
     {
         public static ManualVolumeEvent[] Analyze(
-		    int startBar,
-		    int endBar,
-		    System.Func<int, long> getVolume)
-		{
-		    if (endBar <= startBar)
-		        return new ManualVolumeEvent[0];
-		
-		    var results = new System.Collections.Generic.List<ManualVolumeEvent>();
-		
-		    int maxIdx = startBar;
-		    long maxVol = getVolume(startBar);
-		
-		    int minIdx = startBar;
-		    long minVol = getVolume(startBar);
-		
-		    for (int idx = startBar + 1; idx <= endBar; idx++)
-		    {
-		        long v = getVolume(idx);
-		
-		        if (v > maxVol)
-		        {
-		            maxVol = v;
-		            maxIdx = idx;
-		        }
-		
-		        if (v < minVol)
-		        {
-		            minVol = v;
-		            minIdx = idx;
-		        }
-		    }
-		
-		    results.Add(new ManualVolumeEvent(maxIdx, ManualVolumeLabel.P1, maxVol));
-		
-		    if (minIdx != maxIdx)
-		        results.Add(new ManualVolumeEvent(minIdx, ManualVolumeLabel.PP1, minVol));
-		
-		    return results.ToArray();
-		}
+            int startBar,
+            int endBar,
+            System.Func<int, long> getVolume,
+            System.Func<int, double> getOpen,
+            System.Func<int, double> getClose,
+            bool isUpContainer)
+        {
+            if (endBar <= startBar)
+                return new ManualVolumeEvent[0];
+
+            var bars = new System.Collections.Generic.List<ManualVolumeBar>();
+
+            for (int idx = startBar; idx <= endBar; idx++)
+            {
+                double o = getOpen(idx);
+                double c = getClose(idx);
+
+                ManualBarPolarity polarity;
+                if (c > o)
+                    polarity = ManualBarPolarity.Black;
+                else if (c < o)
+                    polarity = ManualBarPolarity.Red;
+                else
+                    polarity = ManualBarPolarity.Doji;
+
+                bars.Add(new ManualVolumeBar(
+                    idx,
+                    getVolume(idx),
+                    polarity));
+            }
+
+            var extrema = new System.Collections.Generic.List<ManualVolumeEvent>();
+
+            for (int i = 1; i < bars.Count - 1; i++)
+            {
+                var prev = bars[i - 1];
+                var cur = bars[i];
+                var next = bars[i + 1];
+
+                if (cur.Volume > prev.Volume && cur.Volume > next.Volume)
+                {
+                    extrema.Add(new ManualVolumeEvent(
+                        cur.BarIndex,
+                        ManualVolumeLabel.Peak,
+                        cur.Volume,
+                        cur.Polarity));
+                }
+                else if (cur.Volume < prev.Volume && cur.Volume < next.Volume)
+                {
+                    extrema.Add(new ManualVolumeEvent(
+                        cur.BarIndex,
+                        ManualVolumeLabel.Trough,
+                        cur.Volume,
+                        cur.Polarity));
+                }
+            }
+
+            if (extrema.Count == 0)
+                return new ManualVolumeEvent[0];
+
+            // First pass labeling rule:
+            // In an up container, prefer first Red extreme as P1, then next Black extreme as PP1.
+            // In a down container, prefer first Black extreme as P1, then next Red extreme as PP1.
+            int p1Index = -1;
+            int pp1Index = -1;
+
+            ManualBarPolarity p1Wanted = isUpContainer
+                ? ManualBarPolarity.Red
+                : ManualBarPolarity.Black;
+
+            ManualBarPolarity pp1Wanted = isUpContainer
+                ? ManualBarPolarity.Black
+                : ManualBarPolarity.Red;
+
+            for (int i = 0; i < extrema.Count; i++)
+            {
+                if (p1Index < 0 && extrema[i].Polarity == p1Wanted)
+                {
+                    p1Index = i;
+                    continue;
+                }
+
+                if (p1Index >= 0 && pp1Index < 0 && i > p1Index && extrema[i].Polarity == pp1Wanted)
+                {
+                    pp1Index = i;
+                    break;
+                }
+            }
+
+            // Fallbacks if polarity-aware search finds nothing.
+            if (p1Index < 0)
+                p1Index = 0;
+
+            if (pp1Index < 0 && extrema.Count > 1)
+                pp1Index = 1;
+
+            var results = new System.Collections.Generic.List<ManualVolumeEvent>();
+
+            for (int i = 0; i < extrema.Count; i++)
+            {
+                var e = extrema[i];
+
+                if (i == p1Index)
+                {
+                    results.Add(new ManualVolumeEvent(
+                        e.BarIndex,
+                        ManualVolumeLabel.P1,
+                        e.Volume,
+                        e.Polarity));
+                }
+                else if (i == pp1Index)
+                {
+                    results.Add(new ManualVolumeEvent(
+                        e.BarIndex,
+                        ManualVolumeLabel.PP1,
+                        e.Volume,
+                        e.Polarity));
+                }
+                else
+                {
+                    results.Add(e);
+                }
+            }
+
+            return results.ToArray();
+        }
     }
 }
