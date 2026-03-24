@@ -175,22 +175,6 @@ namespace NinjaTrader.NinjaScript.xPva.Engine
 			    }
 			}
 			
-			// Choose PP1 as the first preferred-polarity extreme after P1.
-			if (p1Index >= 0)
-			{
-			    for (int i = p1Index + 1; i < extrema.Count; i++)
-			    {
-			        if (extrema[i].Polarity == pp1Wanted)
-			        {
-			            pp1Index = i;
-			            break;
-			        }
-			    }
-			}
-			
-			// Fallback: if none found, use the next extreme after P1.
-			if (pp1Index < 0 && p1Index >= 0 && p1Index + 1 < extrema.Count)
-			    pp1Index = p1Index + 1;
             var results = new System.Collections.Generic.List<ManualVolumeEvent>();
 
 		for (int i = 0; i < extrema.Count; i++)
@@ -223,6 +207,7 @@ namespace NinjaTrader.NinjaScript.xPva.Engine
         }
     }
 }
+
 
 
 
