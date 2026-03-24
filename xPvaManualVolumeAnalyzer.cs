@@ -96,38 +96,57 @@ namespace NinjaTrader.NinjaScript.xPva.Engine
             // In an up container, prefer first Red extreme as P1, then next Black extreme as PP1.
             // In a down container, prefer first Black extreme as P1, then next Red extreme as PP1.
             int p1Index = -1;
-            int pp1Index = -1;
-
-            ManualBarPolarity p1Wanted = isUpContainer
-                ? ManualBarPolarity.Red
-                : ManualBarPolarity.Black;
-
-            ManualBarPolarity pp1Wanted = isUpContainer
-                ? ManualBarPolarity.Black
-                : ManualBarPolarity.Red;
-
-            for (int i = 0; i < extrema.Count; i++)
-            {
-                if (p1Index < 0 && extrema[i].Polarity == p1Wanted)
-                {
-                    p1Index = i;
-                    continue;
-                }
-
-                if (p1Index >= 0 && pp1Index < 0 && i > p1Index && extrema[i].Polarity == pp1Wanted)
-                {
-                    pp1Index = i;
-                    break;
-                }
-            }
-
-            // Fallbacks if polarity-aware search finds nothing.
-            if (p1Index < 0)
-                p1Index = 0;
-
-            if (pp1Index < 0 && extrema.Count > 1)
-                pp1Index = 1;
-
+			int pp1Index = -1;
+			
+			ManualBarPolarity p1Wanted = isUpContainer
+			    ? ManualBarPolarity.Red
+			    : ManualBarPolarity.Black;
+			
+			ManualBarPolarity pp1Wanted = isUpContainer
+			    ? ManualBarPolarity.Black
+			    : ManualBarPolarity.Red;
+			
+			// Choose P1 as the largest-volume preferred-polarity extreme.
+			long bestP1Vol = long.MinValue;
+			
+			for (int i = 0; i < extrema.Count; i++)
+			{
+			    if (extrema[i].Polarity == p1Wanted && extrema[i].Volume > bestP1Vol)
+			    {
+			        bestP1Vol = extrema[i].Volume;
+			        p1Index = i;
+			    }
+			}
+			
+			// Fallback: if no preferred-polarity extreme exists, choose the largest-volume extreme overall.
+			if (p1Index < 0)
+			{
+			    for (int i = 0; i < extrema.Count; i++)
+			    {
+			        if (extrema[i].Volume > bestP1Vol)
+			        {
+			            bestP1Vol = extrema[i].Volume;
+			            p1Index = i;
+			        }
+			    }
+			}
+			
+			// Choose PP1 as the first preferred-polarity extreme after P1.
+			if (p1Index >= 0)
+			{
+			    for (int i = p1Index + 1; i < extrema.Count; i++)
+			    {
+			        if (extrema[i].Polarity == pp1Wanted)
+			        {
+			            pp1Index = i;
+			            break;
+			        }
+			    }
+			}
+			
+			// Fallback: if none found, use the next extreme after P1.
+			if (pp1Index < 0 && p1Index >= 0 && p1Index + 1 < extrema.Count)
+			    pp1Index = p1Index + 1;
             var results = new System.Collections.Generic.List<ManualVolumeEvent>();
 
             for (int i = 0; i < extrema.Count; i++)
@@ -160,3 +179,4 @@ namespace NinjaTrader.NinjaScript.xPva.Engine
         }
     }
 }
+
