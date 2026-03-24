@@ -91,6 +91,25 @@ namespace NinjaTrader.NinjaScript.xPva.Engine
 
             if (extrema.Count == 0)
                 return new ManualVolumeEvent[0];
+			
+			long maxExtremaVol = 0;
+			for (int i = 0; i < extrema.Count; i++)
+			{
+			    if (extrema[i].Volume > maxExtremaVol)
+			        maxExtremaVol = extrema[i].Volume;
+			}
+			
+			long minKeepVol = (long)(maxExtremaVol * 0.40);
+			
+			var filteredExtrema = new System.Collections.Generic.List<ManualVolumeEvent>();
+			for (int i = 0; i < extrema.Count; i++)
+			{
+			    if (extrema[i].Volume >= minKeepVol)
+			        filteredExtrema.Add(extrema[i]);
+			}
+			
+			if (filteredExtrema.Count == 0)
+			    return new ManualVolumeEvent[0];
 
             // First pass labeling rule:
             // In an up container, prefer first Red extreme as P1, then next Black extreme as PP1.
@@ -106,27 +125,52 @@ namespace NinjaTrader.NinjaScript.xPva.Engine
 			    ? ManualBarPolarity.Black
 			    : ManualBarPolarity.Red;
 			
-			// Choose P1 as the largest-volume preferred-polarity extreme.
+			// Choose P1 as the largest-volume preferred-polarity extreme from the filtered set.
 			long bestP1Vol = long.MinValue;
 			
-			for (int i = 0; i < extrema.Count; i++)
+			for (int i = 0; i < filteredExtrema.Count; i++)
 			{
-			    if (extrema[i].Polarity == p1Wanted && extrema[i].Volume > bestP1Vol)
+			    if (filteredExtrema[i].Polarity == p1Wanted && filteredExtrema[i].Volume > bestP1Vol)
 			    {
-			        bestP1Vol = extrema[i].Volume;
+			        bestP1Vol = filteredExtrema[i].Volume;
 			        p1Index = i;
 			    }
 			}
 			
-			// Fallback: if no preferred-polarity extreme exists, choose the largest-volume extreme overall.
+			// Fallback: largest-volume filtered extreme overall.
 			if (p1Index < 0)
+			{
+			    for (int i = 0; i < filteredExtrema.Count; i++)
+			    {
+			        if (filteredExtrema[i].Volume > bestP1Vol)
+			        {
+			            bestP1Vol = filteredExtrema[i].Volume;
+			            p1Index = i;
+			        }
+			    }
+			}
+			
+			int p1BarIndex = filteredExtrema[p1Index].BarIndex;
+
+			// Choose PP1 as the first preferred-polarity extremum after P1 from the full original extrema list.
+			for (int i = 0; i < extrema.Count; i++)
+			{
+			    if (extrema[i].BarIndex > p1BarIndex && extrema[i].Polarity == pp1Wanted)
+			    {
+			        pp1Index = i;
+			        break;
+			    }
+			}
+			
+			// Fallback: first later extremum after P1 from the full original extrema list.
+			if (pp1Index < 0)
 			{
 			    for (int i = 0; i < extrema.Count; i++)
 			    {
-			        if (extrema[i].Volume > bestP1Vol)
+			        if (extrema[i].BarIndex > p1BarIndex)
 			        {
-			            bestP1Vol = extrema[i].Volume;
-			            p1Index = i;
+			            pp1Index = i;
+			            break;
 			        }
 			    }
 			}
@@ -149,34 +193,36 @@ namespace NinjaTrader.NinjaScript.xPva.Engine
 			    pp1Index = p1Index + 1;
             var results = new System.Collections.Generic.List<ManualVolumeEvent>();
 
-            for (int i = 0; i < extrema.Count; i++)
-            {
-                var e = extrema[i];
-
-                if (i == p1Index)
-                {
-                    results.Add(new ManualVolumeEvent(
-                        e.BarIndex,
-                        ManualVolumeLabel.P1,
-                        e.Volume,
-                        e.Polarity));
-                }
-                else if (i == pp1Index)
-                {
-                    results.Add(new ManualVolumeEvent(
-                        e.BarIndex,
-                        ManualVolumeLabel.PP1,
-                        e.Volume,
-                        e.Polarity));
-                }
-                else
-                {
-                    results.Add(e);
-                }
-            }
+		for (int i = 0; i < extrema.Count; i++)
+		{
+		    var e = extrema[i];
+		
+		    if (e.BarIndex == filteredExtrema[p1Index].BarIndex)
+		    {
+		        results.Add(new ManualVolumeEvent(
+		            e.BarIndex,
+		            ManualVolumeLabel.P1,
+		            e.Volume,
+		            e.Polarity));
+		    }
+		    else if (pp1Index >= 0 && i == pp1Index)
+		    {
+		        results.Add(new ManualVolumeEvent(
+		            e.BarIndex,
+		            ManualVolumeLabel.PP1,
+		            e.Volume,
+		            e.Polarity));
+		    }
+		    else
+		    {
+		        results.Add(e);
+		    }
+		}
 
             return results.ToArray();
         }
     }
 }
+
+
 
