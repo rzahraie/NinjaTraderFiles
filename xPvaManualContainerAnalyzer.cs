@@ -19,6 +19,11 @@ namespace NinjaTrader.NinjaScript.xPva.Engine
 			        getOpen,
 			        getClose,
 			        snapshot.IsUpContainer);
+			
+			var volumeSequence = 
+				xPvaManualVolumeSequencer.Build(
+					snapshot.ContainerId,
+				 	volumeEvents);
 
             int? candidateBar = null;
             int? confirmedBar = null;
@@ -144,6 +149,7 @@ namespace NinjaTrader.NinjaScript.xPva.Engine
             return new ManualContainerAnalysis(
                 snapshot,
                 volumeEvents,
+				volumeSequence,
                 candidateBar,
                 confirmedBar,
                 structureState,
@@ -152,4 +158,6 @@ namespace NinjaTrader.NinjaScript.xPva.Engine
         }
     }
 }
+
+
 
