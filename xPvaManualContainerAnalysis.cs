@@ -12,11 +12,13 @@ namespace NinjaTrader.NinjaScript.xPva.Engine
         public readonly ActionType? ActionType;
         public readonly TradeIntent? TradeIntent;
 		public readonly ManualVolumeSequence VolumeSequence;
+		public readonly ManualVolumeState VolumeState;
 
         public ManualContainerAnalysis(
             ManualContainerSnapshot snapshot,
             ManualVolumeEvent[] volumeEvents,
 			ManualVolumeSequence volumeSequence,
+			ManualVolumeState volumeState,
             int? fttCandidateBar,
             int? fttConfirmedBar,
             StructureState? structureState,
@@ -31,7 +33,9 @@ namespace NinjaTrader.NinjaScript.xPva.Engine
             ActionType = actionType;
             TradeIntent = tradeIntent;
 			VolumeSequence = volumeSequence;
+			VolumeState = volumeState;
         }
     }
 }
+
 

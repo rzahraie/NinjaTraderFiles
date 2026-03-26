@@ -27,6 +27,7 @@ namespace NinjaTrader.NinjaScript.xPva.Engine
             for (int i = 0; i < events.Length; i++)
             {
                 var e = events[i];
+				int flipCount = 0;
 
                 string token = e.Label.ToString();
 
@@ -42,8 +43,10 @@ namespace NinjaTrader.NinjaScript.xPva.Engine
                 if (e.Dominance == DominanceType.Dominant)
                     sawDominant = true;
 
-                if (prevDom.HasValue)
+                if (prevDom.HasValue && prevDom.Value != e.Dominance)
                 {
+					flipCount++;
+					
                     if (prevDom.Value == DominanceType.Dominant &&
                         e.Dominance == DominanceType.NonDominant)
                     {
@@ -67,7 +70,8 @@ namespace NinjaTrader.NinjaScript.xPva.Engine
                 string.Join(" -> ", parts),
                 sawDominant,
                 sawNonDominantAfterDominant,
-                isMixed);
+                isMixed,
+				flipCount);
         }
     }
 }

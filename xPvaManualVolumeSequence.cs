@@ -7,19 +7,22 @@ namespace NinjaTrader.NinjaScript.xPva.Engine
         public readonly bool HasDominantShift;
         public readonly bool HasNonDominantReturn;
         public readonly bool IsMixed;
+		public readonly int FlipCount;
 
         public ManualVolumeSequence(
             int containerId,
             string sequenceText,
             bool hasDominantShift,
             bool hasNonDominantReturn,
-            bool isMixed)
+            bool isMixed,
+			int flipCount)
         {
             ContainerId = containerId;
             SequenceText = sequenceText;
             HasDominantShift = hasDominantShift;
             HasNonDominantReturn = hasNonDominantReturn;
             IsMixed = isMixed;
+			FlipCount = flipCount;
         }
     }
 }
