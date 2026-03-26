@@ -13,7 +13,8 @@ namespace NinjaTrader.NinjaScript.xPva.Engine
                     "NONE",
                     false,
                     false,
-                    false);
+                    false,
+					0);
             }
 
             var parts = new System.Collections.Generic.List<string>();
@@ -21,13 +22,14 @@ namespace NinjaTrader.NinjaScript.xPva.Engine
             bool sawDominant = false;
             bool sawNonDominantAfterDominant = false;
             bool sawDominantAfterNonDominant = false;
+			int flipCount = 0;
 
             DominanceType? prevDom = null;
 
             for (int i = 0; i < events.Length; i++)
             {
                 var e = events[i];
-				int flipCount = 0;
+				
 
                 string token = e.Label.ToString();
 
@@ -43,23 +45,23 @@ namespace NinjaTrader.NinjaScript.xPva.Engine
                 if (e.Dominance == DominanceType.Dominant)
                     sawDominant = true;
 
-                if (prevDom.HasValue && prevDom.Value != e.Dominance)
-                {
-					flipCount++;
-					
-                    if (prevDom.Value == DominanceType.Dominant &&
-                        e.Dominance == DominanceType.NonDominant)
-                    {
-                        sawNonDominantAfterDominant = true;
-                    }
-
-                    if (prevDom.Value == DominanceType.NonDominant &&
-                        e.Dominance == DominanceType.Dominant)
-                    {
-                        sawDominantAfterNonDominant = true;
-                    }
-                }
-
+                if (prevDom != e.Dominance)
+				{
+				    flipCount++;
+				
+				    if (prevDom == DominanceType.Dominant &&
+				        e.Dominance == DominanceType.NonDominant)
+				    {
+				        sawNonDominantAfterDominant = true;
+				    }
+				
+				    if (prevDom == DominanceType.NonDominant &&
+				        e.Dominance == DominanceType.Dominant)
+				    {
+				        sawDominantAfterNonDominant = true;
+				    }
+				}
+				
                 prevDom = e.Dominance;
             }
 
@@ -75,3 +77,8 @@ namespace NinjaTrader.NinjaScript.xPva.Engine
         }
     }
 }
+
+
+
+
+
