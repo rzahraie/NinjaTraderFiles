@@ -14,7 +14,7 @@ namespace NinjaTrader.NinjaScript.xPva.Engine
             var volumeEvents =
 			    xPvaManualVolumeAnalyzer.Analyze(
 			        snapshot.P1.BarIndex,
-			        snapshot.P3.BarIndex,
+			        snapshot.AnalysisEndBarIndex,
 			        getVolume,
 			        getOpen,
 			        getClose,
@@ -163,6 +163,7 @@ namespace NinjaTrader.NinjaScript.xPva.Engine
         }
     }
 }
+
 
 
 

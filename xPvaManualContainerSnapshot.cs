@@ -26,6 +26,9 @@ namespace NinjaTrader.NinjaScript.xPva.Engine
 		
 		public readonly ManualContainerBreakMode BreakMode;
 		public readonly double BreakToleranceTicks;
+		
+		public readonly int AnalysisEndBarIndex;
+		public readonly double AnalysisEndPrice;
 
         public ManualContainerSnapshot(
 		    int containerId,
@@ -36,7 +39,9 @@ namespace NinjaTrader.NinjaScript.xPva.Engine
 		    double rtlSlope,
 		    double ltlSlope,
 		    ManualContainerBreakMode breakMode,
-		    double breakToleranceTicks)
+		    double breakToleranceTicks,
+			int analysisEndBarIndex,
+			double analysisEndPrice)
 		{
 		    ContainerId = containerId;
 		    IsUpContainer = isUpContainer;
@@ -47,6 +52,9 @@ namespace NinjaTrader.NinjaScript.xPva.Engine
 		    LtlSlope = ltlSlope;
 		    BreakMode = breakMode;
 		    BreakToleranceTicks = breakToleranceTicks;
+			AnalysisEndBarIndex = analysisEndBarIndex;
+    		AnalysisEndPrice = analysisEndPrice;
 		}
     }
 }
+
