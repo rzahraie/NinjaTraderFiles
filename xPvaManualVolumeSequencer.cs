@@ -14,7 +14,7 @@ namespace NinjaTrader.NinjaScript.xPva.Engine
                     false,
                     false,
                     false,
-					0);
+                    0);
             }
 
             var parts = new System.Collections.Generic.List<string>();
@@ -22,41 +22,13 @@ namespace NinjaTrader.NinjaScript.xPva.Engine
             bool sawDominant = false;
             bool sawNonDominantAfterDominant = false;
             bool sawDominantAfterNonDominant = false;
-			
-			DominanceType? prevDom = null;
-			int flipCount = 0;
-			
-			foreach (var e in events)
-			{
-			    if (prevDom is DominanceType prev)
-			    {
-			        if (prev != e.Dominance)
-			        {
-			            flipCount++;
-			
-			            if (prev == DominanceType.Dominant &&
-			                e.Dominance == DominanceType.NonDominant)
-			            {
-			                sawNonDominantAfterDominant = true;
-			            }
-			
-			            if (prev == DominanceType.NonDominant &&
-			                e.Dominance == DominanceType.Dominant)
-			            {
-			                sawDominantAfterNonDominant = true;
-			            }
-			        }
-			    }
-			
-			    prevDom = e.Dominance;
-			}
 
-            /*DominanceType? prevDom = null;
+            DominanceType? prevDom = null;
+            int flipCount = 0;
 
             for (int i = 0; i < events.Length; i++)
             {
                 var e = events[i];
-				
 
                 string token = e.Label.ToString();
 
@@ -72,25 +44,28 @@ namespace NinjaTrader.NinjaScript.xPva.Engine
                 if (e.Dominance == DominanceType.Dominant)
                     sawDominant = true;
 
-                if (prevDom != e.Dominance)
-				{
-				    flipCount++;
-				
-				    if (prevDom == DominanceType.Dominant &&
-				        e.Dominance == DominanceType.NonDominant)
-				    {
-				        sawNonDominantAfterDominant = true;
-				    }
-				
-				    if (prevDom == DominanceType.NonDominant &&
-				        e.Dominance == DominanceType.Dominant)
-				    {
-				        sawDominantAfterNonDominant = true;
-				    }
-				}
-				
+                if (prevDom is DominanceType prev)
+                {
+                    if (prev != e.Dominance)
+                    {
+                        flipCount++;
+
+                        if (prev == DominanceType.Dominant &&
+                            e.Dominance == DominanceType.NonDominant)
+                        {
+                            sawNonDominantAfterDominant = true;
+                        }
+
+                        if (prev == DominanceType.NonDominant &&
+                            e.Dominance == DominanceType.Dominant)
+                        {
+                            sawDominantAfterNonDominant = true;
+                        }
+                    }
+                }
+
                 prevDom = e.Dominance;
-            }*/
+            }
 
             bool isMixed = sawNonDominantAfterDominant && sawDominantAfterNonDominant;
 
@@ -100,14 +75,7 @@ namespace NinjaTrader.NinjaScript.xPva.Engine
                 sawDominant,
                 sawNonDominantAfterDominant,
                 isMixed,
-				flipCount);
+                flipCount);
         }
     }
 }
-
-
-
-
-
-
-
