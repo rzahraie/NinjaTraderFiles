@@ -29,9 +29,12 @@ namespace NinjaTrader.NinjaScript.xPva.Engine
 		
 		public readonly int AnalysisEndBarIndex;
 		public readonly double AnalysisEndPrice;
+		
+		public readonly ContainerKind Kind;
 
         public ManualContainerSnapshot(
 		    int containerId,
+			ContainerKind kind,
 		    bool isUpContainer,
 		    ManualContainerPoint p1,
 		    ManualContainerPoint p2,
@@ -44,6 +47,7 @@ namespace NinjaTrader.NinjaScript.xPva.Engine
 			double analysisEndPrice)
 		{
 		    ContainerId = containerId;
+			Kind = kind;
 		    IsUpContainer = isUpContainer;
 		    P1 = p1;
 		    P2 = p2;
@@ -57,4 +61,8 @@ namespace NinjaTrader.NinjaScript.xPva.Engine
 		}
     }
 }
+
+
+
+
 

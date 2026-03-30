@@ -52,6 +52,17 @@ namespace NinjaTrader.NinjaScript.xPva.Engine
                     var gp3 = new GeometryPoint(p3Idx, p3Price);
 
                     var rtl = new LineDef(gp1, gp3);
+					
+					GeometryPoint ltlStart = gp2;
+
+					// For degenerate tape geometry where P1 == P2, shift the LTL seed one bar right
+					// using the stored slope, so the line is still well-defined operationally.
+					if (snapshot.Kind == ContainerKind.Tape && p1Idx == p2Idx)
+					{
+					    ltlStart = new GeometryPoint(
+					        p2Idx + 1,
+					        p2Price + snapshot.LtlSlope);
+					}
 
                     var ltlB = new GeometryPoint(
                         gp2.BarIndex + 1,
@@ -163,6 +174,7 @@ namespace NinjaTrader.NinjaScript.xPva.Engine
         }
     }
 }
+
 
 
 
