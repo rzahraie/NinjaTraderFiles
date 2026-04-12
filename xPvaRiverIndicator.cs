@@ -39,6 +39,11 @@ namespace NinjaTrader.NinjaScript.Indicators
 		private int lastManualLiveCandidateBar = -1;
 		private int lastManualLiveConfirmedBar = -1;
 		
+		private int _lastManualExecVersion = -1;
+		private int _lastManualExecContainerId = -1;
+		private string _lastManualExecAction = null;
+		private int? _lastManualExecConfirmedBar = null;
+		
 		private string manualStatusText = null;
 		private int manualStatusBarIndex = -1;
 		
@@ -177,6 +182,72 @@ namespace NinjaTrader.NinjaScript.Indicators
                 engine = new NinjaTrader.NinjaScript.xPva.Engine.xPvaEngine(VolPivotWindow);
             }
         }
+
+		private void DrawManualExecutionMarkers()
+		{
+		    NinjaTrader.NinjaScript.xPva.Engine.ManualExecutionSnapshot snapshot;
+		    int version;
+		
+		    if (!NinjaTrader.NinjaScript.xPva.Engine.xPvaManualExecutionBridge.TryGetLatest(out snapshot, out version))
+		        return;
+		
+		    if (version == _lastManualExecVersion)
+		        return;
+		
+		    _lastManualExecVersion = version;
+		
+		    bool sameAsLast =
+		        _lastManualExecContainerId == snapshot.ContainerId &&
+		        _lastManualExecAction == snapshot.Action &&
+		        _lastManualExecConfirmedBar == snapshot.ConfirmedBar;
+		
+		    if (sameAsLast)
+		        return;
+		
+		    _lastManualExecContainerId = snapshot.ContainerId;
+		    _lastManualExecAction = snapshot.Action;
+		    _lastManualExecConfirmedBar = snapshot.ConfirmedBar;
+		
+		    if (!snapshot.ConfirmedBar.HasValue)
+		        return;
+		
+		    int barsAgo = CurrentBar - snapshot.ConfirmedBar.Value;
+		    if (barsAgo < 0 || barsAgo > CurrentBar)
+		        return;
+		
+		    string tag = $"xPvaExec_{snapshot.ContainerId}_{snapshot.Action}_{snapshot.ConfirmedBar.Value}";
+		
+		    if (snapshot.Action == "ENTER_LONG")
+		    {
+		        Draw.ArrowUp(
+		            this,
+		            tag,
+		            false,
+		            barsAgo,
+		            Low[barsAgo] - 2 * TickSize,
+		            Brushes.Lime);
+		    }
+		    else if (snapshot.Action == "ENTER_SHORT")
+		    {
+		        Draw.ArrowDown(
+		            this,
+		            tag,
+		            false,
+		            barsAgo,
+		            High[barsAgo] + 2 * TickSize,
+		            Brushes.Red);
+		    }
+		    else if (snapshot.Action == "EXIT_LONG" || snapshot.Action == "EXIT_SHORT")
+		    {
+		        Draw.Dot(
+		            this,
+		            tag,
+		            false,
+		            barsAgo,
+		            High[barsAgo] + 2 * TickSize,
+		            Brushes.Yellow);
+		    }
+		}
 
 		private void DrawRtl(NinjaTrader.NinjaScript.xPva.Engine.ContainerGeometrySnapshot g)
 		{
@@ -974,6 +1045,8 @@ namespace NinjaTrader.NinjaScript.Indicators
 				DrawRiverBar(CurrentBar,currentState);
 				DrawManualGeometrySnapshot();
 			}
+			
+			DrawManualExecutionMarkers();
 		}
 		
 		private void DrawManualVolumeLabels(
