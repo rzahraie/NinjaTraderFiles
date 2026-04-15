@@ -20,7 +20,7 @@ using NinjaTrader.NinjaScript;
 using NinjaTrader.NinjaScript.Indicators;
 using NinjaTrader.Core.FloatingPoint;
 using NinjaTrader.NinjaScript.DrawingTools;
-using NinjaTrader.NinjaScript.xPva.Engine;
+using NinjaTrader.NinjaScript.xPva.Engine2;
 #endregion
 
 //This namespace holds Indicators in this folder and is required. Do not change it. 
@@ -28,7 +28,8 @@ namespace NinjaTrader.NinjaScript.Indicators
 {
 	public class xPvaEngineHost : Indicator
 	{
-		 private xPvaEngine _engine;
+		 private xPvaEngine2 _engine;
+		 private xPvaEngineParameters _parameters;
 
         [NinjaScriptProperty]
         [Range(1, 10)]
@@ -45,7 +46,8 @@ namespace NinjaTrader.NinjaScript.Indicators
             }
             else if (State == State.DataLoaded)
             {
-                _engine = new xPvaEngine(VolPivotWindow);
+				_parameters = new xPvaEngineParameters();
+                _engine = new xPvaEngine2(_parameters);
             }
 		}
 
@@ -61,14 +63,14 @@ namespace NinjaTrader.NinjaScript.Indicators
             DateTime time = Time[0];
             DateTime timeUtc = DateTime.SpecifyKind(time, DateTimeKind.Local).ToUniversalTime();
 
-            var snap = new xPva.Engine.BarSnapshot(
+            var snap = new xPva.Engine2.BarSnapshot(
                 timeUtc,
                 Open[0], High[0], Low[0], Close[0],
                 (long)Volume[0],
                 CurrentBar
             );
 
-            EngineEvents evs = _engine.Step(snap);
+            if (!_engine.Step(snap, Instrument.MasterInstrument.TickSize)) return false;
 
             // Phase 2 behavior: print events (later: draw and log JSON).
             foreach (var e in evs.Events)
