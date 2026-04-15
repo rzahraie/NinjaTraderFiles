@@ -1,5 +1,111 @@
 using System;
 
+namespace NinjaTrader.NinjaScript.xPva.Engine2
+{
+    public enum PricePolarity
+    {
+        Unknown = 0,
+        Black = 1,
+        Red = 2,
+        Doji = 3
+    }
+
+    public enum VolumeBehavior
+    {
+        Unknown = 0,
+        Expanding = 1,
+        Contracting = 2,
+        Flat = 3
+    }
+
+    public enum DirectionContext
+    {
+        Unknown = 0,
+        Up = 1,
+        Down = 2,
+        Neutral = 3
+    }
+
+    public enum DominanceState
+    {
+        Unknown = 0,
+        Dominant = 1,
+        NonDominant = 2
+    }
+
+    public enum LateralStateKind
+    {
+        None = 0,
+        Seeding = 1,
+        Active = 2,
+        BrokenUp = 3,
+        BrokenDown = 4
+    }
+
+    public enum LateralBias
+    {
+        Unknown = 0,
+        Up = 1,
+        Down = 2,
+        Neutral = 3
+    }
+
+    public enum SignalPhase
+    {
+        None = 0,
+        LongCandidate = 1,
+        ShortCandidate = 2,
+        LongValid = 3,
+        ShortValid = 4,
+        LongDegrading = 5,
+        ShortDegrading = 6,
+        Invalidated = 7
+    }
+
+    public enum ExecutionIntent
+    {
+        None = 0,
+        EnterLong = 1,
+        EnterShort = 2,
+        HoldLong = 3,
+        HoldShort = 4,
+        ExitLong = 5,
+        ExitShort = 6,
+        ReverseToLong = 7,
+        ReverseToShort = 8,
+        StandAside = 9
+    }
+	
+	public readonly struct BarSnapshot
+    {
+        public readonly DateTime TimeUtc;
+        public readonly double O;
+        public readonly double H;
+        public readonly double L;
+        public readonly double C;
+        public readonly long V;
+        public readonly int Index;
+
+        public BarSnapshot(
+            DateTime timeUtc,
+            double open,
+            double high,
+            double low,
+            double close,
+            long volume,
+            int index)
+        {
+            TimeUtc = timeUtc;
+            O = open;
+            H = high;
+            L = low;
+            C = close;
+            V = volume;
+            Index = index;
+        }
+    }
+}
+
 namespace NinjaTrader.NinjaScript.xPva.Engine
 {
     public enum Sentiment
@@ -762,6 +868,8 @@ namespace NinjaTrader.NinjaScript.xPva.Engine
         public static EngineEvents Empty => new EngineEvents(Array.Empty<EngineEvent>());
     }
 }
+
+
 
 
 
