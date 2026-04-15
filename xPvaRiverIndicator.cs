@@ -179,6 +179,7 @@ namespace NinjaTrader.NinjaScript.Indicators
             }
             else if (State == State.DataLoaded)
             {
+				Print("[River] DataLoaded");
                 engine = new NinjaTrader.NinjaScript.xPva.Engine.xPvaEngine(VolPivotWindow);
             }
         }
@@ -196,18 +197,6 @@ namespace NinjaTrader.NinjaScript.Indicators
 		
 		    _lastManualExecVersion = version;
 		
-		    bool sameAsLast =
-		        _lastManualExecContainerId == snapshot.ContainerId &&
-		        _lastManualExecAction == snapshot.Action &&
-		        _lastManualExecConfirmedBar == snapshot.ConfirmedBar;
-		
-		    if (sameAsLast)
-		        return;
-		
-		    _lastManualExecContainerId = snapshot.ContainerId;
-		    _lastManualExecAction = snapshot.Action;
-		    _lastManualExecConfirmedBar = snapshot.ConfirmedBar;
-		
 		    if (!snapshot.ConfirmedBar.HasValue)
 		        return;
 		
@@ -215,7 +204,10 @@ namespace NinjaTrader.NinjaScript.Indicators
 		    if (barsAgo < 0 || barsAgo > CurrentBar)
 		        return;
 		
-		    string tag = $"xPvaExec_{snapshot.ContainerId}_{snapshot.Action}_{snapshot.ConfirmedBar.Value}";
+		    string tag = $"xPvaExec_{version}_{snapshot.ContainerId}_{snapshot.Action}_{snapshot.ConfirmedBar.Value}";
+			
+			Print(
+    			$"[RiverExecDraw] Version={version} Action={snapshot.Action} Confirmed={snapshot.ConfirmedBar.Value} CurrentBar={CurrentBar}");
 		
 		    if (snapshot.Action == "ENTER_LONG")
 		    {
@@ -912,15 +904,31 @@ namespace NinjaTrader.NinjaScript.Indicators
 		
         protected override void OnBarUpdate()
 		{
-			Print($"[River] OnBarUpdate CurrentBar={CurrentBar}");
+			if (CurrentBar < 1)
+		        return;
 			
 			if (engine == null) {
 				Print("Engine is null!");	
 			}
 			
-		    if (CurrentBar < 1 || engine == null)
-		        return;
+			Draw.TextFixed(
+			    this,
+			    "RiverAlive",
+			    "RIVER ACTIVE",
+			    TextPosition.TopLeft,
+			    Brushes.Lime,
+			    new SimpleFont("Arial", 16),
+			    Brushes.Transparent,
+			    Brushes.Transparent,
+			    0);
 		
+			Print($"[River] OnBarUpdate CurrentBar={CurrentBar}");
+			
+		    DrawManualExecutionMarkers();
+		
+		    if (engine == null)
+		        return;
+			
 			bool isHHHL = High[0] > High[1] && Low[0] > Low[1];
 			bool isLHLL = High[0] < High[1] && Low[0] < Low[1];
 			
@@ -1046,7 +1054,7 @@ namespace NinjaTrader.NinjaScript.Indicators
 				DrawManualGeometrySnapshot();
 			}
 			
-			DrawManualExecutionMarkers();
+			
 		}
 		
 		private void DrawManualVolumeLabels(
