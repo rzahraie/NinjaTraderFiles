@@ -68,33 +68,34 @@ namespace NinjaTrader.NinjaScript.xPva.Engine
             bool sameContainer =
                 state.LastContainerId == analysis.Snapshot.ContainerId;
 
-            bool wasTradable =
-                state.LastVolumeState.HasValue &&
-                (state.LastVolumeState.Value == ManualVolumeState.BalancedAlternation ||
-                 state.LastVolumeState.Value == ManualVolumeState.DominantPulse);
-
-            bool nowTradable =
-                analysis.VolumeState == ManualVolumeState.BalancedAlternation ||
-                analysis.VolumeState == ManualVolumeState.DominantPulse;
-
-            if (sameContainer)
-            {
-                if (!wasTradable && nowTradable)
-                    phase = ManualSignalTransition.EarlyValid;
-                else if (wasTradable && nowTradable)
-                    phase = ManualSignalTransition.StableValid;
-                else if (wasTradable && !nowTradable)
-                    phase = ManualSignalTransition.Degrading;
-                else
-                    phase = ManualSignalTransition.Invalidated;
-            }
-            else
-            {
-                if (nowTradable)
-                    phase = ManualSignalTransition.EarlyValid;
-                else
-                    phase = ManualSignalTransition.Unknown;
-            }
+           	bool wasTradable =
+		    state.LastSignal == "LONG" || state.LastSignal == "SHORT";
+		
+			bool nowTradable = isTradable;
+			
+			if (analysis.StructureState.HasValue &&
+			    analysis.StructureState.Value == StructureState.Broken)
+			{
+			    phase = ManualSignalTransition.Invalidated;
+			}
+			else if (sameContainer)
+			{
+			    if (!wasTradable && nowTradable)
+			        phase = ManualSignalTransition.EarlyValid;
+			    else if (wasTradable && nowTradable)
+			        phase = ManualSignalTransition.StableValid;
+			    else if (wasTradable && !nowTradable)
+			        phase = ManualSignalTransition.Degrading;
+			    else
+			        phase = ManualSignalTransition.Invalidated;
+			}
+			else
+			{
+			    if (nowTradable)
+			        phase = ManualSignalTransition.EarlyValid;
+			    else
+			        phase = ManualSignalTransition.Unknown;
+			}
 
             state.LastContainerId = analysis.Snapshot.ContainerId;
             state.LastConfirmedBar = analysis.FttConfirmedBar;
@@ -107,4 +108,5 @@ namespace NinjaTrader.NinjaScript.xPva.Engine
         }
     }
 }
+
 
