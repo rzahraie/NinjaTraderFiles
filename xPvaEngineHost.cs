@@ -70,14 +70,26 @@ namespace NinjaTrader.NinjaScript.Indicators
                 CurrentBar
             );
 
-            if (!_engine.Step(snap, Instrument.MasterInstrument.TickSize)) return false;
-
-            // Phase 2 behavior: print events (later: draw and log JSON).
-            foreach (var e in evs.Events)
-            {
-                // Keep spam manageable: you can gate prints by kind.
-                Print($"{Instrument.FullName} B{e.BarIndex}: {e.Kind} {e.Text}");
-            }
+            if (!_engine.Step(snap, Instrument.MasterInstrument.TickSize))
+			    return;
+			
+			var st = _engine.State;
+			var f = st.LastBarFeatures;
+			
+			if (f.HasValue)
+			{
+			    Print(
+			        $"{Instrument.FullName} B{f.Value.BarIndex} " +
+			        $"PC={f.Value.PriceCase} " +
+			        $"POL={f.Value.Polarity} " +
+			        $"DIR={st.LastDirection.Context}:{st.LastDirection.Score:F2} " +
+			        $"DOM={st.LastDominance.State} " +
+			        $"FLIP={st.LastSequenceStats.FlipCount} " +
+			        $"IMB={st.LastImbalance.Imbalance:F2} " +
+			        $"LAT={st.LastLateral.State}/{st.LastLateral.Bias} " +
+			        $"SIG={st.LastSignal.Phase}:{st.LastSignal.Score:F2} " +
+			        $"EXE={st.LastExecution.Intent}");
+			}
 		}
 	}
 }

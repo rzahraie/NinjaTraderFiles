@@ -26,17 +26,26 @@ namespace NinjaTrader.NinjaScript.xPva.Engine
             bool isTradable = false;
 
             switch (analysis.VolumeState)
-            {
-                case ManualVolumeState.BalancedAlternation:
-                case ManualVolumeState.DominantPulse:
-                    isTradable = analysis.FttConfirmedBar.HasValue;
-                    break;
+			{
+			    case ManualVolumeState.DominantPulse:
+			        isTradable = analysis.FttConfirmedBar.HasValue;
+			        break;
+			
+			    case ManualVolumeState.BalancedAlternation:
+			        isTradable = false;
+			        break;
+			
+			    default:
+			        isTradable = false;
+			        break;
+			}
 
-                default:
-                    isTradable = false;
-                    break;
-            }
-
+			if (analysis.StructureState.HasValue &&
+			    analysis.StructureState.Value == StructureState.Broken)
+			{
+			    isTradable = false;
+			}
+			
             string signal = "SKIP";
             if (isTradable && analysis.FttConfirmedBar.HasValue)
                 signal = analysis.Snapshot.IsUpContainer ? "LONG" : "SHORT";
@@ -98,3 +107,4 @@ namespace NinjaTrader.NinjaScript.xPva.Engine
         }
     }
 }
+

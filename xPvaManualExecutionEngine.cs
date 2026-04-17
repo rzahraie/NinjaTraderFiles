@@ -13,6 +13,27 @@ namespace NinjaTrader.NinjaScript.xPva.Engine
             bool wantsLong = signalDecision.Signal == "LONG";
             bool wantsShort = signalDecision.Signal == "SHORT";
             bool wantsTrade = wantsLong || wantsShort;
+			
+			if (signalDecision.Signal == "SKIP")
+			{
+			    if (position.Side == ManualPositionSide.Long &&
+			        (signalDecision.Phase == ManualSignalTransition.Degrading ||
+			         signalDecision.Phase == ManualSignalTransition.Invalidated))
+			    {
+			        position.Side = ManualPositionSide.Flat;
+			        position.LastAction = "EXIT_LONG";
+			        return new ManualExecutionDecision("EXIT_LONG", signalDecision.Phase.ToString());
+			    }
+			
+			    if (position.Side == ManualPositionSide.Short &&
+			        (signalDecision.Phase == ManualSignalTransition.Degrading ||
+			         signalDecision.Phase == ManualSignalTransition.Invalidated))
+			    {
+			        position.Side = ManualPositionSide.Flat;
+			        position.LastAction = "EXIT_SHORT";
+			        return new ManualExecutionDecision("EXIT_SHORT", signalDecision.Phase.ToString());
+			    }
+			}
 
             if (position.Side == ManualPositionSide.Flat)
             {
