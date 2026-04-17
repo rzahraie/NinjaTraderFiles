@@ -104,9 +104,13 @@ namespace NinjaTrader.NinjaScript.xPva.Engine
             state.LastVolumeState = analysis.VolumeState;
             state.LastAnalysisEndBar = analysis.Snapshot.AnalysisEndBarIndex;
 
-            return new ManualSignalDecision(signal, transition, phase);
+			System.Diagnostics.Debug.WriteLine(
+   						 $"[ManualSignalEngineVersion] CORRECTED_LOGIC signal={signal} tradable={isTradable} phase={phase} struct={(analysis.StructureState.HasValue ? analysis.StructureState.Value.ToString() : "null")} volState={analysis.VolumeState}");
+            
+			return new ManualSignalDecision(signal, transition, phase);
         }
     }
 }
+
 
 
