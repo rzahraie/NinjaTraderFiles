@@ -161,19 +161,24 @@ namespace NinjaTrader.NinjaScript.xPva.Engine
                 }
             }
 
-            return new ManualContainerAnalysis(
-                snapshot,
-                volumeEvents,
-				volumeSequence,
-				volumeState,
-                candidateBar,
-                confirmedBar,
-                structureState,
-                actionType,
-                tradeIntent);
+            var analysis = new ManualContainerAnalysis(
+			    snapshot,
+			    volumeEvents,
+			    volumeSequence,
+			    volumeState,
+			    candidateBar,
+			    confirmedBar,
+			    structureState,
+			    actionType,
+			    tradeIntent);
+			
+			xPvaManualContainerBridge.Publish(analysis);
+			
+			return analysis;
         }
     }
 }
+
 
 
 
