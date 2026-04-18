@@ -58,8 +58,9 @@ namespace NinjaTrader.NinjaScript.xPva.Engine2
 
             // For now, reuse existing taxonomy. Later this should be upgraded to tick-aware comparisons internally.
             PriceCase priceCase = xPvaPriceCases.Classify(
-                new NinjaTrader.NinjaScript.xPva.Engine.BarSnapshot(cur.TimeUtc, cur.O, cur.H, cur.L, cur.C, cur.V, cur.Index),
-                new NinjaTrader.NinjaScript.xPva.Engine.BarSnapshot(prev.TimeUtc, prev.O, prev.H, prev.L, prev.C, prev.V, prev.Index));
+			    new NinjaTrader.NinjaScript.xPva.Engine.BarSnapshot(cur.TimeUtc, cur.O, cur.H, cur.L, cur.C, cur.V, cur.Index),
+			    new NinjaTrader.NinjaScript.xPva.Engine.BarSnapshot(prev.TimeUtc, prev.O, prev.H, prev.L, prev.C, prev.V, prev.Index),
+			    tickSize);
 
             return new xPvaBarFeatures(
                 cur.Index,
@@ -84,3 +85,4 @@ namespace NinjaTrader.NinjaScript.xPva.Engine2
         }
     }
 }
+

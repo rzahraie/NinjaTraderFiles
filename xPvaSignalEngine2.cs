@@ -30,8 +30,7 @@ namespace NinjaTrader.NinjaScript.xPva.Engine2
                 if (imb.Imbalance > p.NeutralImbalanceThreshold)
                     return new xPvaSignalResult(SignalPhase.LongCandidate, imb.Imbalance, "up_candidate");
 
-                if (imb.Imbalance <= p.NeutralImbalanceThreshold)
-                    return new xPvaSignalResult(SignalPhase.LongDegrading, imb.Imbalance, "up_degrading");
+                return new xPvaSignalResult(SignalPhase.None, 0.0, "up_none");
             }
             else if (dir.Context == DirectionContext.Down)
             {
@@ -47,8 +46,7 @@ namespace NinjaTrader.NinjaScript.xPva.Engine2
                 if (imb.Imbalance < -p.NeutralImbalanceThreshold)
                     return new xPvaSignalResult(SignalPhase.ShortCandidate, -imb.Imbalance, "down_candidate");
 
-                if (imb.Imbalance >= -p.NeutralImbalanceThreshold)
-                    return new xPvaSignalResult(SignalPhase.ShortDegrading, -imb.Imbalance, "down_degrading");
+                return new xPvaSignalResult(SignalPhase.None, 0.0, "down_none");
             }
 
             return new xPvaSignalResult(SignalPhase.None, 0.0, "none");

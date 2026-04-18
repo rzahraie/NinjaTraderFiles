@@ -80,6 +80,27 @@ namespace NinjaTrader.NinjaScript.xPva.Engine2
             xPvaLateralResult lat = lateralEngine.Compute(s, featureList, imb, tickSize);
             xPvaSignalResult sig = signalEngine.Compute(dir, dom, seq, imb, lat);
             xPvaExecutionResult exe = executionEngine.Compute(s.CurrentPosition, sig);
+			
+			switch (exe.Intent)
+			{
+			    case ExecutionIntent.EnterLong:
+			    case ExecutionIntent.HoldLong:
+			    case ExecutionIntent.ReverseToLong:
+			        s.CurrentPosition = 1;
+			        break;
+			
+			    case ExecutionIntent.EnterShort:
+			    case ExecutionIntent.HoldShort:
+			    case ExecutionIntent.ReverseToShort:
+			        s.CurrentPosition = -1;
+			        break;
+			
+			    case ExecutionIntent.ExitLong:
+			    case ExecutionIntent.ExitShort:
+			    case ExecutionIntent.StandAside:
+			        s.CurrentPosition = 0;
+			        break;
+			}
 
             s.LastBarFeatures = f;
             s.LastDirection = dir;

@@ -2,39 +2,49 @@ namespace NinjaTrader.NinjaScript.xPva.Engine
 {
     public static class xPvaPriceCases
     {
-        public static PriceCase Classify(in BarSnapshot cur, in BarSnapshot prev)
+        public static PriceCase Classify(in BarSnapshot cur, in BarSnapshot prev, double tickSize)
         {
+            double eps = tickSize > 0.0 ? tickSize * 0.5 : 1e-12;
+
             double H0 = cur.H, H1 = prev.H;
             double L0 = cur.L, L1 = prev.L;
 
-            if (H0 > H1 && L0 > L1)
+            bool hGt = H0 > H1 + eps;
+            bool hLt = H0 < H1 - eps;
+            bool hEq = !hGt && !hLt;
+
+            bool lGt = L0 > L1 + eps;
+            bool lLt = L0 < L1 - eps;
+            bool lEq = !lGt && !lLt;
+
+            if (hGt && lGt)
                 return PriceCase.XB;
 
-            if (H0 < H1 && L0 < L1)
+            if (hLt && lLt)
                 return PriceCase.XR;
 
-            if (H0 == H1 && L0 == L1)
+            if (hEq && lEq)
                 return PriceCase.HITCH;
 
-            if (H0 == H1 && L0 > L1)
+            if (hEq && lGt)
                 return PriceCase.FTP;
 
-            if (H0 == H1 && L0 < L1)
+            if (hEq && lLt)
                 return PriceCase.STR;
 
-            if (L0 == L1 && H0 < H1)
+            if (lEq && hLt)
                 return PriceCase.FBP;
 
-            if (L0 == L1 && H0 > H1)
+            if (lEq && hGt)
                 return PriceCase.STB;
 
-            if (L0 > L1 && H0 < H1)
+            if (lGt && hLt)
                 return PriceCase.SYM;
 
-            if (L0 < L1 && H0 > H1)
+            if (lLt && hGt)
             {
-                if (cur.C > cur.O) return PriceCase.OUTB;
-                if (cur.C < cur.O) return PriceCase.OUTR;
+                if (cur.C > cur.O + eps) return PriceCase.OUTB;
+                if (cur.C < cur.O - eps) return PriceCase.OUTR;
                 return PriceCase.OUT_DOJI;
             }
 
@@ -42,8 +52,10 @@ namespace NinjaTrader.NinjaScript.xPva.Engine
         }
 
         public static bool IsTranslation(PriceCase pc) => pc == PriceCase.XB || pc == PriceCase.XR;
+
         public static bool IsInternal(PriceCase pc) =>
             pc == PriceCase.HITCH || pc == PriceCase.FTP || pc == PriceCase.FBP ||
             pc == PriceCase.SYM || pc == PriceCase.STB || pc == PriceCase.STR;
     }
 }
+

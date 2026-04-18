@@ -7,10 +7,10 @@ namespace NinjaTrader.NinjaScript.xPva.Engine2
             switch (currentPosition)
             {
                 case 0:
-                    if (sig.Phase == SignalPhase.LongValid || sig.Phase == SignalPhase.LongCandidate)
+                    if (sig.Phase == SignalPhase.LongValid)
                         return new xPvaExecutionResult(ExecutionIntent.EnterLong, sig.Reason);
 
-                    if (sig.Phase == SignalPhase.ShortValid || sig.Phase == SignalPhase.ShortCandidate)
+                    if (sig.Phase == SignalPhase.ShortValid)
                         return new xPvaExecutionResult(ExecutionIntent.EnterShort, sig.Reason);
 
                     return new xPvaExecutionResult(ExecutionIntent.StandAside, sig.Reason);
@@ -19,17 +19,11 @@ namespace NinjaTrader.NinjaScript.xPva.Engine2
                     if (sig.Phase == SignalPhase.ShortValid)
                         return new xPvaExecutionResult(ExecutionIntent.ReverseToShort, sig.Reason);
 
-                    if (sig.Phase == SignalPhase.Invalidated)
-                        return new xPvaExecutionResult(ExecutionIntent.ExitLong, sig.Reason);
-
                     return new xPvaExecutionResult(ExecutionIntent.HoldLong, sig.Reason);
 
                 case -1:
                     if (sig.Phase == SignalPhase.LongValid)
                         return new xPvaExecutionResult(ExecutionIntent.ReverseToLong, sig.Reason);
-
-                    if (sig.Phase == SignalPhase.Invalidated)
-                        return new xPvaExecutionResult(ExecutionIntent.ExitShort, sig.Reason);
 
                     return new xPvaExecutionResult(ExecutionIntent.HoldShort, sig.Reason);
 
