@@ -8,10 +8,18 @@ namespace NinjaTrader.NinjaScript.xPva.Engine
             ActionEvent action,
             int barIndex)
         {
+            TradeIntent intent =
+                action.Action == ActionType.Enter ? TradeIntent.Enter :
+                action.Action == ActionType.Reverse ? TradeIntent.Reverse :
+                action.Action == ActionType.Sideline ? TradeIntent.Sideline :
+                action.Action == ActionType.Hold ? TradeIntent.HoldThru :
+                action.Action == ActionType.StayIn ? TradeIntent.ReEntry :
+                TradeIntent.Unknown;
+
             return new TradeIntentEvent(
                 barIndex,
                 container.ContainerId,
-                TradeIntent.Sideline,
+                intent,
                 action.Action,
                 structure.State,
                 action.TrendType,

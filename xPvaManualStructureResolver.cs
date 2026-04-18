@@ -1,21 +1,17 @@
 namespace NinjaTrader.NinjaScript.xPva.Engine
 {
-    public static class xPvaManualActionResolver
+    public static class xPvaManualStructureResolver
     {
-        public static ActionEvent Resolve(
+        public static StructureEvent Resolve(
             ContainerGeometrySnapshot container,
-            StructureEvent structure,
             int barIndex)
         {
-            return new ActionEvent(
+            return new StructureEvent(
                 barIndex,
                 container.ContainerId,
-                ActionType.Sideline,
-                structure.TrendType,
-                TurnType.Unknown,
-                EndEffectKind.Unknown,
-                Band.Unknown,
-                0L);
+                StructureState.Transition,
+                TrendType.Unknown,
+                container.Direction);
         }
     }
 }
