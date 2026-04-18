@@ -87,7 +87,7 @@ namespace NinjaTrader.NinjaScript.xPva.Engine
 			    else if (wasTradable && !nowTradable)
 			        phase = ManualSignalTransition.Degrading;
 			    else
-			        phase = ManualSignalTransition.Invalidated;
+			        phase = ManualSignalTransition.Unknown;
 			}
 			else
 			{
@@ -111,6 +111,9 @@ namespace NinjaTrader.NinjaScript.xPva.Engine
         }
     }
 }
+
+
+
 
 
 
