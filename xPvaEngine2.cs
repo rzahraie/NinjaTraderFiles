@@ -106,7 +106,7 @@ namespace NinjaTrader.NinjaScript.xPva.Engine2
 			}
 			else if (hardDegrading)
 			{
-			    s.DegradingSignalBars += 2;
+			    s.DegradingSignalBars += 1;
 			    s.StableSignalBars = 0;
 			}
 			else if (softOpposition)
@@ -179,6 +179,7 @@ namespace NinjaTrader.NinjaScript.xPva.Engine2
         }
     }
 }
+
 
 
 
