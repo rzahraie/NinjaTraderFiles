@@ -116,6 +116,27 @@ namespace NinjaTrader.NinjaScript.xPva.Engine2
 			switch (exe.Intent)
 			{
 			    case ExecutionIntent.EnterLong:
+			    case ExecutionIntent.HoldLong:
+			    case ExecutionIntent.ReverseToLong:
+			        s.CurrentPosition = 1;
+			        break;
+			
+			    case ExecutionIntent.EnterShort:
+			    case ExecutionIntent.HoldShort:
+			    case ExecutionIntent.ReverseToShort:
+			        s.CurrentPosition = -1;
+			        break;
+			
+			    case ExecutionIntent.ExitLong:
+			    case ExecutionIntent.ExitShort:
+			    case ExecutionIntent.StandAside:
+			        s.CurrentPosition = 0;
+			        break;
+			}
+			
+			switch (exe.Intent)
+			{
+			    case ExecutionIntent.EnterLong:
 			    case ExecutionIntent.EnterShort:
 			    case ExecutionIntent.ReverseToLong:
 			    case ExecutionIntent.ReverseToShort:
@@ -146,6 +167,7 @@ namespace NinjaTrader.NinjaScript.xPva.Engine2
         }
     }
 }
+
 
 
 
