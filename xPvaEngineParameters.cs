@@ -2,6 +2,8 @@ namespace NinjaTrader.NinjaScript.xPva.Engine2
 {
     public sealed class xPvaEngineParameters
     {
+		public int MaxNoneBarsInPosition { get; set; } = 3;
+		
         public double EpsilonTicks = 0.5;
 
         public int VolumeNormLookback = 20;

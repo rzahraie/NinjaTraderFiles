@@ -79,26 +79,50 @@ namespace NinjaTrader.NinjaScript.xPva.Engine2
 
             xPvaLateralResult lat = lateralEngine.Compute(s, featureList, imb, tickSize);
             xPvaSignalResult sig = signalEngine.Compute(dir, dom, seq, imb, lat);
-            xPvaExecutionResult exe = executionEngine.Compute(s.CurrentPosition, sig);
+			
+			bool inLong = s.CurrentPosition > 0;
+			bool inShort = s.CurrentPosition < 0;
+			
+			bool alignedValid =
+			    (inLong  && sig.Phase == SignalPhase.LongValid) ||
+			    (inShort && sig.Phase == SignalPhase.ShortValid);
+			
+			bool degrading =
+			    (inLong  && (sig.Phase == SignalPhase.None || sig.Phase == SignalPhase.ShortCandidate)) ||
+			    (inShort && (sig.Phase == SignalPhase.None || sig.Phase == SignalPhase.LongCandidate));
+			
+			if (alignedValid)
+			{
+			    s.StableSignalBars++;
+			    s.DegradingSignalBars = 0;
+			}
+			else if (degrading)
+			{
+			    s.DegradingSignalBars++;
+			    s.StableSignalBars = 0;
+			}
+			else
+			{
+			    s.StableSignalBars = 0;
+			    s.DegradingSignalBars = 0;
+			}
+
+            xPvaExecutionResult exe = executionEngine.Compute(
+				    s.CurrentPosition,
+				    sig,
+				    s.DegradingSignalBars,
+				    p.MaxNoneBarsInPosition);
 			
 			switch (exe.Intent)
 			{
 			    case ExecutionIntent.EnterLong:
-			    case ExecutionIntent.HoldLong:
-			    case ExecutionIntent.ReverseToLong:
-			        s.CurrentPosition = 1;
-			        break;
-			
 			    case ExecutionIntent.EnterShort:
-			    case ExecutionIntent.HoldShort:
+			    case ExecutionIntent.ReverseToLong:
 			    case ExecutionIntent.ReverseToShort:
-			        s.CurrentPosition = -1;
-			        break;
-			
 			    case ExecutionIntent.ExitLong:
 			    case ExecutionIntent.ExitShort:
-			    case ExecutionIntent.StandAside:
-			        s.CurrentPosition = 0;
+			        s.StableSignalBars = 0;
+			        s.DegradingSignalBars = 0;
 			        break;
 			}
 
@@ -122,3 +146,6 @@ namespace NinjaTrader.NinjaScript.xPva.Engine2
         }
     }
 }
+
+
+

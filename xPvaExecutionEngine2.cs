@@ -2,7 +2,11 @@ namespace NinjaTrader.NinjaScript.xPva.Engine2
 {
     public sealed class xPvaExecutionEngine2
     {
-        public xPvaExecutionResult Compute(int currentPosition, in xPvaSignalResult sig)
+        public xPvaExecutionResult Compute(
+            int currentPosition,
+            in xPvaSignalResult sig,
+            int degradingBars,
+            int maxNoneBarsInPosition)
         {
             switch (currentPosition)
             {
@@ -19,11 +23,17 @@ namespace NinjaTrader.NinjaScript.xPva.Engine2
                     if (sig.Phase == SignalPhase.ShortValid)
                         return new xPvaExecutionResult(ExecutionIntent.ReverseToShort, sig.Reason);
 
+                    if (degradingBars >= maxNoneBarsInPosition)
+                        return new xPvaExecutionResult(ExecutionIntent.ExitLong, "long_decay_exit");
+
                     return new xPvaExecutionResult(ExecutionIntent.HoldLong, sig.Reason);
 
                 case -1:
                     if (sig.Phase == SignalPhase.LongValid)
                         return new xPvaExecutionResult(ExecutionIntent.ReverseToLong, sig.Reason);
+
+                    if (degradingBars >= maxNoneBarsInPosition)
+                        return new xPvaExecutionResult(ExecutionIntent.ExitShort, "short_decay_exit");
 
                     return new xPvaExecutionResult(ExecutionIntent.HoldShort, sig.Reason);
 
