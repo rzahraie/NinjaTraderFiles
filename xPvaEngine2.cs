@@ -88,8 +88,8 @@ namespace NinjaTrader.NinjaScript.xPva.Engine2
 			    (inShort && sig.Phase == SignalPhase.ShortValid);
 			
 			bool degrading =
-			    (inLong  && (sig.Phase == SignalPhase.None || sig.Phase == SignalPhase.ShortCandidate)) ||
-			    (inShort && (sig.Phase == SignalPhase.None || sig.Phase == SignalPhase.LongCandidate));
+			    (inLong  && sig.Phase == SignalPhase.None && dir.Context != DirectionContext.Up) ||
+			    (inShort && sig.Phase == SignalPhase.None && dir.Context != DirectionContext.Down);
 			
 			if (alignedValid)
 			{
@@ -167,6 +167,7 @@ namespace NinjaTrader.NinjaScript.xPva.Engine2
         }
     }
 }
+
 
 
 
