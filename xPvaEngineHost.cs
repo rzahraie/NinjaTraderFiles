@@ -91,7 +91,9 @@ namespace NinjaTrader.NinjaScript.Indicators
 					$"EXE={st.LastExecution.Intent} " +
 					$"POS={st.CurrentPosition} " +
 					$"DEG={st.DegradingSignalBars} " +
-					$"STB={st.StableSignalBars}");
+					$"STB={st.StableSignalBars} " +
+					$"OPP={st.OppositePressureBars} " +
+					$"ARM={st.OppositePressureArmed}");
 			}
 		}
 	}

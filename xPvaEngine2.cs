@@ -83,6 +83,33 @@ namespace NinjaTrader.NinjaScript.xPva.Engine2
 			bool inLong = s.CurrentPosition > 0;
 			bool inShort = s.CurrentPosition < 0;
 			
+			bool oppositeValid =
+			    (inLong  && sig.Phase == SignalPhase.ShortValid) ||
+			    (inShort && sig.Phase == SignalPhase.LongValid);
+			
+			bool oppositeStrongCandidate =
+			    (inLong  && sig.Phase == SignalPhase.ShortCandidate && sig.Score >= p.OppositePressureStrongCandidateThreshold) ||
+			    (inShort && sig.Phase == SignalPhase.LongCandidate  && sig.Score >= p.OppositePressureStrongCandidateThreshold);
+			
+			if (oppositeValid)
+			{
+			    s.OppositePressureBars = 2;
+			    s.OppositePressureArmed = true;
+			}
+			else if (oppositeStrongCandidate)
+			{
+			    s.OppositePressureBars++;
+			    s.OppositePressureArmed = true;
+			}
+			else
+			{
+			    s.OppositePressureBars = 0;
+			    s.OppositePressureArmed = false;
+			}
+			
+			inLong = s.CurrentPosition > 0;
+			inShort = s.CurrentPosition < 0;
+			
 			bool alignedValid =
 			    (inLong  && sig.Phase == SignalPhase.LongValid) ||
 			    (inShort && sig.Phase == SignalPhase.ShortValid);
@@ -120,10 +147,13 @@ namespace NinjaTrader.NinjaScript.xPva.Engine2
 			}
 
             xPvaExecutionResult exe = executionEngine.Compute(
-				    s.CurrentPosition,
-				    sig,
-				    s.DegradingSignalBars,
-				    p.MaxNoneBarsInPosition);
+					    s.CurrentPosition,
+					    sig,
+					    s.DegradingSignalBars,
+					    p.MaxNoneBarsInPosition,
+					    p.EnableOppositePressureOverride,
+					    s.OppositePressureArmed,
+					    s.OppositePressureBars);
 			
 			switch (exe.Intent)
 			{
@@ -156,6 +186,8 @@ namespace NinjaTrader.NinjaScript.xPva.Engine2
 			    case ExecutionIntent.ExitShort:
 			        s.StableSignalBars = 0;
 			        s.DegradingSignalBars = 0;
+			        s.OppositePressureBars = 0;
+			        s.OppositePressureArmed = false;
 			        break;
 			}
 
@@ -179,6 +211,10 @@ namespace NinjaTrader.NinjaScript.xPva.Engine2
         }
     }
 }
+
+
+
+
 
 
 

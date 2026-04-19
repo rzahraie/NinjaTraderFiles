@@ -4,6 +4,9 @@ namespace NinjaTrader.NinjaScript.xPva.Engine2
 {
     public sealed class xPvaRuntimeState
     {
+		public int OppositePressureBars { get; set; }
+		public bool OppositePressureArmed { get; set; }
+
         public xPvaBarFeatures? LastBarFeatures;
         public xPvaDirectionResult LastDirection;
         public xPvaDominanceResult LastDominance;
