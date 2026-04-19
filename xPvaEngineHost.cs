@@ -93,7 +93,9 @@ namespace NinjaTrader.NinjaScript.Indicators
 					$"DEG={st.DegradingSignalBars} " +
 					$"STB={st.StableSignalBars} " +
 					$"OPP={st.OppositePressureBars} " +
-					$"ARM={st.OppositePressureArmed}");
+					$"ARM={st.OppositePressureArmed}" +
+					$" SHOCK={st.ShockReversalArmed} " +
+					$" SHOCKR={st.ShockReason}");
 			}
 		}
 	}

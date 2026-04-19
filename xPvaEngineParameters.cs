@@ -4,6 +4,7 @@ namespace NinjaTrader.NinjaScript.xPva.Engine2
     {
 		public bool EnableOppositePressureOverride { get; set; } = false;
 		public double OppositePressureStrongCandidateThreshold { get; set; } = 0.55;
+		public bool EnableShockReversal { get; set; } = true;
 
 		public int MaxNoneBarsInPosition { get; set; } = 5;
 		
@@ -32,6 +33,7 @@ namespace NinjaTrader.NinjaScript.xPva.Engine2
         public int StableBarsMin = 2;
     }
 }
+
 
 
 

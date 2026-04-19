@@ -145,6 +145,38 @@ namespace NinjaTrader.NinjaScript.xPva.Engine2
 			{
 			    s.StableSignalBars = 0;
 			}
+			
+			inLong = s.CurrentPosition > 0;
+			inShort = s.CurrentPosition < 0;
+			
+			bool shockReverseToShort =
+			    inLong &&
+			    dir.Context == DirectionContext.Down &&
+			    sig.Phase == SignalPhase.ShortValid &&
+			    s.DegradingSignalBars < 2;
+			
+			bool shockReverseToLong =
+			    inShort &&
+			    dir.Context == DirectionContext.Up &&
+			    sig.Phase == SignalPhase.LongValid &&
+			    s.DegradingSignalBars < 2;
+			
+			s.ShockReversalArmed = false;
+			s.ShockReason = string.Empty;
+			
+			if (p.EnableShockReversal)
+			{
+			    if (shockReverseToShort)
+			    {
+			        s.ShockReversalArmed = true;
+			        s.ShockReason = "shock_reverse_to_short";
+			    }
+			    else if (shockReverseToLong)
+			    {
+			        s.ShockReversalArmed = true;
+			        s.ShockReason = "shock_reverse_to_long";
+			    }
+			}
 
             xPvaExecutionResult exe = executionEngine.Compute(
 					    s.CurrentPosition,
@@ -153,7 +185,9 @@ namespace NinjaTrader.NinjaScript.xPva.Engine2
 					    p.MaxNoneBarsInPosition,
 					    p.EnableOppositePressureOverride,
 					    s.OppositePressureArmed,
-					    s.OppositePressureBars);
+					    s.OppositePressureBars,
+						s.ShockReversalArmed,
+						s.ShockReason);
 			
 			switch (exe.Intent)
 			{
@@ -199,6 +233,8 @@ namespace NinjaTrader.NinjaScript.xPva.Engine2
             s.LastLateral = lat;
             s.LastSignal = sig;
             s.LastExecution = exe;
+			s.ShockReversalArmed = false;
+			s.ShockReason = string.Empty;
 
             if (lat.State == LateralStateKind.Active)
             {
@@ -211,6 +247,9 @@ namespace NinjaTrader.NinjaScript.xPva.Engine2
         }
     }
 }
+
+
+
 
 
 
