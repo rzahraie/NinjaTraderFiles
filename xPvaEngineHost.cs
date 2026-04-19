@@ -89,7 +89,9 @@ namespace NinjaTrader.NinjaScript.Indicators
 			        $"LAT={st.LastLateral.State}/{st.LastLateral.Bias} " +
 			        $"SIG={st.LastSignal.Phase}:{st.LastSignal.Score:F2} " +
 					$"EXE={st.LastExecution.Intent} " +
-					$"POS={st.CurrentPosition}");
+					$"POS={st.CurrentPosition} " +
+					$"DEG={st.DegradingSignalBars} " +
+					$"STB={st.StableSignalBars}");
 			}
 		}
 	}
