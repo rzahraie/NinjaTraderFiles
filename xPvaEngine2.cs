@@ -91,20 +91,32 @@ namespace NinjaTrader.NinjaScript.xPva.Engine2
 			    (inLong  && sig.Phase == SignalPhase.None && dir.Context != DirectionContext.Up) ||
 			    (inShort && sig.Phase == SignalPhase.None && dir.Context != DirectionContext.Down);
 			
+			bool hardDegrading =
+			    (inLong  && sig.Phase == SignalPhase.None && dir.Context != DirectionContext.Up) ||
+			    (inShort && sig.Phase == SignalPhase.None && dir.Context != DirectionContext.Down);
+			
+			bool softOpposition =
+			    (inLong  && sig.Phase == SignalPhase.ShortCandidate) ||
+			    (inShort && sig.Phase == SignalPhase.LongCandidate);
+			
 			if (alignedValid)
 			{
 			    s.StableSignalBars++;
 			    s.DegradingSignalBars = 0;
 			}
-			else if (degrading)
+			else if (hardDegrading)
 			{
-			    s.DegradingSignalBars++;
+			    s.DegradingSignalBars += 2;
+			    s.StableSignalBars = 0;
+			}
+			else if (softOpposition)
+			{
+			    s.DegradingSignalBars += 1;
 			    s.StableSignalBars = 0;
 			}
 			else
 			{
 			    s.StableSignalBars = 0;
-			    s.DegradingSignalBars = 0;
 			}
 
             xPvaExecutionResult exe = executionEngine.Compute(
@@ -167,6 +179,7 @@ namespace NinjaTrader.NinjaScript.xPva.Engine2
         }
     }
 }
+
 
 
 
