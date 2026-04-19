@@ -2,7 +2,7 @@ namespace NinjaTrader.NinjaScript.xPva.Engine2
 {
     public sealed class xPvaEngineParameters
     {
-		public int MaxNoneBarsInPosition { get; set; } = 3;
+		public int MaxNoneBarsInPosition { get; set; } = 5;
 		
         public double EpsilonTicks = 0.5;
 
@@ -29,3 +29,4 @@ namespace NinjaTrader.NinjaScript.xPva.Engine2
         public int StableBarsMin = 2;
     }
 }
+
