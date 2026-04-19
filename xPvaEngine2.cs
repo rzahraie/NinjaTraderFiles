@@ -231,8 +231,7 @@ namespace NinjaTrader.NinjaScript.xPva.Engine2
             s.LastLateral = lat;
             s.LastSignal = sig;
             s.LastExecution = exe;
-			s.ShockReversalArmed = false;
-			s.ShockReason = string.Empty;
+			
 
             if (lat.State == LateralStateKind.Active)
             {
@@ -245,6 +244,7 @@ namespace NinjaTrader.NinjaScript.xPva.Engine2
         }
     }
 }
+
 
 
 
