@@ -114,29 +114,29 @@ namespace NinjaTrader.NinjaScript.xPva.Engine2
 			    (inLong  && sig.Phase == SignalPhase.LongValid) ||
 			    (inShort && sig.Phase == SignalPhase.ShortValid);
 			
-			bool degrading =
-			    (inLong  && sig.Phase == SignalPhase.None && dir.Context != DirectionContext.Up) ||
-			    (inShort && sig.Phase == SignalPhase.None && dir.Context != DirectionContext.Down);
-			
-			bool hardDegrading =
-			    (inLong  && sig.Phase == SignalPhase.None && dir.Context != DirectionContext.Up) ||
-			    (inShort && sig.Phase == SignalPhase.None && dir.Context != DirectionContext.Down);
-			
-			bool softOpposition =
+			bool oppositeCandidate =
 			    (inLong  && sig.Phase == SignalPhase.ShortCandidate) ||
 			    (inShort && sig.Phase == SignalPhase.LongCandidate);
 			
+			oppositeValid =
+			    (inLong  && sig.Phase == SignalPhase.ShortValid) ||
+			    (inShort && sig.Phase == SignalPhase.LongValid);
+			
+			bool contextAgainstPosition =
+			    (inLong  && dir.Context == DirectionContext.Down) ||
+			    (inShort && dir.Context == DirectionContext.Up);
+			
 			if (alignedValid)
 			{
-			    s.StableSignalBars++;
+			    s.StableSignalBars = 0;
 			    s.DegradingSignalBars = 0;
 			}
-			else if (hardDegrading)
+			else if (oppositeValid)
 			{
-			    s.DegradingSignalBars += 1;
+			    s.DegradingSignalBars += 2;
 			    s.StableSignalBars = 0;
 			}
-			else if (softOpposition)
+			else if (oppositeCandidate || contextAgainstPosition)
 			{
 			    s.DegradingSignalBars += 1;
 			    s.StableSignalBars = 0;
@@ -151,15 +151,15 @@ namespace NinjaTrader.NinjaScript.xPva.Engine2
 			
 			bool shockReverseToShort =
 			    inLong &&
-			    dir.Context == DirectionContext.Down &&
 			    sig.Phase == SignalPhase.ShortCandidate &&
-			    sig.Score >= 0.40;
+			    sig.Score >= 0.60 &&
+			    s.OppositePressureBars >= 2;
 			
 			bool shockReverseToLong =
 			    inShort &&
-			    dir.Context == DirectionContext.Up &&
 			    sig.Phase == SignalPhase.LongCandidate &&
-			    sig.Score >= 0.40;
+			    sig.Score >= 0.60 &&
+			    s.OppositePressureBars >= 2;
 			
 			s.ShockReversalArmed = false;
 			s.ShockReason = string.Empty;
@@ -249,6 +249,9 @@ namespace NinjaTrader.NinjaScript.xPva.Engine2
         }
     }
 }
+
+
+
 
 
 
