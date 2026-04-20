@@ -25,38 +25,58 @@ namespace NinjaTrader.NinjaScript.xPva.Engine2
                     return new xPvaExecutionResult(ExecutionIntent.StandAside, "flat_no_valid_signal");
 
                 case 1:
-				    // HARD REVERSAL (existing)
+				{
+				    bool earlyShortCandidate =
+				        sig.Phase == SignalPhase.ShortCandidate
+				        && sig.Score >= 0.40
+				        && degradingBars >= 1;
+				
 				    if (sig.Phase == SignalPhase.ShortValid)
-				        return new xPvaExecutionResult(ExecutionIntent.ReverseToShort, "reverse_to_short_valid");
+				        return new xPvaExecutionResult(
+				            ExecutionIntent.ReverseToShort,
+				            $"reverse_to_short_valid phase={sig.Phase} score={sig.Score:F2} deg={degradingBars} earlySC={earlyShortCandidate}");
 				
-				    // EARLY REVERSAL (NEW — replaces shock)
-				    if (sig.Phase == SignalPhase.ShortCandidate
-				        && sig.Score >= 0.40
-				        && degradingBars >= 1)
-				        return new xPvaExecutionResult(ExecutionIntent.ReverseToShort, "reverse_to_short_candidate_early");
+				    if (earlyShortCandidate)
+				        return new xPvaExecutionResult(
+				            ExecutionIntent.ReverseToShort,
+				            $"reverse_to_short_candidate_early phase={sig.Phase} score={sig.Score:F2} deg={degradingBars} earlySC={earlyShortCandidate}");
 				
-				    // OPTIONAL: EXIT WITHOUT REVERSAL
 				    if (degradingBars >= maxNoneBarsInPosition)
-				        return new xPvaExecutionResult(ExecutionIntent.ExitLong, "long_decay_exit");
+				        return new xPvaExecutionResult(
+				            ExecutionIntent.ExitLong,
+				            $"long_decay_exit phase={sig.Phase} score={sig.Score:F2} deg={degradingBars} earlySC={earlyShortCandidate}");
 				
-				    return new xPvaExecutionResult(ExecutionIntent.HoldLong, "hold_long");
-
-                case -1:
-				    // HARD REVERSAL
+				    return new xPvaExecutionResult(
+				        ExecutionIntent.HoldLong,
+				        $"hold_long phase={sig.Phase} score={sig.Score:F2} deg={degradingBars} earlySC={earlyShortCandidate}");
+				}
+				
+				case -1:
+				{
+				    bool earlyLongCandidate =
+				        sig.Phase == SignalPhase.LongCandidate
+				        && sig.Score >= 0.40
+				        && degradingBars >= 1;
+				
 				    if (sig.Phase == SignalPhase.LongValid)
-				        return new xPvaExecutionResult(ExecutionIntent.ReverseToLong, "reverse_to_long_valid");
+				        return new xPvaExecutionResult(
+				            ExecutionIntent.ReverseToLong,
+				            $"reverse_to_long_valid phase={sig.Phase} score={sig.Score:F2} deg={degradingBars} earlyLC={earlyLongCandidate}");
 				
-				    // EARLY REVERSAL (mirror)
-				    if (sig.Phase == SignalPhase.LongCandidate
-				        && sig.Score >= 0.40
-				        && degradingBars >= 1)
-				        return new xPvaExecutionResult(ExecutionIntent.ReverseToLong, "reverse_to_long_candidate_early");
+				    if (earlyLongCandidate)
+				        return new xPvaExecutionResult(
+				            ExecutionIntent.ReverseToLong,
+				            $"reverse_to_long_candidate_early phase={sig.Phase} score={sig.Score:F2} deg={degradingBars} earlyLC={earlyLongCandidate}");
 				
-				    // OPTIONAL EXIT
 				    if (degradingBars >= maxNoneBarsInPosition)
-				        return new xPvaExecutionResult(ExecutionIntent.ExitShort, "short_decay_exit");
+				        return new xPvaExecutionResult(
+				            ExecutionIntent.ExitShort,
+				            $"short_decay_exit phase={sig.Phase} score={sig.Score:F2} deg={degradingBars} earlyLC={earlyLongCandidate}");
 				
-				    return new xPvaExecutionResult(ExecutionIntent.HoldShort, "hold_short");
+				    return new xPvaExecutionResult(
+				        ExecutionIntent.HoldShort,
+				        $"hold_short phase={sig.Phase} score={sig.Score:F2} deg={degradingBars} earlyLC={earlyLongCandidate}");
+				}
 
                 default:
                     return new xPvaExecutionResult(ExecutionIntent.None, "bad_position_state");
@@ -64,5 +84,6 @@ namespace NinjaTrader.NinjaScript.xPva.Engine2
         }
     }
 }
+
 
 

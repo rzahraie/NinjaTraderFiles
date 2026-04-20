@@ -95,7 +95,8 @@ namespace NinjaTrader.NinjaScript.Indicators
 					$"OPP={st.OppositePressureBars} " +
 					$"ARM={st.OppositePressureArmed}" +
 					$" SHOCK={st.ShockReversalArmed} " +
-					$" SHOCKR={st.ShockReason}");
+					$" SHOCKR={st.ShockReason}" + 
+					$" RSN={st.LastExecution.Reason}");
 			}
 		}
 	}
