@@ -256,11 +256,22 @@ namespace NinjaTrader.NinjaScript.xPva.Engine2
                 s.ActiveLateralHigh = lat.High;
                 s.ActiveLateralLow = lat.Low;
             }
+			
+			System.Diagnostics.Debug.WriteLine(
+			    $"BAR={cur.Index} POS={s.CurrentPosition} " +
+			    $"DIR={dir.Context} SIG={sig.Phase} SCORE={sig.Score:F2} " +
+			    $"DEG={s.DegradingSignalBars} OPP={s.OppositePressureBars} " +
+			    $"ARM={s.OppositePressureArmed} SHOCK={s.ShockReversalArmed} " +
+			    $"EXE={exe.Intent} RSN={exe.Reason}");
 
             return true;
         }
     }
 }
+
+
+
+
 
 
 
