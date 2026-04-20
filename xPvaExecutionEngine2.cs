@@ -25,30 +25,34 @@ namespace NinjaTrader.NinjaScript.xPva.Engine2
                     return new xPvaExecutionResult(ExecutionIntent.StandAside, "flat_no_valid_signal");
 
                 case 1:
-				    if (shockReversalArmed && shockReason == "shock_reverse_to_short")
-				        return new xPvaExecutionResult(ExecutionIntent.ReverseToShort, shockReason);
-				
+				    // HARD REVERSAL (existing)
 				    if (sig.Phase == SignalPhase.ShortValid)
-				        return new xPvaExecutionResult(ExecutionIntent.ReverseToShort, "reverse_to_short_opposite_valid");
+				        return new xPvaExecutionResult(ExecutionIntent.ReverseToShort, "reverse_to_short_valid");
 				
-				    if (enableOppositePressureOverride && oppositePressureArmed && oppositePressureBars >= 2)
-				        return new xPvaExecutionResult(ExecutionIntent.ExitLong, "long_opposite_override_exit");
+				    // EARLY REVERSAL (NEW — replaces shock)
+				    if (sig.Phase == SignalPhase.ShortCandidate
+				        && sig.Score >= 0.40
+				        && degradingBars >= 1)
+				        return new xPvaExecutionResult(ExecutionIntent.ReverseToShort, "reverse_to_short_candidate_early");
 				
+				    // OPTIONAL: EXIT WITHOUT REVERSAL
 				    if (degradingBars >= maxNoneBarsInPosition)
 				        return new xPvaExecutionResult(ExecutionIntent.ExitLong, "long_decay_exit");
 				
 				    return new xPvaExecutionResult(ExecutionIntent.HoldLong, "hold_long");
 
                 case -1:
-				    if (shockReversalArmed && shockReason == "shock_reverse_to_long")
-				        return new xPvaExecutionResult(ExecutionIntent.ReverseToLong, shockReason);
-				
+				    // HARD REVERSAL
 				    if (sig.Phase == SignalPhase.LongValid)
-				        return new xPvaExecutionResult(ExecutionIntent.ReverseToLong, "reverse_to_long_opposite_valid");
+				        return new xPvaExecutionResult(ExecutionIntent.ReverseToLong, "reverse_to_long_valid");
 				
-				    if (enableOppositePressureOverride && oppositePressureArmed && oppositePressureBars >= 2)
-				        return new xPvaExecutionResult(ExecutionIntent.ExitShort, "short_opposite_override_exit");
+				    // EARLY REVERSAL (mirror)
+				    if (sig.Phase == SignalPhase.LongCandidate
+				        && sig.Score >= 0.40
+				        && degradingBars >= 1)
+				        return new xPvaExecutionResult(ExecutionIntent.ReverseToLong, "reverse_to_long_candidate_early");
 				
+				    // OPTIONAL EXIT
 				    if (degradingBars >= maxNoneBarsInPosition)
 				        return new xPvaExecutionResult(ExecutionIntent.ExitShort, "short_decay_exit");
 				
@@ -60,4 +64,5 @@ namespace NinjaTrader.NinjaScript.xPva.Engine2
         }
     }
 }
+
 
