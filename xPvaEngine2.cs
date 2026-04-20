@@ -162,6 +162,8 @@ namespace NinjaTrader.NinjaScript.xPva.Engine2
 			s.ShockReversalArmed = false;
 			s.ShockReason = string.Empty;
 			
+			s.ShockReason = $"DBG inLong={inLong} inShort={inShort} dir={dir.Context} sig={sig.Phase}";
+
 			if (p.EnableShockReversal)
 			{
 			    if (shockReverseToShort)
@@ -175,7 +177,8 @@ namespace NinjaTrader.NinjaScript.xPva.Engine2
 			        s.ShockReason = "shock_reverse_to_long";
 			    }
 			}
-
+			
+			
             xPvaExecutionResult exe = executionEngine.Compute(
 					    s.CurrentPosition,
 					    sig,
@@ -244,6 +247,7 @@ namespace NinjaTrader.NinjaScript.xPva.Engine2
         }
     }
 }
+
 
 
 
