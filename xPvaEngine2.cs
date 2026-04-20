@@ -109,8 +109,8 @@ namespace NinjaTrader.NinjaScript.xPva.Engine2
 			}
 			else if (oppositeCandidate)
 			{
-			    s.OppositePressureBars = Math.Max(1, s.OppositePressureBars);
-			    s.OppositePressureArmed = false;
+			    s.OppositePressureBars += 1;
+			    s.OppositePressureArmed = s.OppositePressureBars >= 2;
 			}
 			else
 			{
@@ -268,6 +268,7 @@ namespace NinjaTrader.NinjaScript.xPva.Engine2
         }
     }
 }
+
 
 
 
