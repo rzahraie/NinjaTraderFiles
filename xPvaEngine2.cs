@@ -84,46 +84,57 @@ namespace NinjaTrader.NinjaScript.xPva.Engine2
 			bool inShort = s.CurrentPosition < 0;
 			
 			bool oppositeValid =
-			    (inLong  && sig.Phase == SignalPhase.ShortValid) ||
+			    (inLong && sig.Phase == SignalPhase.ShortValid) ||
 			    (inShort && sig.Phase == SignalPhase.LongValid);
 			
+			bool oppositeCandidate =
+			    (inLong && sig.Phase == SignalPhase.ShortCandidate) ||
+			    (inShort && sig.Phase == SignalPhase.LongCandidate);
+			
 			bool oppositeStrongCandidate =
-			    (inLong  && sig.Phase == SignalPhase.ShortCandidate && sig.Score >= p.OppositePressureStrongCandidateThreshold) ||
-			    (inShort && sig.Phase == SignalPhase.LongCandidate  && sig.Score >= p.OppositePressureStrongCandidateThreshold);
+			    (inLong && sig.Phase == SignalPhase.ShortCandidate &&
+			     sig.Score >= p.OppositePressureStrongCandidateThreshold) ||
+			    (inShort && sig.Phase == SignalPhase.LongCandidate &&
+			     sig.Score >= p.OppositePressureStrongCandidateThreshold);
 			
 			if (oppositeValid)
 			{
-			    s.OppositePressureBars = 2;
+			    s.OppositePressureBars = Math.Max(s.OppositePressureBars + 1, 2);
 			    s.OppositePressureArmed = true;
 			}
 			else if (oppositeStrongCandidate)
 			{
-			    s.OppositePressureBars++;
-			    s.OppositePressureArmed = true;
+			    s.OppositePressureBars += 1;
+			    s.OppositePressureArmed = s.OppositePressureBars >= 2;
+			}
+			else if (oppositeCandidate)
+			{
+			    s.OppositePressureBars = Math.Max(1, s.OppositePressureBars);
+			    s.OppositePressureArmed = false;
 			}
 			else
 			{
-			    s.OppositePressureBars = 0;
-			    s.OppositePressureArmed = false;
+			    s.OppositePressureBars = Math.Max(0, s.OppositePressureBars - 1);
+			    s.OppositePressureArmed = s.OppositePressureBars >= 2;
 			}
 			
 			inLong = s.CurrentPosition > 0;
 			inShort = s.CurrentPosition < 0;
 			
 			bool alignedValid =
-			    (inLong  && sig.Phase == SignalPhase.LongValid) ||
+			    (inLong && sig.Phase == SignalPhase.LongValid) ||
 			    (inShort && sig.Phase == SignalPhase.ShortValid);
 			
-			bool oppositeCandidate =
-			    (inLong  && sig.Phase == SignalPhase.ShortCandidate) ||
+			oppositeCandidate =
+			    (inLong && sig.Phase == SignalPhase.ShortCandidate) ||
 			    (inShort && sig.Phase == SignalPhase.LongCandidate);
 			
 			oppositeValid =
-			    (inLong  && sig.Phase == SignalPhase.ShortValid) ||
+			    (inLong && sig.Phase == SignalPhase.ShortValid) ||
 			    (inShort && sig.Phase == SignalPhase.LongValid);
 			
 			bool contextAgainstPosition =
-			    (inLong  && dir.Context == DirectionContext.Down) ||
+			    (inLong && dir.Context == DirectionContext.Down) ||
 			    (inShort && dir.Context == DirectionContext.Up);
 			
 			if (alignedValid)
@@ -143,6 +154,7 @@ namespace NinjaTrader.NinjaScript.xPva.Engine2
 			}
 			else
 			{
+			    s.DegradingSignalBars = Math.Max(0, s.DegradingSignalBars - 1);
 			    s.StableSignalBars = 0;
 			}
 			
@@ -249,6 +261,11 @@ namespace NinjaTrader.NinjaScript.xPva.Engine2
         }
     }
 }
+
+
+
+
+
 
 
 
