@@ -152,12 +152,14 @@ namespace NinjaTrader.NinjaScript.xPva.Engine2
 			bool shockReverseToShort =
 			    inLong &&
 			    dir.Context == DirectionContext.Down &&
-			    (sig.Phase == SignalPhase.ShortValid || sig.Phase == SignalPhase.ShortCandidate);
+			    sig.Phase == SignalPhase.ShortCandidate &&
+			    sig.Score >= 0.40;
 			
 			bool shockReverseToLong =
 			    inShort &&
 			    dir.Context == DirectionContext.Up &&
-			    (sig.Phase == SignalPhase.LongValid || sig.Phase == SignalPhase.LongCandidate);
+			    sig.Phase == SignalPhase.LongCandidate &&
+			    sig.Score >= 0.40;
 			
 			s.ShockReversalArmed = false;
 			s.ShockReason = string.Empty;
@@ -247,6 +249,7 @@ namespace NinjaTrader.NinjaScript.xPva.Engine2
         }
     }
 }
+
 
 
 
