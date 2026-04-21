@@ -86,6 +86,14 @@ namespace NinjaTrader.NinjaScript.Indicators
 			var st = _engine.State;
 			var f = st.LastBarFeatures;
 			
+			if (_engine.PendingReviewLogs.Count > 0)
+			{
+			    foreach (string msg in _engine.PendingReviewLogs)
+			        Print(msg);
+			
+			    _engine.PendingReviewLogs.Clear();
+			}
+			
 			if (f.HasValue)
 			{
 			    Print(

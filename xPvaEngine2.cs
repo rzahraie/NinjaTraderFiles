@@ -17,6 +17,7 @@ namespace NinjaTrader.NinjaScript.xPva.Engine2
 		}
 		
 		private readonly List<PendingReview> pendingReviews = new List<PendingReview>();
+		public List<string> PendingReviewLogs { get; } = new List<string>();
 		
         private readonly xPvaEngineParameters p;
         private readonly xPvaRuntimeState s;
@@ -293,14 +294,14 @@ namespace NinjaTrader.NinjaScript.xPva.Engine2
 			    int age = cur.Index - r.BarIndex;
 			
 			    if (age == 3 || age == 5 || age == 10)
-			    {
-			        double delta = cur.C - r.EntryClose;
-			
-			        System.Diagnostics.Debug.WriteLine(
-			            $"REVIEW srcBar={r.BarIndex} age={age} " +
-			            $"intent={r.Intent} reason={r.Reason} " +
-			            $"entryClose={r.EntryClose:F2} nowClose={cur.C:F2} delta={delta:F2}");
-			    }
+				{
+				    double delta = cur.C - r.EntryClose;
+				
+				    PendingReviewLogs.Add(
+				        $"REVIEW srcBar={r.BarIndex} age={age} " +
+				        $"intent={r.Intent} reason={r.Reason} " +
+				        $"entryClose={r.EntryClose:F2} nowClose={cur.C:F2} delta={delta:F2}");
+				}
 			
 			    if (age > 10)
 			        pendingReviews.RemoveAt(i);
@@ -316,6 +317,7 @@ namespace NinjaTrader.NinjaScript.xPva.Engine2
         }
     }
 }
+
 
 
 
