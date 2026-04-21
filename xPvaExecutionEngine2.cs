@@ -16,11 +16,11 @@ namespace NinjaTrader.NinjaScript.xPva.Engine2
             switch (currentPosition)
             {
                 case 0:
-                    if (sig.Phase == SignalPhase.LongValid)
-                        return new xPvaExecutionResult(ExecutionIntent.EnterLong, "enter_long_valid");
-
-                    if (sig.Phase == SignalPhase.ShortValid)
-                        return new xPvaExecutionResult(ExecutionIntent.EnterShort, "enter_short_valid");
+                    if (sig.Phase == SignalPhase.LongValid && sig.Score >= 0.55)
+					    return new xPvaExecutionResult(ExecutionIntent.EnterLong, "enter_long_valid");
+					
+					if (sig.Phase == SignalPhase.ShortValid && sig.Score >= 0.55)
+					    return new xPvaExecutionResult(ExecutionIntent.EnterShort, "enter_short_valid");
 
                     return new xPvaExecutionResult(ExecutionIntent.StandAside, "flat_no_valid_signal");
 
@@ -114,6 +114,7 @@ namespace NinjaTrader.NinjaScript.xPva.Engine2
         }
     }
 }
+
 
 
 
