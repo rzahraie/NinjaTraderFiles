@@ -192,6 +192,10 @@ namespace NinjaTrader.NinjaScript.xPva.Engine2
 			    }
 			}
 			
+			int preDeg = s.DegradingSignalBars;
+			int preOpp = s.OppositePressureBars;
+			bool preArm = s.OppositePressureArmed;
+			bool preShock = s.ShockReversalArmed;
 			
             xPvaExecutionResult exe = executionEngine.Compute(
 					    s.CurrentPosition,
@@ -260,14 +264,14 @@ namespace NinjaTrader.NinjaScript.xPva.Engine2
 			System.Diagnostics.Debug.WriteLine(
 			    $"BAR={cur.Index} POS={s.CurrentPosition} " +
 			    $"DIR={dir.Context} SIG={sig.Phase} SCORE={sig.Score:F2} " +
-			    $"DEG={s.DegradingSignalBars} OPP={s.OppositePressureBars} " +
-			    $"ARM={s.OppositePressureArmed} SHOCK={s.ShockReversalArmed} " +
+			    $"DEG={preDeg} OPP={preOpp} ARM={preArm} SHOCK={preShock} " +
 			    $"EXE={exe.Intent} RSN={exe.Reason}");
 
             return true;
         }
     }
 }
+
 
 
 
