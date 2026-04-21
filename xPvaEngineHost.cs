@@ -46,8 +46,18 @@ namespace NinjaTrader.NinjaScript.Indicators
             }
             else if (State == State.DataLoaded)
             {
-				_parameters = new xPvaEngineParameters();
-                _engine = new xPvaEngine2(_parameters);
+				_parameters = new xPvaEngineParameters
+				{
+				    EnableOppositePressureOverride = true
+				};
+				
+				_engine = new xPvaEngine2(_parameters);
+				
+				Print(
+				    $"PARAMS OppOverride={_parameters.EnableOppositePressureOverride} " +
+				    $"Shock={_parameters.EnableShockReversal} " +
+				    $"OppStrongTh={_parameters.OppositePressureStrongCandidateThreshold:F2} " +
+				    $"MaxNone={_parameters.MaxNoneBarsInPosition}");
             }
 		}
 
