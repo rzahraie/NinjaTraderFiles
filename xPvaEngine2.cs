@@ -4,8 +4,20 @@ using System.Linq;
 
 namespace NinjaTrader.NinjaScript.xPva.Engine2
 {
+	
+
     public sealed class xPvaEngine2
     {
+		private sealed class PendingReview
+		{
+		    public int BarIndex;
+		    public ExecutionIntent Intent;
+		    public string Reason = string.Empty;
+		    public double EntryClose;
+		}
+		
+		private readonly List<PendingReview> pendingReviews = new List<PendingReview>();
+		
         private readonly xPvaEngineParameters p;
         private readonly xPvaRuntimeState s;
 
@@ -261,6 +273,39 @@ namespace NinjaTrader.NinjaScript.xPva.Engine2
                 s.ActiveLateralLow = lat.Low;
             }
 			
+			if (exe.Intent != ExecutionIntent.HoldLong &&
+			    exe.Intent != ExecutionIntent.HoldShort &&
+			    exe.Intent != ExecutionIntent.StandAside &&
+			    exe.Intent != ExecutionIntent.None)
+			{
+			    pendingReviews.Add(new PendingReview
+			    {
+			        BarIndex = cur.Index,
+			        Intent = exe.Intent,
+			        Reason = exe.Reason,
+			        EntryClose = cur.C
+			    });
+			}
+			
+			for (int i = pendingReviews.Count - 1; i >= 0; i--)
+			{
+			    var r = pendingReviews[i];
+			    int age = cur.Index - r.BarIndex;
+			
+			    if (age == 3 || age == 5 || age == 10)
+			    {
+			        double delta = cur.C - r.EntryClose;
+			
+			        System.Diagnostics.Debug.WriteLine(
+			            $"REVIEW srcBar={r.BarIndex} age={age} " +
+			            $"intent={r.Intent} reason={r.Reason} " +
+			            $"entryClose={r.EntryClose:F2} nowClose={cur.C:F2} delta={delta:F2}");
+			    }
+			
+			    if (age > 10)
+			        pendingReviews.RemoveAt(i);
+			}
+
 			System.Diagnostics.Debug.WriteLine(
 			    $"BAR={cur.Index} POS={s.CurrentPosition} " +
 			    $"DIR={dir.Context} SIG={sig.Phase} SCORE={sig.Score:F2} " +
@@ -271,6 +316,9 @@ namespace NinjaTrader.NinjaScript.xPva.Engine2
         }
     }
 }
+
+
+
 
 
 
