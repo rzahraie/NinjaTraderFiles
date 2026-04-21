@@ -31,7 +31,7 @@ namespace NinjaTrader.NinjaScript.xPva.Engine2
 					        ExecutionIntent.ReverseToShort,
 					        $"reverse_to_short_shock shock={shockReason} oppBars={oppositePressureBars}");
 					
-					if (enableOppositePressureOverride &&
+					/*if (enableOppositePressureOverride &&
 					    oppositePressureArmed &&
 					    oppositePressureBars >= 4 &&
 					    degradingBars >= 1)
@@ -39,7 +39,7 @@ namespace NinjaTrader.NinjaScript.xPva.Engine2
 					    return new xPvaExecutionResult(
 					        ExecutionIntent.ReverseToShort,
 					        $"reverse_to_short_opposite_pressure oppBars={oppositePressureBars} deg={degradingBars}");
-					}
+					}*/
 					
 					bool earlyShortCandidate =
 					    sig.Phase == SignalPhase.ShortCandidate &&
@@ -114,6 +114,7 @@ namespace NinjaTrader.NinjaScript.xPva.Engine2
         }
     }
 }
+
 
 
 
