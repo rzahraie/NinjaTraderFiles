@@ -30,6 +30,8 @@ namespace NinjaTrader.NinjaScript.xPva.Engine2
         private readonly xPvaLateralEngine lateralEngine;
         private readonly xPvaSignalEngine2 signalEngine;
         private readonly xPvaExecutionEngine2 executionEngine;
+		private readonly xPvaExecutionEngine3 executionEngine3;
+		private xPvaExecutionResult3? lastExecution3;
 
         private BarSnapshot? lastBar;
 
@@ -46,6 +48,18 @@ namespace NinjaTrader.NinjaScript.xPva.Engine2
             lateralEngine = new xPvaLateralEngine(p);
             signalEngine = new xPvaSignalEngine2(p);
             executionEngine = new xPvaExecutionEngine2();
+			executionEngine3 = new xPvaExecutionEngine3(new xPvaExecutionParameters3
+			{
+			    LongEntryScoreMin = 0.55,
+			    EnableFlatShortEntry = false,
+			    EnableLongEarlyReversal = true,
+			    LongEarlyReverseScoreMin = 0.40,
+			    LongEarlyReverseMinDegradingBars = 1,
+			    EnableShortShockReversal = true,
+			    EnableShortCandidateEarly = false,
+			    EnableShortOppositePressureOverride = false,
+			    ExitOnDecayBars = p.MaxNoneBarsInPosition
+			});
         }
 
         public xPvaRuntimeState State => s;
@@ -307,16 +321,32 @@ namespace NinjaTrader.NinjaScript.xPva.Engine2
 			        pendingReviews.RemoveAt(i);
 			}
 
+			var ctx3 = new xPvaExecContext
+			{
+			    Position = s.CurrentPosition,
+			    Phase = sig.Phase,
+			    Score = sig.Score,
+			    DegradingBars = s.DegradingSignalBars,
+			    OppositePressureBars = s.OppositePressureBars,
+			    OppositePressureArmed = s.OppositePressureArmed,
+			    ShockReversalArmed = s.ShockReversalArmed
+			};
+			
+			xPvaExecutionResult3 exe3 = executionEngine3.Compute(ctx3);
+			lastExecution3 = exe3;
+
 			System.Diagnostics.Debug.WriteLine(
 			    $"BAR={cur.Index} POS={s.CurrentPosition} " +
 			    $"DIR={dir.Context} SIG={sig.Phase} SCORE={sig.Score:F2} " +
 			    $"DEG={preDeg} OPP={preOpp} ARM={preArm} SHOCK={preShock} " +
-			    $"EXE={exe.Intent} RSN={exe.Reason}");
+			    $"E2={exe.Intent}/{exe.Reason} " +
+			    $"E3={exe3.Intent}/{exe3.Reason}");
 
             return true;
         }
     }
 }
+
 
 
 
