@@ -61,6 +61,20 @@ namespace NinjaTrader.NinjaScript.Indicators
             }
 		}
 
+		private xPvaExecContext CreateExecContext(xPvaSignalResult sig, xPvaRuntimeState s)
+		{
+		    return new xPvaExecContext
+		    {
+		        Position = s.CurrentPosition,
+		        Phase = sig.Phase,
+		        Score = sig.Score,
+		        DegradingBars = s.DegradingSignalBars,
+		        OppositePressureBars = s.OppositePressureBars,
+		        OppositePressureArmed = s.OppositePressureArmed,
+		        ShockReversalArmed = s.ShockReversalArmed
+		    };
+		}
+
 		protected override void OnBarUpdate()
 		{
 			//Add your custom indicator logic here.
