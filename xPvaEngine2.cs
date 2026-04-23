@@ -174,14 +174,22 @@ namespace NinjaTrader.NinjaScript.xPva.Engine2
 			    s.DegradingSignalBars += 2;
 			    s.StableSignalBars = 0;
 			}
-			else if (oppositeCandidate || contextAgainstPosition)
+			else if (oppositeCandidate)
+			{
+			    s.DegradingSignalBars += 1;
+			    s.StableSignalBars = 0;
+			}
+			else if (contextAgainstPosition)
 			{
 			    s.DegradingSignalBars += 1;
 			    s.StableSignalBars = 0;
 			}
 			else
 			{
-			    s.DegradingSignalBars = Math.Max(0, s.DegradingSignalBars - 1);
+			    // Do not let degradation decay away while in a position.
+			    if (s.CurrentPosition == 0)
+			        s.DegradingSignalBars = 0;
+			
 			    s.StableSignalBars = 0;
 			}
 			
@@ -234,6 +242,20 @@ namespace NinjaTrader.NinjaScript.xPva.Engine2
 					    s.OppositePressureBars,
 						s.ShockReversalArmed,
 						s.ShockReason);
+			
+			var ctx3 = new xPvaExecContext
+			{
+			    Position = s.CurrentPosition,
+			    Phase = sig.Phase,
+			    Score = sig.Score,
+			    DegradingBars = s.DegradingSignalBars,
+			    OppositePressureBars = s.OppositePressureBars,
+			    OppositePressureArmed = s.OppositePressureArmed,
+			    ShockReversalArmed = s.ShockReversalArmed
+			};
+			
+			xPvaExecutionResult3 exe3 = executionEngine3.Compute(ctx3);
+			lastExecution3 = exe3;
 			
 			switch (exe.Intent)
 			{
@@ -321,20 +343,6 @@ namespace NinjaTrader.NinjaScript.xPva.Engine2
 			        pendingReviews.RemoveAt(i);
 			}
 
-			var ctx3 = new xPvaExecContext
-			{
-			    Position = s.CurrentPosition,
-			    Phase = sig.Phase,
-			    Score = sig.Score,
-			    DegradingBars = s.DegradingSignalBars,
-			    OppositePressureBars = s.OppositePressureBars,
-			    OppositePressureArmed = s.OppositePressureArmed,
-			    ShockReversalArmed = s.ShockReversalArmed
-			};
-			
-			xPvaExecutionResult3 exe3 = executionEngine3.Compute(ctx3);
-			lastExecution3 = exe3;
-
 			System.Diagnostics.Debug.WriteLine(
 			    $"BAR={cur.Index} POS={s.CurrentPosition} " +
 			    $"DIR={dir.Context} SIG={sig.Phase} SCORE={sig.Score:F2} " +
@@ -346,6 +354,8 @@ namespace NinjaTrader.NinjaScript.xPva.Engine2
         }
     }
 }
+
+
 
 
 
