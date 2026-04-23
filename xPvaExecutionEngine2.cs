@@ -50,11 +50,10 @@ namespace NinjaTrader.NinjaScript.xPva.Engine2
 				        sig.Score >= 0.40 &&
 				        degradingBars >= 2;
 					
-				   bool controlledEarlyShort =
+				  bool controlledEarlyShort =
 					    sig.Phase == SignalPhase.ShortCandidate &&
-					    sig.Score >= 0.60 &&              // stronger than before (was 0.40)
-					    degradingBars >= 3 &&             // require real decay
-					    oppositePressureBars >= 3;        // require sustained opposition
+					    sig.Score >= 0.60 &&
+					    degradingBars >= 3;
 				
 				    if (sig.Phase == SignalPhase.ShortValid)
 				        return new xPvaExecutionResult(
@@ -131,6 +130,7 @@ namespace NinjaTrader.NinjaScript.xPva.Engine2
         }
     }
 }
+
 
 
 
