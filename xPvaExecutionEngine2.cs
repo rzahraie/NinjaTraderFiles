@@ -26,25 +26,31 @@ namespace NinjaTrader.NinjaScript.xPva.Engine2
 
                 case 1:
 				{
-					if (shockReversalArmed)
-					    return new xPvaExecutionResult(
-					        ExecutionIntent.ReverseToShort,
-					        $"reverse_to_short_shock shock={shockReason} oppBars={oppositePressureBars}");
-					
-					/*if (enableOppositePressureOverride &&
-					    oppositePressureArmed &&
-					    oppositePressureBars >= 4 &&
-					    degradingBars >= 1)
-					{
-					    return new xPvaExecutionResult(
-					        ExecutionIntent.ReverseToShort,
-					        $"reverse_to_short_opposite_pressure oppBars={oppositePressureBars} deg={degradingBars}");
-					}*/
-					
-					bool earlyShortCandidate =
-					    sig.Phase == SignalPhase.ShortCandidate &&
-					    sig.Score >= 0.40 &&
-					    degradingBars >= 2;
+				    bool shortShockConfirmed =
+					    shockReversalArmed &&
+					    sig.Phase == SignalPhase.ShortValid &&
+					    degradingBars >= 2 &&
+					    oppositePressureBars >= 3;
+				
+				    if (shortShockConfirmed)
+				        return new xPvaExecutionResult(
+				            ExecutionIntent.ReverseToShort,
+				            $"reverse_to_short_shock_confirmed phase={sig.Phase} score={sig.Score:F2} deg={degradingBars} shock={shockReason} oppBars={oppositePressureBars}");
+				
+				    /*if (enableOppositePressureOverride &&
+				        oppositePressureArmed &&
+				        oppositePressureBars >= 4 &&
+				        degradingBars >= 1)
+				    {
+				        return new xPvaExecutionResult(
+				            ExecutionIntent.ReverseToShort,
+				            $"reverse_to_short_opposite_pressure oppBars={oppositePressureBars} deg={degradingBars}");
+				    }*/
+				
+				    bool earlyShortCandidate =
+				        sig.Phase == SignalPhase.ShortCandidate &&
+				        sig.Score >= 0.40 &&
+				        degradingBars >= 2;
 				
 				    if (sig.Phase == SignalPhase.ShortValid)
 				        return new xPvaExecutionResult(
@@ -114,6 +120,7 @@ namespace NinjaTrader.NinjaScript.xPva.Engine2
         }
     }
 }
+
 
 
 
