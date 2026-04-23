@@ -71,10 +71,12 @@ namespace NinjaTrader.NinjaScript.xPva.Engine2
 				            ExecutionIntent.ReverseToShort,
 				            $"reverse_to_short_candidate_early phase={sig.Phase} score={sig.Score:F2} deg={degradingBars} earlySC={earlyShortCandidate}");
 					
-				    if (degradingBars >= maxNoneBarsInPosition)
-				        return new xPvaExecutionResult(
-				            ExecutionIntent.ExitLong,
-				            $"long_decay_exit phase={sig.Phase} score={sig.Score:F2} deg={degradingBars} earlySC={earlyShortCandidate}");
+				    int longDecayExitBars = System.Math.Max(1, maxNoneBarsInPosition - 1);
+
+					if (degradingBars >= longDecayExitBars)
+					    return new xPvaExecutionResult(
+					        ExecutionIntent.ExitLong,
+					        $"long_decay_exit phase={sig.Phase} score={sig.Score:F2} deg={degradingBars} exitTh={longDecayExitBars} earlySC={earlyShortCandidate}");
 				
 				    return new xPvaExecutionResult(
 				        ExecutionIntent.HoldLong,
@@ -129,6 +131,8 @@ namespace NinjaTrader.NinjaScript.xPva.Engine2
         }
     }
 }
+
+
 
 
 
