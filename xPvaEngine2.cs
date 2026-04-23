@@ -186,8 +186,11 @@ namespace NinjaTrader.NinjaScript.xPva.Engine2
 			}
 			else
 			{
-			    // Do not let degradation decay away while in a position.
-			    if (s.CurrentPosition == 0)
+			    // If we are in a position and no aligned/opposite signal exists,
+			    // treat signal collapse as mild degradation instead of doing nothing.
+			    if (s.CurrentPosition != 0)
+			        s.DegradingSignalBars += 1;
+			    else
 			        s.DegradingSignalBars = 0;
 			
 			    s.StableSignalBars = 0;
@@ -354,6 +357,7 @@ namespace NinjaTrader.NinjaScript.xPva.Engine2
         }
     }
 }
+
 
 
 
