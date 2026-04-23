@@ -31,11 +31,22 @@ namespace NinjaTrader.NinjaScript.xPva.Engine2
 			            "up_imbalance_valid");
 			    }
 			
-			    if (imb.Imbalance > p.NeutralImbalanceThreshold)
+			if (imb.Imbalance > p.NeutralImbalanceThreshold)
+			{
+			    if (dom.State == DominanceState.NonDominant &&
+			        seq.DominanceRunLength > p.MaxPullbackBars)
+			    {
 			        return new xPvaSignalResult(
-			            SignalPhase.LongCandidate,
-			            imb.Imbalance,
-			            "up_candidate");
+			            SignalPhase.None,
+			            0.0,
+			            "up_candidate_suppressed_rollover");
+			    }
+			
+			    return new xPvaSignalResult(
+			        SignalPhase.LongCandidate,
+			        imb.Imbalance,
+			        "up_candidate");
+			}
 			
 			    // NEW: opposition pressure while still in up context
 			    if (dom.State == DominanceState.NonDominant
@@ -66,10 +77,21 @@ namespace NinjaTrader.NinjaScript.xPva.Engine2
 			    }
 			
 			    if (imb.Imbalance < -p.NeutralImbalanceThreshold)
-			        return new xPvaSignalResult(
-			            SignalPhase.ShortCandidate,
-			            -imb.Imbalance,
-			            "down_candidate");
+				{
+				    if (dom.State == DominanceState.NonDominant &&
+				        seq.DominanceRunLength > p.MaxPullbackBars)
+				    {
+				        return new xPvaSignalResult(
+				            SignalPhase.None,
+				            0.0,
+				            "down_candidate_suppressed_rollover");
+				    }
+				
+				    return new xPvaSignalResult(
+				        SignalPhase.ShortCandidate,
+				        -imb.Imbalance,
+				        "down_candidate");
+				}
 			
 			    // NEW: opposition pressure while still in down context
 			    if (dom.State == DominanceState.NonDominant
@@ -89,5 +111,6 @@ namespace NinjaTrader.NinjaScript.xPva.Engine2
         }
     }
 }
+
 
 
