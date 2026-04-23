@@ -61,6 +61,17 @@ namespace NinjaTrader.NinjaScript.xPva.Engine2
 				        return new xPvaExecutionResult(
 				            ExecutionIntent.ReverseToShort,
 				            $"reverse_to_short_candidate_early phase={sig.Phase} score={sig.Score:F2} deg={degradingBars} earlySC={earlyShortCandidate}");
+					
+					bool controlledEarlyShort =
+					    sig.Phase == SignalPhase.ShortCandidate &&
+					    sig.Score >= 0.60 &&              // stronger than before (was 0.40)
+					    degradingBars >= 3 &&             // require real decay
+					    oppositePressureBars >= 3;        // require sustained opposition
+					
+					if (controlledEarlyShort)
+					    return new xPvaExecutionResult(
+					        ExecutionIntent.ReverseToShort,
+					        $"reverse_to_short_candidate_controlled phase={sig.Phase} score={sig.Score:F2} deg={degradingBars} oppBars={oppositePressureBars}");
 				
 				    if (degradingBars >= maxNoneBarsInPosition)
 				        return new xPvaExecutionResult(
@@ -120,6 +131,7 @@ namespace NinjaTrader.NinjaScript.xPva.Engine2
         }
     }
 }
+
 
 
 
