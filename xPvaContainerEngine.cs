@@ -46,6 +46,20 @@ namespace NinjaTrader.NinjaScript.xPva.Engine2
         public bool HasP2 => P2Bar >= 0;
         public bool HasP3 => P3Bar >= 0;
         public bool HasFtt => FttBar >= 0;
+		
+		public int DominantLegStartBar = -1;
+		public int DominantLegEndBar = -1;
+		
+		public int PullbackStartBar = -1;
+		public int PullbackEndBar = -1;
+		
+		public int PostP3AttemptStartBar = -1;
+		public int PostP3AttemptEndBar = -1;
+		
+		public int DominanceRunAtP2;
+		public int DominanceRunAtP3;
+		public double ImbalanceAtP2;
+		public double ImbalanceAtP3;
     }
 
     public sealed class xPvaContainerEngine
@@ -60,11 +74,14 @@ namespace NinjaTrader.NinjaScript.xPva.Engine2
             active = null;
         }
 
-        public xPvaContainer Step(
-            in BarSnapshot cur,
-            in xPvaDirectionResult dir,
-            in xPvaSignalResult sig,
-            double tickSize)
+       public xPvaContainer Step(
+		    in BarSnapshot cur,
+		    in xPvaDirectionResult dir,
+		    in xPvaDominanceResult dom,
+		    in xPvaSequenceStats seq,
+		    in xPvaImbalanceResult imb,
+		    in xPvaSignalResult sig,
+		    double tickSize)
         {
             if (active == null || active.State == xPvaContainerState.Completed)
             {

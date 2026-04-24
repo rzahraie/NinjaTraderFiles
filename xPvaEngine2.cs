@@ -109,7 +109,7 @@ namespace NinjaTrader.NinjaScript.xPva.Engine2
             xPvaLateralResult lat = lateralEngine.Compute(s, featureList, imb, tickSize);
             xPvaSignalResult sig = signalEngine.Compute(dir, dom, seq, imb, lat);
 			
-			xPvaContainer cnt = containerEngine.Step(cur, dir, sig, tickSize);
+			xPvaContainer cnt = containerEngine.Step(cur, dir, dom, seq, imb, sig, tickSize);
 			
 			bool inLong = s.CurrentPosition > 0;
 			bool inShort = s.CurrentPosition < 0;
@@ -362,6 +362,7 @@ namespace NinjaTrader.NinjaScript.xPva.Engine2
         }
     }
 }
+
 
 
 
