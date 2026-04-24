@@ -32,6 +32,7 @@ namespace NinjaTrader.NinjaScript.xPva.Engine2
         private readonly xPvaExecutionEngine2 executionEngine;
 		private readonly xPvaExecutionEngine3 executionEngine3;
 		private xPvaExecutionResult3? lastExecution3;
+		private readonly xPvaContainerEngine containerEngine;
 
         private BarSnapshot? lastBar;
 
@@ -48,6 +49,7 @@ namespace NinjaTrader.NinjaScript.xPva.Engine2
             lateralEngine = new xPvaLateralEngine(p);
             signalEngine = new xPvaSignalEngine2(p);
             executionEngine = new xPvaExecutionEngine2();
+			containerEngine = new xPvaContainerEngine();
 			executionEngine3 = new xPvaExecutionEngine3(new xPvaExecutionParameters3
 			{
 			    LongEntryScoreMin = 0.55,
@@ -106,6 +108,8 @@ namespace NinjaTrader.NinjaScript.xPva.Engine2
 
             xPvaLateralResult lat = lateralEngine.Compute(s, featureList, imb, tickSize);
             xPvaSignalResult sig = signalEngine.Compute(dir, dom, seq, imb, lat);
+			
+			xPvaContainer cnt = containerEngine.Step(cur, dir, sig, tickSize);
 			
 			bool inLong = s.CurrentPosition > 0;
 			bool inShort = s.CurrentPosition < 0;
@@ -347,16 +351,18 @@ namespace NinjaTrader.NinjaScript.xPva.Engine2
 			}
 
 			System.Diagnostics.Debug.WriteLine(
-			    $"BAR={cur.Index} POS={s.CurrentPosition} " +
-			    $"DIR={dir.Context} SIG={sig.Phase} SCORE={sig.Score:F2} " +
-			    $"DEG={preDeg} OPP={preOpp} ARM={preArm} SHOCK={preShock} " +
-			    $"E2={exe.Intent}/{exe.Reason} " +
-			    $"E3={exe3.Intent}/{exe3.Reason}");
+				    $"BAR={cur.Index} POS={s.CurrentPosition} " +
+				    $"DIR={dir.Context} SIG={sig.Phase} SCORE={sig.Score:F2} " +
+				    $"DEG={preDeg} OPP={preOpp} ARM={preArm} SHOCK={preShock} " +
+				    $"E2={exe.Intent}/{exe.Reason} " +
+				    $"E3={exe3.Intent}/{exe3.Reason} " +
+				    $"{xPvaContainerEngine.Format(cnt)}");
 
             return true;
         }
     }
 }
+
 
 
 
