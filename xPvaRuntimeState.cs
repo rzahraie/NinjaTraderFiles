@@ -8,6 +8,7 @@ namespace NinjaTrader.NinjaScript.xPva.Engine2
 		public bool OppositePressureArmed { get; set; }
 		public bool ShockReversalArmed { get; set; }
 		public string ShockReason { get; set; }
+		public xPvaContainer LastContainer { get; set; }
 		
         public xPvaBarFeatures? LastBarFeatures;
         public xPvaDirectionResult LastDirection;
@@ -32,4 +33,5 @@ namespace NinjaTrader.NinjaScript.xPva.Engine2
         public int DegradingSignalBars = 0;
     }
 }
+
 

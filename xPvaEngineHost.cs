@@ -128,7 +128,8 @@ namespace NinjaTrader.NinjaScript.Indicators
 					$"ARM={st.OppositePressureArmed}" +
 					$" SHOCK={st.ShockReversalArmed} " +
 					$" SHOCKR={st.ShockReason}" + 
-					$" RSN={st.LastExecution.Reason}");
+					$" RSN={st.LastExecution.Reason}" +
+				    $"{xPvaContainerEngine.Format(st.LastContainer)}");
 			}
 		}
 	}

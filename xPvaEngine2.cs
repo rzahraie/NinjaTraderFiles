@@ -111,6 +111,8 @@ namespace NinjaTrader.NinjaScript.xPva.Engine2
 			
 			xPvaContainer cnt = containerEngine.Step(cur, dir, dom, seq, imb, sig, tickSize);
 			
+			s.LastContainer = cnt;
+			
 			bool inLong = s.CurrentPosition > 0;
 			bool inShort = s.CurrentPosition < 0;
 			
@@ -362,6 +364,7 @@ namespace NinjaTrader.NinjaScript.xPva.Engine2
         }
     }
 }
+
 
 
 
