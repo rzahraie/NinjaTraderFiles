@@ -161,7 +161,11 @@ namespace NinjaTrader.NinjaScript.xPva.Engine2
 		    {
 		        case xPvaContainerState.SeekingP2:
 		        {
-		            if (dominant)
+		            bool domOrContinuation =
+					    dominant ||
+					    (active.HasP2 && cur.Index > active.P2Bar);
+					
+					if (domOrContinuation)
 		            {
 		                if (active.DominantLegStartBar < 0)
 		                    active.DominantLegStartBar = cur.Index;
@@ -276,7 +280,11 @@ namespace NinjaTrader.NinjaScript.xPva.Engine2
 		    {
 		        case xPvaContainerState.SeekingP2:
 		        {
-		            if (dominant)
+		            bool domOrContinuation =
+					    dominant ||
+					    (active.HasP2 && cur.Index > active.P2Bar);
+					
+					if (domOrContinuation)
 		            {
 		                if (active.DominantLegStartBar < 0)
 		                    active.DominantLegStartBar = cur.Index;
@@ -404,4 +412,5 @@ namespace NinjaTrader.NinjaScript.xPva.Engine2
 		}
     }
 }
+
 
