@@ -120,7 +120,11 @@ namespace NinjaTrader.NinjaScript.xPva.Engine2
                     StartBar = cur.Index,
                     LastBar = cur.Index,
                     P1Bar = cur.Index,
-                    P1Price = cur.L
+					P1Price = cur.L,
+					P2Bar = cur.Index,
+					P2Price = cur.H,
+					DominantLegStartBar = cur.Index,
+					DominantLegEndBar = cur.Index
                 };
             }
             else if (sig.Phase == SignalPhase.ShortValid || sig.Phase == SignalPhase.ShortCandidate)
@@ -132,8 +136,12 @@ namespace NinjaTrader.NinjaScript.xPva.Engine2
                     State = xPvaContainerState.SeekingP2,
                     StartBar = cur.Index,
                     LastBar = cur.Index,
-                    P1Bar = cur.Index,
-                    P1Price = cur.H
+                   	P1Bar = cur.Index,
+					P1Price = cur.H,
+					P2Bar = cur.Index,
+					P2Price = cur.L,
+					DominantLegStartBar = cur.Index,
+					DominantLegEndBar = cur.Index
                 };
             }
         }
@@ -396,3 +404,4 @@ namespace NinjaTrader.NinjaScript.xPva.Engine2
 		}
     }
 }
+
