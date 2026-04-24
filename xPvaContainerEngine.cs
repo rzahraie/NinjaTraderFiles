@@ -92,15 +92,15 @@ namespace NinjaTrader.NinjaScript.xPva.Engine2
             active.LastBar = cur.Index;
 
             switch (active.Direction)
-            {
-                case xPvaContainerDirection.Up:
-                    StepUp(cur, sig, tickSize);
-                    break;
-
-                case xPvaContainerDirection.Down:
-                    StepDown(cur, sig, tickSize);
-                    break;
-            }
+			{
+			    case xPvaContainerDirection.Up:
+			        StepUp(cur, dom, seq, imb, sig, tickSize);
+			        break;
+			
+			    case xPvaContainerDirection.Down:
+			        StepDown(cur, dom, seq, imb, sig, tickSize);
+			        break;
+			}
 
             return active;
         }
@@ -139,126 +139,260 @@ namespace NinjaTrader.NinjaScript.xPva.Engine2
         }
 
         private void StepUp(
-            in BarSnapshot cur,
-            in xPvaSignalResult sig,
-            double tickSize)
-        {
-            switch (active.State)
-            {
-                case xPvaContainerState.SeekingP2:
-				    if (!active.HasP2 || cur.H > active.P2Price + tickSize * 0.5)
-				    {
-				        active.P2Bar = cur.Index;
-				        active.P2Price = cur.H;
-				    }
-				
-				    if (active.HasP2 &&
-				        cur.Index > active.P2Bar &&
-				        cur.L < active.P2Price - tickSize &&
-				        cur.L > active.P1Price + tickSize * 0.5)
-				    {
-				        active.P3Bar = cur.Index;
-				        active.P3Price = cur.L;
-				        active.State = xPvaContainerState.PostP3;
-				    }
-				
-				    if (cur.L < active.P1Price - tickSize * 0.5)
-				        active.State = xPvaContainerState.Completed;
-				
-				    break;
-                case xPvaContainerState.PostP3:
-                    if (cur.H > active.P2Price + tickSize * 0.5)
-                    {
-                        active.State = xPvaContainerState.Completed;
-                    }
-                    else if (cur.Index > active.P3Bar &&
-			         (sig.Phase == SignalPhase.ShortCandidate ||
-			          sig.Phase == SignalPhase.ShortValid ||
-			          cur.L < active.P3Price - tickSize * 0.5))
-                    {
-                        active.FttBar = cur.Index;
-                        active.FttPrice = cur.H;
-                        active.State = xPvaContainerState.FttDetected;
-                    }
-
-                    break;
-
-                case xPvaContainerState.FttDetected:
-                    active.State = xPvaContainerState.Completed;
-                    break;
-            }
-        }
+	    in BarSnapshot cur,
+	    in xPvaDominanceResult dom,
+	    in xPvaSequenceStats seq,
+	    in xPvaImbalanceResult imb,
+	    in xPvaSignalResult sig,
+	    double tickSize)
+		{
+		    bool dominant = dom.State == DominanceState.Dominant;
+		    bool nonDominant = dom.State == DominanceState.NonDominant;
+		
+		    switch (active.State)
+		    {
+		        case xPvaContainerState.SeekingP2:
+		        {
+		            if (dominant)
+		            {
+		                if (active.DominantLegStartBar < 0)
+		                    active.DominantLegStartBar = cur.Index;
+		
+		                active.DominantLegEndBar = cur.Index;
+		
+		                if (!active.HasP2 || cur.H > active.P2Price + tickSize * 0.5)
+		                {
+		                    active.P2Bar = cur.Index;
+		                    active.P2Price = cur.H;
+		                    active.DominanceRunAtP2 = seq.DominanceRunLength;
+		                    active.ImbalanceAtP2 = imb.Imbalance;
+		                }
+		            }
+		            else if (active.HasP2 && nonDominant && cur.Index > active.P2Bar)
+		            {
+		                if (active.PullbackStartBar < 0)
+		                    active.PullbackStartBar = cur.Index;
+		
+		                active.PullbackEndBar = cur.Index;
+		
+		                if (!active.HasP3 || cur.L < active.P3Price - tickSize * 0.5)
+		                {
+		                    active.P3Bar = cur.Index;
+		                    active.P3Price = cur.L;
+		                    active.DominanceRunAtP3 = seq.DominanceRunLength;
+		                    active.ImbalanceAtP3 = imb.Imbalance;
+		                }
+		
+		                active.State = xPvaContainerState.SeekingP3;
+		            }
+		
+		            if (cur.L < active.P1Price - tickSize * 0.5)
+		                active.State = xPvaContainerState.Completed;
+		
+		            break;
+		        }
+		
+		        case xPvaContainerState.SeekingP3:
+		        {
+		            if (nonDominant)
+		            {
+		                active.PullbackEndBar = cur.Index;
+		
+		                if (!active.HasP3 || cur.L < active.P3Price - tickSize * 0.5)
+		                {
+		                    active.P3Bar = cur.Index;
+		                    active.P3Price = cur.L;
+		                    active.DominanceRunAtP3 = seq.DominanceRunLength;
+		                    active.ImbalanceAtP3 = imb.Imbalance;
+		                }
+		            }
+		            else if (active.HasP3 && dominant && cur.Index > active.P3Bar)
+		            {
+		                active.PostP3AttemptStartBar = cur.Index;
+		                active.PostP3AttemptEndBar = cur.Index;
+		                active.State = xPvaContainerState.PostP3;
+		            }
+		
+		            if (cur.L < active.P1Price - tickSize * 0.5)
+		                active.State = xPvaContainerState.Completed;
+		
+		            break;
+		        }
+		
+		        case xPvaContainerState.PostP3:
+		        {
+		            if (dominant)
+		            {
+		                active.PostP3AttemptEndBar = cur.Index;
+		
+		                if (cur.H > active.P2Price + tickSize * 0.5)
+		                {
+		                    active.State = xPvaContainerState.Completed;
+		                }
+		            }
+		            else if (nonDominant && cur.Index > active.PostP3AttemptStartBar)
+		            {
+		                active.FttBar = cur.Index;
+		                active.FttPrice = cur.H;
+		                active.State = xPvaContainerState.FttDetected;
+		            }
+		
+		            if (cur.L < active.P3Price - tickSize * 0.5)
+		            {
+		                active.FttBar = cur.Index;
+		                active.FttPrice = cur.H;
+		                active.State = xPvaContainerState.FttDetected;
+		            }
+		
+		            break;
+		        }
+		
+		        case xPvaContainerState.FttDetected:
+		            active.State = xPvaContainerState.Completed;
+		            break;
+		    }
+		}
 
         private void StepDown(
-            in BarSnapshot cur,
-            in xPvaSignalResult sig,
-            double tickSize)
-        {
-            switch (active.State)
-            {
-                case xPvaContainerState.SeekingP2:
-                    if (!active.HasP2 || cur.L < active.P2Price - tickSize * 0.5)
-                    {
-                        active.P2Bar = cur.Index;
-                        active.P2Price = cur.L;
-                    }
-
-                    if (active.HasP2 &&
-					    cur.Index > active.P2Bar &&
-					    cur.H > active.P2Price + tickSize &&
-					    cur.H < active.P1Price - tickSize * 0.5)
-                    {
-                        active.P3Bar = cur.Index;
-                        active.P3Price = cur.H;
-                        active.State = xPvaContainerState.PostP3;
-                    }
-
-                    if (cur.H > active.P1Price + tickSize * 0.5)
-                        active.State = xPvaContainerState.Completed;
-
-                    break;
-
-                case xPvaContainerState.PostP3:
-                    if (cur.L < active.P2Price - tickSize * 0.5)
-                    {
-                        active.State = xPvaContainerState.Completed;
-                    }
-                    else if (cur.Index > active.P3Bar &&
-			         (sig.Phase == SignalPhase.LongCandidate ||
-			          sig.Phase == SignalPhase.LongValid ||
-			          cur.H > active.P3Price + tickSize * 0.5))
-                    {
-                        active.FttBar = cur.Index;
-                        active.FttPrice = cur.L;
-                        active.State = xPvaContainerState.FttDetected;
-                    }
-
-                    break;
-
-                case xPvaContainerState.FttDetected:
-                    active.State = xPvaContainerState.Completed;
-                    break;
-            }
-        }
+		    in BarSnapshot cur,
+		    in xPvaDominanceResult dom,
+		    in xPvaSequenceStats seq,
+		    in xPvaImbalanceResult imb,
+		    in xPvaSignalResult sig,
+		    double tickSize)
+		{
+		    bool dominant = dom.State == DominanceState.Dominant;
+		    bool nonDominant = dom.State == DominanceState.NonDominant;
+		
+		    switch (active.State)
+		    {
+		        case xPvaContainerState.SeekingP2:
+		        {
+		            if (dominant)
+		            {
+		                if (active.DominantLegStartBar < 0)
+		                    active.DominantLegStartBar = cur.Index;
+		
+		                active.DominantLegEndBar = cur.Index;
+		
+		                if (!active.HasP2 || cur.L < active.P2Price - tickSize * 0.5)
+		                {
+		                    active.P2Bar = cur.Index;
+		                    active.P2Price = cur.L;
+		                    active.DominanceRunAtP2 = seq.DominanceRunLength;
+		                    active.ImbalanceAtP2 = imb.Imbalance;
+		                }
+		            }
+		            else if (active.HasP2 && nonDominant && cur.Index > active.P2Bar)
+		            {
+		                if (active.PullbackStartBar < 0)
+		                    active.PullbackStartBar = cur.Index;
+		
+		                active.PullbackEndBar = cur.Index;
+		
+		                if (!active.HasP3 || cur.H > active.P3Price + tickSize * 0.5)
+		                {
+		                    active.P3Bar = cur.Index;
+		                    active.P3Price = cur.H;
+		                    active.DominanceRunAtP3 = seq.DominanceRunLength;
+		                    active.ImbalanceAtP3 = imb.Imbalance;
+		                }
+		
+		                active.State = xPvaContainerState.SeekingP3;
+		            }
+		
+		            if (cur.H > active.P1Price + tickSize * 0.5)
+		                active.State = xPvaContainerState.Completed;
+		
+		            break;
+		        }
+		
+		        case xPvaContainerState.SeekingP3:
+		        {
+		            if (nonDominant)
+		            {
+		                active.PullbackEndBar = cur.Index;
+		
+		                if (!active.HasP3 || cur.H > active.P3Price + tickSize * 0.5)
+		                {
+		                    active.P3Bar = cur.Index;
+		                    active.P3Price = cur.H;
+		                    active.DominanceRunAtP3 = seq.DominanceRunLength;
+		                    active.ImbalanceAtP3 = imb.Imbalance;
+		                }
+		            }
+		            else if (active.HasP3 && dominant && cur.Index > active.P3Bar)
+		            {
+		                active.PostP3AttemptStartBar = cur.Index;
+		                active.PostP3AttemptEndBar = cur.Index;
+		                active.State = xPvaContainerState.PostP3;
+		            }
+		
+		            if (cur.H > active.P1Price + tickSize * 0.5)
+		                active.State = xPvaContainerState.Completed;
+		
+		            break;
+		        }
+		
+		        case xPvaContainerState.PostP3:
+		        {
+		            if (dominant)
+		            {
+		                active.PostP3AttemptEndBar = cur.Index;
+		
+		                if (cur.L < active.P2Price - tickSize * 0.5)
+		                {
+		                    active.State = xPvaContainerState.Completed;
+		                }
+		            }
+		            else if (nonDominant && cur.Index > active.PostP3AttemptStartBar)
+		            {
+		                active.FttBar = cur.Index;
+		                active.FttPrice = cur.L;
+		                active.State = xPvaContainerState.FttDetected;
+		            }
+		
+		            if (cur.H > active.P3Price + tickSize * 0.5)
+		            {
+		                active.FttBar = cur.Index;
+		                active.FttPrice = cur.L;
+		                active.State = xPvaContainerState.FttDetected;
+		            }
+		
+		            break;
+		        }
+		
+		        case xPvaContainerState.FttDetected:
+		            active.State = xPvaContainerState.Completed;
+		            break;
+		    }
+		}
 
         public static string Format(xPvaContainer c)
-        {
-            if (c == null)
-                return "CNT none";
-
-            return
-                $"CNT id={c.Id} dir={c.Direction} state={c.State} " +
-                $"P1={Fmt(c.P1Bar, c.P1Price)} " +
-                $"P2={Fmt(c.P2Bar, c.P2Price)} " +
-                $"P3={Fmt(c.P3Bar, c.P3Price)} " +
-                $"FTT={Fmt(c.FttBar, c.FttPrice)}";
-        }
+		{
+		    if (c == null)
+		        return "CNT none";
+		
+		    return
+		        $"CNT id={c.Id} dir={c.Direction} state={c.State} " +
+		        $"P1={Fmt(c.P1Bar, c.P1Price)} " +
+		        $"P2={Fmt(c.P2Bar, c.P2Price)} " +
+		        $"P3={Fmt(c.P3Bar, c.P3Price)} " +
+		        $"FTT={Fmt(c.FttBar, c.FttPrice)} " +
+		        $"domLeg={Range(c.DominantLegStartBar, c.DominantLegEndBar)} " +
+		        $"pb={Range(c.PullbackStartBar, c.PullbackEndBar)} " +
+		        $"post={Range(c.PostP3AttemptStartBar, c.PostP3AttemptEndBar)} " +
+		        $"imbP2={c.ImbalanceAtP2:F2} imbP3={c.ImbalanceAtP3:F2}";
+		}
 
         private static string Fmt(int bar, double price)
         {
             return bar >= 0 ? $"{bar}@{price:F2}" : "NA";
         }
+		
+		private static string Range(int start, int end)
+		{
+		    return start >= 0 && end >= 0 ? $"{start}-{end}" : "NA";
+		}
     }
 }
-
-
