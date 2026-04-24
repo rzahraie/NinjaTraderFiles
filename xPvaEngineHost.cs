@@ -129,7 +129,7 @@ namespace NinjaTrader.NinjaScript.Indicators
 					$" SHOCK={st.ShockReversalArmed} " +
 					$" SHOCKR={st.ShockReason}" + 
 					$" RSN={st.LastExecution.Reason}" +
-				    $"{xPvaContainerEngine.Format(st.LastContainer)}");
+				    $" {xPvaContainerEngine.Format(st.LastContainer)}");
 			}
 		}
 	}

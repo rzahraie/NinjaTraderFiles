@@ -146,7 +146,10 @@ namespace NinjaTrader.NinjaScript.xPva.Engine2
             switch (active.State)
             {
                 case xPvaContainerState.SeekingP2:
-                    if (!active.HasP2 || cur.H > active.P2Price + tickSize * 0.5)
+                    if (active.HasP2 &&
+					    cur.Index > active.P2Bar &&
+					    cur.L < active.P2Price - tickSize &&
+					    cur.L > active.P1Price + tickSize * 0.5)
                     {
                         active.P2Bar = cur.Index;
                         active.P2Price = cur.H;
@@ -171,9 +174,10 @@ namespace NinjaTrader.NinjaScript.xPva.Engine2
                     {
                         active.State = xPvaContainerState.Completed;
                     }
-                    else if (sig.Phase == SignalPhase.ShortCandidate ||
-                             sig.Phase == SignalPhase.ShortValid ||
-                             cur.L < active.P3Price - tickSize * 0.5)
+                    else if (cur.Index > active.P3Bar &&
+			         (sig.Phase == SignalPhase.ShortCandidate ||
+			          sig.Phase == SignalPhase.ShortValid ||
+			          cur.L < active.P3Price - tickSize * 0.5))
                     {
                         active.FttBar = cur.Index;
                         active.FttPrice = cur.H;
@@ -203,8 +207,9 @@ namespace NinjaTrader.NinjaScript.xPva.Engine2
                     }
 
                     if (active.HasP2 &&
-                        cur.H > active.P2Price + tickSize &&
-                        cur.H < active.P1Price - tickSize * 0.5)
+					    cur.Index > active.P2Bar &&
+					    cur.H > active.P2Price + tickSize &&
+					    cur.H < active.P1Price - tickSize * 0.5)
                     {
                         active.P3Bar = cur.Index;
                         active.P3Price = cur.H;
@@ -221,9 +226,10 @@ namespace NinjaTrader.NinjaScript.xPva.Engine2
                     {
                         active.State = xPvaContainerState.Completed;
                     }
-                    else if (sig.Phase == SignalPhase.LongCandidate ||
-                             sig.Phase == SignalPhase.LongValid ||
-                             cur.H > active.P3Price + tickSize * 0.5)
+                    else if (cur.Index > active.P3Bar &&
+			         (sig.Phase == SignalPhase.LongCandidate ||
+			          sig.Phase == SignalPhase.LongValid ||
+			          cur.H > active.P3Price + tickSize * 0.5))
                     {
                         active.FttBar = cur.Index;
                         active.FttPrice = cur.L;
@@ -257,3 +263,4 @@ namespace NinjaTrader.NinjaScript.xPva.Engine2
         }
     }
 }
+
