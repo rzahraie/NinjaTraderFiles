@@ -146,29 +146,26 @@ namespace NinjaTrader.NinjaScript.xPva.Engine2
             switch (active.State)
             {
                 case xPvaContainerState.SeekingP2:
-                    if (active.HasP2 &&
-					    cur.Index > active.P2Bar &&
-					    cur.L < active.P2Price - tickSize &&
-					    cur.L > active.P1Price + tickSize * 0.5)
-                    {
-                        active.P2Bar = cur.Index;
-                        active.P2Price = cur.H;
-                    }
-
-                    if (active.HasP2 &&
-                        cur.L < active.P2Price - tickSize &&
-                        cur.L > active.P1Price + tickSize * 0.5)
-                    {
-                        active.P3Bar = cur.Index;
-                        active.P3Price = cur.L;
-                        active.State = xPvaContainerState.PostP3;
-                    }
-
-                    if (cur.L < active.P1Price - tickSize * 0.5)
-                        active.State = xPvaContainerState.Completed;
-
-                    break;
-
+				    if (!active.HasP2 || cur.H > active.P2Price + tickSize * 0.5)
+				    {
+				        active.P2Bar = cur.Index;
+				        active.P2Price = cur.H;
+				    }
+				
+				    if (active.HasP2 &&
+				        cur.Index > active.P2Bar &&
+				        cur.L < active.P2Price - tickSize &&
+				        cur.L > active.P1Price + tickSize * 0.5)
+				    {
+				        active.P3Bar = cur.Index;
+				        active.P3Price = cur.L;
+				        active.State = xPvaContainerState.PostP3;
+				    }
+				
+				    if (cur.L < active.P1Price - tickSize * 0.5)
+				        active.State = xPvaContainerState.Completed;
+				
+				    break;
                 case xPvaContainerState.PostP3:
                     if (cur.H > active.P2Price + tickSize * 0.5)
                     {
@@ -263,4 +260,5 @@ namespace NinjaTrader.NinjaScript.xPva.Engine2
         }
     }
 }
+
 
