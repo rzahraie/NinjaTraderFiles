@@ -29,7 +29,9 @@ namespace NinjaTrader.NinjaScript.xPva.Engine2
 			    (cnt.State == xPvaContainerState.SeekingP2 ||
 			     cnt.State == xPvaContainerState.SeekingP3);
 			
-            switch (currentPosition)
+			int longDecayExitBars = System.Math.Max(1, maxNoneBarsInPosition - 1);
+            
+			switch (currentPosition)
             {
                 case 0:
                     if (sig.Phase == SignalPhase.LongValid && sig.Score >= 0.55)
@@ -100,6 +102,8 @@ namespace NinjaTrader.NinjaScript.xPva.Engine2
 				            ExecutionIntent.ReverseToShort,
 				            $"reverse_to_short_candidate_early phase={sig.Phase} score={sig.Score:F2} deg={degradingBars} earlySC={earlyShortCandidate}");
 					
+					
+					
 					bool longStructureBreakNow =
 					    cnt != null &&
 					    cnt.Direction == xPvaContainerDirection.Up &&
@@ -118,9 +122,6 @@ namespace NinjaTrader.NinjaScript.xPva.Engine2
 					        ExecutionIntent.ExitLong,
 					        $"long_structural_exit_confirmed curClose={curClose:F2} P3={cnt.P3Price:F2} deg={degradingBars} {xPvaContainerEngine.Format(cnt)}");
 					}
-
-					
-				    int longDecayExitBars = System.Math.Max(1, maxNoneBarsInPosition - 1);
 
 					if (degradingBars >= longDecayExitBars)
 					{
@@ -164,11 +165,11 @@ namespace NinjaTrader.NinjaScript.xPva.Engine2
 					        ExecutionIntent.ReverseToLong,
 					        $"reverse_to_long_opposite_pressure oppBars={oppositePressureBars} deg={degradingBars}");
 					}
-
+					
 				    bool earlyLongCandidate =
 				        sig.Phase == SignalPhase.LongCandidate
 				        && sig.Score >= 0.40
-				        && degradingBars >= 1;
+				        && degradingBars >= longDecayExitBars;
 				
 				    if (sig.Phase == SignalPhase.LongValid)
 					    return new xPvaExecutionResult(
@@ -203,6 +204,10 @@ namespace NinjaTrader.NinjaScript.xPva.Engine2
         }
     }
 }
+
+
+
+
 
 
 
