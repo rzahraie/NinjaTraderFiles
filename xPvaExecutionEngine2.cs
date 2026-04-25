@@ -176,7 +176,8 @@ namespace NinjaTrader.NinjaScript.xPva.Engine2
 						    cnt.ImbalanceAtP3 >= 0.25;
 						
 						if (containerStillSupportsLong &&
-						    (degradingBars <= graceLimit || favorableP3Imbalance))
+						    (degradingBars <= graceLimit ||
+ 							(favorableP3Imbalance && degradingBars <= graceLimit + 2)))
 					        return new xPvaExecutionResult(
 					            ExecutionIntent.HoldLong,
 					            $"hold_long_decay_grace_container_supports phase={sig.Phase} score={sig.Score:F2} deg={degradingBars} exitTh={longDecayExitBars} graceLimit={graceLimit} {xPvaContainerEngine.Format(cnt)}");
@@ -246,6 +247,8 @@ namespace NinjaTrader.NinjaScript.xPva.Engine2
         }
     }
 }
+
+
 
 
 
