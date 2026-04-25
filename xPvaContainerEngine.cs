@@ -70,6 +70,11 @@ namespace NinjaTrader.NinjaScript.xPva.Engine2
 		private readonly Queue<BarSnapshot> recentBars = new Queue<BarSnapshot>();
 		private const int PivotLookbackBars = 20;
 		private readonly Queue<BarSnapshot> pivotBars = new Queue<BarSnapshot>();
+		private int lastSwingLowBar = -1;
+		private double lastSwingLowPrice;
+		
+		private int lastSwingHighBar = -1;
+		private double lastSwingHighPrice;
 
         public xPvaContainer Active => active;
 
@@ -89,10 +94,27 @@ namespace NinjaTrader.NinjaScript.xPva.Engine2
         {
 			recentBars.Enqueue(cur);
 
-			pivotBars.Enqueue(cur);
+			
 
 			while (pivotBars.Count > PivotLookbackBars)
 			    pivotBars.Dequeue();
+			
+			pivotBars.Enqueue(cur);
+			
+			while (pivotBars.Count > PivotLookbackBars)
+    			pivotBars.Dequeue();
+			
+			if (TryFindSwingLow(out int lb, out double lp))
+			{
+			    lastSwingLowBar = lb;
+			    lastSwingLowPrice = lp;
+			}
+			
+			if (TryFindSwingHigh(out int hb, out double hp))
+			{
+			    lastSwingHighBar = hb;
+			    lastSwingHighPrice = hp;
+			}
 
             if (active != null && active.State == xPvaContainerState.Completed)
 			    active = null;
@@ -139,6 +161,12 @@ namespace NinjaTrader.NinjaScript.xPva.Engine2
 		                p1Bar = b.Index;
 		            }
 		        }
+				
+				if (lastSwingLowBar >= 0)
+				{
+				    p1Bar = lastSwingLowBar;
+				    p1Price = lastSwingLowPrice;
+				}
 		
 				if (TryFindSwingLow(out int swingBar, out double swingLow))
 				{
@@ -562,6 +590,7 @@ namespace NinjaTrader.NinjaScript.xPva.Engine2
 		}
     }
 }
+
 
 
 
