@@ -161,9 +161,13 @@ namespace NinjaTrader.NinjaScript.xPva.Engine2
 		    {
 		        case xPvaContainerState.SeekingP2:
 		        {
-		            bool domOrContinuation =
-					    dominant ||
-					    (active.HasP2 && cur.Index > active.P2Bar);
+		            bool extendsP2 =
+					    active.Direction == xPvaContainerDirection.Up
+					        ? cur.H > active.P2Price + tickSize * 0.5
+					        : cur.L < active.P2Price - tickSize * 0.5;
+					
+					bool domOrContinuation =
+					    dominant || extendsP2;
 					
 					if (domOrContinuation)
 		            {
@@ -280,9 +284,13 @@ namespace NinjaTrader.NinjaScript.xPva.Engine2
 		    {
 		        case xPvaContainerState.SeekingP2:
 		        {
-		            bool domOrContinuation =
-					    dominant ||
-					    (active.HasP2 && cur.Index > active.P2Bar);
+		            bool extendsP2 =
+					    active.Direction == xPvaContainerDirection.Up
+					        ? cur.H > active.P2Price + tickSize * 0.5
+					        : cur.L < active.P2Price - tickSize * 0.5;
+					
+					bool domOrContinuation =
+					    dominant || extendsP2;
 					
 					if (domOrContinuation)
 		            {
@@ -412,5 +420,6 @@ namespace NinjaTrader.NinjaScript.xPva.Engine2
 		}
     }
 }
+
 
 
