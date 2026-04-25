@@ -191,14 +191,20 @@ namespace NinjaTrader.NinjaScript.xPva.Engine2
 		        double p1Price = cur.H;
 		
 		        foreach (BarSnapshot b in recentBars)
-		        {
-		            if (b.H > p1Price)
-		            {
-		                p1Price = b.H;
-		                p1Bar = b.Index;
-		            }
-		        }
-		
+				{
+				    if (b.H > p1Price)
+				    {
+				        p1Price = b.H;
+				        p1Bar = b.Index;
+				    }
+				}
+				
+				if (lastSwingHighBar >= 0)
+				{
+				    p1Bar = lastSwingHighBar;
+				    p1Price = lastSwingHighPrice;
+				}
+				
 				if (TryFindSwingHigh(out int swingBar, out double swingHigh))
 				{
 				    p1Bar = swingBar;
@@ -582,6 +588,7 @@ namespace NinjaTrader.NinjaScript.xPva.Engine2
 		}
     }
 }
+
 
 
 
