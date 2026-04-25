@@ -105,13 +105,13 @@ namespace NinjaTrader.NinjaScript.xPva.Engine2
 					    cnt.Direction == xPvaContainerDirection.Up &&
 					    cnt.HasP3 &&
 					    cnt.State != xPvaContainerState.Completed &&
-					    curLow < cnt.P3Price;
+					    curClose < cnt.P3Price;
 					
 					if (longStructureBroken)
 					{
 					    return new xPvaExecutionResult(
 					        ExecutionIntent.ExitLong,
-					        $"long_structural_exit_price_break curLow={curLow:F2} P3={cnt.P3Price:F2} {xPvaContainerEngine.Format(cnt)}");
+					        $"long_structural_exit_close_break curClose={curClose:F2} P3={cnt.P3Price:F2} {xPvaContainerEngine.Format(cnt)}");
 					}
 
 					
@@ -198,6 +198,7 @@ namespace NinjaTrader.NinjaScript.xPva.Engine2
         }
     }
 }
+
 
 
 
