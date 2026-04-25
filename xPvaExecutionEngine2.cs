@@ -2,17 +2,19 @@ namespace NinjaTrader.NinjaScript.xPva.Engine2
 {
     public sealed class xPvaExecutionEngine2
     {
-        public xPvaExecutionResult Compute(
-			    int currentPosition,
-			    in xPvaSignalResult sig,
-			    xPvaContainer cnt,
-			    int degradingBars,
-			    int maxNoneBarsInPosition,
-			    bool enableOppositePressureOverride,
-			    bool oppositePressureArmed,
-			    int oppositePressureBars,
-			    bool shockReversalArmed,
-			    string shockReason)
+        public xPvaExecutionResult  Compute(
+				    int currentPosition,
+				    in xPvaSignalResult sig,
+				    xPvaContainer cnt,
+				    double curClose,
+				    double curLow,
+				    int degradingBars,
+				    int maxNoneBarsInPosition,
+				    bool enableOppositePressureOverride,
+				    bool oppositePressureArmed,
+				    int oppositePressureBars,
+				    bool shockReversalArmed,
+				    string shockReason)
         {
 			bool containerAllowsLong =
 			    cnt != null &&
@@ -103,16 +105,13 @@ namespace NinjaTrader.NinjaScript.xPva.Engine2
 					    cnt.Direction == xPvaContainerDirection.Up &&
 					    cnt.HasP3 &&
 					    cnt.State != xPvaContainerState.Completed &&
-					    sig.Phase != SignalPhase.LongValid &&
-					    sig.Phase != SignalPhase.LongCandidate &&
-					    cnt.P3Price > 0.0 &&
-					    sig.Score <= 0.0;
+					    curLow < cnt.P3Price;
 					
 					if (longStructureBroken)
 					{
 					    return new xPvaExecutionResult(
 					        ExecutionIntent.ExitLong,
-					        $"long_structural_exit_p3_break phase={sig.Phase} score={sig.Score:F2} {xPvaContainerEngine.Format(cnt)}");
+					        $"long_structural_exit_price_break curLow={curLow:F2} P3={cnt.P3Price:F2} {xPvaContainerEngine.Format(cnt)}");
 					}
 
 					
@@ -199,6 +198,7 @@ namespace NinjaTrader.NinjaScript.xPva.Engine2
         }
     }
 }
+
 
 
 

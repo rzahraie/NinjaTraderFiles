@@ -245,6 +245,8 @@ namespace NinjaTrader.NinjaScript.xPva.Engine2
 								    s.CurrentPosition,
 								    sig,
 								    cnt,
+									cur.C,
+									cur.L,
 								    s.DegradingSignalBars,
 								    p.MaxNoneBarsInPosition,
 								    p.EnableOppositePressureOverride,
@@ -365,6 +367,8 @@ namespace NinjaTrader.NinjaScript.xPva.Engine2
         }
     }
 }
+
+
 
 
 
