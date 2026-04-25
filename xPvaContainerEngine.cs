@@ -92,6 +92,28 @@ namespace NinjaTrader.NinjaScript.xPva.Engine2
 		    in xPvaSignalResult sig,
 		    double tickSize)
         {
+			recentBars.Enqueue(cur);
+
+			while (recentBars.Count > StartLookbackBars)
+			    recentBars.Dequeue();
+			
+			pivotBars.Enqueue(cur);
+			
+			while (pivotBars.Count > PivotLookbackBars)
+			    pivotBars.Dequeue();
+			
+			if (TryFindSwingLow(out int lb, out double lp))
+			{
+			    lastSwingLowBar = lb;
+			    lastSwingLowPrice = lp;
+			}
+			
+			if (TryFindSwingHigh(out int hb, out double hp))
+			{
+			    lastSwingHighBar = hb;
+			    lastSwingHighPrice = hp;
+			}
+
             if (active != null && active.State == xPvaContainerState.Completed)
 			    active = null;
 			
@@ -560,6 +582,7 @@ namespace NinjaTrader.NinjaScript.xPva.Engine2
 		}
     }
 }
+
 
 
 
