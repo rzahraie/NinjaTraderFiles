@@ -100,20 +100,23 @@ namespace NinjaTrader.NinjaScript.xPva.Engine2
 				            ExecutionIntent.ReverseToShort,
 				            $"reverse_to_short_candidate_early phase={sig.Phase} score={sig.Score:F2} deg={degradingBars} earlySC={earlyShortCandidate}");
 					
-					double breakBuffer = 2 * 0.01; // TODO: replace with tickSize later
-
-					bool longStructureBroken =
+					bool longStructureBreakNow =
 					    cnt != null &&
 					    cnt.Direction == xPvaContainerDirection.Up &&
 					    cnt.HasP3 &&
 					    cnt.State != xPvaContainerState.Completed &&
-					    curClose < (cnt.P3Price - breakBuffer);
+					    curClose < cnt.P3Price;
 					
-					if (longStructureBroken)
+					bool longStructureBreakConfirmed =
+					    longStructureBreakNow &&
+					    sig.Phase != SignalPhase.LongValid &&
+					    degradingBars >= 1;
+					
+					if (longStructureBreakConfirmed)
 					{
 					    return new xPvaExecutionResult(
 					        ExecutionIntent.ExitLong,
-					        $"long_structural_exit_close_break curClose={curClose:F2} P3={cnt.P3Price:F2} {xPvaContainerEngine.Format(cnt)}");
+					        $"long_structural_exit_confirmed curClose={curClose:F2} P3={cnt.P3Price:F2} deg={degradingBars} {xPvaContainerEngine.Format(cnt)}");
 					}
 
 					
@@ -200,6 +203,7 @@ namespace NinjaTrader.NinjaScript.xPva.Engine2
         }
     }
 }
+
 
 
 
