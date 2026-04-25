@@ -100,12 +100,14 @@ namespace NinjaTrader.NinjaScript.xPva.Engine2
 				            ExecutionIntent.ReverseToShort,
 				            $"reverse_to_short_candidate_early phase={sig.Phase} score={sig.Score:F2} deg={degradingBars} earlySC={earlyShortCandidate}");
 					
+					double breakBuffer = 2 * 0.01; // TODO: replace with tickSize later
+
 					bool longStructureBroken =
 					    cnt != null &&
 					    cnt.Direction == xPvaContainerDirection.Up &&
 					    cnt.HasP3 &&
 					    cnt.State != xPvaContainerState.Completed &&
-					    curClose < cnt.P3Price;
+					    curClose < (cnt.P3Price - breakBuffer);
 					
 					if (longStructureBroken)
 					{
@@ -198,6 +200,7 @@ namespace NinjaTrader.NinjaScript.xPva.Engine2
         }
     }
 }
+
 
 
 
