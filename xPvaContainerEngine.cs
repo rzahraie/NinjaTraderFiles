@@ -92,30 +92,6 @@ namespace NinjaTrader.NinjaScript.xPva.Engine2
 		    in xPvaSignalResult sig,
 		    double tickSize)
         {
-			recentBars.Enqueue(cur);
-
-			
-
-			while (pivotBars.Count > PivotLookbackBars)
-			    pivotBars.Dequeue();
-			
-			pivotBars.Enqueue(cur);
-			
-			while (pivotBars.Count > PivotLookbackBars)
-    			pivotBars.Dequeue();
-			
-			if (TryFindSwingLow(out int lb, out double lp))
-			{
-			    lastSwingLowBar = lb;
-			    lastSwingLowPrice = lp;
-			}
-			
-			if (TryFindSwingHigh(out int hb, out double hp))
-			{
-			    lastSwingHighBar = hb;
-			    lastSwingHighPrice = hp;
-			}
-
             if (active != null && active.State == xPvaContainerState.Completed)
 			    active = null;
 			
@@ -140,8 +116,6 @@ namespace NinjaTrader.NinjaScript.xPva.Engine2
 
             return active;
         }
-
-		
 
         private void TryStartContainer(
 		    in BarSnapshot cur,
@@ -296,17 +270,7 @@ namespace NinjaTrader.NinjaScript.xPva.Engine2
 		    switch (active.State)
 		    {
 		        case xPvaContainerState.SeekingP2:
-				{
-				    // Allow P1 to adjust during early up-container formation.
-				    // If a lower low appears before P3 exists, the original P1 was too local.
-				    if (!active.HasP3 && cur.L < active.P1Price)
-				    {
-				        active.P1Price = cur.L;
-				        active.P1Bar = cur.Index;
-				        active.StartBar = cur.Index;
-				        active.DominantLegStartBar = cur.Index;
-				    }
-				
+				{		
 				    bool extendsP2 =
 				        cur.H > active.P2Price + tickSize * 0.5;
 				
@@ -445,16 +409,6 @@ namespace NinjaTrader.NinjaScript.xPva.Engine2
 		    {
 		        case xPvaContainerState.SeekingP2:
 				{
-				    // Allow P1 to adjust during early down-container formation.
-				    // If a higher high appears before P3 exists, the original P1 was too local.
-				    if (!active.HasP3 && cur.H > active.P1Price)
-				    {
-				        active.P1Price = cur.H;
-				        active.P1Bar = cur.Index;
-				        active.StartBar = cur.Index;
-				        active.DominantLegStartBar = cur.Index;
-				    }
-				
 				    bool extendsP2 =
 				        cur.L < active.P2Price - tickSize * 0.5;
 				
@@ -606,6 +560,8 @@ namespace NinjaTrader.NinjaScript.xPva.Engine2
 		}
     }
 }
+
+
 
 
 
