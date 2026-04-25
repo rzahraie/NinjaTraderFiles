@@ -518,7 +518,8 @@ namespace NinjaTrader.NinjaScript.xPva.Engine2
 		        $"domLeg={Range(c.DominantLegStartBar, c.DominantLegEndBar)} " +
 		        $"pb={Range(c.PullbackStartBar, c.PullbackEndBar)} " +
 		        $"post={Range(c.PostP3AttemptStartBar, c.PostP3AttemptEndBar)} " +
-		        $"imbP2={c.ImbalanceAtP2:F2} imbP3={c.ImbalanceAtP3:F2}";
+				$"postP3Len={Len(c.PostP3AttemptStartBar, c.PostP3AttemptEndBar)} " +
+				$"imbP2={c.ImbalanceAtP2:F2} imbP3={c.ImbalanceAtP3:F2}";
 		}
 
         private static string Fmt(int bar, double price)
@@ -530,8 +531,15 @@ namespace NinjaTrader.NinjaScript.xPva.Engine2
 		{
 		    return start >= 0 && end >= 0 ? $"{start}-{end}" : "NA";
 		}
+		
+		private static int Len(int start, int end)
+		{
+		    return start >= 0 && end >= start ? end - start + 1 : 0;
+		}
     }
 }
+
+
 
 
 
