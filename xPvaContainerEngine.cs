@@ -253,11 +253,19 @@ namespace NinjaTrader.NinjaScript.xPva.Engine2
 		                }
 		            }
 		            else if (nonDominant && cur.Index > active.PostP3AttemptStartBar)
-		            {
-		                active.FttBar = cur.Index;
-		                active.FttPrice = cur.H;
-		                active.State = xPvaContainerState.FttDetected;
-		            }
+					{
+					    if (active.PostP3AttemptEndBar >= active.PostP3AttemptStartBar &&
+					        cur.H < active.P2Price + tickSize * 0.5)
+					    {
+					        active.FttBar = cur.Index;
+					        active.FttPrice = cur.H;
+					        active.State = xPvaContainerState.FttDetected;
+					    }
+					    else
+					    {
+					        active.State = xPvaContainerState.Completed;
+					    }
+					}
 		
 		            if (cur.L < active.P3Price - tickSize * 0.5)
 		            {
@@ -382,11 +390,19 @@ namespace NinjaTrader.NinjaScript.xPva.Engine2
 		                }
 		            }
 		            else if (nonDominant && cur.Index > active.PostP3AttemptStartBar)
-		            {
-		                active.FttBar = cur.Index;
-		                active.FttPrice = cur.L;
-		                active.State = xPvaContainerState.FttDetected;
-		            }
+					{
+					    if (active.PostP3AttemptEndBar >= active.PostP3AttemptStartBar &&
+					        cur.L > active.P2Price - tickSize * 0.5)
+					    {
+					        active.FttBar = cur.Index;
+					        active.FttPrice = cur.L;
+					        active.State = xPvaContainerState.FttDetected;
+					    }
+					    else
+					    {
+					        active.State = xPvaContainerState.Completed;
+					    }
+					}
 		
 		            if (cur.H > active.P3Price + tickSize * 0.5)
 		            {
@@ -432,6 +448,7 @@ namespace NinjaTrader.NinjaScript.xPva.Engine2
 		}
     }
 }
+
 
 
 
