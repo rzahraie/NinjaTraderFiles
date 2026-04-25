@@ -66,6 +66,8 @@ namespace NinjaTrader.NinjaScript.xPva.Engine2
     {
         private int nextId = 1;
         private xPvaContainer active;
+		private const int StartLookbackBars = 5;
+		private readonly Queue<BarSnapshot> recentBars = new Queue<BarSnapshot>();
 
         public xPvaContainer Active => active;
 
@@ -83,6 +85,11 @@ namespace NinjaTrader.NinjaScript.xPva.Engine2
 		    in xPvaSignalResult sig,
 		    double tickSize)
         {
+			recentBars.Enqueue(cur);
+
+			while (recentBars.Count > StartLookbackBars)
+			    recentBars.Dequeue();
+
             if (active != null && active.State == xPvaContainerState.Completed)
 			    active = null;
 			
@@ -109,45 +116,69 @@ namespace NinjaTrader.NinjaScript.xPva.Engine2
         }
 
         private void TryStartContainer(
-            in BarSnapshot cur,
-            in xPvaDirectionResult dir,
-            in xPvaSignalResult sig)
-        {
-            if (sig.Phase == SignalPhase.LongValid || sig.Phase == SignalPhase.LongCandidate)
-            {
-                active = new xPvaContainer
-                {
-                    Id = nextId++,
-                    Direction = xPvaContainerDirection.Up,
-                    State = xPvaContainerState.SeekingP2,
-                    StartBar = cur.Index,
-                    LastBar = cur.Index,
-                    P1Bar = cur.Index,
-					P1Price = cur.L,
-					P2Bar = cur.Index,
-					P2Price = cur.H,
-					DominantLegStartBar = cur.Index,
-					DominantLegEndBar = cur.Index
-                };
-            }
-            else if (sig.Phase == SignalPhase.ShortValid || sig.Phase == SignalPhase.ShortCandidate)
-            {
-                active = new xPvaContainer
-                {
-                    Id = nextId++,
-                    Direction = xPvaContainerDirection.Down,
-                    State = xPvaContainerState.SeekingP2,
-                    StartBar = cur.Index,
-                    LastBar = cur.Index,
-                   	P1Bar = cur.Index,
-					P1Price = cur.H,
-					P2Bar = cur.Index,
-					P2Price = cur.L,
-					DominantLegStartBar = cur.Index,
-					DominantLegEndBar = cur.Index
-                };
-            }
-        }
+		    in BarSnapshot cur,
+		    in xPvaDirectionResult dir,
+		    in xPvaSignalResult sig)
+		{
+		    if (sig.Phase == SignalPhase.LongValid || sig.Phase == SignalPhase.LongCandidate)
+		    {
+		        int p1Bar = cur.Index;
+		        double p1Price = cur.L;
+		
+		        foreach (BarSnapshot b in recentBars)
+		        {
+		            if (b.L < p1Price)
+		            {
+		                p1Price = b.L;
+		                p1Bar = b.Index;
+		            }
+		        }
+		
+		        active = new xPvaContainer
+		        {
+		            Id = nextId++,
+		            Direction = xPvaContainerDirection.Up,
+		            State = xPvaContainerState.SeekingP2,
+		            StartBar = p1Bar,
+		            LastBar = cur.Index,
+		            P1Bar = p1Bar,
+		            P1Price = p1Price,
+		            P2Bar = cur.Index,
+		            P2Price = cur.H,
+		            DominantLegStartBar = p1Bar,
+		            DominantLegEndBar = cur.Index
+		        };
+		    }
+		    else if (sig.Phase == SignalPhase.ShortValid || sig.Phase == SignalPhase.ShortCandidate)
+		    {
+		        int p1Bar = cur.Index;
+		        double p1Price = cur.H;
+		
+		        foreach (BarSnapshot b in recentBars)
+		        {
+		            if (b.H > p1Price)
+		            {
+		                p1Price = b.H;
+		                p1Bar = b.Index;
+		            }
+		        }
+		
+		        active = new xPvaContainer
+		        {
+		            Id = nextId++,
+		            Direction = xPvaContainerDirection.Down,
+		            State = xPvaContainerState.SeekingP2,
+		            StartBar = p1Bar,
+		            LastBar = cur.Index,
+		            P1Bar = p1Bar,
+		            P1Price = p1Price,
+		            P2Bar = cur.Index,
+		            P2Price = cur.L,
+		            DominantLegStartBar = p1Bar,
+		            DominantLegEndBar = cur.Index
+		        };
+		    }
+		}
 
         private void StepUp(
 	    in BarSnapshot cur,
@@ -457,6 +488,7 @@ namespace NinjaTrader.NinjaScript.xPva.Engine2
 		}
     }
 }
+
 
 
 
