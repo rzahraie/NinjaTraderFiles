@@ -114,7 +114,7 @@ namespace NinjaTrader.NinjaScript.xPva.Engine2
 					bool longStructureBreakConfirmed =
 					    longStructureBreakNow &&
 					    sig.Phase != SignalPhase.LongValid &&
-					    degradingBars >= 1;
+					    degradingBars >= longDecayExitBars;
 					
 					if (longStructureBreakConfirmed)
 					{
@@ -169,7 +169,7 @@ namespace NinjaTrader.NinjaScript.xPva.Engine2
 				    bool earlyLongCandidate =
 				        sig.Phase == SignalPhase.LongCandidate
 				        && sig.Score >= 0.40
-				        && degradingBars >= longDecayExitBars;
+				        && degradingBars >= 1;
 				
 				    if (sig.Phase == SignalPhase.LongValid)
 					    return new xPvaExecutionResult(
@@ -204,6 +204,7 @@ namespace NinjaTrader.NinjaScript.xPva.Engine2
         }
     }
 }
+
 
 
 
