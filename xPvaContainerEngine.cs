@@ -202,8 +202,11 @@ namespace NinjaTrader.NinjaScript.xPva.Engine2
 		                active.State = xPvaContainerState.SeekingP3;
 		            }
 		
-		            if (cur.L < active.P1Price - tickSize * 0.5)
-		                active.State = xPvaContainerState.Completed;
+		            if (cur.L < active.P1Price - tickSize * 2 &&
+					    dom.State == DominanceState.Dominant)
+					{
+					    active.State = xPvaContainerState.Completed;
+					}
 		
 		            break;
 		        }
@@ -229,8 +232,11 @@ namespace NinjaTrader.NinjaScript.xPva.Engine2
 		                active.State = xPvaContainerState.PostP3;
 		            }
 		
-		            if (cur.L < active.P1Price - tickSize * 0.5)
-		                active.State = xPvaContainerState.Completed;
+		            if (cur.L < active.P1Price - tickSize * 2 &&
+					    dom.State == DominanceState.Dominant)
+					{
+					    active.State = xPvaContainerState.Completed;
+					}
 		
 		            break;
 		        }
@@ -325,8 +331,11 @@ namespace NinjaTrader.NinjaScript.xPva.Engine2
 		                active.State = xPvaContainerState.SeekingP3;
 		            }
 		
-		            if (cur.H > active.P1Price + tickSize * 0.5)
-		                active.State = xPvaContainerState.Completed;
+		            if (cur.H > active.P1Price + tickSize * 2 &&
+					    dom.State == DominanceState.Dominant)
+					{
+					    active.State = xPvaContainerState.Completed;
+					}
 		
 		            break;
 		        }
@@ -352,8 +361,11 @@ namespace NinjaTrader.NinjaScript.xPva.Engine2
 		                active.State = xPvaContainerState.PostP3;
 		            }
 		
-		            if (cur.H > active.P1Price + tickSize * 0.5)
-		                active.State = xPvaContainerState.Completed;
+		            if (cur.H > active.P1Price + tickSize * 2 &&
+					    dom.State == DominanceState.Dominant)
+					{
+					    active.State = xPvaContainerState.Completed;
+					}
 		
 		            break;
 		        }
@@ -420,6 +432,7 @@ namespace NinjaTrader.NinjaScript.xPva.Engine2
 		}
     }
 }
+
 
 
 
