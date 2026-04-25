@@ -105,8 +105,7 @@ namespace NinjaTrader.NinjaScript.xPva.Engine2
 					bool longFttFailure =
 					    cnt != null &&
 					    cnt.Direction == xPvaContainerDirection.Up &&
-					    cnt.HasP3 &&
-					    cnt.HasFtt;
+					    cnt.State == xPvaContainerState.FttDetected;
 					
 					if (longFttFailure)
 					{
@@ -210,6 +209,7 @@ namespace NinjaTrader.NinjaScript.xPva.Engine2
         }
     }
 }
+
 
 
 
