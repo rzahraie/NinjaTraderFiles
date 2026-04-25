@@ -17,8 +17,9 @@ namespace NinjaTrader.NinjaScript.xPva.Engine2
 			bool containerAllowsLong =
 			    cnt != null &&
 			    cnt.Direction == xPvaContainerDirection.Up &&
-			    (cnt.State == xPvaContainerState.SeekingP2 ||
-			     cnt.State == xPvaContainerState.SeekingP3);
+			    cnt.State == xPvaContainerState.SeekingP2 &&
+			    cnt.HasP2 &&
+			    !cnt.HasP3;
 			
 			bool containerAllowsShort =
 			    cnt != null &&
@@ -150,6 +151,7 @@ namespace NinjaTrader.NinjaScript.xPva.Engine2
         }
     }
 }
+
 
 
 
