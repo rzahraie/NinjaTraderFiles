@@ -101,9 +101,22 @@ namespace NinjaTrader.NinjaScript.xPva.Engine2
 				    int longDecayExitBars = System.Math.Max(1, maxNoneBarsInPosition - 1);
 
 					if (degradingBars >= longDecayExitBars)
+					{
+					    bool containerStillSupportsLong =
+					        cnt != null &&
+					        cnt.Direction == xPvaContainerDirection.Up &&
+					        (cnt.State == xPvaContainerState.SeekingP2 ||
+					         cnt.State == xPvaContainerState.SeekingP3);
+					
+					    if (containerStillSupportsLong)
+					        return new xPvaExecutionResult(
+					            ExecutionIntent.HoldLong,
+					            $"hold_long_decay_but_container_supports phase={sig.Phase} score={sig.Score:F2} deg={degradingBars} exitTh={longDecayExitBars} {xPvaContainerEngine.Format(cnt)}");
+					
 					    return new xPvaExecutionResult(
 					        ExecutionIntent.ExitLong,
 					        $"long_decay_exit phase={sig.Phase} score={sig.Score:F2} deg={degradingBars} exitTh={longDecayExitBars} earlySC={earlyShortCandidate}");
+					}
 				
 				    return new xPvaExecutionResult(
 				        ExecutionIntent.HoldLong,
@@ -165,6 +178,7 @@ namespace NinjaTrader.NinjaScript.xPva.Engine2
         }
     }
 }
+
 
 
 
