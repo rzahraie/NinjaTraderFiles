@@ -296,59 +296,67 @@ namespace NinjaTrader.NinjaScript.xPva.Engine2
 		    switch (active.State)
 		    {
 		        case xPvaContainerState.SeekingP2:
-		        {
-		            bool extendsP2 =
-					    active.Direction == xPvaContainerDirection.Up
-					        ? cur.H > active.P2Price + tickSize * 0.5
-					        : cur.L < active.P2Price - tickSize * 0.5;
-					
-					bool domOrContinuation =
-					    dominant || extendsP2;
-					
-					if (domOrContinuation)
-		            {
-		                if (active.DominantLegStartBar < 0)
-		                    active.DominantLegStartBar = cur.Index;
-		
-		                active.DominantLegEndBar = cur.Index;
-		
-		                if (!active.HasP2 || cur.H > active.P2Price + tickSize * 0.5)
-		                {
-		                    active.P2Bar = cur.Index;
-		                    active.P2Price = cur.H;
-		                    active.DominanceRunAtP2 = seq.DominanceRunLength;
-		                    active.ImbalanceAtP2 = imb.Imbalance;
-		                }
-		            }
-		            else if (active.HasP2 &&
-				         nonDominant &&
-				         cur.Index > active.P2Bar &&
-				         !extendsP2)
-		            {
-		                if (active.PullbackStartBar < 0)
-		                    active.PullbackStartBar = cur.Index;
-		
-		                active.PullbackEndBar = cur.Index;
-		
-		                if (!active.HasP3 || cur.L < active.P3Price - tickSize * 0.5)
-		                {
-		                    active.P3Bar = cur.Index;
-		                    active.P3Price = cur.L;
-		                    active.DominanceRunAtP3 = seq.DominanceRunLength;
-		                    active.ImbalanceAtP3 = imb.Imbalance;
-		                }
-		
-		                active.State = xPvaContainerState.SeekingP3;
-		            }
-		
-		            if (cur.L < active.P1Price - tickSize * 2 &&
-					    dom.State == DominanceState.Dominant)
-					{
-					    active.State = xPvaContainerState.Completed;
-					}
-		
-		            break;
-		        }
+				{
+				    // Allow P1 to adjust during early up-container formation.
+				    // If a lower low appears before P3 exists, the original P1 was too local.
+				    if (!active.HasP3 && cur.L < active.P1Price)
+				    {
+				        active.P1Price = cur.L;
+				        active.P1Bar = cur.Index;
+				        active.StartBar = cur.Index;
+				        active.DominantLegStartBar = cur.Index;
+				    }
+				
+				    bool extendsP2 =
+				        cur.H > active.P2Price + tickSize * 0.5;
+				
+				    bool domOrContinuation =
+				        dominant || extendsP2;
+				
+				    if (domOrContinuation)
+				    {
+				        if (active.DominantLegStartBar < 0)
+				            active.DominantLegStartBar = cur.Index;
+				
+				        active.DominantLegEndBar = cur.Index;
+				
+				        if (!active.HasP2 || cur.H > active.P2Price + tickSize * 0.5)
+				        {
+				            active.P2Bar = cur.Index;
+				            active.P2Price = cur.H;
+				            active.DominanceRunAtP2 = seq.DominanceRunLength;
+				            active.ImbalanceAtP2 = imb.Imbalance;
+				        }
+				    }
+				    else if (active.HasP2 &&
+				             nonDominant &&
+				             cur.Index > active.P2Bar &&
+				             !extendsP2)
+				    {
+				        if (active.PullbackStartBar < 0)
+				            active.PullbackStartBar = cur.Index;
+				
+				        active.PullbackEndBar = cur.Index;
+				
+				        if (!active.HasP3 || cur.L < active.P3Price - tickSize * 0.5)
+				        {
+				            active.P3Bar = cur.Index;
+				            active.P3Price = cur.L;
+				            active.DominanceRunAtP3 = seq.DominanceRunLength;
+				            active.ImbalanceAtP3 = imb.Imbalance;
+				        }
+				
+				        active.State = xPvaContainerState.SeekingP3;
+				    }
+				
+				    if (cur.L < active.P1Price - tickSize * 2 &&
+				        dom.State == DominanceState.Dominant)
+				    {
+				        active.State = xPvaContainerState.Completed;
+				    }
+				
+				    break;
+				}
 		
 		        case xPvaContainerState.SeekingP3:
 		        {
@@ -436,59 +444,67 @@ namespace NinjaTrader.NinjaScript.xPva.Engine2
 		    switch (active.State)
 		    {
 		        case xPvaContainerState.SeekingP2:
-		        {
-		            bool extendsP2 =
-					    active.Direction == xPvaContainerDirection.Up
-					        ? cur.H > active.P2Price + tickSize * 0.5
-					        : cur.L < active.P2Price - tickSize * 0.5;
-					
-					bool domOrContinuation =
-					    dominant || extendsP2;
-					
-					if (domOrContinuation)
-		            {
-		                if (active.DominantLegStartBar < 0)
-		                    active.DominantLegStartBar = cur.Index;
-		
-		                active.DominantLegEndBar = cur.Index;
-		
-		                if (!active.HasP2 || cur.L < active.P2Price - tickSize * 0.5)
-		                {
-		                    active.P2Bar = cur.Index;
-		                    active.P2Price = cur.L;
-		                    active.DominanceRunAtP2 = seq.DominanceRunLength;
-		                    active.ImbalanceAtP2 = imb.Imbalance;
-		                }
-		            }
-		            else if (active.HasP2 &&
-				         nonDominant &&
-				         cur.Index > active.P2Bar &&
-				         !extendsP2)
-		            {
-		                if (active.PullbackStartBar < 0)
-		                    active.PullbackStartBar = cur.Index;
-		
-		                active.PullbackEndBar = cur.Index;
-		
-		                if (!active.HasP3 || cur.H > active.P3Price + tickSize * 0.5)
-		                {
-		                    active.P3Bar = cur.Index;
-		                    active.P3Price = cur.H;
-		                    active.DominanceRunAtP3 = seq.DominanceRunLength;
-		                    active.ImbalanceAtP3 = imb.Imbalance;
-		                }
-		
-		                active.State = xPvaContainerState.SeekingP3;
-		            }
-		
-		            if (cur.H > active.P1Price + tickSize * 2 &&
-					    dom.State == DominanceState.Dominant)
-					{
-					    active.State = xPvaContainerState.Completed;
-					}
-		
-		            break;
-		        }
+				{
+				    // Allow P1 to adjust during early down-container formation.
+				    // If a higher high appears before P3 exists, the original P1 was too local.
+				    if (!active.HasP3 && cur.H > active.P1Price)
+				    {
+				        active.P1Price = cur.H;
+				        active.P1Bar = cur.Index;
+				        active.StartBar = cur.Index;
+				        active.DominantLegStartBar = cur.Index;
+				    }
+				
+				    bool extendsP2 =
+				        cur.L < active.P2Price - tickSize * 0.5;
+				
+				    bool domOrContinuation =
+				        dominant || extendsP2;
+				
+				    if (domOrContinuation)
+				    {
+				        if (active.DominantLegStartBar < 0)
+				            active.DominantLegStartBar = cur.Index;
+				
+				        active.DominantLegEndBar = cur.Index;
+				
+				        if (!active.HasP2 || cur.L < active.P2Price - tickSize * 0.5)
+				        {
+				            active.P2Bar = cur.Index;
+				            active.P2Price = cur.L;
+				            active.DominanceRunAtP2 = seq.DominanceRunLength;
+				            active.ImbalanceAtP2 = imb.Imbalance;
+				        }
+				    }
+				    else if (active.HasP2 &&
+				             nonDominant &&
+				             cur.Index > active.P2Bar &&
+				             !extendsP2)
+				    {
+				        if (active.PullbackStartBar < 0)
+				            active.PullbackStartBar = cur.Index;
+				
+				        active.PullbackEndBar = cur.Index;
+				
+				        if (!active.HasP3 || cur.H > active.P3Price + tickSize * 0.5)
+				        {
+				            active.P3Bar = cur.Index;
+				            active.P3Price = cur.H;
+				            active.DominanceRunAtP3 = seq.DominanceRunLength;
+				            active.ImbalanceAtP3 = imb.Imbalance;
+				        }
+				
+				        active.State = xPvaContainerState.SeekingP3;
+				    }
+				
+				    if (cur.H > active.P1Price + tickSize * 2 &&
+				        dom.State == DominanceState.Dominant)
+				    {
+				        active.State = xPvaContainerState.Completed;
+				    }
+				
+				    break;
+				}
 		
 		        case xPvaContainerState.SeekingP3:
 		        {
@@ -590,6 +606,7 @@ namespace NinjaTrader.NinjaScript.xPva.Engine2
 		}
     }
 }
+
 
 
 
