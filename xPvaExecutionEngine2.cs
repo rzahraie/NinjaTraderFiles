@@ -113,8 +113,8 @@ namespace NinjaTrader.NinjaScript.xPva.Engine2
 					
 					bool longStructureBreakConfirmed =
 					    longStructureBreakNow &&
-					    sig.Phase != SignalPhase.LongValid &&
-					    degradingBars >= longDecayExitBars;
+					    sig.Phase == SignalPhase.None &&
+					    degradingBars >= 2;
 					
 					if (longStructureBreakConfirmed)
 					{
@@ -204,6 +204,7 @@ namespace NinjaTrader.NinjaScript.xPva.Engine2
         }
     }
 }
+
 
 
 
