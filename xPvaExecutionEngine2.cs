@@ -73,7 +73,7 @@ namespace NinjaTrader.NinjaScript.xPva.Engine2
 				    bool earlyShortCandidate =
 				        sig.Phase == SignalPhase.ShortCandidate &&
 				        sig.Score >= 0.40 &&
-				        degradingBars >= 2;
+				        degradingBars >= longDecayExitBars;
 					
 				  bool controlledEarlyShort =
 					    sig.Phase == SignalPhase.ShortCandidate &&
@@ -114,7 +114,7 @@ namespace NinjaTrader.NinjaScript.xPva.Engine2
 					bool longStructureBreakConfirmed =
 					    longStructureBreakNow &&
 					    sig.Phase == SignalPhase.None &&
-					    degradingBars >= 2;
+					    degradingBars >= longDecayExitBars;
 					
 					if (longStructureBreakConfirmed)
 					{
@@ -204,6 +204,7 @@ namespace NinjaTrader.NinjaScript.xPva.Engine2
         }
     }
 }
+
 
 
 
