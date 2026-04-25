@@ -187,7 +187,10 @@ namespace NinjaTrader.NinjaScript.xPva.Engine2
 		                    active.ImbalanceAtP2 = imb.Imbalance;
 		                }
 		            }
-		            else if (active.HasP2 && nonDominant && cur.Index > active.P2Bar)
+		            else if (active.HasP2 &&
+				         nonDominant &&
+				         cur.Index > active.P2Bar &&
+				         !extendsP2)
 		            {
 		                if (active.PullbackStartBar < 0)
 		                    active.PullbackStartBar = cur.Index;
@@ -324,7 +327,10 @@ namespace NinjaTrader.NinjaScript.xPva.Engine2
 		                    active.ImbalanceAtP2 = imb.Imbalance;
 		                }
 		            }
-		            else if (active.HasP2 && nonDominant && cur.Index > active.P2Bar)
+		            else if (active.HasP2 &&
+				         nonDominant &&
+				         cur.Index > active.P2Bar &&
+				         !extendsP2)
 		            {
 		                if (active.PullbackStartBar < 0)
 		                    active.PullbackStartBar = cur.Index;
@@ -451,6 +457,7 @@ namespace NinjaTrader.NinjaScript.xPva.Engine2
 		}
     }
 }
+
 
 
 
