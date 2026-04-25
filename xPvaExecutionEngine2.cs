@@ -106,7 +106,8 @@ namespace NinjaTrader.NinjaScript.xPva.Engine2
 					    cnt != null &&
 					    cnt.Direction == xPvaContainerDirection.Up &&
 					    cnt.HasP3 &&
-					    cnt.ImbalanceAtP3 <= -0.40;
+					    cnt.ImbalanceAtP3 <= -0.40 &&
+					    degradingBars >= 1;
 					
 					if (longImbalanceFailure)
 					{
@@ -196,6 +197,7 @@ namespace NinjaTrader.NinjaScript.xPva.Engine2
         }
     }
 }
+
 
 
 
