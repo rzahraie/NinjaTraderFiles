@@ -81,6 +81,13 @@ namespace NinjaTrader.NinjaScript.xPva.Engine2
 				            ExecutionIntent.ReverseToShort,
 				            $"reverse_to_short_valid phase={sig.Phase} score={sig.Score:F2} deg={degradingBars} earlySC={earlyShortCandidate}");
 					
+					if ((controlledEarlyShort || earlyShortCandidate) && !containerAllowsShort)
+					{
+					    return new xPvaExecutionResult(
+					        ExecutionIntent.HoldLong,
+					        $"blocked_reverse_to_short_by_container {xPvaContainerEngine.Format(cnt)}");
+					}
+
 					if (controlledEarlyShort)
 					    return new xPvaExecutionResult(
 					        ExecutionIntent.ReverseToShort,
@@ -151,6 +158,7 @@ namespace NinjaTrader.NinjaScript.xPva.Engine2
         }
     }
 }
+
 
 
 
