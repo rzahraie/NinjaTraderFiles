@@ -68,6 +68,8 @@ namespace NinjaTrader.NinjaScript.xPva.Engine2
         private xPvaContainer active;
 		private const int StartLookbackBars = 5;
 		private readonly Queue<BarSnapshot> recentBars = new Queue<BarSnapshot>();
+		private const int PivotLookbackBars = 20;
+		private readonly Queue<BarSnapshot> pivotBars = new Queue<BarSnapshot>();
 
         public xPvaContainer Active => active;
 
@@ -87,8 +89,10 @@ namespace NinjaTrader.NinjaScript.xPva.Engine2
         {
 			recentBars.Enqueue(cur);
 
-			while (recentBars.Count > StartLookbackBars)
-			    recentBars.Dequeue();
+			pivotBars.Enqueue(cur);
+
+			while (pivotBars.Count > PivotLookbackBars)
+			    pivotBars.Dequeue();
 
             if (active != null && active.State == xPvaContainerState.Completed)
 			    active = null;
@@ -115,6 +119,8 @@ namespace NinjaTrader.NinjaScript.xPva.Engine2
             return active;
         }
 
+		
+
         private void TryStartContainer(
 		    in BarSnapshot cur,
 		    in xPvaDirectionResult dir,
@@ -134,6 +140,12 @@ namespace NinjaTrader.NinjaScript.xPva.Engine2
 		            }
 		        }
 		
+				if (TryFindSwingLow(out int swingBar, out double swingLow))
+				{
+				    p1Bar = swingBar;
+				    p1Price = swingLow;
+				}
+				
 		        active = new xPvaContainer
 		        {
 		            Id = nextId++,
@@ -163,6 +175,12 @@ namespace NinjaTrader.NinjaScript.xPva.Engine2
 		            }
 		        }
 		
+				if (TryFindSwingHigh(out int swingBar, out double swingHigh))
+				{
+				    p1Bar = swingBar;
+				    p1Price = swingHigh;
+				}
+
 		        active = new xPvaContainer
 		        {
 		            Id = nextId++,
@@ -180,13 +198,69 @@ namespace NinjaTrader.NinjaScript.xPva.Engine2
 		    }
 		}
 
+		private bool TryFindSwingLow(out int barIndex, out double price)
+		{
+		    barIndex = -1;
+		    price = 0.0;
+		
+		    BarSnapshot[] bars = new List<BarSnapshot>(pivotBars).ToArray();
+		
+		    if (bars.Length < 5)
+		        return false;
+		
+		    for (int i = bars.Length - 3; i >= 2; i--)
+		    {
+		        double low = bars[i].L;
+		
+		        if (low <= bars[i - 1].L &&
+		            low <= bars[i - 2].L &&
+		            low <= bars[i + 1].L &&
+		            low <= bars[i + 2].L)
+		        {
+		            barIndex = bars[i].Index;
+		            price = low;
+		            return true;
+		        }
+		    }
+		
+		    return false;
+		}
+		
+		private bool TryFindSwingHigh(out int barIndex, out double price)
+		{
+		    barIndex = -1;
+		    price = 0.0;
+		
+		    BarSnapshot[] bars = new List<BarSnapshot>(pivotBars).ToArray();
+		
+		    if (bars.Length < 5)
+		        return false;
+		
+		    for (int i = bars.Length - 3; i >= 2; i--)
+		    {
+		        double high = bars[i].H;
+		
+		        if (high >= bars[i - 1].H &&
+		            high >= bars[i - 2].H &&
+		            high >= bars[i + 1].H &&
+		            high >= bars[i + 2].H)
+		        {
+		            barIndex = bars[i].Index;
+		            price = high;
+		            return true;
+		        }
+		    }
+		
+		    return false;
+		}
+		
         private void StepUp(
-	    in BarSnapshot cur,
-	    in xPvaDominanceResult dom,
-	    in xPvaSequenceStats seq,
-	    in xPvaImbalanceResult imb,
-	    in xPvaSignalResult sig,
-	    double tickSize)
+		    in BarSnapshot cur,
+		    in xPvaDominanceResult dom,
+		    in xPvaSequenceStats seq,
+		    in xPvaImbalanceResult imb,
+		    in xPvaSignalResult sig,
+		    double tickSize)
 		{
 		    bool dominant = dom.State == DominanceState.Dominant;
 		    bool nonDominant = dom.State == DominanceState.NonDominant;
@@ -488,6 +562,8 @@ namespace NinjaTrader.NinjaScript.xPva.Engine2
 		}
     }
 }
+
+
 
 
 
