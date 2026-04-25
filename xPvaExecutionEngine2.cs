@@ -111,10 +111,13 @@ namespace NinjaTrader.NinjaScript.xPva.Engine2
 					    cnt.State != xPvaContainerState.Completed &&
 					    curClose < cnt.P3Price;
 					
+					// NEW: require break AND no recovery pressure
 					bool longStructureBreakConfirmed =
 					    longStructureBreakNow &&
-					    sig.Phase == SignalPhase.None &&
-					    degradingBars >= longDecayExitBars;
+					    sig.Phase != SignalPhase.LongCandidate &&   // key change
+					    sig.Phase != SignalPhase.LongValid &&
+					    degradingBars >= 2 &&
+						sig.Phase != SignalPhase.LongCandidate;
 					
 					if (longStructureBreakConfirmed)
 					{
@@ -204,6 +207,7 @@ namespace NinjaTrader.NinjaScript.xPva.Engine2
         }
     }
 }
+
 
 
 
