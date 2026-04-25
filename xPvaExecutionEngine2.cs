@@ -101,6 +101,19 @@ namespace NinjaTrader.NinjaScript.xPva.Engine2
 				        return new xPvaExecutionResult(
 				            ExecutionIntent.ReverseToShort,
 				            $"reverse_to_short_candidate_early phase={sig.Phase} score={sig.Score:F2} deg={degradingBars} earlySC={earlyShortCandidate}");
+					
+					bool longImbalanceFailure =
+					    cnt != null &&
+					    cnt.Direction == xPvaContainerDirection.Up &&
+					    cnt.HasP3 &&
+					    cnt.ImbalanceAtP3 <= -0.40;
+					
+					if (longImbalanceFailure)
+					{
+					    return new xPvaExecutionResult(
+					        ExecutionIntent.ExitLong,
+					        $"long_imbalance_failure_exit imbP3={cnt.ImbalanceAtP3:F2} {xPvaContainerEngine.Format(cnt)}");
+					}
 
 					if (degradingBars >= longDecayExitBars)
 					{
@@ -183,6 +196,7 @@ namespace NinjaTrader.NinjaScript.xPva.Engine2
         }
     }
 }
+
 
 
 
