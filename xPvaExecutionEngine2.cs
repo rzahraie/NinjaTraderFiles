@@ -3,21 +3,41 @@ namespace NinjaTrader.NinjaScript.xPva.Engine2
     public sealed class xPvaExecutionEngine2
     {
         public xPvaExecutionResult Compute(
-		    int currentPosition,
-		    in xPvaSignalResult sig,
-		    int degradingBars,
-		    int maxNoneBarsInPosition,
-		    bool enableOppositePressureOverride,
-		    bool oppositePressureArmed,
-		    int oppositePressureBars,
-		    bool shockReversalArmed,
-		    string shockReason)
+			    int currentPosition,
+			    in xPvaSignalResult sig,
+			    xPvaContainer cnt,
+			    int degradingBars,
+			    int maxNoneBarsInPosition,
+			    bool enableOppositePressureOverride,
+			    bool oppositePressureArmed,
+			    int oppositePressureBars,
+			    bool shockReversalArmed,
+			    string shockReason)
         {
+			bool containerAllowsLong =
+			    cnt != null &&
+			    cnt.Direction == xPvaContainerDirection.Up &&
+			    (cnt.State == xPvaContainerState.SeekingP2 ||
+			     cnt.State == xPvaContainerState.SeekingP3);
+			
+			bool containerAllowsShort =
+			    cnt != null &&
+			    cnt.Direction == xPvaContainerDirection.Down &&
+			    (cnt.State == xPvaContainerState.SeekingP2 ||
+			     cnt.State == xPvaContainerState.SeekingP3);
+			
             switch (currentPosition)
             {
                 case 0:
                     if (sig.Phase == SignalPhase.LongValid && sig.Score >= 0.55)
+					{
+					    if (!containerAllowsLong)
+					        return new xPvaExecutionResult(
+					            ExecutionIntent.StandAside,
+					            $"blocked_long_by_container {xPvaContainerEngine.Format(cnt)}");
+					
 					    return new xPvaExecutionResult(ExecutionIntent.EnterLong, "enter_long_valid");
+					}
 					
 					// if (sig.Phase == SignalPhase.ShortValid && sig.Score >= 0.55)
 					//     return new xPvaExecutionResult(ExecutionIntent.EnterShort, "enter_short_valid");
@@ -130,6 +150,7 @@ namespace NinjaTrader.NinjaScript.xPva.Engine2
         }
     }
 }
+
 
 
 

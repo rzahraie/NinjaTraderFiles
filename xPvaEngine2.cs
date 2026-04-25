@@ -242,15 +242,16 @@ namespace NinjaTrader.NinjaScript.xPva.Engine2
 			bool preShock = s.ShockReversalArmed;
 			
             xPvaExecutionResult exe = executionEngine.Compute(
-					    s.CurrentPosition,
-					    sig,
-					    s.DegradingSignalBars,
-					    p.MaxNoneBarsInPosition,
-					    p.EnableOppositePressureOverride,
-					    s.OppositePressureArmed,
-					    s.OppositePressureBars,
-						s.ShockReversalArmed,
-						s.ShockReason);
+								    s.CurrentPosition,
+								    sig,
+								    cnt,
+								    s.DegradingSignalBars,
+								    p.MaxNoneBarsInPosition,
+								    p.EnableOppositePressureOverride,
+								    s.OppositePressureArmed,
+								    s.OppositePressureBars,
+								    s.ShockReversalArmed,
+								    s.ShockReason);
 			
 			var ctx3 = new xPvaExecContext
 			{
@@ -364,6 +365,7 @@ namespace NinjaTrader.NinjaScript.xPva.Engine2
         }
     }
 }
+
 
 
 
