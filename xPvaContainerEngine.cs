@@ -101,18 +101,6 @@ namespace NinjaTrader.NinjaScript.xPva.Engine2
 			
 			while (pivotBars.Count > PivotLookbackBars)
 			    pivotBars.Dequeue();
-			
-			if (TryFindSwingLow(out int lb, out double lp))
-			{
-			    lastSwingLowBar = lb;
-			    lastSwingLowPrice = lp;
-			}
-			
-			if (TryFindSwingHigh(out int hb, out double hp))
-			{
-			    lastSwingHighBar = hb;
-			    lastSwingHighPrice = hp;
-			}
 
             if (active != null && active.State == xPvaContainerState.Completed)
 			    active = null;
@@ -158,16 +146,23 @@ namespace NinjaTrader.NinjaScript.xPva.Engine2
 		            }
 		        }
 				
+				// Prefer persistent swing memory first
 				if (lastSwingLowBar >= 0)
 				{
 				    p1Bar = lastSwingLowBar;
 				    p1Price = lastSwingLowPrice;
 				}
-		
-				if (TryFindSwingLow(out int swingBar, out double swingLow))
+				else
 				{
-				    p1Bar = swingBar;
-				    p1Price = swingLow;
+				    // fallback to local scan
+				    foreach (BarSnapshot b in recentBars)
+				    {
+				        if (b.L < p1Price)
+				        {
+				            p1Price = b.L;
+				            p1Bar = b.Index;
+				        }
+				    }
 				}
 				
 		        active = new xPvaContainer
@@ -204,11 +199,16 @@ namespace NinjaTrader.NinjaScript.xPva.Engine2
 				    p1Bar = lastSwingHighBar;
 				    p1Price = lastSwingHighPrice;
 				}
-				
-				if (TryFindSwingHigh(out int swingBar, out double swingHigh))
+				else
 				{
-				    p1Bar = swingBar;
-				    p1Price = swingHigh;
+				    foreach (BarSnapshot b in recentBars)
+				    {
+				        if (b.H > p1Price)
+				        {
+				            p1Price = b.H;
+				            p1Bar = b.Index;
+				        }
+				    }
 				}
 
 		        active = new xPvaContainer
@@ -226,62 +226,6 @@ namespace NinjaTrader.NinjaScript.xPva.Engine2
 		            DominantLegEndBar = cur.Index
 		        };
 		    }
-		}
-
-		private bool TryFindSwingLow(out int barIndex, out double price)
-		{
-		    barIndex = -1;
-		    price = 0.0;
-		
-		    BarSnapshot[] bars = new List<BarSnapshot>(pivotBars).ToArray();
-		
-		    if (bars.Length < 5)
-		        return false;
-		
-		    for (int i = bars.Length - 3; i >= 2; i--)
-		    {
-		        double low = bars[i].L;
-		
-		        if (low <= bars[i - 1].L &&
-		            low <= bars[i - 2].L &&
-		            low <= bars[i + 1].L &&
-		            low <= bars[i + 2].L)
-		        {
-		            barIndex = bars[i].Index;
-		            price = low;
-		            return true;
-		        }
-		    }
-		
-		    return false;
-		}
-		
-		private bool TryFindSwingHigh(out int barIndex, out double price)
-		{
-		    barIndex = -1;
-		    price = 0.0;
-		
-		    BarSnapshot[] bars = new List<BarSnapshot>(pivotBars).ToArray();
-		
-		    if (bars.Length < 5)
-		        return false;
-		
-		    for (int i = bars.Length - 3; i >= 2; i--)
-		    {
-		        double high = bars[i].H;
-		
-		        if (high >= bars[i - 1].H &&
-		            high >= bars[i - 2].H &&
-		            high >= bars[i + 1].H &&
-		            high >= bars[i + 2].H)
-		        {
-		            barIndex = bars[i].Index;
-		            price = high;
-		            return true;
-		        }
-		    }
-		
-		    return false;
 		}
 		
         private void StepUp(
@@ -588,6 +532,8 @@ namespace NinjaTrader.NinjaScript.xPva.Engine2
 		}
     }
 }
+
+
 
 
 
