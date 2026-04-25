@@ -98,6 +98,24 @@ namespace NinjaTrader.NinjaScript.xPva.Engine2
 				            ExecutionIntent.ReverseToShort,
 				            $"reverse_to_short_candidate_early phase={sig.Phase} score={sig.Score:F2} deg={degradingBars} earlySC={earlyShortCandidate}");
 					
+					bool longStructureBroken =
+					    cnt != null &&
+					    cnt.Direction == xPvaContainerDirection.Up &&
+					    cnt.HasP3 &&
+					    cnt.State != xPvaContainerState.Completed &&
+					    sig.Phase != SignalPhase.LongValid &&
+					    sig.Phase != SignalPhase.LongCandidate &&
+					    cnt.P3Price > 0.0 &&
+					    sig.Score <= 0.0;
+					
+					if (longStructureBroken)
+					{
+					    return new xPvaExecutionResult(
+					        ExecutionIntent.ExitLong,
+					        $"long_structural_exit_p3_break phase={sig.Phase} score={sig.Score:F2} {xPvaContainerEngine.Format(cnt)}");
+					}
+
+					
 				    int longDecayExitBars = System.Math.Max(1, maxNoneBarsInPosition - 1);
 
 					if (degradingBars >= longDecayExitBars)
@@ -181,6 +199,7 @@ namespace NinjaTrader.NinjaScript.xPva.Engine2
         }
     }
 }
+
 
 
 
