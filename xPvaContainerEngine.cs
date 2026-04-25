@@ -83,11 +83,14 @@ namespace NinjaTrader.NinjaScript.xPva.Engine2
 		    in xPvaSignalResult sig,
 		    double tickSize)
         {
-            if (active == null || active.State == xPvaContainerState.Completed)
-            {
-                TryStartContainer(cur, dir, sig);
-                return active;
-            }
+            if (active != null && active.State == xPvaContainerState.Completed)
+			    active = null;
+			
+			if (active == null)
+			{
+			    TryStartContainer(cur, dir, sig);
+			    return active;
+			}
 
             active.LastBar = cur.Index;
 
@@ -448,6 +451,7 @@ namespace NinjaTrader.NinjaScript.xPva.Engine2
 		}
     }
 }
+
 
 
 
