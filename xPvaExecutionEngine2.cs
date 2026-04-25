@@ -133,14 +133,21 @@ namespace NinjaTrader.NinjaScript.xPva.Engine2
 				        && degradingBars >= 1;
 				
 				    if (sig.Phase == SignalPhase.LongValid)
-				        return new xPvaExecutionResult(
-				            ExecutionIntent.ReverseToLong,
-				            $"reverse_to_long_valid phase={sig.Phase} score={sig.Score:F2} deg={degradingBars} earlyLC={earlyLongCandidate}");
-				
-				    if (earlyLongCandidate)
-				        return new xPvaExecutionResult(
-				            ExecutionIntent.ReverseToLong,
-				            $"reverse_to_long_candidate_early phase={sig.Phase} score={sig.Score:F2} deg={degradingBars} earlyLC={earlyLongCandidate}");
+					    return new xPvaExecutionResult(
+					        ExecutionIntent.ReverseToLong,
+					        $"reverse_to_long_valid phase={sig.Phase} score={sig.Score:F2} deg={degradingBars} earlyLC={earlyLongCandidate}");
+					
+					if (earlyLongCandidate && !containerAllowsLong)
+					{
+					    return new xPvaExecutionResult(
+					        ExecutionIntent.HoldShort,
+					        $"blocked_reverse_to_long_by_container {xPvaContainerEngine.Format(cnt)}");
+					}
+					
+					if (earlyLongCandidate)
+					    return new xPvaExecutionResult(
+					        ExecutionIntent.ReverseToLong,
+					        $"reverse_to_long_candidate_early phase={sig.Phase} score={sig.Score:F2} deg={degradingBars} earlyLC={earlyLongCandidate}");
 				
 				    if (degradingBars >= maxNoneBarsInPosition)
 				        return new xPvaExecutionResult(
