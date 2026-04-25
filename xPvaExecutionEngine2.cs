@@ -108,14 +108,17 @@ namespace NinjaTrader.NinjaScript.xPva.Engine2
 					        (cnt.State == xPvaContainerState.SeekingP2 ||
 					         cnt.State == xPvaContainerState.SeekingP3);
 					
-					    if (containerStillSupportsLong)
+					    int maxContainerGraceBars = 2;
+					    int graceLimit = longDecayExitBars + maxContainerGraceBars;
+					
+					    if (containerStillSupportsLong && degradingBars <= graceLimit)
 					        return new xPvaExecutionResult(
 					            ExecutionIntent.HoldLong,
-					            $"hold_long_decay_but_container_supports phase={sig.Phase} score={sig.Score:F2} deg={degradingBars} exitTh={longDecayExitBars} {xPvaContainerEngine.Format(cnt)}");
+					            $"hold_long_decay_grace_container_supports phase={sig.Phase} score={sig.Score:F2} deg={degradingBars} exitTh={longDecayExitBars} graceLimit={graceLimit} {xPvaContainerEngine.Format(cnt)}");
 					
 					    return new xPvaExecutionResult(
 					        ExecutionIntent.ExitLong,
-					        $"long_decay_exit phase={sig.Phase} score={sig.Score:F2} deg={degradingBars} exitTh={longDecayExitBars} earlySC={earlyShortCandidate}");
+					        $"long_decay_exit phase={sig.Phase} score={sig.Score:F2} deg={degradingBars} exitTh={longDecayExitBars} graceLimit={graceLimit} containerSupport={containerStillSupportsLong} earlySC={earlyShortCandidate}");
 					}
 				
 				    return new xPvaExecutionResult(
@@ -178,6 +181,7 @@ namespace NinjaTrader.NinjaScript.xPva.Engine2
         }
     }
 }
+
 
 
 
