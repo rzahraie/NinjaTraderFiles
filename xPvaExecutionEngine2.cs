@@ -25,9 +25,9 @@ namespace NinjaTrader.NinjaScript.xPva.Engine2
 			
 			bool containerAllowsShort =
 			    cnt != null &&
-			    cnt.Direction == xPvaContainerDirection.Down &&
-			    (cnt.State == xPvaContainerState.SeekingP2 ||
-			     cnt.State == xPvaContainerState.SeekingP3);
+				cnt.Direction == xPvaContainerDirection.Down &&
+				cnt.State == xPvaContainerState.SeekingP3 &&
+				cnt.HasP3;
 			
 			int longDecayExitBars = System.Math.Max(1, maxNoneBarsInPosition - 1);
             
