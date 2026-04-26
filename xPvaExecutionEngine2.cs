@@ -249,10 +249,27 @@ namespace NinjaTrader.NinjaScript.xPva.Engine2
 				        && sig.Score >= 0.40
 				        && degradingBars >= 1;
 				
-				    if (sig.Phase == SignalPhase.LongValid)
+				   bool protectedStrongShortContext =
+					    cnt != null &&
+					    cnt.Direction == xPvaContainerDirection.Down &&
+					    (cnt.State == xPvaContainerState.PostP3 ||
+					     cnt.State == xPvaContainerState.FttDetected) &&
+					    cnt.HasP3 &&
+					    cnt.ImbalanceAtP3 <= -0.25;
+					
+					if (sig.Phase == SignalPhase.LongValid)
+					{
+					    if (protectedStrongShortContext && sig.Score < 0.60)
+					    {
+					        return new xPvaExecutionResult(
+					            ExecutionIntent.ExitShort,
+					            $"exit_short_no_reverse strong_short_context longScore={sig.Score:F2} {xPvaContainerEngine.Format(cnt)}");
+					    }
+					
 					    return new xPvaExecutionResult(
 					        ExecutionIntent.ReverseToLong,
-					        $"reverse_to_long_valid phase={sig.Phase} score={sig.Score:F2} deg={degradingBars} earlyLC={earlyLongCandidate}");
+					        $"reverse_to_long_valid phase={sig.Phase} score={sig.Score:F2} deg={degradingBars}");
+					}
 					
 					if (earlyLongCandidate && !containerAllowsLong)
 					{
@@ -296,6 +313,7 @@ namespace NinjaTrader.NinjaScript.xPva.Engine2
         }
     }
 }
+
 
 
 
