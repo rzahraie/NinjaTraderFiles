@@ -282,11 +282,6 @@ namespace NinjaTrader.NinjaScript.xPva.Engine2
 					    return new xPvaExecutionResult(
 					        ExecutionIntent.ReverseToLong,
 					        $"reverse_to_long_candidate_early phase={sig.Phase} score={sig.Score:F2} deg={degradingBars} earlyLC={earlyLongCandidate}");
-				
-				    if (degradingBars >= maxNoneBarsInPosition)
-				        return new xPvaExecutionResult(
-				            ExecutionIntent.ExitShort,
-				            $"short_decay_exit phase={sig.Phase} score={sig.Score:F2} deg={degradingBars} earlyLC={earlyLongCandidate}");
 					
 					bool shortImbalanceFailure =
 					    cnt != null &&
@@ -302,6 +297,11 @@ namespace NinjaTrader.NinjaScript.xPva.Engine2
 					        $"short_imbalance_failure_exit imbP3={cnt.ImbalanceAtP3:F2} {xPvaContainerEngine.Format(cnt)}");
 					}
 				
+				    if (degradingBars >= maxNoneBarsInPosition)
+				        return new xPvaExecutionResult(
+				            ExecutionIntent.ExitShort,
+				            $"short_decay_exit phase={sig.Phase} score={sig.Score:F2} deg={degradingBars} earlyLC={earlyLongCandidate}");
+					
 				    return new xPvaExecutionResult(
 				        ExecutionIntent.HoldShort,
 				        $"hold_short phase={sig.Phase} score={sig.Score:F2} deg={degradingBars} earlyLC={earlyLongCandidate}");
@@ -313,6 +313,7 @@ namespace NinjaTrader.NinjaScript.xPva.Engine2
         }
     }
 }
+
 
 
 
