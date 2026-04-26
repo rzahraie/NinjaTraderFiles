@@ -48,19 +48,10 @@ namespace NinjaTrader.NinjaScript.xPva.Engine2
 					{
 					    bool allowEarlyShort =
 						    cnt != null &&
-						    (
-						        // Case 1: reversal (FTT)
-						        (cnt.Direction == xPvaContainerDirection.Up &&
-						         cnt.State == xPvaContainerState.FttDetected &&
-						         cnt.HasP3 && sig.Score >= 0.65)
-						
-						        ||
-						
-						        // Case 2: strong continuation (NEW)
-						        (cnt.Direction == xPvaContainerDirection.Down &&
-						         cnt.State == xPvaContainerState.SeekingP2 &&
-						         sig.Score >= 0.80)
-						    );
+						    cnt.Direction == xPvaContainerDirection.Up &&
+						    cnt.State == xPvaContainerState.FttDetected &&
+						    cnt.HasP3 &&
+						    sig.Score >= 0.65;
 					
 					    bool allowStructuredShort =
 					        cnt != null &&
@@ -346,6 +337,7 @@ namespace NinjaTrader.NinjaScript.xPva.Engine2
         }
     }
 }
+
 
 
 
