@@ -46,18 +46,33 @@ namespace NinjaTrader.NinjaScript.xPva.Engine2
 					
 					if (sig.Phase == SignalPhase.ShortValid && sig.Score >= 0.55)
 					{
-					    bool allowEarlyShort =
-					    cnt != null &&
-					    cnt.Direction == xPvaContainerDirection.Up &&
-					    cnt.State == xPvaContainerState.FttDetected &&
-					    sig.Score >= 0.65;
+					   bool allowEarlyShort =
+						    cnt != null &&
+						    cnt.Direction == xPvaContainerDirection.Up &&
+						    cnt.State == xPvaContainerState.FttDetected &&
+						    cnt.HasP3 &&
+						    sig.Score >= 0.65;
 						
-						if (!containerAllowsShort && !allowEarlyShort)
+						bool allowStructuredShort =
+						    cnt != null &&
+						    cnt.Direction == xPvaContainerDirection.Down &&
+						    cnt.State == xPvaContainerState.SeekingP3 &&
+						    cnt.HasP3;
+						
+						if (sig.Phase == SignalPhase.ShortValid && sig.Score >= 0.55)
 						{
+						    if (!allowStructuredShort && !allowEarlyShort)
+						    {
+						        return new xPvaExecutionResult(
+						            ExecutionIntent.StandAside,
+						            $"blocked_short {xPvaContainerEngine.Format(cnt)}");
+						    }
+						
 						    return new xPvaExecutionResult(
-						        ExecutionIntent.StandAside,
-						        $"blocked_short_by_container {xPvaContainerEngine.Format(cnt)}");
+						        ExecutionIntent.EnterShort,
+						        allowEarlyShort ? "enter_short_early_ftt" : "enter_short_structured");
 						}
+						
 					    return new xPvaExecutionResult(
 					        ExecutionIntent.EnterShort,
 					        "enter_short_valid");
@@ -329,6 +344,7 @@ namespace NinjaTrader.NinjaScript.xPva.Engine2
         }
     }
 }
+
 
 
 
