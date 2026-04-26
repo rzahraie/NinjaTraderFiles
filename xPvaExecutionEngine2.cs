@@ -174,6 +174,21 @@ namespace NinjaTrader.NinjaScript.xPva.Engine2
 					        $"long_immediate_p3_failure imbP3={cnt.ImbalanceAtP3:F2} {xPvaContainerEngine.Format(cnt)}");
 					}
 
+					bool weakPostP3 =
+					    cnt != null &&
+					    cnt.Direction == xPvaContainerDirection.Up &&
+					    cnt.State == xPvaContainerState.PostP3 &&
+					    cnt.PostP3AttemptStartBar >= 0 &&
+					    cnt.PostP3AttemptEndBar >= cnt.PostP3AttemptStartBar &&
+					    cnt.ImbalanceAtP3 <= -0.10;
+					
+					if (weakPostP3)
+					{
+					    return new xPvaExecutionResult(
+					        ExecutionIntent.ExitLong,
+					        $"long_post_p3_weak_exit imbP3={cnt.ImbalanceAtP3:F2} {xPvaContainerEngine.Format(cnt)}");
+					}
+
 					if (degradingBars >= longDecayExitBars)
 					{
 					    bool containerStillSupportsLong =
@@ -262,6 +277,7 @@ namespace NinjaTrader.NinjaScript.xPva.Engine2
         }
     }
 }
+
 
 
 
