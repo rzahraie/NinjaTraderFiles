@@ -179,6 +179,19 @@ namespace NinjaTrader.NinjaScript.xPva.Engine2
 					        ? cnt.PostP3AttemptEndBar - cnt.PostP3AttemptStartBar + 1
 					        : 0;
 					
+					bool strongPostP3 =
+					    cnt != null &&
+					    cnt.Direction == xPvaContainerDirection.Up &&
+					    cnt.State == xPvaContainerState.PostP3 &&
+					    cnt.ImbalanceAtP3 >= 0.25;
+					
+					if (strongPostP3)
+					{
+					    return new xPvaExecutionResult(
+					        ExecutionIntent.HoldLong,
+					        $"long_post_p3_strong_hold imbP3={cnt.ImbalanceAtP3:F2} {xPvaContainerEngine.Format(cnt)}");
+					}
+					
 					bool weakPostP3 =
 					    cnt != null &&
 					    cnt.Direction == xPvaContainerDirection.Up &&
@@ -282,6 +295,7 @@ namespace NinjaTrader.NinjaScript.xPva.Engine2
         }
     }
 }
+
 
 
 
