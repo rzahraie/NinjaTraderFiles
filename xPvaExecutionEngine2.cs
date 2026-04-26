@@ -270,6 +270,20 @@ namespace NinjaTrader.NinjaScript.xPva.Engine2
 				        return new xPvaExecutionResult(
 				            ExecutionIntent.ExitShort,
 				            $"short_decay_exit phase={sig.Phase} score={sig.Score:F2} deg={degradingBars} earlyLC={earlyLongCandidate}");
+					
+					bool shortImbalanceFailure =
+					    cnt != null &&
+					    cnt.Direction == xPvaContainerDirection.Down &&
+					    cnt.HasP3 &&
+					    cnt.ImbalanceAtP3 >= 0.40 &&
+					    degradingBars >= 1;
+					
+					if (shortImbalanceFailure)
+					{
+					    return new xPvaExecutionResult(
+					        ExecutionIntent.ExitShort,
+					        $"short_imbalance_failure_exit imbP3={cnt.ImbalanceAtP3:F2} {xPvaContainerEngine.Format(cnt)}");
+					}
 				
 				    return new xPvaExecutionResult(
 				        ExecutionIntent.HoldShort,
@@ -282,6 +296,7 @@ namespace NinjaTrader.NinjaScript.xPva.Engine2
         }
     }
 }
+
 
 
 
