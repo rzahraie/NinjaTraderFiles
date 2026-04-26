@@ -44,8 +44,17 @@ namespace NinjaTrader.NinjaScript.xPva.Engine2
 					    return new xPvaExecutionResult(ExecutionIntent.EnterLong, "enter_long_valid");
 					}
 					
-					// if (sig.Phase == SignalPhase.ShortValid && sig.Score >= 0.55)
-					//     return new xPvaExecutionResult(ExecutionIntent.EnterShort, "enter_short_valid");
+					if (sig.Phase == SignalPhase.ShortValid && sig.Score >= 0.55)
+					{
+					    if (!containerAllowsShort)
+					        return new xPvaExecutionResult(
+					            ExecutionIntent.StandAside,
+					            $"blocked_short_by_container {xPvaContainerEngine.Format(cnt)}");
+					
+					    return new xPvaExecutionResult(
+					        ExecutionIntent.EnterShort,
+					        "enter_short_valid");
+					}
 
                     return new xPvaExecutionResult(ExecutionIntent.StandAside, "flat_no_valid_signal");
 
@@ -313,6 +322,7 @@ namespace NinjaTrader.NinjaScript.xPva.Engine2
         }
     }
 }
+
 
 
 
