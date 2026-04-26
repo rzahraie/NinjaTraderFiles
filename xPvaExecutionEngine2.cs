@@ -133,23 +133,6 @@ namespace NinjaTrader.NinjaScript.xPva.Engine2
 					        $"long_ftt_failure_exit {xPvaContainerEngine.Format(cnt)}");
 					}
 
-					bool longPostP3AttemptWeak =
-					    cnt != null &&
-					    cnt.Direction == xPvaContainerDirection.Up &&
-					    cnt.State == xPvaContainerState.PostP3 &&
-					    cnt.HasP2 &&
-					    cnt.HasP3 &&
-					    cnt.PostP3AttemptStartBar >= 0 &&
-					    cnt.PostP3AttemptEndBar >= cnt.PostP3AttemptStartBar &&
-					    cnt.ImbalanceAtP3 <= -0.25;
-					
-					if (longPostP3AttemptWeak)
-					{
-					    return new xPvaExecutionResult(
-					        ExecutionIntent.HoldLong,
-					        $"diagnostic_long_weak_post_p3_attempt imbP3={cnt.ImbalanceAtP3:F2} {xPvaContainerEngine.Format(cnt)}");
-					}
-
 					bool longImbalanceFailure =
 					    cnt != null &&
 					    cnt.Direction == xPvaContainerDirection.Up &&
@@ -162,21 +145,6 @@ namespace NinjaTrader.NinjaScript.xPva.Engine2
 					    return new xPvaExecutionResult(
 					        ExecutionIntent.ExitLong,
 					        $"long_imbalance_failure_exit imbP3={cnt.ImbalanceAtP3:F2} {xPvaContainerEngine.Format(cnt)}");
-					}
-
-					bool weakPostP3Continuation =
-					    cnt != null &&
-					    cnt.Direction == xPvaContainerDirection.Up &&
-					    cnt.State == xPvaContainerState.PostP3 &&
-					    cnt.PostP3AttemptStartBar >= 0 &&
-					    cnt.PostP3AttemptEndBar >= cnt.PostP3AttemptStartBar &&
-					    cnt.ImbalanceAtP3 <= -0.10;   // weaker threshold here
-					
-					if (weakPostP3Continuation)
-					{
-					    return new xPvaExecutionResult(
-					        ExecutionIntent.ExitLong,
-					        $"long_post_p3_weak_exit imbP3={cnt.ImbalanceAtP3:F2} len={cnt.PostP3AttemptEndBar - cnt.PostP3AttemptStartBar + 1} {xPvaContainerEngine.Format(cnt)}");
 					}
 
 					bool immediateP3Failure =
@@ -314,6 +282,7 @@ namespace NinjaTrader.NinjaScript.xPva.Engine2
         }
     }
 }
+
 
 
 
