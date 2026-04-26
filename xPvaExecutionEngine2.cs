@@ -321,6 +321,39 @@ namespace NinjaTrader.NinjaScript.xPva.Engine2
 					        $"short_imbalance_failure_exit imbP3={cnt.ImbalanceAtP3:F2} {xPvaContainerEngine.Format(cnt)}");
 					}
 				
+					int shortPostLen =
+					    cnt != null && cnt.PostP3AttemptEndBar >= cnt.PostP3AttemptStartBar
+					        ? cnt.PostP3AttemptEndBar - cnt.PostP3AttemptStartBar + 1
+					        : 0;
+					
+					bool strongShortPostP3 =
+					    cnt != null &&
+					    cnt.Direction == xPvaContainerDirection.Down &&
+					    cnt.State == xPvaContainerState.PostP3 &&
+					    cnt.ImbalanceAtP3 <= -0.25;
+					
+					if (strongShortPostP3)
+					{
+					    return new xPvaExecutionResult(
+					        ExecutionIntent.HoldShort,
+					        $"short_post_p3_strong_hold imbP3={cnt.ImbalanceAtP3:F2} {xPvaContainerEngine.Format(cnt)}");
+					}
+					
+					bool weakShortPostP3 =
+					    cnt != null &&
+					    cnt.Direction == xPvaContainerDirection.Down &&
+					    cnt.State == xPvaContainerState.PostP3 &&
+					    cnt.PostP3AttemptStartBar >= 0 &&
+					    cnt.ImbalanceAtP3 >= 0.10 &&
+					    shortPostLen <= 2;
+					
+					if (weakShortPostP3)
+					{
+					    return new xPvaExecutionResult(
+					        ExecutionIntent.ExitShort,
+					        $"short_post_p3_weak_exit imbP3={cnt.ImbalanceAtP3:F2} postLen={shortPostLen} {xPvaContainerEngine.Format(cnt)}");
+					}
+					
 				    if (degradingBars >= maxNoneBarsInPosition)
 				        return new xPvaExecutionResult(
 				            ExecutionIntent.ExitShort,
@@ -337,6 +370,7 @@ namespace NinjaTrader.NinjaScript.xPva.Engine2
         }
     }
 }
+
 
 
 
