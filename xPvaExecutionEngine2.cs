@@ -80,10 +80,29 @@ namespace NinjaTrader.NinjaScript.xPva.Engine2
 					    sig.Score >= 0.60 &&
 					    degradingBars >= 3;
 				
-				    if (sig.Phase == SignalPhase.ShortValid)
-				        return new xPvaExecutionResult(
-				            ExecutionIntent.ReverseToShort,
-				            $"reverse_to_short_valid phase={sig.Phase} score={sig.Score:F2} deg={degradingBars} earlySC={earlyShortCandidate}");
+				    bool protectedStrongLongContext =
+					    cnt != null &&
+					    cnt.Direction == xPvaContainerDirection.Up &&
+					    (cnt.State == xPvaContainerState.PostP3 ||
+					     cnt.State == xPvaContainerState.FttDetected) &&
+					    cnt.HasP3 &&
+					    cnt.ImbalanceAtP3 >= 0.25;
+					
+					// If short signal appears but long context is still strong,
+					// EXIT the long but DO NOT reverse unless the short is strong enough.
+					if (sig.Phase == SignalPhase.ShortValid)
+					{
+					    if (protectedStrongLongContext && sig.Score < 0.60)
+					    {
+					        return new xPvaExecutionResult(
+					            ExecutionIntent.ExitLong,
+					            $"exit_long_no_reverse strong_long_context shortScore={sig.Score:F2} {xPvaContainerEngine.Format(cnt)}");
+					    }
+					
+					    return new xPvaExecutionResult(
+					        ExecutionIntent.ReverseToShort,
+					        $"reverse_to_short_valid phase={sig.Phase} score={sig.Score:F2} deg={degradingBars} earlySC={earlyShortCandidate}");
+					}
 					
 					if ((controlledEarlyShort || earlyShortCandidate) && !containerAllowsShort)
 					{
@@ -295,6 +314,7 @@ namespace NinjaTrader.NinjaScript.xPva.Engine2
         }
     }
 }
+
 
 
 
