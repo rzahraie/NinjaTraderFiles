@@ -99,7 +99,7 @@ namespace NinjaTrader.NinjaScript.xPva.Engine2
 				        sig.Score >= 0.40 &&
 				        degradingBars >= longDecayExitBars;
 					
-				  bool controlledEarlyShort =
+				   bool controlledEarlyShort =
 					    sig.Phase == SignalPhase.ShortCandidate &&
 					    sig.Score >= 0.60 &&
 					    degradingBars >= 3;
@@ -202,7 +202,7 @@ namespace NinjaTrader.NinjaScript.xPva.Engine2
 					        ExecutionIntent.HoldLong,
 					        $"long_post_p3_strong_hold imbP3={cnt.ImbalanceAtP3:F2} {xPvaContainerEngine.Format(cnt)}");
 					}
-					
+
 					bool weakPostP3 =
 					    cnt != null &&
 					    cnt.Direction == xPvaContainerDirection.Up &&
@@ -370,6 +370,11 @@ namespace NinjaTrader.NinjaScript.xPva.Engine2
         }
     }
 }
+
+
+
+
+
 
 
 

@@ -2,6 +2,7 @@ using System;
 
 namespace NinjaTrader.NinjaScript.xPva.Engine2
 {
+	
     public enum PricePolarity
     {
         Unknown = 0,
@@ -868,6 +869,7 @@ namespace NinjaTrader.NinjaScript.xPva.Engine
         public static EngineEvents Empty => new EngineEvents(Array.Empty<EngineEvent>());
     }
 }
+
 
 
 
