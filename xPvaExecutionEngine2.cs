@@ -321,6 +321,20 @@ namespace NinjaTrader.NinjaScript.xPva.Engine2
 					        $"short_imbalance_failure_exit imbP3={cnt.ImbalanceAtP3:F2} {xPvaContainerEngine.Format(cnt)}");
 					}
 				
+					bool immediateShortP3Failure =
+					    cnt != null &&
+					    cnt.Direction == xPvaContainerDirection.Down &&
+					    cnt.HasP3 &&
+					    cnt.State == xPvaContainerState.SeekingP3 &&
+					    cnt.ImbalanceAtP3 >= 0.40;
+					
+					if (immediateShortP3Failure)
+					{
+					    return new xPvaExecutionResult(
+					        ExecutionIntent.ExitShort,
+					        $"short_immediate_p3_failure imbP3={cnt.ImbalanceAtP3:F2} {xPvaContainerEngine.Format(cnt)}");
+					}
+
 					int shortPostLen =
 					    cnt != null && cnt.PostP3AttemptEndBar >= cnt.PostP3AttemptStartBar
 					        ? cnt.PostP3AttemptEndBar - cnt.PostP3AttemptStartBar + 1
@@ -354,10 +368,47 @@ namespace NinjaTrader.NinjaScript.xPva.Engine2
 					        $"short_post_p3_weak_exit imbP3={cnt.ImbalanceAtP3:F2} postLen={shortPostLen} {xPvaContainerEngine.Format(cnt)}");
 					}
 					
+					bool shortFttFailure =
+					    cnt != null &&
+					    cnt.Direction == xPvaContainerDirection.Down &&
+					    cnt.State == xPvaContainerState.FttDetected;
+					
+					if (shortFttFailure)
+					{
+					    return new xPvaExecutionResult(
+					        ExecutionIntent.ExitShort,
+					        $"short_ftt_failure_exit {xPvaContainerEngine.Format(cnt)}");
+					}
+
 				    if (degradingBars >= maxNoneBarsInPosition)
-				        return new xPvaExecutionResult(
-				            ExecutionIntent.ExitShort,
-				            $"short_decay_exit phase={sig.Phase} score={sig.Score:F2} deg={degradingBars} earlyLC={earlyLongCandidate}");
+					{
+					    bool containerStillSupportsShort =
+					        cnt != null &&
+					        cnt.Direction == xPvaContainerDirection.Down &&
+					        (cnt.State == xPvaContainerState.SeekingP2 ||
+					         cnt.State == xPvaContainerState.SeekingP3);
+					
+					    int maxContainerGraceBars = 2;
+					    int graceLimit = maxNoneBarsInPosition + maxContainerGraceBars;
+					
+					    bool favorableShortImbalance =
+					        cnt != null &&
+					        cnt.HasP3 &&
+					        cnt.ImbalanceAtP3 <= -0.25;
+					
+					    if (containerStillSupportsShort &&
+					        (degradingBars <= graceLimit ||
+					         (favorableShortImbalance && degradingBars <= graceLimit + 2)))
+					    {
+					        return new xPvaExecutionResult(
+					            ExecutionIntent.HoldShort,
+					            $"hold_short_decay_grace_container_supports phase={sig.Phase} score={sig.Score:F2} deg={degradingBars} graceLimit={graceLimit} {xPvaContainerEngine.Format(cnt)}");
+					    }
+					
+					    return new xPvaExecutionResult(
+					        ExecutionIntent.ExitShort,
+					        $"short_decay_exit phase={sig.Phase} score={sig.Score:F2} deg={degradingBars}");
+					}
 					
 				    return new xPvaExecutionResult(
 				        ExecutionIntent.HoldShort,
@@ -370,6 +421,7 @@ namespace NinjaTrader.NinjaScript.xPva.Engine2
         }
     }
 }
+
 
 
 
