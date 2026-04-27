@@ -50,8 +50,9 @@ namespace NinjaTrader.NinjaScript.xPva.Engine2
 					
 					bool usablePersistedShortSignal =
 					    recentStrongShortSignal &&
-					    sig.Score >= 0.30 &&   // still some directional bias
-					    sig.Phase != SignalPhase.LongValid;
+					    sig.Score >= 0.40 &&                 // raise floor
+					    (sig.Phase == SignalPhase.ShortCandidate ||
+					     sig.Phase == SignalPhase.None);     // NOT neutral collapse
 					
 					bool freshContext = degradingBars <= 2;   // key filter
 
@@ -432,6 +433,7 @@ namespace NinjaTrader.NinjaScript.xPva.Engine2
         }
     }
 }
+
 
 
 
