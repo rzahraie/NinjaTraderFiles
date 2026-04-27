@@ -35,6 +35,14 @@ namespace NinjaTrader.NinjaScript.xPva.Engine2
 		private readonly xPvaContainerEngine containerEngine;
 
         private BarSnapshot? lastBar;
+		
+		// Signal memory (short side)
+		private int lastShortValidBar = -1;
+		private double lastShortValidScore = 0.0;
+		
+		// (Optional symmetry — do this now, not later)
+		private int lastLongValidBar = -1;
+		private double lastLongValidScore = 0.0;
 
         public xPvaEngine2(xPvaEngineParameters parameters)
         {
@@ -108,6 +116,25 @@ namespace NinjaTrader.NinjaScript.xPva.Engine2
 
             xPvaLateralResult lat = lateralEngine.Compute(s, featureList, imb, tickSize);
             xPvaSignalResult sig = signalEngine.Compute(dir, dom, seq, imb, lat);
+			
+			// Update short signal memory
+			if (sig.Phase == SignalPhase.ShortValid)
+			{
+			    lastShortValidBar = cur.Index;   // whatever your bar index variable is
+			    lastShortValidScore = sig.Score;
+			}
+			
+			// Update long signal memory (symmetry — strongly recommended)
+			if (sig.Phase == SignalPhase.LongValid)
+			{
+			    lastLongValidBar = cur.Index;
+			    lastLongValidScore = sig.Score;
+			}
+			
+			bool recentStrongShortSignal =
+			    lastShortValidBar >= 0 &&
+			    (cur.Index - lastShortValidBar) <= 3 &&
+			    lastShortValidScore >= 0.65;
 			
 			xPvaContainer cnt = containerEngine.Step(cur, dir, dom, seq, imb, sig, tickSize);
 			
@@ -242,18 +269,19 @@ namespace NinjaTrader.NinjaScript.xPva.Engine2
 			bool preShock = s.ShockReversalArmed;
 			
             xPvaExecutionResult exe = executionEngine.Compute(
-								    s.CurrentPosition,
-								    sig,
-								    cnt,
-									cur.C,
-									cur.L,
-								    s.DegradingSignalBars,
-								    p.MaxNoneBarsInPosition,
-								    p.EnableOppositePressureOverride,
-								    s.OppositePressureArmed,
-								    s.OppositePressureBars,
-								    s.ShockReversalArmed,
-								    s.ShockReason);
+										    s.CurrentPosition,
+										    sig,
+										    cnt,
+										    cur.C,
+										    cur.L,
+										    s.DegradingSignalBars,
+										    p.MaxNoneBarsInPosition,
+										    p.EnableOppositePressureOverride,
+										    s.OppositePressureArmed,
+										    s.OppositePressureBars,
+										    s.ShockReversalArmed,
+										    s.ShockReason,
+										    recentStrongShortSignal);
 			
 			var ctx3 = new xPvaExecContext
 			{
@@ -367,6 +395,10 @@ namespace NinjaTrader.NinjaScript.xPva.Engine2
         }
     }
 }
+
+
+
+
 
 
 
