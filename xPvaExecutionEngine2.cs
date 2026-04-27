@@ -45,7 +45,15 @@ namespace NinjaTrader.NinjaScript.xPva.Engine2
 					    return new xPvaExecutionResult(ExecutionIntent.EnterLong, "enter_long_valid");
 					}
 					
-					if ((sig.Phase == SignalPhase.ShortValid && sig.Score >= 0.55) || recentStrongShortSignal)
+					bool currentShortSignal =
+					    sig.Phase == SignalPhase.ShortValid && sig.Score >= 0.55;
+					
+					bool usablePersistedShortSignal =
+					    recentStrongShortSignal &&
+					    sig.Score >= 0.30 &&   // still some directional bias
+					    sig.Phase != SignalPhase.LongValid;
+					
+					if (currentShortSignal || usablePersistedShortSignal)
 					{
 					    bool allowEarlyShort =
 						    cnt != null &&
@@ -422,6 +430,8 @@ namespace NinjaTrader.NinjaScript.xPva.Engine2
         }
     }
 }
+
+
 
 
 
