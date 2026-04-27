@@ -53,7 +53,9 @@ namespace NinjaTrader.NinjaScript.xPva.Engine2
 					    sig.Score >= 0.30 &&   // still some directional bias
 					    sig.Phase != SignalPhase.LongValid;
 					
-					if (currentShortSignal || usablePersistedShortSignal)
+					bool freshContext = degradingBars <= 2;   // key filter
+
+					if ((currentShortSignal || usablePersistedShortSignal) && freshContext)
 					{
 					    bool allowEarlyShort =
 						    cnt != null &&
@@ -430,6 +432,7 @@ namespace NinjaTrader.NinjaScript.xPva.Engine2
         }
     }
 }
+
 
 
 

@@ -133,7 +133,7 @@ namespace NinjaTrader.NinjaScript.xPva.Engine2
 			
 			bool recentStrongShortSignal =
 			    lastShortValidBar >= 0 &&
-			    (cur.Index - lastShortValidBar) <= 3 &&
+			    (cur.Index - lastShortValidBar) <= 8 &&
 			    lastShortValidScore >= 0.65;
 			
 			xPvaContainer cnt = containerEngine.Step(cur, dir, dom, seq, imb, sig, tickSize);
@@ -395,6 +395,7 @@ namespace NinjaTrader.NinjaScript.xPva.Engine2
         }
     }
 }
+
 
 
 
