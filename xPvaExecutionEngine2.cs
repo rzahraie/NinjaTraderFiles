@@ -55,31 +55,44 @@ namespace NinjaTrader.NinjaScript.xPva.Engine2
 					
 					bool freshContext = degradingBars <= 2;   // key filter
 
-					if ((currentShortSignal || usablePersistedShortSignal) && freshContext)
+					bool allowEarlyShort =
+					    cnt != null &&
+					    cnt.Direction == xPvaContainerDirection.Up &&
+					    cnt.State == xPvaContainerState.FttDetected &&
+					    cnt.HasP3 &&
+					    sig.Score >= 0.65;
+					
+					bool allowStructuredShort =
+					    cnt != null &&
+					    cnt.Direction == xPvaContainerDirection.Down &&
+					    cnt.State == xPvaContainerState.SeekingP3 &&
+					    cnt.HasP3;
+					
+					// NEW: structure-driven entry
+					if (allowStructuredShort)
 					{
-					    bool allowEarlyShort =
-						    cnt != null &&
-						    cnt.Direction == xPvaContainerDirection.Up &&
-						    cnt.State == xPvaContainerState.FttDetected &&
-						    cnt.HasP3 &&
-						    sig.Score >= 0.65;
+					    bool validTrigger =
+					        (sig.Phase == SignalPhase.ShortValid && sig.Score >= 0.55)
+					        || usablePersistedShortSignal;
 					
-					    bool allowStructuredShort =
-					        cnt != null &&
-					        cnt.Direction == xPvaContainerDirection.Down &&
-					        cnt.State == xPvaContainerState.SeekingP3 &&
-					        cnt.HasP3;
-					
-					    if (!allowStructuredShort && !allowEarlyShort)
+					    if (!validTrigger)
 					    {
 					        return new xPvaExecutionResult(
 					            ExecutionIntent.StandAside,
-					            $"blocked_short {xPvaContainerEngine.Format(cnt)}");
+					            $"blocked_short_no_trigger {xPvaContainerEngine.Format(cnt)}");
 					    }
 					
 					    return new xPvaExecutionResult(
 					        ExecutionIntent.EnterShort,
-					        allowEarlyShort ? "enter_short_early_ftt" : "enter_short_structured");
+					        "enter_short_structured_persisted");
+					}
+					
+					// early FTT remains unchanged
+					if (allowEarlyShort)
+					{
+					    return new xPvaExecutionResult(
+					        ExecutionIntent.EnterShort,
+					        "enter_short_early_ftt");
 					}
 
                     return new xPvaExecutionResult(ExecutionIntent.StandAside, "flat_no_valid_signal");
@@ -432,6 +445,7 @@ namespace NinjaTrader.NinjaScript.xPva.Engine2
         }
     }
 }
+
 
 
 
