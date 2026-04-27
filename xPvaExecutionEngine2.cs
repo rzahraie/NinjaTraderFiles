@@ -422,6 +422,13 @@ namespace NinjaTrader.NinjaScript.xPva.Engine2
 					    sig.Score == 0.0 &&
 					    degradingBars >= 4;
 					
+					if (deadSignalZone)
+					{
+					    return new xPvaExecutionResult(
+					        ExecutionIntent.ExitShort,
+					        $"short_dead_signal_exit deg={degradingBars}");
+					}
+					
 				    if (degradingBars >= maxNoneBarsInPosition)
 					{
 					    bool containerStillSupportsShort =
@@ -438,12 +445,7 @@ namespace NinjaTrader.NinjaScript.xPva.Engine2
 					        cnt.HasP3 &&
 					        cnt.ImbalanceAtP3 <= -0.25;
 					
-						if (deadSignalZone)
-						{
-						    return new xPvaExecutionResult(
-						        ExecutionIntent.ExitShort,
-						        $"short_dead_signal_exit deg={degradingBars}");
-						}
+						
 
 					    if (containerStillSupportsShort &&
 					        (degradingBars <= graceLimit ||
@@ -470,6 +472,7 @@ namespace NinjaTrader.NinjaScript.xPva.Engine2
         }
     }
 }
+
 
 
 
