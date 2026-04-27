@@ -69,6 +69,7 @@ namespace NinjaTrader.NinjaScript.xPva.Engine2
 					    cnt.HasP3;
 					
 					// NEW: structure-driven entry
+					// NEW: structure-driven entry
 					if (allowStructuredShort)
 					{
 					    bool validTrigger =
@@ -80,6 +81,18 @@ namespace NinjaTrader.NinjaScript.xPva.Engine2
 					        return new xPvaExecutionResult(
 					            ExecutionIntent.StandAside,
 					            $"blocked_short_no_trigger {xPvaContainerEngine.Format(cnt)}");
+					    }
+					
+					    bool justFormedP3 =
+					        cnt != null &&
+					        cnt.HasP3 &&
+					        cnt.P3Bar == cnt.LastBar;
+					
+					    if (justFormedP3)
+					    {
+					        return new xPvaExecutionResult(
+					            ExecutionIntent.StandAside,
+					            $"wait_short_post_p3_confirmation {xPvaContainerEngine.Format(cnt)}");
 					    }
 					
 					    return new xPvaExecutionResult(
@@ -445,6 +458,8 @@ namespace NinjaTrader.NinjaScript.xPva.Engine2
         }
     }
 }
+
+
 
 
 
