@@ -417,10 +417,17 @@ namespace NinjaTrader.NinjaScript.xPva.Engine2
 					        $"short_ftt_failure_exit {xPvaContainerEngine.Format(cnt)}");
 					}
 
+					bool structureStillValid =
+					    cnt != null &&
+					    cnt.Direction == xPvaContainerDirection.Down &&
+					    cnt.State == xPvaContainerState.SeekingP3 &&
+					    cnt.HasP3;
+					
 					bool deadSignalZone =
 					    sig.Phase == SignalPhase.None &&
 					    sig.Score <= 0.10 &&
-					    degradingBars >= 4;
+					    degradingBars >= 4 &&
+					    !structureStillValid;
 					
 					if (deadSignalZone)
 					{
@@ -472,6 +479,7 @@ namespace NinjaTrader.NinjaScript.xPva.Engine2
         }
     }
 }
+
 
 
 
