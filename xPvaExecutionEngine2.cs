@@ -419,7 +419,7 @@ namespace NinjaTrader.NinjaScript.xPva.Engine2
 
 					bool deadSignalZone =
 					    sig.Phase == SignalPhase.None &&
-					    sig.Score == 0.0 &&
+					    sig.Score <= 0.10 &&
 					    degradingBars >= 4;
 					
 					if (deadSignalZone)
@@ -472,6 +472,7 @@ namespace NinjaTrader.NinjaScript.xPva.Engine2
         }
     }
 }
+
 
 
 
