@@ -422,7 +422,7 @@ namespace NinjaTrader.NinjaScript.xPva.Engine2
 					    cnt.Direction == xPvaContainerDirection.Down &&
 					    cnt.State == xPvaContainerState.SeekingP3 &&
 					    cnt.HasP3 &&
-					    degradingBars <= 2;   // <-- critical addition
+					    degradingBars <= 3;   // <-- allow short neutral pause
 					
 					bool deadSignalZone =
 					    sig.Phase == SignalPhase.None &&
@@ -480,6 +480,7 @@ namespace NinjaTrader.NinjaScript.xPva.Engine2
         }
     }
 }
+
 
 
 
