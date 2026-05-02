@@ -147,5 +147,53 @@ namespace APVA.Core
 
             return false;
         }
+		
+		public static DominanceState GetRecentBias(
+		    IReadOnlyList<VolumeSegment> segments,
+		    int lookbackSegments)
+		{
+		    if (segments == null || segments.Count == 0)
+		        return DominanceState.Unknown;
+		
+		    int start = segments.Count - lookbackSegments;
+		    if (start < 0)
+		        start = 0;
+		
+		    int dominant = 0;
+		    int nonDominant = 0;
+		    int counterDominant = 0;
+		
+		    for (int i = start; i < segments.Count; i++)
+		    {
+		        if (segments[i].Dominance == DominanceState.Dominant)
+		            dominant++;
+		
+		        if (segments[i].Dominance == DominanceState.NonDominant)
+		            nonDominant++;
+		
+		        if (segments[i].Dominance == DominanceState.CounterDominant)
+		            counterDominant++;
+		    }
+		
+		   // If the LAST segment is counter-dominant, that overrides everything
+			if (segments[segments.Count - 1].Dominance == DominanceState.CounterDominant)
+			    return DominanceState.CounterDominant;
+			
+			// Strong dominance recovery
+			if (dominant > nonDominant + counterDominant)
+			    return DominanceState.Dominant;
+			
+			// Persistent counter-dominance
+			if (counterDominant > dominant)
+			    return DominanceState.CounterDominant;
+			
+			// Weak pullback bias
+			if (nonDominant > dominant)
+			    return DominanceState.NonDominant;
+			
+			return DominanceState.Unknown;
+		}
     }
 }
+
+

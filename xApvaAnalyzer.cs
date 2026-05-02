@@ -9,6 +9,7 @@ namespace APVA.Core
         public DominanceState CurrentDominance { get; set; } = DominanceState.Unknown;
 		public DominanceState CurrentSegmentDominance { get; set; } = DominanceState.Unknown;
 		public DominanceState ContainerBias { get; set; } = DominanceState.Unknown;
+		public DominanceState RecentBias { get; set; } = DominanceState.Unknown;
 
         public bool HasDominanceSequence { get; set; }
         public bool HasFailureSequence { get; set; }
@@ -50,6 +51,9 @@ namespace APVA.Core
 			result.ContainerBias =
 			    xApvaDominanceEngine.GetContainerBias(result.Segments);
 			
+			result.RecentBias =
+    			xApvaDominanceEngine.GetRecentBias(result.Segments, 5);
+			
             result.Ftt =
                 xApvaFttDetector.Detect(
                     result.Segments,
@@ -60,4 +64,5 @@ namespace APVA.Core
         }
     }
 }
+
 

@@ -99,6 +99,7 @@ namespace NinjaTrader.NinjaScript.Indicators
             Print("FTT Reason: " + result.Ftt.Reason);
 			Print("CurrentSegmentDominance: " + result.CurrentSegmentDominance);
 			Print("ContainerBias: " + result.ContainerBias);
+			Print("RecentBias: " + result.RecentBias);
         }
     }
 }
