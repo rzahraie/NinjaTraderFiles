@@ -57,14 +57,19 @@ namespace NinjaTrader.NinjaScript.Indicators
                 });
             }
 
-            ApvaAnalysisResult result = xApvaAnalyzer.Analyze(
-                bars,
-                classified,
-                xApvaDirectionInferer.InferDirection(bars),
-                hasValidP3: false,
-                expectedContinuationFailed: false);
+           ApvaAnalysisResult result = xApvaAnalyzer.Analyze(
+				    bars,
+				    classified,
+				    TickSize);
+			
+			bool continuationFailed =
+			    result.Container != null &&
+			    result.Container.ExpectedContinuationFailed(
+			        bars[bars.Count - 1],
+			        TickSize);
 			
 			bool interesting =
+			    continuationFailed ||
 			    result.Ftt.IsCandidate ||
 			    result.Ftt.IsConfirmed ||
 			    result.CurrentSegmentDominance == DominanceState.CounterDominant ||
@@ -100,6 +105,27 @@ namespace NinjaTrader.NinjaScript.Indicators
 			Print("CurrentSegmentDominance: " + result.CurrentSegmentDominance);
 			Print("ContainerBias: " + result.ContainerBias);
 			Print("RecentBias: " + result.RecentBias);
+			
+			if (result.Container != null)
+			{
+			    Print("ContainerDirection: " + result.Container.Direction);
+			    Print("P1: " + result.Container.P1.Index + " " + result.Container.P1.Price);
+			    Print("P2: " + result.Container.P2.Index + " " + result.Container.P2.Price);
+			    Print("P3: " + result.Container.P3.Index + " " + result.Container.P3.Price);
+			    Print("HasValidP3: " + result.Container.HasValidP3);
+				
+				bool continuationFailed =
+			        result.Container.ExpectedContinuationFailed(
+			            bars[bars.Count - 1],
+			            TickSize);
+				
+			
+			    Print("ExpectedContinuationFailed: " + continuationFailed);
+			}
+			else
+			{
+			    Print("Container: none");
+			}
         }
     }
 }

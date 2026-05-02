@@ -38,11 +38,9 @@ namespace APVA.Core
             };
 
             ApvaAnalysisResult result = xApvaAnalyzer.Analyze(
-                bars,
-                classified,
-                ContainerDirection.Up,
-                hasValidP3: true,
-                expectedContinuationFailed: true);
+			    bars,
+			    classified,
+			    0.25);
 
             Console.WriteLine("Segments:");
             foreach (VolumeSegment segment in result.Segments)
@@ -96,3 +94,4 @@ namespace APVA.Core
         }
     }
 }
+

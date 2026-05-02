@@ -15,54 +15,71 @@ namespace APVA.Core
         public bool HasFailureSequence { get; set; }
 
         public FttResult Ftt { get; set; } = new FttResult();
+		
+		public xApvaContainerCandidate Container { get; set; }
     }
 
     public static class xApvaAnalyzer
     {
         public static ApvaAnalysisResult Analyze(
-            IReadOnlyList<Bar> bars,
-            IReadOnlyList<ClassifiedBar> classifiedBars,
-            ContainerDirection containerDirection,
-            bool hasValidP3,
-            bool expectedContinuationFailed)
-        {
-            var result = new ApvaAnalysisResult();
-
-            result.Segments = xApvaVolumeSegmentBuilder.BuildSegments(
-                bars,
-                classifiedBars);
-
-            xApvaVolumePhaseClassifier.Classify(
-                result.Segments,
-                containerDirection);
-
-            result.CurrentDominance =
-                xApvaDominanceEngine.GetContainerDominance(result.Segments);
-
-            result.HasDominanceSequence =
-                xApvaDominanceEngine.HasDominanceSequence(result.Segments);
-
-            result.HasFailureSequence =
-                xApvaDominanceEngine.HasFailureSequence(result.Segments);
-			
-			result.CurrentSegmentDominance =
-			    xApvaDominanceEngine.GetCurrentSegmentDominance(result.Segments);
-			
-			result.ContainerBias =
-			    xApvaDominanceEngine.GetContainerBias(result.Segments);
-			
-			result.RecentBias =
-    			xApvaDominanceEngine.GetRecentBias(result.Segments, 5);
-			
-            result.Ftt =
-                xApvaFttDetector.Detect(
-                    result.Segments,
-                    hasValidP3,
-                    expectedContinuationFailed);
-
-            return result;
-        }
+		    IReadOnlyList<Bar> bars,
+		    IReadOnlyList<ClassifiedBar> classifiedBars,
+		    double tickTolerance)
+		{
+		    var result = new ApvaAnalysisResult();
+		
+		    result.Container =
+		        xApvaContainerBuilder.BuildFromSwings(
+		            bars,
+		            swingStrength: 1,
+		            tickTolerance: tickTolerance);
+		
+		    ContainerDirection direction =
+		        result.Container != null
+		            ? result.Container.Direction
+		            : xApvaDirectionInferer.InferDirection(bars);
+		
+		    result.Segments = xApvaVolumeSegmentBuilder.BuildSegments(
+		        bars,
+		        classifiedBars);
+		
+		    xApvaVolumePhaseClassifier.Classify(
+		        result.Segments,
+		        direction);
+		
+		    result.CurrentDominance =
+		        xApvaDominanceEngine.GetContainerDominance(result.Segments);
+		
+		    result.CurrentSegmentDominance =
+		        xApvaDominanceEngine.GetCurrentSegmentDominance(result.Segments);
+		
+		    result.ContainerBias =
+		        xApvaDominanceEngine.GetContainerBias(result.Segments);
+		
+		    result.RecentBias =
+		        xApvaDominanceEngine.GetRecentBias(result.Segments, 5);
+		
+		    result.HasDominanceSequence =
+		        xApvaDominanceEngine.HasDominanceSequence(result.Segments);
+		
+		    result.HasFailureSequence =
+		        xApvaDominanceEngine.HasFailureSequence(result.Segments);
+		
+		    result.Ftt =
+		        xApvaFttDetector.Detect(
+		            result.Segments,
+		            hasValidP3: result.Container != null && result.Container.HasValidP3,
+		            expectedContinuationFailed:
+				    result.Container != null &&
+				    result.Container.ExpectedContinuationFailed(
+				        bars[bars.Count - 1],
+				        tickTolerance));
+		
+		    return result;
+		}
     }
 }
+
+
 
 
