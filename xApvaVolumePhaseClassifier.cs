@@ -35,13 +35,21 @@ namespace APVA.Core
                 bool dominant = IsDominant(segment, containerDirection);
                 bool nonDominant = IsNonDominant(segment, containerDirection);
                 bool strongVolume = IsStrongVolume(segment);
+				
+				bool counterDominant = IsCounterDominant(segment, containerDirection);
 
                 if (dominant)
-                    segment.Dominance = DominanceState.Dominant;
-                else if (nonDominant)
-                    segment.Dominance = DominanceState.NonDominant;
-                else
-                    continue;
+				    segment.Dominance = DominanceState.Dominant;
+				else if (nonDominant)
+				    segment.Dominance = DominanceState.NonDominant;
+				else if (counterDominant)
+				{
+				    segment.Dominance = DominanceState.CounterDominant;
+				    state = PhaseMachineState.NeedPP1;
+				    continue;
+				}
+				else
+				    continue;
 
                 switch (state)
                 {
@@ -54,16 +62,17 @@ namespace APVA.Core
                         break;
 
                     case PhaseMachineState.NeedPP2:
-                        if (dominant && strongVolume)
-                        {
-                            segment.Phase = VolumePhase.PP2;
-                            state = PhaseMachineState.NeedT1;
-                        }
-                        else if (nonDominant)
-                        {
-                            state = PhaseMachineState.NeedPP1;
-                        }
-                        break;
+					    if (dominant && strongVolume)
+					    {
+					        segment.Phase = VolumePhase.PP2;
+					        state = PhaseMachineState.NeedT1;
+					    }
+					    else if (nonDominant)
+					    {
+					        segment.Phase = VolumePhase.Unknown;
+					        state = PhaseMachineState.NeedPP2;
+					    }
+					    break;
 
                     case PhaseMachineState.NeedT1:
                         if (nonDominant)
@@ -125,23 +134,31 @@ namespace APVA.Core
         }
 
         private static bool IsNonDominant(
-            VolumeSegment segment,
-            ContainerDirection containerDirection)
-        {
-            if (containerDirection == ContainerDirection.Up)
-            {
-                return segment.Color == VolumeColor.Red &&
-                       segment.Direction == SegmentDirection.Down;
-            }
-
-            if (containerDirection == ContainerDirection.Down)
-            {
-                return segment.Color == VolumeColor.Black &&
-                       segment.Direction == SegmentDirection.Up;
-            }
-
-            return false;
-        }
+		    VolumeSegment segment,
+		    ContainerDirection containerDirection)
+		{
+		    bool weakOrNormalVolume =
+		        segment.Rank == VolumeRank.Low ||
+		        segment.Rank == VolumeRank.Normal ||
+		        segment.Rank == VolumeRank.Elevated;
+		
+		    if (!weakOrNormalVolume)
+		        return false;
+		
+		    if (containerDirection == ContainerDirection.Up)
+		    {
+		        return segment.Color == VolumeColor.Red &&
+		               segment.Direction == SegmentDirection.Down;
+		    }
+		
+		    if (containerDirection == ContainerDirection.Down)
+		    {
+		        return segment.Color == VolumeColor.Black &&
+		               segment.Direction == SegmentDirection.Up;
+		    }
+		
+		    return false;
+		}
 
         private static bool IsStrongVolume(VolumeSegment segment)
         {
@@ -149,5 +166,36 @@ namespace APVA.Core
                    segment.Rank == VolumeRank.Peak ||
                    segment.Rank == VolumeRank.Climax;
         }
+		
+		private static bool IsCounterDominant(
+		    VolumeSegment segment,
+		    ContainerDirection containerDirection)
+		{
+		    bool strongOppositeVolume =
+		        segment.Rank == VolumeRank.Peak ||
+		        segment.Rank == VolumeRank.Climax;
+		
+		    if (!strongOppositeVolume)
+		        return false;
+		
+		    if (containerDirection == ContainerDirection.Up)
+		    {
+		        return segment.Color == VolumeColor.Red &&
+		               segment.Direction == SegmentDirection.Down;
+		    }
+		
+		    if (containerDirection == ContainerDirection.Down)
+		    {
+		        return segment.Color == VolumeColor.Black &&
+		               segment.Direction == SegmentDirection.Up;
+		    }
+		
+		    return false;
+		}
     }
 }
+
+
+
+
+

@@ -4,6 +4,66 @@ namespace APVA.Core
 {
     public static class xApvaDominanceEngine
     {
+		public static DominanceState GetCurrentSegmentDominance(
+    			IReadOnlyList<VolumeSegment> segments)
+		{
+		    if (segments == null || segments.Count == 0)
+		        return DominanceState.Unknown;
+		
+		    for (int i = segments.Count - 1; i >= 0; i--)
+		    {
+		        if (segments[i].Dominance != DominanceState.Unknown)
+		            return segments[i].Dominance;
+		    }
+		
+		    return DominanceState.Unknown;
+		}
+		
+		public static DominanceState GetContainerBias(
+		    IReadOnlyList<VolumeSegment> segments)
+		{
+		    if (segments == null || segments.Count == 0)
+		        return DominanceState.Unknown;
+		
+		    bool hasPP1 = false;
+		    bool hasPP2 = false;
+		    bool hasT1 = false;
+		    bool hasT2P = false;
+		    bool hasCounterDominance = false;
+		
+		    foreach (VolumeSegment segment in segments)
+		    {
+		        if (segment.Dominance == DominanceState.CounterDominant)
+		            hasCounterDominance = true;
+		
+		        if (segment.Phase == VolumePhase.PP1)
+		            hasPP1 = true;
+		
+		        if (hasPP1 && segment.Phase == VolumePhase.PP2)
+		            hasPP2 = true;
+		
+		        if (hasPP2 && segment.Phase == VolumePhase.T1)
+		            hasT1 = true;
+		
+		        if (hasT1 && segment.Phase == VolumePhase.T2P)
+		            hasT2P = true;
+		    }
+		
+		    if (hasCounterDominance)
+		        return DominanceState.CounterDominant;
+		
+		    if (hasPP1 && hasPP2 && hasT1 && hasT2P)
+		        return DominanceState.Dominant;
+		
+		    if (hasPP1 && hasPP2)
+		        return DominanceState.Dominant;
+		
+		    if (hasT1)
+		        return DominanceState.NonDominant;
+		
+		    return DominanceState.Unknown;
+		}
+
         public static DominanceState GetContainerDominance(
             IReadOnlyList<VolumeSegment> segments)
         {

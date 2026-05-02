@@ -60,13 +60,25 @@ namespace NinjaTrader.NinjaScript.Indicators
             ApvaAnalysisResult result = xApvaAnalyzer.Analyze(
                 bars,
                 classified,
-                ContainerDirection.Up,
+                xApvaDirectionInferer.InferDirection(bars),
                 hasValidP3: false,
                 expectedContinuationFailed: false);
+			
+			bool interesting =
+			    result.Ftt.IsCandidate ||
+			    result.Ftt.IsConfirmed ||
+			    result.CurrentSegmentDominance == DominanceState.CounterDominant ||
+			    result.ContainerBias == DominanceState.CounterDominant ||
+			    result.HasDominanceSequence ||
+			    result.HasFailureSequence;
+			
+			if (!interesting)
+			    return;
 
             Print("----- APVA DEBUG -----");
             Print("Bar: " + CurrentBar + " Time: " + Time[0]);
-
+			Print("InferredDirection: " + xApvaDirectionInferer.InferDirection(bars));
+			
             foreach (VolumeSegment seg in result.Segments)
             {
                 Print(
@@ -85,6 +97,8 @@ namespace NinjaTrader.NinjaScript.Indicators
             Print("FTT Candidate: " + result.Ftt.IsCandidate);
             Print("FTT Confirmed: " + result.Ftt.IsConfirmed);
             Print("FTT Reason: " + result.Ftt.Reason);
+			Print("CurrentSegmentDominance: " + result.CurrentSegmentDominance);
+			Print("ContainerBias: " + result.ContainerBias);
         }
     }
 }
