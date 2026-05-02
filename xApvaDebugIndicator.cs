@@ -96,7 +96,7 @@ namespace NinjaTrader.NinjaScript.Indicators
                     "Dom=" + seg.Dominance);
             }
 
-            Print("CurrentDominance: " + result.CurrentDominance);
+            
             Print("HasDominanceSequence: " + result.HasDominanceSequence);
             Print("HasFailureSequence: " + result.HasFailureSequence);
             Print("FTT Candidate: " + result.Ftt.IsCandidate);
@@ -118,6 +118,7 @@ namespace NinjaTrader.NinjaScript.Indicators
 			    Print("P2: " + result.Container.P2.Index + " " + result.Container.P2.Price);
 			    Print("P3: " + result.Container.P3.Index + " " + result.Container.P3.Price);
 			    Print("HasValidP3: " + result.Container.HasValidP3);
+				Print("FTT Kind: " + result.Ftt.Kind);
 				
 			
 			    Print("ExpectedContinuationFailed: " + continuationFailed);

@@ -3,15 +3,17 @@ using System.Collections.Generic;
 namespace APVA.Core
 {
     public sealed class FttResult
-    {
-        public bool IsCandidate { get; set; }
-        public bool IsConfirmed { get; set; }
-
-        public int SegmentIndex { get; set; } = -1;
-        public int BarIndex { get; set; } = -1;
-
-        public string Reason { get; set; } = string.Empty;
-    }
+	{
+	    public bool IsCandidate { get; set; }
+	    public bool IsConfirmed { get; set; }
+	
+	    public FttKind Kind { get; set; } = FttKind.None;
+	
+	    public int SegmentIndex { get; set; } = -1;
+	    public int BarIndex { get; set; } = -1;
+	
+	    public string Reason { get; set; } = string.Empty;
+	}
 
     public static class xApvaFttDetector
     {
@@ -36,6 +38,7 @@ namespace APVA.Core
                 result.SegmentIndex = i;
                 result.BarIndex = segment.EndIndex;
                 result.Reason = "T2F detected after dominance expectation.";
+				result.Kind = FttKind.T2F_FailedContinuation;
 
                 if (hasValidP3 && expectedContinuationFailed)
                 {

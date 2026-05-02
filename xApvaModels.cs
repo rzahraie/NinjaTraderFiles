@@ -65,6 +65,14 @@ namespace APVA.Core
         Up,
         Down
     }
+	
+	public enum FttKind
+	{
+	    None,
+	    T2F_FailedContinuation,
+	    CounterDominantShock,
+	    PriceBoundaryBreak
+	}
 
     public sealed class Bar
     {
