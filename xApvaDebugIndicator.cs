@@ -108,16 +108,16 @@ namespace NinjaTrader.NinjaScript.Indicators
 			
 			if (result.Container != null)
 			{
+				double ltlValue = result.Container.LTL.ValueAt(bars[bars.Count - 1].Index);
+				Bar lastBar = bars[bars.Count - 1];
+				
+				Print("LTL@" + lastBar.Index + ": " + ltlValue);
+				Print("LastHigh: " + lastBar.High + " LastClose: " + lastBar.Close);
 			    Print("ContainerDirection: " + result.Container.Direction);
 			    Print("P1: " + result.Container.P1.Index + " " + result.Container.P1.Price);
 			    Print("P2: " + result.Container.P2.Index + " " + result.Container.P2.Price);
 			    Print("P3: " + result.Container.P3.Index + " " + result.Container.P3.Price);
 			    Print("HasValidP3: " + result.Container.HasValidP3);
-				
-				bool continuationFailed =
-			        result.Container.ExpectedContinuationFailed(
-			            bars[bars.Count - 1],
-			            TickSize);
 				
 			
 			    Print("ExpectedContinuationFailed: " + continuationFailed);
