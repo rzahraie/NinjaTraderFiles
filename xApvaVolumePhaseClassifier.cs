@@ -1,10 +1,18 @@
-using System;
 using System.Collections.Generic;
 
 namespace APVA.Core
 {
     public static class xApvaVolumePhaseClassifier
     {
+        private enum PhaseMachineState
+        {
+            NeedPP1,
+            NeedPP2,
+            NeedT1,
+            NeedT2P,
+            NeedPP3OrT2F
+        }
+
         public static void Classify(
             IReadOnlyList<VolumeSegment> segments,
             ContainerDirection containerDirection)
@@ -15,74 +23,85 @@ namespace APVA.Core
             if (containerDirection == ContainerDirection.Unknown)
                 return;
 
-            VolumePhase lastPhase = VolumePhase.Unknown;
-            int dominantCount = 0;
+            PhaseMachineState state = PhaseMachineState.NeedPP1;
 
             for (int i = 0; i < segments.Count; i++)
             {
                 VolumeSegment segment = segments[i];
+
+                segment.Phase = VolumePhase.Unknown;
+                segment.Dominance = DominanceState.Unknown;
 
                 bool dominant = IsDominant(segment, containerDirection);
                 bool nonDominant = IsNonDominant(segment, containerDirection);
                 bool strongVolume = IsStrongVolume(segment);
 
                 if (dominant)
-                {
                     segment.Dominance = DominanceState.Dominant;
-
-                    if (lastPhase == VolumePhase.Unknown)
-                    {
-                        segment.Phase = VolumePhase.PP1;
-                        dominantCount = 1;
-                    }
-                    else if (lastPhase == VolumePhase.PP1)
-                    {
-                        segment.Phase = VolumePhase.PP2;
-                        dominantCount = 2;
-                    }
-                    else if (lastPhase == VolumePhase.T1)
-                    {
-                        segment.Phase = strongVolume ? VolumePhase.T2P : VolumePhase.T2F;
-                    }
-                    else if (lastPhase == VolumePhase.T2P)
-                    {
-                        segment.Phase = strongVolume ? VolumePhase.PP3 : VolumePhase.T2F;
-                    }
-                    else
-                    {
-                        dominantCount++;
-                        segment.Phase = dominantCount >= 3 ? VolumePhase.PP3 : VolumePhase.PP2;
-                    }
-
-                    lastPhase = segment.Phase;
-                    continue;
-                }
-
-                if (nonDominant)
-                {
+                else if (nonDominant)
                     segment.Dominance = DominanceState.NonDominant;
-
-                    if (lastPhase == VolumePhase.PP1 ||
-                        lastPhase == VolumePhase.PP2 ||
-                        lastPhase == VolumePhase.PP3)
-                    {
-                        segment.Phase = VolumePhase.T1;
-                    }
-                    else if (lastPhase == VolumePhase.T2P)
-                    {
-                        segment.Phase = VolumePhase.T2F;
-                    }
-                    else
-                    {
-                        segment.Phase = VolumePhase.T1;
-                    }
-
-                    lastPhase = segment.Phase;
+                else
                     continue;
-                }
 
-                segment.Dominance = DominanceState.Unknown;
-                segment.Phase = VolumePhase.Unknown;
+                switch (state)
+                {
+                    case PhaseMachineState.NeedPP1:
+                        if (dominant && strongVolume)
+                        {
+                            segment.Phase = VolumePhase.PP1;
+                            state = PhaseMachineState.NeedPP2;
+                        }
+                        break;
+
+                    case PhaseMachineState.NeedPP2:
+                        if (dominant && strongVolume)
+                        {
+                            segment.Phase = VolumePhase.PP2;
+                            state = PhaseMachineState.NeedT1;
+                        }
+                        else if (nonDominant)
+                        {
+                            state = PhaseMachineState.NeedPP1;
+                        }
+                        break;
+
+                    case PhaseMachineState.NeedT1:
+                        if (nonDominant)
+                        {
+                            segment.Phase = VolumePhase.T1;
+                            state = PhaseMachineState.NeedT2P;
+                        }
+                        break;
+
+                    case PhaseMachineState.NeedT2P:
+                        if (dominant)
+                        {
+                            if (strongVolume)
+                            {
+                                segment.Phase = VolumePhase.T2P;
+                                state = PhaseMachineState.NeedPP3OrT2F;
+                            }
+                            else
+                            {
+                                segment.Phase = VolumePhase.T2F;
+                                state = PhaseMachineState.NeedPP1;
+                            }
+                        }
+                        break;
+
+                    case PhaseMachineState.NeedPP3OrT2F:
+                        if (dominant && strongVolume)
+                        {
+                            segment.Phase = VolumePhase.PP3;
+                            state = PhaseMachineState.NeedT1;
+                        }
+                        else if (nonDominant)
+                        {
+                            segment.Phase = VolumePhase.T2F;
+                            state = PhaseMachineState.NeedPP1;
+                        }
+                        break;
+                }
             }
         }
 
