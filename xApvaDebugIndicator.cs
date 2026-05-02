@@ -61,8 +61,8 @@ namespace NinjaTrader.NinjaScript.Indicators
                 bars,
                 classified,
                 ContainerDirection.Up,
-                hasValidP3: true,
-                expectedContinuationFailed: true);
+                hasValidP3: false,
+                expectedContinuationFailed: false);
 
             Print("----- APVA DEBUG -----");
             Print("Bar: " + CurrentBar + " Time: " + Time[0]);
@@ -88,3 +88,60 @@ namespace NinjaTrader.NinjaScript.Indicators
         }
     }
 }
+
+#region NinjaScript generated code. Neither change nor remove.
+
+namespace NinjaTrader.NinjaScript.Indicators
+{
+	public partial class Indicator : NinjaTrader.Gui.NinjaScript.IndicatorRenderBase
+	{
+		private xApvaDebugIndicator[] cachexApvaDebugIndicator;
+		public xApvaDebugIndicator xApvaDebugIndicator()
+		{
+			return xApvaDebugIndicator(Input);
+		}
+
+		public xApvaDebugIndicator xApvaDebugIndicator(ISeries<double> input)
+		{
+			if (cachexApvaDebugIndicator != null)
+				for (int idx = 0; idx < cachexApvaDebugIndicator.Length; idx++)
+					if (cachexApvaDebugIndicator[idx] != null &&  cachexApvaDebugIndicator[idx].EqualsInput(input))
+						return cachexApvaDebugIndicator[idx];
+			return CacheIndicator<xApvaDebugIndicator>(new xApvaDebugIndicator(), input, ref cachexApvaDebugIndicator);
+		}
+	}
+}
+
+namespace NinjaTrader.NinjaScript.MarketAnalyzerColumns
+{
+	public partial class MarketAnalyzerColumn : MarketAnalyzerColumnBase
+	{
+		public Indicators.xApvaDebugIndicator xApvaDebugIndicator()
+		{
+			return indicator.xApvaDebugIndicator(Input);
+		}
+
+		public Indicators.xApvaDebugIndicator xApvaDebugIndicator(ISeries<double> input )
+		{
+			return indicator.xApvaDebugIndicator(input);
+		}
+	}
+}
+
+namespace NinjaTrader.NinjaScript.Strategies
+{
+	public partial class Strategy : NinjaTrader.Gui.NinjaScript.StrategyRenderBase
+	{
+		public Indicators.xApvaDebugIndicator xApvaDebugIndicator()
+		{
+			return indicator.xApvaDebugIndicator(Input);
+		}
+
+		public Indicators.xApvaDebugIndicator xApvaDebugIndicator(ISeries<double> input )
+		{
+			return indicator.xApvaDebugIndicator(input);
+		}
+	}
+}
+
+#endregion
