@@ -30,6 +30,13 @@ namespace APVA.Core
 		    bool hasT1 = false;
 		    bool hasT2P = false;
 		    bool hasCounterDominance = false;
+			
+			int dominantCount = 0;
+			int nonDominantCount = 0;
+			int counterDominantCount = 0;
+			int dominantBars = 0;
+			int nonDominantBars = 0;
+			int counterDominantBars = 0;
 		
 		    foreach (VolumeSegment segment in segments)
 		    {
@@ -47,6 +54,15 @@ namespace APVA.Core
 		
 		        if (hasT1 && segment.Phase == VolumePhase.T2P)
 		            hasT2P = true;
+				
+				if (segment.Dominance == DominanceState.Dominant)
+				    dominantBars += segment.BarCount;
+				
+				if (segment.Dominance == DominanceState.NonDominant)
+				    nonDominantBars += segment.BarCount;
+				
+				if (segment.Dominance == DominanceState.CounterDominant)
+				    counterDominantBars += segment.BarCount;
 		    }
 		
 		    if (hasCounterDominance)
@@ -61,7 +77,16 @@ namespace APVA.Core
 		    if (hasT1)
 		        return DominanceState.NonDominant;
 		
-		    return DominanceState.Unknown;
+		    if (counterDominantBars > 0)
+			    return DominanceState.CounterDominant;
+			
+			if (dominantBars > nonDominantBars)
+			    return DominanceState.Dominant;
+			
+			if (nonDominantBars > dominantBars)
+			    return DominanceState.NonDominant;
+			
+			return DominanceState.Unknown;
 		}
 
         public static DominanceState GetContainerDominance(
@@ -195,5 +220,9 @@ namespace APVA.Core
 		}
     }
 }
+
+
+
+
 
 
