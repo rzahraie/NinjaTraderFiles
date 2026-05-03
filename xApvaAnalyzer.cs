@@ -33,6 +33,9 @@ namespace APVA.Core
 		
 		public double P2P3Distance { get; set; }
 		public bool IsWeakContainer { get; set; }
+		
+		public int ContainerAgeBars { get; set; }
+		public bool IsMatureContainer { get; set; }
     }
 
     public static class xApvaAnalyzer
@@ -81,6 +84,13 @@ namespace APVA.Core
 			    double minMove = 4 * tickTolerance;
 			
 			    result.IsWeakContainer = distance < minMove;
+			
+			    result.ContainerAgeBars =
+			        currentBar.Index - result.Container.P1.Index;
+			
+			    result.IsMatureContainer =
+			        result.ContainerAgeBars >= 2 &&
+			        !result.IsWeakContainer;
 			}
 			
 			// THEN delta
@@ -229,6 +239,7 @@ namespace APVA.Core
 		}
     }
 }
+
 
 
 

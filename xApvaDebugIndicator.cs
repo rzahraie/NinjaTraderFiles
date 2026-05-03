@@ -128,6 +128,8 @@ namespace NinjaTrader.NinjaScript.Indicators
 				Print("BarsSinceLastFTT: " + (result.BarsSinceLastFtt == int.MaxValue ? "None": result.BarsSinceLastFtt.ToString()));
 				Print("P2P3Distance: " + result.P2P3Distance);
 				Print("IsWeakContainer: " + result.IsWeakContainer);
+				Print("ContainerAgeBars: " + result.ContainerAgeBars);
+				Print("IsMatureContainer: " + result.IsMatureContainer);
 			}
 			else
 			{
