@@ -119,9 +119,12 @@ namespace NinjaTrader.NinjaScript.Indicators
 			    Print("P3: " + result.Container.P3.Index + " " + result.Container.P3.Price);
 			    Print("HasValidP3: " + result.Container.HasValidP3);
 				Print("FTT Kind: " + result.Ftt.Kind);
-				
-			
+				Print("WarningDuration: " + result.WarningDuration);
+				Print("ImminentFTT: " + result.ImminentFtt);
 			    Print("ExpectedContinuationFailed: " + continuationFailed);
+				Print("DistanceToLTL: " + result.DistanceToLtl);
+				Print("DistanceDelta: " + result.DistanceToLtlDelta);
+				Print("IneffectiveDominance: " + result.IneffectiveDominance);
 			}
 			else
 			{

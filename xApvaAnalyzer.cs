@@ -17,10 +17,24 @@ namespace APVA.Core
         public FttResult Ftt { get; set; } = new FttResult();
 		
 		public xApvaContainerCandidate Container { get; set; }
+		
+		public int WarningDuration { get; set; }
+		
+		public bool ImminentFtt { get; set; }
+		
+		public double DistanceToLtl { get; set; }
+		
+		public double DistanceToLtlDelta { get; set; }
+		
+		public bool IneffectiveDominance { get; set; }
     }
 
     public static class xApvaAnalyzer
     {
+		private static int _warningStreak = 0;
+		private static double _prevDistanceToLtl = 0;
+		private static bool _hasPrevDistanceToLtl = false;
+		
         public static ApvaAnalysisResult Analyze(
 		    IReadOnlyList<Bar> bars,
 		    IReadOnlyList<ClassifiedBar> classifiedBars,
@@ -33,6 +47,32 @@ namespace APVA.Core
 		            bars,
 		            swingStrength: 1,
 		            tickTolerance: tickTolerance);
+			
+			if (result.Container != null)
+			{
+			    Bar currentBar = bars[bars.Count - 1];
+			    double ltl = result.Container.LTL.ValueAt(currentBar.Index);
+			
+			    if (result.Container.Direction == ContainerDirection.Up)
+			        result.DistanceToLtl = ltl - currentBar.High;
+			    else
+			        result.DistanceToLtl = currentBar.Low - ltl;
+			}
+			
+			// THEN delta
+			if (!_hasPrevDistanceToLtl)
+			{
+			    result.DistanceToLtlDelta = 0.0;
+			    _hasPrevDistanceToLtl = true;
+			}
+			else
+			{
+			    result.DistanceToLtlDelta =
+			        result.DistanceToLtl - _prevDistanceToLtl;
+			}
+
+			// FINALLY update state
+			_prevDistanceToLtl = result.DistanceToLtl;
 		
 		    ContainerDirection direction =
 		        result.Container != null
@@ -64,21 +104,49 @@ namespace APVA.Core
 		
 		    result.HasFailureSequence =
 		        xApvaDominanceEngine.HasFailureSequence(result.Segments);
-		
-		    result.Ftt =
-		        xApvaFttDetector.Detect(
-		            result.Segments,
-		            hasValidP3: result.Container != null && result.Container.HasValidP3,
-		            expectedContinuationFailed:
-				    result.Container != null &&
-				    result.Container.ExpectedContinuationFailed(
-				        bars[bars.Count - 1],
-				        tickTolerance));
+			
+			bool continuationFailed =
+			    result.Container != null &&
+			    result.Container.ExpectedContinuationFailed(
+			        bars[bars.Count - 1],
+			        tickTolerance);
+			
+			if (continuationFailed)
+			    _warningStreak++;
+			else
+			    _warningStreak = 0;
+			
+			result.WarningDuration = _warningStreak;
+			
+			result.ImminentFtt =
+			    result.WarningDuration >= 2 &&
+			    result.ContainerBias == DominanceState.CounterDominant;
+			
+			result.IneffectiveDominance =
+			    result.CurrentSegmentDominance == DominanceState.Dominant &&
+			    result.DistanceToLtl > 0;
+			
+			result.Ftt =
+			    xApvaFttDetector.Detect(
+			        result.Segments,
+			        hasValidP3: result.Container != null && result.Container.HasValidP3,
+			        expectedContinuationFailed: continuationFailed);
 		
 		    return result;
 		}
     }
 }
+
+
+
+
+
+
+
+
+
+
+
 
 
 

@@ -76,7 +76,49 @@ namespace APVA.Core
 		
 		    return false;
 		}
+		
+		public void TryExtend(Bar bar, double tickTolerance)
+		{
+		    if (!HasValidP3)
+		        return;
+		
+		    if (Direction == ContainerDirection.Up)
+		    {
+		        // New higher low extends P3
+		        if (bar.Low > P3.Price + tickTolerance)
+		        {
+		            P3 = new xApvaPoint(bar.Index, bar.Low);
+		
+		            RTL = new xApvaLine(P1, P3);
+		
+		            double rtlAtP2 = RTL.ValueAt(P2.Index);
+		            double offset = P2.Price - rtlAtP2;
+		
+		            LTL = new xApvaLine(
+		                new xApvaPoint(P1.Index, P1.Price + offset),
+		                new xApvaPoint(P3.Index, P3.Price + offset));
+		        }
+		    }
+		
+		    if (Direction == ContainerDirection.Down)
+		    {
+		        if (bar.High < P3.Price - tickTolerance)
+		        {
+		            P3 = new xApvaPoint(bar.Index, bar.High);
+		
+		            RTL = new xApvaLine(P1, P3);
+		
+		            double rtlAtP2 = RTL.ValueAt(P2.Index);
+		            double offset = P2.Price - rtlAtP2;
+		
+		            LTL = new xApvaLine(
+		                new xApvaPoint(P1.Index, P1.Price + offset),
+		                new xApvaPoint(P3.Index, P3.Price + offset));
+		        }
+		    }
+		}
     }
 	
 	
 }
+

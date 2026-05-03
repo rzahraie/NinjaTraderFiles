@@ -69,6 +69,7 @@ namespace APVA.Core
 	public enum FttKind
 	{
 	    None,
+		StructuralWarning,
 	    T2F_FailedContinuation,
 	    CounterDominantShock,
 	    PriceBoundaryBreak
@@ -125,3 +126,4 @@ namespace APVA.Core
         public DominanceState Dominance { get; set; } = DominanceState.Unknown;
     }
 }
+
