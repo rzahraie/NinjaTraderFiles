@@ -32,7 +32,9 @@ ExpectedContinuationFailed: False
 DistanceToLTL: -5.59999999999854
 DistanceDelta: 0
 IneffectiveDominance: False
-BarsSinceLastFTT: 2147483647
+BarsSinceLastFTT: None
+P2P3Distance: 6.25
+IsWeakContainer: False
 ----- APVA DEBUG -----
 Bar: 26 Time: 4/26/2026 5:15:00 PM
 InferredDirection: Up
@@ -67,7 +69,9 @@ ExpectedContinuationFailed: False
 DistanceToLTL: -0.666666666667879
 DistanceDelta: 4.93333333333067
 IneffectiveDominance: False
-BarsSinceLastFTT: 2147483647
+BarsSinceLastFTT: None
+P2P3Distance: 4.75
+IsWeakContainer: False
 ----- APVA DEBUG -----
 Bar: 27 Time: 4/26/2026 5:20:00 PM
 InferredDirection: Up
@@ -102,7 +106,9 @@ ExpectedContinuationFailed: False
 DistanceToLTL: -3.46428571428623
 DistanceDelta: -2.79761904761835
 IneffectiveDominance: False
-BarsSinceLastFTT: 2147483647
+BarsSinceLastFTT: None
+P2P3Distance: 7.75
+IsWeakContainer: False
 ----- APVA DEBUG -----
 Bar: 28 Time: 4/26/2026 5:25:00 PM
 InferredDirection: Up
@@ -138,7 +144,9 @@ ExpectedContinuationFailed: True
 DistanceToLTL: 5.75
 DistanceDelta: 9.21428571428623
 IneffectiveDominance: False
-BarsSinceLastFTT: 2147483647
+BarsSinceLastFTT: None
+P2P3Distance: 20.25
+IsWeakContainer: False
 ----- APVA DEBUG -----
 Bar: 29 Time: 4/26/2026 5:30:00 PM
 InferredDirection: Up
@@ -175,7 +183,9 @@ ExpectedContinuationFailed: True
 DistanceToLTL: 7.25
 DistanceDelta: 1.5
 IneffectiveDominance: True
-BarsSinceLastFTT: 2147483647
+BarsSinceLastFTT: None
+P2P3Distance: 21
+IsWeakContainer: False
 ----- APVA DEBUG -----
 Bar: 30 Time: 4/26/2026 5:35:00 PM
 InferredDirection: Up
@@ -213,7 +223,9 @@ ExpectedContinuationFailed: True
 DistanceToLTL: 3.52500000000146
 DistanceDelta: -3.72499999999854
 IneffectiveDominance: False
-BarsSinceLastFTT: 2147483647
+BarsSinceLastFTT: None
+P2P3Distance: 15.5
+IsWeakContainer: False
 ----- APVA DEBUG -----
 Bar: 31 Time: 4/26/2026 5:40:00 PM
 InferredDirection: Up
@@ -251,7 +263,9 @@ ExpectedContinuationFailed: True
 DistanceToLTL: 3.27777777777737
 DistanceDelta: -0.247222222224082
 IneffectiveDominance: True
-BarsSinceLastFTT: 2147483647
+BarsSinceLastFTT: None
+P2P3Distance: 11
+IsWeakContainer: False
 ----- APVA DEBUG -----
 Bar: 32 Time: 4/26/2026 5:45:00 PM
 InferredDirection: Up
@@ -289,7 +303,9 @@ ExpectedContinuationFailed: False
 DistanceToLTL: -1
 DistanceDelta: -4.27777777777737
 IneffectiveDominance: False
-BarsSinceLastFTT: 2147483647
+BarsSinceLastFTT: None
+P2P3Distance: 4.5
+IsWeakContainer: False
 ----- APVA DEBUG -----
 Bar: 33 Time: 4/26/2026 5:50:00 PM
 InferredDirection: Up
@@ -327,7 +343,9 @@ ExpectedContinuationFailed: True
 DistanceToLTL: 4.45454545454413
 DistanceDelta: 5.45454545454413
 IneffectiveDominance: False
-BarsSinceLastFTT: 2147483647
+BarsSinceLastFTT: None
+P2P3Distance: 11.25
+IsWeakContainer: False
 ----- APVA DEBUG -----
 Bar: 34 Time: 4/26/2026 5:55:00 PM
 InferredDirection: Up
@@ -366,7 +384,9 @@ ExpectedContinuationFailed: True
 DistanceToLTL: 7.35416666666788
 DistanceDelta: 2.89962121212375
 IneffectiveDominance: True
-BarsSinceLastFTT: 2147483647
+BarsSinceLastFTT: None
+P2P3Distance: 9.75
+IsWeakContainer: False
 ----- APVA DEBUG -----
 Bar: 35 Time: 4/26/2026 6:00:00 PM
 InferredDirection: Up
@@ -405,6 +425,8 @@ DistanceToLTL: -23.0499999999993
 DistanceDelta: 0
 IneffectiveDominance: False
 BarsSinceLastFTT: 1
+P2P3Distance: 0.25
+IsWeakContainer: True
 ----- APVA DEBUG -----
 Bar: 36 Time: 4/26/2026 6:05:00 PM
 InferredDirection: Up
@@ -443,6 +465,8 @@ DistanceToLTL: -36
 DistanceDelta: -12.9500000000007
 IneffectiveDominance: False
 BarsSinceLastFTT: 2
+P2P3Distance: 17.75
+IsWeakContainer: False
 ----- APVA DEBUG -----
 Bar: 37 Time: 4/26/2026 6:10:00 PM
 InferredDirection: Up
@@ -482,6 +506,8 @@ DistanceToLTL: -26.6785714285725
 DistanceDelta: 9.32142857142753
 IneffectiveDominance: False
 BarsSinceLastFTT: 3
+P2P3Distance: 23.75
+IsWeakContainer: False
 ----- APVA DEBUG -----
 Bar: 38 Time: 4/26/2026 6:15:00 PM
 InferredDirection: Up
@@ -522,6 +548,8 @@ DistanceToLTL: -4.375
 DistanceDelta: 22.3035714285725
 IneffectiveDominance: False
 BarsSinceLastFTT: 4
+P2P3Distance: 25.75
+IsWeakContainer: False
 ----- APVA DEBUG -----
 Bar: 39 Time: 4/26/2026 6:20:00 PM
 InferredDirection: Up
@@ -561,6 +589,8 @@ DistanceToLTL: -1
 DistanceDelta: 3.375
 IneffectiveDominance: False
 BarsSinceLastFTT: 5
+P2P3Distance: 17.75
+IsWeakContainer: False
 ----- APVA DEBUG -----
 Bar: 40 Time: 4/26/2026 6:25:00 PM
 InferredDirection: Up
@@ -600,6 +630,8 @@ DistanceToLTL: 38.3333333333321
 DistanceDelta: 39.3333333333321
 IneffectiveDominance: True
 BarsSinceLastFTT: 6
+P2P3Distance: 28.75
+IsWeakContainer: False
 ----- APVA DEBUG -----
 Bar: 41 Time: 4/26/2026 6:30:00 PM
 InferredDirection: Up
@@ -638,6 +670,8 @@ DistanceToLTL: 29.3928571428587
 DistanceDelta: -8.94047619047342
 IneffectiveDominance: True
 BarsSinceLastFTT: 7
+P2P3Distance: 33.5
+IsWeakContainer: False
 ----- APVA DEBUG -----
 Bar: 42 Time: 4/26/2026 6:35:00 PM
 InferredDirection: Up
@@ -675,6 +709,8 @@ DistanceToLTL: 32
 DistanceDelta: 2.6071428571413
 IneffectiveDominance: True
 BarsSinceLastFTT: 8
+P2P3Distance: 9.75
+IsWeakContainer: False
 ----- APVA DEBUG -----
 Bar: 43 Time: 4/26/2026 6:40:00 PM
 InferredDirection: Up
@@ -712,6 +748,8 @@ DistanceToLTL: 37.0277777777774
 DistanceDelta: 5.02777777777737
 IneffectiveDominance: True
 BarsSinceLastFTT: 9
+P2P3Distance: 5.5
+IsWeakContainer: False
 ----- APVA DEBUG -----
 Bar: 44 Time: 4/26/2026 6:45:00 PM
 InferredDirection: Up
@@ -749,6 +787,8 @@ DistanceToLTL: 44.1500000000015
 DistanceDelta: 7.12222222222408
 IneffectiveDominance: False
 BarsSinceLastFTT: 10
+P2P3Distance: 12
+IsWeakContainer: False
 ----- APVA DEBUG -----
 Bar: 45 Time: 4/26/2026 6:50:00 PM
 InferredDirection: Up
@@ -786,6 +826,8 @@ DistanceToLTL: 41.613636363636
 DistanceDelta: -2.53636363636542
 IneffectiveDominance: True
 BarsSinceLastFTT: 11
+P2P3Distance: 10.75
+IsWeakContainer: False
 ----- APVA DEBUG -----
 Bar: 46 Time: 4/26/2026 6:55:00 PM
 InferredDirection: Up
@@ -823,6 +865,8 @@ DistanceToLTL: 12.9000000000015
 DistanceDelta: -28.7136363636346
 IneffectiveDominance: True
 BarsSinceLastFTT: 12
+P2P3Distance: 2.25
+IsWeakContainer: False
 ----- APVA DEBUG -----
 Bar: 47 Time: 4/26/2026 7:00:00 PM
 InferredDirection: Up
@@ -859,6 +903,8 @@ DistanceToLTL: 21.9166666666679
 DistanceDelta: 9.01666666666642
 IneffectiveDominance: True
 BarsSinceLastFTT: 13
+P2P3Distance: 3
+IsWeakContainer: False
 ----- APVA DEBUG -----
 Bar: 48 Time: 4/26/2026 7:05:00 PM
 InferredDirection: Up
@@ -895,6 +941,8 @@ DistanceToLTL: 23.9285714285725
 DistanceDelta: 2.01190476190459
 IneffectiveDominance: False
 BarsSinceLastFTT: 14
+P2P3Distance: 8.25
+IsWeakContainer: False
 ----- APVA DEBUG -----
 Bar: 49 Time: 4/26/2026 7:10:00 PM
 InferredDirection: Up
@@ -930,6 +978,8 @@ DistanceToLTL: 28.4375
 DistanceDelta: 4.50892857142753
 IneffectiveDominance: False
 BarsSinceLastFTT: 15
+P2P3Distance: 2.75
+IsWeakContainer: False
 ----- APVA DEBUG -----
 Bar: 50 Time: 4/26/2026 7:15:00 PM
 InferredDirection: Up
@@ -964,6 +1014,8 @@ DistanceToLTL: 15
 DistanceDelta: -13.4375
 IneffectiveDominance: False
 BarsSinceLastFTT: 16
+P2P3Distance: 20.75
+IsWeakContainer: False
 ----- APVA DEBUG -----
 Bar: 51 Time: 4/26/2026 7:20:00 PM
 InferredDirection: Up
@@ -998,6 +1050,8 @@ DistanceToLTL: 11.125
 DistanceDelta: -3.875
 IneffectiveDominance: False
 BarsSinceLastFTT: 17
+P2P3Distance: 18.75
+IsWeakContainer: False
 ----- APVA DEBUG -----
 Bar: 52 Time: 4/26/2026 7:25:00 PM
 InferredDirection: Up
@@ -1031,6 +1085,8 @@ DistanceToLTL: 4.5
 DistanceDelta: -6.625
 IneffectiveDominance: True
 BarsSinceLastFTT: 18
+P2P3Distance: 8
+IsWeakContainer: False
 ----- APVA DEBUG -----
 Bar: 53 Time: 4/26/2026 7:30:00 PM
 InferredDirection: Up
@@ -1064,6 +1120,8 @@ DistanceToLTL: 10.3499999999985
 DistanceDelta: 5.84999999999854
 IneffectiveDominance: False
 BarsSinceLastFTT: 19
+P2P3Distance: 5.75
+IsWeakContainer: False
 ----- APVA DEBUG -----
 Bar: 54 Time: 4/26/2026 7:35:00 PM
 InferredDirection: Up
@@ -1097,6 +1155,8 @@ DistanceToLTL: 10.875
 DistanceDelta: 0.525000000001455
 IneffectiveDominance: False
 BarsSinceLastFTT: 20
+P2P3Distance: 11.25
+IsWeakContainer: False
 ----- APVA DEBUG -----
 Bar: 55 Time: 4/26/2026 7:40:00 PM
 InferredDirection: Up
@@ -1130,6 +1190,8 @@ DistanceToLTL: 11.3928571428587
 DistanceDelta: 0.517857142858702
 IneffectiveDominance: False
 BarsSinceLastFTT: 21
+P2P3Distance: 14.5
+IsWeakContainer: False
 ----- APVA DEBUG -----
 Bar: 56 Time: 4/26/2026 7:45:00 PM
 InferredDirection: Up
@@ -1163,6 +1225,8 @@ DistanceToLTL: 17.0999999999985
 DistanceDelta: 5.70714285713984
 IneffectiveDominance: True
 BarsSinceLastFTT: 22
+P2P3Distance: 12.5
+IsWeakContainer: False
 ----- APVA DEBUG -----
 Bar: 57 Time: 4/26/2026 7:50:00 PM
 InferredDirection: Up
@@ -1196,6 +1260,8 @@ DistanceToLTL: 9.95000000000073
 DistanceDelta: -7.14999999999782
 IneffectiveDominance: True
 BarsSinceLastFTT: 23
+P2P3Distance: 15.25
+IsWeakContainer: False
 ----- APVA DEBUG -----
 Bar: 58 Time: 4/26/2026 7:55:00 PM
 InferredDirection: Up
@@ -1230,6 +1296,8 @@ DistanceToLTL: 4.33333333333212
 DistanceDelta: 0
 IneffectiveDominance: True
 BarsSinceLastFTT: 1
+P2P3Distance: 7.75
+IsWeakContainer: False
 ----- APVA DEBUG -----
 Bar: 59 Time: 4/26/2026 8:00:00 PM
 InferredDirection: Up
@@ -1265,6 +1333,8 @@ DistanceToLTL: 6.5625
 DistanceDelta: 2.22916666666788
 IneffectiveDominance: False
 BarsSinceLastFTT: 2
+P2P3Distance: 6.75
+IsWeakContainer: False
 ----- APVA DEBUG -----
 Bar: 60 Time: 4/26/2026 8:05:00 PM
 InferredDirection: Up
@@ -1300,3 +1370,5 @@ DistanceToLTL: 14.5
 DistanceDelta: 7.9375
 IneffectiveDominance: False
 BarsSinceLastFTT: 3
+P2P3Distance: 9.25
+IsWeakContainer: False

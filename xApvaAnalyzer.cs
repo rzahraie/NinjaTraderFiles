@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 
 namespace APVA.Core
@@ -29,6 +30,9 @@ namespace APVA.Core
 		public bool IneffectiveDominance { get; set; }
 		
 		public int BarsSinceLastFtt { get; set; }
+		
+		public double P2P3Distance { get; set; }
+		public bool IsWeakContainer { get; set; }
     }
 
     public static class xApvaAnalyzer
@@ -65,6 +69,18 @@ namespace APVA.Core
 			        result.DistanceToLtl = ltl - currentBar.High;
 			    else if (result.Container.Direction == ContainerDirection.Down)
 			        result.DistanceToLtl = currentBar.Low - ltl;
+			}
+			
+			if (result.Container != null && result.Container.HasValidP3)
+			{
+			    double distance =
+			        Math.Abs(result.Container.P2.Price - result.Container.P3.Price);
+			
+			    result.P2P3Distance = distance;
+			
+			    double minMove = 4 * tickTolerance;
+			
+			    result.IsWeakContainer = distance < minMove;
 			}
 			
 			// THEN delta
@@ -213,6 +229,8 @@ namespace APVA.Core
 		}
     }
 }
+
+
 
 
 
