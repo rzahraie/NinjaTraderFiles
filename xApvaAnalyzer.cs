@@ -98,11 +98,25 @@ namespace APVA.Core
 		    result.CurrentSegmentDominance =
 		        xApvaDominanceEngine.GetCurrentSegmentDominance(result.Segments);
 		
-		    result.ContainerBias =
-		        xApvaDominanceEngine.GetContainerBias(result.Segments);
-		
-		    result.RecentBias =
-		        xApvaDominanceEngine.GetRecentBias(result.Segments, 5);
+		    List<VolumeSegment> containerSegments =
+			    FilterSegmentsByContainer(result.Segments, result.Container);
+			
+			if (containerSegments.Count > 0)
+			{
+			    result.ContainerBias =
+			        xApvaDominanceEngine.GetContainerBias(containerSegments);
+			
+			    result.RecentBias =
+			        xApvaDominanceEngine.GetRecentBias(containerSegments, 5);
+			}
+			else
+			{
+			    result.ContainerBias =
+			        xApvaDominanceEngine.GetContainerBias(result.Segments);
+			
+			    result.RecentBias =
+			        xApvaDominanceEngine.GetRecentBias(result.Segments, 5);
+			}
 		
 		    result.HasDominanceSequence =
 		        xApvaDominanceEngine.HasDominanceSequence(result.Segments);
@@ -151,8 +165,30 @@ namespace APVA.Core
 		
 		    return result;
 		}
+		
+		private static List<VolumeSegment> FilterSegmentsByContainer(
+		    IReadOnlyList<VolumeSegment> segments,
+		    xApvaContainerCandidate container)
+		{
+		    var filtered = new List<VolumeSegment>();
+		
+		    if (segments == null || container == null)
+		        return filtered;
+		
+		    int start = container.P1.Index;
+		    int end = container.P3.Index;
+		
+		    foreach (VolumeSegment segment in segments)
+		    {
+		        if (segment.EndIndex >= start && segment.StartIndex <= end)
+		            filtered.Add(segment);
+		    }
+		
+		    return filtered;
+		}
     }
 }
+
 
 
 

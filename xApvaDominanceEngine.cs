@@ -31,9 +31,6 @@ namespace APVA.Core
 		    bool hasT2P = false;
 		    bool hasCounterDominance = false;
 			
-			int dominantCount = 0;
-			int nonDominantCount = 0;
-			int counterDominantCount = 0;
 			int dominantBars = 0;
 			int nonDominantBars = 0;
 			int counterDominantBars = 0;
@@ -184,42 +181,39 @@ namespace APVA.Core
 		    if (start < 0)
 		        start = 0;
 		
-		    int dominant = 0;
-		    int nonDominant = 0;
-		    int counterDominant = 0;
+		    int dominantBars = 0;
+		    int nonDominantBars = 0;
+		    int counterDominantBars = 0;
 		
 		    for (int i = start; i < segments.Count; i++)
 		    {
 		        if (segments[i].Dominance == DominanceState.Dominant)
-		            dominant++;
+		            dominantBars += segments[i].BarCount;
 		
 		        if (segments[i].Dominance == DominanceState.NonDominant)
-		            nonDominant++;
+		            nonDominantBars += segments[i].BarCount;
 		
 		        if (segments[i].Dominance == DominanceState.CounterDominant)
-		            counterDominant++;
+		            counterDominantBars += segments[i].BarCount;
 		    }
 		
-		   // If the LAST segment is counter-dominant, that overrides everything
-			if (segments[segments.Count - 1].Dominance == DominanceState.CounterDominant)
-			    return DominanceState.CounterDominant;
-			
-			// Strong dominance recovery
-			if (dominant > nonDominant + counterDominant)
-			    return DominanceState.Dominant;
-			
-			// Persistent counter-dominance
-			if (counterDominant > dominant)
-			    return DominanceState.CounterDominant;
-			
-			// Weak pullback bias
-			if (nonDominant > dominant)
-			    return DominanceState.NonDominant;
-			
-			return DominanceState.Unknown;
+		    if (segments[segments.Count - 1].Dominance == DominanceState.CounterDominant)
+		        return DominanceState.CounterDominant;
+		
+		    if (dominantBars > nonDominantBars + counterDominantBars)
+		        return DominanceState.Dominant;
+		
+		    if (counterDominantBars > dominantBars)
+		        return DominanceState.CounterDominant;
+		
+		    if (nonDominantBars > dominantBars)
+		        return DominanceState.NonDominant;
+		
+		    return DominanceState.Unknown;
 		}
     }
 }
+
 
 
 

@@ -21,7 +21,7 @@ namespace APVA.Core
             if (bars.Count != classifiedBars.Count)
                 throw new ArgumentException("bars and classifiedBars must have the same count.");
 
-            VolumeSegment current = CreateSegment(bars[0], classifiedBars[0], 0);
+            VolumeSegment current = CreateSegment(bars[0], classifiedBars[0]);
 
             for (int i = 1; i < bars.Count; i++)
             {
@@ -35,11 +35,11 @@ namespace APVA.Core
                 if (split)
                 {
                     segments.Add(current);
-                    current = CreateSegment(bars[i], classifiedBars[i], i);
+                    current = CreateSegment(bars[i], classifiedBars[i]);
                 }
                 else
                 {
-                    ExtendSegment(current, bars[i], i);
+                    ExtendSegment(current, bars[i]);
                 }
             }
 
@@ -50,40 +50,38 @@ namespace APVA.Core
         }
 
         private static VolumeSegment CreateSegment(
-            Bar bar,
-            ClassifiedBar classifiedBar,
-            int index)
-        {
-            return new VolumeSegment
-            {
-                StartIndex = index,
-                EndIndex = index,
-                Color = classifiedBar.VolumeColor,
-                Direction = GetDirection(bar),
-                Open = bar.Open,
-                High = bar.High,
-                Low = bar.Low,
-                Close = bar.Close,
-                TotalVolume = bar.Volume
-            };
-        }
+		    Bar bar,
+		    ClassifiedBar classifiedBar)
+		{
+		    return new VolumeSegment
+		    {
+		        StartIndex = bar.Index,
+		        EndIndex = bar.Index,
+		        Color = classifiedBar.VolumeColor,
+		        Direction = GetDirection(bar),
+		        Open = bar.Open,
+		        High = bar.High,
+		        Low = bar.Low,
+		        Close = bar.Close,
+		        TotalVolume = bar.Volume
+		    };
+		}
 
         private static void ExtendSegment(
-            VolumeSegment segment,
-            Bar bar,
-            int index)
-        {
-            segment.EndIndex = index;
-            segment.High = Math.Max(segment.High, bar.High);
-            segment.Low = Math.Min(segment.Low, bar.Low);
-            segment.Close = bar.Close;
-            segment.TotalVolume += bar.Volume;
-
-            segment.Direction =
-                segment.Close > segment.Open ? SegmentDirection.Up :
-                segment.Close < segment.Open ? SegmentDirection.Down :
-                SegmentDirection.Sideways;
-        }
+		    VolumeSegment segment,
+		    Bar bar)
+		{
+		    segment.EndIndex = bar.Index;
+		    segment.High = Math.Max(segment.High, bar.High);
+		    segment.Low = Math.Min(segment.Low, bar.Low);
+		    segment.Close = bar.Close;
+		    segment.TotalVolume += bar.Volume;
+		
+		    segment.Direction =
+		        segment.Close > segment.Open ? SegmentDirection.Up :
+		        segment.Close < segment.Open ? SegmentDirection.Down :
+		        SegmentDirection.Sideways;
+		}
 
         private static SegmentDirection GetDirection(Bar bar)
         {
