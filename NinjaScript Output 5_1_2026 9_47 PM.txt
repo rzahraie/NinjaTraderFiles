@@ -1,15 +1,15 @@
 ----- APVA DEBUG -----
 Bar: 25 Time: 4/26/2026 5:10:00 PM
 InferredDirection: Up
-0-0 Red Down AvgVol=427 Rank=Normal Phase=Unknown Dom=NonDominant
-1-5 Black Up AvgVol=449 Rank=Normal Phase=Unknown Dom=Dominant
-6-7 Red Down AvgVol=460 Rank=Elevated Phase=Unknown Dom=NonDominant
-8-9 Black Up AvgVol=644 Rank=Elevated Phase=PP1 Dom=Dominant
-10-13 Red Down AvgVol=335 Rank=Low Phase=Unknown Dom=NonDominant
-14-15 Black Up AvgVol=359 Rank=Normal Phase=Unknown Dom=Dominant
-16-16 Red Down AvgVol=365 Rank=Normal Phase=Unknown Dom=NonDominant
-17-18 Black Up AvgVol=931 Rank=Peak Phase=PP2 Dom=Dominant
-19-19 Red Down AvgVol=1126 Rank=Climax Phase=Unknown Dom=CounterDominant
+6-6 Red Down AvgVol=427 Rank=Normal Phase=Unknown Dom=NonDominant
+7-11 Black Up AvgVol=449 Rank=Normal Phase=Unknown Dom=Dominant
+12-13 Red Down AvgVol=460 Rank=Elevated Phase=Unknown Dom=NonDominant
+14-15 Black Up AvgVol=644 Rank=Elevated Phase=PP1 Dom=Dominant
+16-19 Red Down AvgVol=335 Rank=Low Phase=Unknown Dom=NonDominant
+20-21 Black Up AvgVol=359 Rank=Normal Phase=Unknown Dom=Dominant
+22-22 Red Down AvgVol=365 Rank=Normal Phase=Unknown Dom=NonDominant
+23-24 Black Up AvgVol=931 Rank=Peak Phase=PP2 Dom=Dominant
+25-25 Red Down AvgVol=1126 Rank=Climax Phase=Unknown Dom=CounterDominant
 HasDominanceSequence: False
 HasFailureSequence: False
 FTT Candidate: False
@@ -35,15 +35,15 @@ IneffectiveDominance: False
 ----- APVA DEBUG -----
 Bar: 26 Time: 4/26/2026 5:15:00 PM
 InferredDirection: Up
-0-4 Black Up AvgVol=449 Rank=Normal Phase=Unknown Dom=Dominant
-5-6 Red Down AvgVol=460 Rank=Normal Phase=Unknown Dom=NonDominant
-7-8 Black Up AvgVol=644 Rank=Elevated Phase=PP1 Dom=Dominant
-9-12 Red Down AvgVol=335 Rank=Low Phase=Unknown Dom=NonDominant
-13-14 Black Up AvgVol=359 Rank=Normal Phase=Unknown Dom=Dominant
-15-15 Red Down AvgVol=365 Rank=Normal Phase=Unknown Dom=NonDominant
-16-17 Black Up AvgVol=931 Rank=Peak Phase=PP2 Dom=Dominant
-18-18 Red Down AvgVol=1126 Rank=Climax Phase=Unknown Dom=CounterDominant
-19-19 Black Up AvgVol=663 Rank=Elevated Phase=PP1 Dom=Dominant
+7-11 Black Up AvgVol=449 Rank=Normal Phase=Unknown Dom=Dominant
+12-13 Red Down AvgVol=460 Rank=Normal Phase=Unknown Dom=NonDominant
+14-15 Black Up AvgVol=644 Rank=Elevated Phase=PP1 Dom=Dominant
+16-19 Red Down AvgVol=335 Rank=Low Phase=Unknown Dom=NonDominant
+20-21 Black Up AvgVol=359 Rank=Normal Phase=Unknown Dom=Dominant
+22-22 Red Down AvgVol=365 Rank=Normal Phase=Unknown Dom=NonDominant
+23-24 Black Up AvgVol=931 Rank=Peak Phase=PP2 Dom=Dominant
+25-25 Red Down AvgVol=1126 Rank=Climax Phase=Unknown Dom=CounterDominant
+26-26 Black Up AvgVol=663 Rank=Elevated Phase=PP1 Dom=Dominant
 HasDominanceSequence: False
 HasFailureSequence: False
 FTT Candidate: False
@@ -69,15 +69,15 @@ IneffectiveDominance: False
 ----- APVA DEBUG -----
 Bar: 27 Time: 4/26/2026 5:20:00 PM
 InferredDirection: Up
-0-3 Black Up AvgVol=456 Rank=Normal Phase=Unknown Dom=Dominant
-4-5 Red Down AvgVol=460 Rank=Normal Phase=Unknown Dom=NonDominant
-6-7 Black Up AvgVol=644 Rank=Elevated Phase=PP1 Dom=Dominant
-8-11 Red Down AvgVol=335 Rank=Low Phase=Unknown Dom=NonDominant
-12-13 Black Up AvgVol=359 Rank=Normal Phase=Unknown Dom=Dominant
-14-14 Red Down AvgVol=365 Rank=Normal Phase=Unknown Dom=NonDominant
-15-16 Black Up AvgVol=931 Rank=Peak Phase=PP2 Dom=Dominant
-17-17 Red Down AvgVol=1126 Rank=Climax Phase=Unknown Dom=CounterDominant
-18-19 Black Up AvgVol=723 Rank=Elevated Phase=PP1 Dom=Dominant
+8-11 Black Up AvgVol=456 Rank=Normal Phase=Unknown Dom=Dominant
+12-13 Red Down AvgVol=460 Rank=Normal Phase=Unknown Dom=NonDominant
+14-15 Black Up AvgVol=644 Rank=Elevated Phase=PP1 Dom=Dominant
+16-19 Red Down AvgVol=335 Rank=Low Phase=Unknown Dom=NonDominant
+20-21 Black Up AvgVol=359 Rank=Normal Phase=Unknown Dom=Dominant
+22-22 Red Down AvgVol=365 Rank=Normal Phase=Unknown Dom=NonDominant
+23-24 Black Up AvgVol=931 Rank=Peak Phase=PP2 Dom=Dominant
+25-25 Red Down AvgVol=1126 Rank=Climax Phase=Unknown Dom=CounterDominant
+26-27 Black Up AvgVol=723 Rank=Elevated Phase=PP1 Dom=Dominant
 HasDominanceSequence: False
 HasFailureSequence: False
 FTT Candidate: False
@@ -103,16 +103,16 @@ IneffectiveDominance: False
 ----- APVA DEBUG -----
 Bar: 28 Time: 4/26/2026 5:25:00 PM
 InferredDirection: Up
-0-2 Black Up AvgVol=380 Rank=Normal Phase=Unknown Dom=Dominant
-3-4 Red Down AvgVol=460 Rank=Normal Phase=Unknown Dom=NonDominant
-5-6 Black Up AvgVol=644 Rank=Elevated Phase=PP1 Dom=Dominant
-7-10 Red Down AvgVol=335 Rank=Low Phase=Unknown Dom=NonDominant
-11-12 Black Up AvgVol=359 Rank=Normal Phase=Unknown Dom=Dominant
-13-13 Red Down AvgVol=365 Rank=Normal Phase=Unknown Dom=NonDominant
-14-15 Black Up AvgVol=931 Rank=Peak Phase=PP2 Dom=Dominant
-16-16 Red Down AvgVol=1126 Rank=Climax Phase=Unknown Dom=CounterDominant
-17-18 Black Up AvgVol=723 Rank=Elevated Phase=PP1 Dom=Dominant
-19-19 Red Down AvgVol=473 Rank=Elevated Phase=Unknown Dom=NonDominant
+9-11 Black Up AvgVol=380 Rank=Normal Phase=Unknown Dom=Dominant
+12-13 Red Down AvgVol=460 Rank=Normal Phase=Unknown Dom=NonDominant
+14-15 Black Up AvgVol=644 Rank=Elevated Phase=PP1 Dom=Dominant
+16-19 Red Down AvgVol=335 Rank=Low Phase=Unknown Dom=NonDominant
+20-21 Black Up AvgVol=359 Rank=Normal Phase=Unknown Dom=Dominant
+22-22 Red Down AvgVol=365 Rank=Normal Phase=Unknown Dom=NonDominant
+23-24 Black Up AvgVol=931 Rank=Peak Phase=PP2 Dom=Dominant
+25-25 Red Down AvgVol=1126 Rank=Climax Phase=Unknown Dom=CounterDominant
+26-27 Black Up AvgVol=723 Rank=Elevated Phase=PP1 Dom=Dominant
+28-28 Red Down AvgVol=473 Rank=Elevated Phase=Unknown Dom=NonDominant
 HasDominanceSequence: False
 HasFailureSequence: False
 FTT Candidate: True
@@ -138,17 +138,17 @@ IneffectiveDominance: False
 ----- APVA DEBUG -----
 Bar: 29 Time: 4/26/2026 5:30:00 PM
 InferredDirection: Up
-0-1 Black Up AvgVol=421 Rank=Normal Phase=Unknown Dom=Dominant
-2-3 Red Down AvgVol=460 Rank=Normal Phase=Unknown Dom=NonDominant
-4-5 Black Up AvgVol=644 Rank=Elevated Phase=PP1 Dom=Dominant
-6-9 Red Down AvgVol=335 Rank=Low Phase=Unknown Dom=NonDominant
-10-11 Black Up AvgVol=359 Rank=Normal Phase=Unknown Dom=Dominant
-12-12 Red Down AvgVol=365 Rank=Normal Phase=Unknown Dom=NonDominant
-13-14 Black Up AvgVol=931 Rank=Peak Phase=PP2 Dom=Dominant
-15-15 Red Down AvgVol=1126 Rank=Climax Phase=Unknown Dom=CounterDominant
-16-17 Black Up AvgVol=723 Rank=Elevated Phase=PP1 Dom=Dominant
-18-18 Red Down AvgVol=473 Rank=Elevated Phase=Unknown Dom=NonDominant
-19-19 Black Up AvgVol=307 Rank=Low Phase=Unknown Dom=Dominant
+10-11 Black Up AvgVol=421 Rank=Normal Phase=Unknown Dom=Dominant
+12-13 Red Down AvgVol=460 Rank=Normal Phase=Unknown Dom=NonDominant
+14-15 Black Up AvgVol=644 Rank=Elevated Phase=PP1 Dom=Dominant
+16-19 Red Down AvgVol=335 Rank=Low Phase=Unknown Dom=NonDominant
+20-21 Black Up AvgVol=359 Rank=Normal Phase=Unknown Dom=Dominant
+22-22 Red Down AvgVol=365 Rank=Normal Phase=Unknown Dom=NonDominant
+23-24 Black Up AvgVol=931 Rank=Peak Phase=PP2 Dom=Dominant
+25-25 Red Down AvgVol=1126 Rank=Climax Phase=Unknown Dom=CounterDominant
+26-27 Black Up AvgVol=723 Rank=Elevated Phase=PP1 Dom=Dominant
+28-28 Red Down AvgVol=473 Rank=Elevated Phase=Unknown Dom=NonDominant
+29-29 Black Up AvgVol=307 Rank=Low Phase=Unknown Dom=Dominant
 HasDominanceSequence: False
 HasFailureSequence: False
 FTT Candidate: True
@@ -174,18 +174,18 @@ IneffectiveDominance: True
 ----- APVA DEBUG -----
 Bar: 30 Time: 4/26/2026 5:35:00 PM
 InferredDirection: Up
-0-0 Black Up AvgVol=255 Rank=Low Phase=Unknown Dom=Dominant
-1-2 Red Down AvgVol=460 Rank=Normal Phase=Unknown Dom=NonDominant
-3-4 Black Up AvgVol=644 Rank=Elevated Phase=PP1 Dom=Dominant
-5-8 Red Down AvgVol=335 Rank=Normal Phase=Unknown Dom=NonDominant
-9-10 Black Up AvgVol=359 Rank=Normal Phase=Unknown Dom=Dominant
-11-11 Red Down AvgVol=365 Rank=Normal Phase=Unknown Dom=NonDominant
-12-13 Black Up AvgVol=931 Rank=Peak Phase=PP2 Dom=Dominant
-14-14 Red Down AvgVol=1126 Rank=Climax Phase=Unknown Dom=CounterDominant
-15-16 Black Up AvgVol=723 Rank=Elevated Phase=PP1 Dom=Dominant
-17-17 Red Down AvgVol=473 Rank=Normal Phase=Unknown Dom=NonDominant
-18-18 Black Up AvgVol=307 Rank=Low Phase=Unknown Dom=Dominant
-19-19 Red Down AvgVol=562 Rank=Elevated Phase=Unknown Dom=NonDominant
+11-11 Black Up AvgVol=255 Rank=Low Phase=Unknown Dom=Dominant
+12-13 Red Down AvgVol=460 Rank=Normal Phase=Unknown Dom=NonDominant
+14-15 Black Up AvgVol=644 Rank=Elevated Phase=PP1 Dom=Dominant
+16-19 Red Down AvgVol=335 Rank=Normal Phase=Unknown Dom=NonDominant
+20-21 Black Up AvgVol=359 Rank=Normal Phase=Unknown Dom=Dominant
+22-22 Red Down AvgVol=365 Rank=Normal Phase=Unknown Dom=NonDominant
+23-24 Black Up AvgVol=931 Rank=Peak Phase=PP2 Dom=Dominant
+25-25 Red Down AvgVol=1126 Rank=Climax Phase=Unknown Dom=CounterDominant
+26-27 Black Up AvgVol=723 Rank=Elevated Phase=PP1 Dom=Dominant
+28-28 Red Down AvgVol=473 Rank=Normal Phase=Unknown Dom=NonDominant
+29-29 Black Up AvgVol=307 Rank=Low Phase=Unknown Dom=Dominant
+30-30 Red Down AvgVol=562 Rank=Elevated Phase=Unknown Dom=NonDominant
 HasDominanceSequence: False
 HasFailureSequence: False
 FTT Candidate: True
@@ -211,18 +211,18 @@ IneffectiveDominance: False
 ----- APVA DEBUG -----
 Bar: 31 Time: 4/26/2026 5:40:00 PM
 InferredDirection: Up
-0-1 Red Down AvgVol=460 Rank=Normal Phase=Unknown Dom=NonDominant
-2-3 Black Up AvgVol=644 Rank=Elevated Phase=PP1 Dom=Dominant
-4-7 Red Down AvgVol=335 Rank=Low Phase=Unknown Dom=NonDominant
-8-9 Black Up AvgVol=359 Rank=Normal Phase=Unknown Dom=Dominant
-10-10 Red Down AvgVol=365 Rank=Normal Phase=Unknown Dom=NonDominant
-11-12 Black Up AvgVol=931 Rank=Peak Phase=PP2 Dom=Dominant
-13-13 Red Down AvgVol=1126 Rank=Climax Phase=Unknown Dom=CounterDominant
-14-15 Black Up AvgVol=723 Rank=Elevated Phase=PP1 Dom=Dominant
-16-16 Red Down AvgVol=473 Rank=Normal Phase=Unknown Dom=NonDominant
-17-17 Black Up AvgVol=307 Rank=Low Phase=Unknown Dom=Dominant
-18-18 Red Down AvgVol=562 Rank=Elevated Phase=Unknown Dom=NonDominant
-19-19 Black Up AvgVol=492 Rank=Normal Phase=Unknown Dom=Dominant
+12-13 Red Down AvgVol=460 Rank=Normal Phase=Unknown Dom=NonDominant
+14-15 Black Up AvgVol=644 Rank=Elevated Phase=PP1 Dom=Dominant
+16-19 Red Down AvgVol=335 Rank=Low Phase=Unknown Dom=NonDominant
+20-21 Black Up AvgVol=359 Rank=Normal Phase=Unknown Dom=Dominant
+22-22 Red Down AvgVol=365 Rank=Normal Phase=Unknown Dom=NonDominant
+23-24 Black Up AvgVol=931 Rank=Peak Phase=PP2 Dom=Dominant
+25-25 Red Down AvgVol=1126 Rank=Climax Phase=Unknown Dom=CounterDominant
+26-27 Black Up AvgVol=723 Rank=Elevated Phase=PP1 Dom=Dominant
+28-28 Red Down AvgVol=473 Rank=Normal Phase=Unknown Dom=NonDominant
+29-29 Black Up AvgVol=307 Rank=Low Phase=Unknown Dom=Dominant
+30-30 Red Down AvgVol=562 Rank=Elevated Phase=Unknown Dom=NonDominant
+31-31 Black Up AvgVol=492 Rank=Normal Phase=Unknown Dom=Dominant
 HasDominanceSequence: False
 HasFailureSequence: False
 FTT Candidate: True
@@ -248,18 +248,18 @@ IneffectiveDominance: True
 ----- APVA DEBUG -----
 Bar: 32 Time: 4/26/2026 5:45:00 PM
 InferredDirection: Up
-0-0 Red Down AvgVol=535 Rank=Normal Phase=Unknown Dom=NonDominant
-1-2 Black Up AvgVol=644 Rank=Elevated Phase=PP1 Dom=Dominant
-3-6 Red Down AvgVol=335 Rank=Low Phase=Unknown Dom=NonDominant
-7-8 Black Up AvgVol=359 Rank=Normal Phase=Unknown Dom=Dominant
-9-9 Red Down AvgVol=365 Rank=Normal Phase=Unknown Dom=NonDominant
-10-11 Black Up AvgVol=931 Rank=Peak Phase=PP2 Dom=Dominant
-12-12 Red Down AvgVol=1126 Rank=Climax Phase=Unknown Dom=CounterDominant
-13-14 Black Up AvgVol=723 Rank=Elevated Phase=PP1 Dom=Dominant
-15-15 Red Down AvgVol=473 Rank=Normal Phase=Unknown Dom=NonDominant
-16-16 Black Up AvgVol=307 Rank=Low Phase=Unknown Dom=Dominant
-17-17 Red Down AvgVol=562 Rank=Normal Phase=Unknown Dom=NonDominant
-18-19 Black Up AvgVol=573 Rank=Elevated Phase=PP2 Dom=Dominant
+13-13 Red Down AvgVol=535 Rank=Normal Phase=Unknown Dom=NonDominant
+14-15 Black Up AvgVol=644 Rank=Elevated Phase=PP1 Dom=Dominant
+16-19 Red Down AvgVol=335 Rank=Low Phase=Unknown Dom=NonDominant
+20-21 Black Up AvgVol=359 Rank=Normal Phase=Unknown Dom=Dominant
+22-22 Red Down AvgVol=365 Rank=Normal Phase=Unknown Dom=NonDominant
+23-24 Black Up AvgVol=931 Rank=Peak Phase=PP2 Dom=Dominant
+25-25 Red Down AvgVol=1126 Rank=Climax Phase=Unknown Dom=CounterDominant
+26-27 Black Up AvgVol=723 Rank=Elevated Phase=PP1 Dom=Dominant
+28-28 Red Down AvgVol=473 Rank=Normal Phase=Unknown Dom=NonDominant
+29-29 Black Up AvgVol=307 Rank=Low Phase=Unknown Dom=Dominant
+30-30 Red Down AvgVol=562 Rank=Normal Phase=Unknown Dom=NonDominant
+31-32 Black Up AvgVol=573 Rank=Elevated Phase=PP2 Dom=Dominant
 HasDominanceSequence: False
 HasFailureSequence: False
 FTT Candidate: False
@@ -285,18 +285,18 @@ IneffectiveDominance: False
 ----- APVA DEBUG -----
 Bar: 33 Time: 4/26/2026 5:50:00 PM
 InferredDirection: Up
-0-1 Black Up AvgVol=644 Rank=Elevated Phase=PP1 Dom=Dominant
-2-5 Red Down AvgVol=335 Rank=Normal Phase=Unknown Dom=NonDominant
-6-7 Black Up AvgVol=359 Rank=Normal Phase=Unknown Dom=Dominant
-8-8 Red Down AvgVol=365 Rank=Normal Phase=Unknown Dom=NonDominant
-9-10 Black Up AvgVol=931 Rank=Peak Phase=PP2 Dom=Dominant
-11-11 Red Down AvgVol=1126 Rank=Climax Phase=Unknown Dom=CounterDominant
-12-13 Black Up AvgVol=723 Rank=Elevated Phase=PP1 Dom=Dominant
-14-14 Red Down AvgVol=473 Rank=Normal Phase=Unknown Dom=NonDominant
-15-15 Black Up AvgVol=307 Rank=Low Phase=Unknown Dom=Dominant
-16-16 Red Down AvgVol=562 Rank=Normal Phase=Unknown Dom=NonDominant
-17-18 Black Up AvgVol=573 Rank=Elevated Phase=PP2 Dom=Dominant
-19-19 Red Down AvgVol=332 Rank=Low Phase=T1 Dom=NonDominant
+14-15 Black Up AvgVol=644 Rank=Elevated Phase=PP1 Dom=Dominant
+16-19 Red Down AvgVol=335 Rank=Normal Phase=Unknown Dom=NonDominant
+20-21 Black Up AvgVol=359 Rank=Normal Phase=Unknown Dom=Dominant
+22-22 Red Down AvgVol=365 Rank=Normal Phase=Unknown Dom=NonDominant
+23-24 Black Up AvgVol=931 Rank=Peak Phase=PP2 Dom=Dominant
+25-25 Red Down AvgVol=1126 Rank=Climax Phase=Unknown Dom=CounterDominant
+26-27 Black Up AvgVol=723 Rank=Elevated Phase=PP1 Dom=Dominant
+28-28 Red Down AvgVol=473 Rank=Normal Phase=Unknown Dom=NonDominant
+29-29 Black Up AvgVol=307 Rank=Low Phase=Unknown Dom=Dominant
+30-30 Red Down AvgVol=562 Rank=Normal Phase=Unknown Dom=NonDominant
+31-32 Black Up AvgVol=573 Rank=Elevated Phase=PP2 Dom=Dominant
+33-33 Red Down AvgVol=332 Rank=Low Phase=T1 Dom=NonDominant
 HasDominanceSequence: False
 HasFailureSequence: False
 FTT Candidate: True
@@ -322,19 +322,19 @@ IneffectiveDominance: False
 ----- APVA DEBUG -----
 Bar: 34 Time: 4/26/2026 5:55:00 PM
 InferredDirection: Up
-0-0 Black Up AvgVol=631 Rank=Elevated Phase=PP1 Dom=Dominant
-1-4 Red Down AvgVol=335 Rank=Normal Phase=Unknown Dom=NonDominant
-5-6 Black Up AvgVol=359 Rank=Normal Phase=Unknown Dom=Dominant
-7-7 Red Down AvgVol=365 Rank=Normal Phase=Unknown Dom=NonDominant
-8-9 Black Up AvgVol=931 Rank=Peak Phase=PP2 Dom=Dominant
-10-10 Red Down AvgVol=1126 Rank=Climax Phase=Unknown Dom=CounterDominant
-11-12 Black Up AvgVol=723 Rank=Elevated Phase=PP1 Dom=Dominant
-13-13 Red Down AvgVol=473 Rank=Normal Phase=Unknown Dom=NonDominant
-14-14 Black Up AvgVol=307 Rank=Low Phase=Unknown Dom=Dominant
-15-15 Red Down AvgVol=562 Rank=Elevated Phase=Unknown Dom=NonDominant
-16-17 Black Up AvgVol=573 Rank=Elevated Phase=PP2 Dom=Dominant
-18-18 Red Down AvgVol=332 Rank=Normal Phase=T1 Dom=NonDominant
-19-19 Black Up AvgVol=294 Rank=Low Phase=T2F Dom=Dominant
+15-15 Black Up AvgVol=631 Rank=Elevated Phase=PP1 Dom=Dominant
+16-19 Red Down AvgVol=335 Rank=Normal Phase=Unknown Dom=NonDominant
+20-21 Black Up AvgVol=359 Rank=Normal Phase=Unknown Dom=Dominant
+22-22 Red Down AvgVol=365 Rank=Normal Phase=Unknown Dom=NonDominant
+23-24 Black Up AvgVol=931 Rank=Peak Phase=PP2 Dom=Dominant
+25-25 Red Down AvgVol=1126 Rank=Climax Phase=Unknown Dom=CounterDominant
+26-27 Black Up AvgVol=723 Rank=Elevated Phase=PP1 Dom=Dominant
+28-28 Red Down AvgVol=473 Rank=Normal Phase=Unknown Dom=NonDominant
+29-29 Black Up AvgVol=307 Rank=Low Phase=Unknown Dom=Dominant
+30-30 Red Down AvgVol=562 Rank=Elevated Phase=Unknown Dom=NonDominant
+31-32 Black Up AvgVol=573 Rank=Elevated Phase=PP2 Dom=Dominant
+33-33 Red Down AvgVol=332 Rank=Normal Phase=T1 Dom=NonDominant
+34-34 Black Up AvgVol=294 Rank=Low Phase=T2F Dom=Dominant
 HasDominanceSequence: False
 HasFailureSequence: False
 FTT Candidate: True
@@ -360,26 +360,26 @@ IneffectiveDominance: True
 ----- APVA DEBUG -----
 Bar: 35 Time: 4/26/2026 6:00:00 PM
 InferredDirection: Up
-0-3 Red Down AvgVol=335 Rank=Normal Phase=Unknown Dom=NonDominant
-4-5 Black Up AvgVol=359 Rank=Normal Phase=Unknown Dom=Dominant
-6-6 Red Down AvgVol=365 Rank=Normal Phase=Unknown Dom=NonDominant
-7-8 Black Up AvgVol=931 Rank=Elevated Phase=PP1 Dom=Dominant
-9-9 Red Down AvgVol=1126 Rank=Climax Phase=Unknown Dom=CounterDominant
-10-11 Black Up AvgVol=723 Rank=Elevated Phase=PP1 Dom=Dominant
-12-12 Red Down AvgVol=473 Rank=Normal Phase=Unknown Dom=NonDominant
-13-13 Black Up AvgVol=307 Rank=Low Phase=Unknown Dom=Dominant
-14-14 Red Down AvgVol=562 Rank=Normal Phase=Unknown Dom=NonDominant
-15-16 Black Up AvgVol=573 Rank=Elevated Phase=PP2 Dom=Dominant
-17-17 Red Down AvgVol=332 Rank=Low Phase=T1 Dom=NonDominant
-18-19 Black Up AvgVol=1088 Rank=Peak Phase=T2P Dom=Dominant
+16-19 Red Down AvgVol=335 Rank=Normal Phase=Unknown Dom=NonDominant
+20-21 Black Up AvgVol=359 Rank=Normal Phase=Unknown Dom=Dominant
+22-22 Red Down AvgVol=365 Rank=Normal Phase=Unknown Dom=NonDominant
+23-24 Black Up AvgVol=931 Rank=Elevated Phase=PP1 Dom=Dominant
+25-25 Red Down AvgVol=1126 Rank=Climax Phase=Unknown Dom=CounterDominant
+26-27 Black Up AvgVol=723 Rank=Elevated Phase=PP1 Dom=Dominant
+28-28 Red Down AvgVol=473 Rank=Normal Phase=Unknown Dom=NonDominant
+29-29 Black Up AvgVol=307 Rank=Low Phase=Unknown Dom=Dominant
+30-30 Red Down AvgVol=562 Rank=Normal Phase=Unknown Dom=NonDominant
+31-32 Black Up AvgVol=573 Rank=Elevated Phase=PP2 Dom=Dominant
+33-33 Red Down AvgVol=332 Rank=Low Phase=T1 Dom=NonDominant
+34-35 Black Up AvgVol=1088 Rank=Peak Phase=T2P Dom=Dominant
 HasDominanceSequence: True
 HasFailureSequence: False
 FTT Candidate: False
 FTT Confirmed: False
 FTT Reason: 
 CurrentSegmentDominance: Dominant
-ContainerBias: CounterDominant
-RecentBias: Dominant
+ContainerBias: Unknown
+RecentBias: Unknown
 LTL@35: 27451.45
 LastHigh: 27474.5 LastClose: 27455.5
 ContainerDirection: Up
@@ -397,26 +397,26 @@ IneffectiveDominance: False
 ----- APVA DEBUG -----
 Bar: 36 Time: 4/26/2026 6:05:00 PM
 InferredDirection: Up
-0-2 Red Down AvgVol=376 Rank=Normal Phase=Unknown Dom=NonDominant
-3-4 Black Up AvgVol=359 Rank=Normal Phase=Unknown Dom=Dominant
-5-5 Red Down AvgVol=365 Rank=Normal Phase=Unknown Dom=NonDominant
-6-7 Black Up AvgVol=931 Rank=Elevated Phase=PP1 Dom=Dominant
-8-8 Red Down AvgVol=1126 Rank=Peak Phase=Unknown Dom=CounterDominant
-9-10 Black Up AvgVol=723 Rank=Elevated Phase=PP1 Dom=Dominant
-11-11 Red Down AvgVol=473 Rank=Normal Phase=Unknown Dom=NonDominant
-12-12 Black Up AvgVol=307 Rank=Low Phase=Unknown Dom=Dominant
-13-13 Red Down AvgVol=562 Rank=Normal Phase=Unknown Dom=NonDominant
-14-15 Black Up AvgVol=573 Rank=Elevated Phase=PP2 Dom=Dominant
-16-16 Red Down AvgVol=332 Rank=Low Phase=T1 Dom=NonDominant
-17-19 Black Up AvgVol=1504 Rank=Climax Phase=T2P Dom=Dominant
+17-19 Red Down AvgVol=376 Rank=Normal Phase=Unknown Dom=NonDominant
+20-21 Black Up AvgVol=359 Rank=Normal Phase=Unknown Dom=Dominant
+22-22 Red Down AvgVol=365 Rank=Normal Phase=Unknown Dom=NonDominant
+23-24 Black Up AvgVol=931 Rank=Elevated Phase=PP1 Dom=Dominant
+25-25 Red Down AvgVol=1126 Rank=Peak Phase=Unknown Dom=CounterDominant
+26-27 Black Up AvgVol=723 Rank=Elevated Phase=PP1 Dom=Dominant
+28-28 Red Down AvgVol=473 Rank=Normal Phase=Unknown Dom=NonDominant
+29-29 Black Up AvgVol=307 Rank=Low Phase=Unknown Dom=Dominant
+30-30 Red Down AvgVol=562 Rank=Normal Phase=Unknown Dom=NonDominant
+31-32 Black Up AvgVol=573 Rank=Elevated Phase=PP2 Dom=Dominant
+33-33 Red Down AvgVol=332 Rank=Low Phase=T1 Dom=NonDominant
+34-36 Black Up AvgVol=1504 Rank=Climax Phase=T2P Dom=Dominant
 HasDominanceSequence: True
 HasFailureSequence: False
 FTT Candidate: False
 FTT Confirmed: False
 FTT Reason: 
 CurrentSegmentDominance: Dominant
-ContainerBias: CounterDominant
-RecentBias: Dominant
+ContainerBias: Unknown
+RecentBias: Unknown
 LTL@36: 27463.75
 LastHigh: 27499.75 LastClose: 27490.5
 ContainerDirection: Up
@@ -434,19 +434,19 @@ IneffectiveDominance: False
 ----- APVA DEBUG -----
 Bar: 37 Time: 4/26/2026 6:10:00 PM
 InferredDirection: Up
-0-1 Red Down AvgVol=467 Rank=Normal Phase=Unknown Dom=NonDominant
-2-3 Black Up AvgVol=359 Rank=Normal Phase=Unknown Dom=Dominant
-4-4 Red Down AvgVol=365 Rank=Normal Phase=Unknown Dom=NonDominant
-5-6 Black Up AvgVol=931 Rank=Elevated Phase=PP1 Dom=Dominant
-7-7 Red Down AvgVol=1126 Rank=Elevated Phase=Unknown Dom=NonDominant
-8-9 Black Up AvgVol=723 Rank=Elevated Phase=PP2 Dom=Dominant
-10-10 Red Down AvgVol=473 Rank=Normal Phase=T1 Dom=NonDominant
-11-11 Black Up AvgVol=307 Rank=Low Phase=T2F Dom=Dominant
-12-12 Red Down AvgVol=562 Rank=Normal Phase=Unknown Dom=NonDominant
-13-14 Black Up AvgVol=573 Rank=Elevated Phase=PP1 Dom=Dominant
-15-15 Red Down AvgVol=332 Rank=Low Phase=Unknown Dom=NonDominant
-16-18 Black Up AvgVol=1504 Rank=Climax Phase=PP2 Dom=Dominant
-19-19 Red Down AvgVol=1309 Rank=Peak Phase=Unknown Dom=CounterDominant
+18-19 Red Down AvgVol=467 Rank=Normal Phase=Unknown Dom=NonDominant
+20-21 Black Up AvgVol=359 Rank=Normal Phase=Unknown Dom=Dominant
+22-22 Red Down AvgVol=365 Rank=Normal Phase=Unknown Dom=NonDominant
+23-24 Black Up AvgVol=931 Rank=Elevated Phase=PP1 Dom=Dominant
+25-25 Red Down AvgVol=1126 Rank=Elevated Phase=Unknown Dom=NonDominant
+26-27 Black Up AvgVol=723 Rank=Elevated Phase=PP2 Dom=Dominant
+28-28 Red Down AvgVol=473 Rank=Normal Phase=T1 Dom=NonDominant
+29-29 Black Up AvgVol=307 Rank=Low Phase=T2F Dom=Dominant
+30-30 Red Down AvgVol=562 Rank=Normal Phase=Unknown Dom=NonDominant
+31-32 Black Up AvgVol=573 Rank=Elevated Phase=PP1 Dom=Dominant
+33-33 Red Down AvgVol=332 Rank=Low Phase=Unknown Dom=NonDominant
+34-36 Black Up AvgVol=1504 Rank=Climax Phase=PP2 Dom=Dominant
+37-37 Red Down AvgVol=1309 Rank=Peak Phase=Unknown Dom=CounterDominant
 HasDominanceSequence: False
 HasFailureSequence: False
 FTT Candidate: True
@@ -472,20 +472,20 @@ IneffectiveDominance: False
 ----- APVA DEBUG -----
 Bar: 38 Time: 4/26/2026 6:15:00 PM
 InferredDirection: Up
-0-0 Red Down AvgVol=274 Rank=Low Phase=Unknown Dom=NonDominant
-1-2 Black Up AvgVol=359 Rank=Normal Phase=Unknown Dom=Dominant
-3-3 Red Down AvgVol=365 Rank=Normal Phase=Unknown Dom=NonDominant
-4-5 Black Up AvgVol=931 Rank=Elevated Phase=PP1 Dom=Dominant
-6-6 Red Down AvgVol=1126 Rank=Peak Phase=Unknown Dom=CounterDominant
-7-8 Black Up AvgVol=723 Rank=Elevated Phase=PP1 Dom=Dominant
-9-9 Red Down AvgVol=473 Rank=Normal Phase=Unknown Dom=NonDominant
-10-10 Black Up AvgVol=307 Rank=Low Phase=Unknown Dom=Dominant
-11-11 Red Down AvgVol=562 Rank=Normal Phase=Unknown Dom=NonDominant
-12-13 Black Up AvgVol=573 Rank=Normal Phase=Unknown Dom=Dominant
-14-14 Red Down AvgVol=332 Rank=Normal Phase=Unknown Dom=NonDominant
-15-17 Black Up AvgVol=1504 Rank=Climax Phase=PP2 Dom=Dominant
-18-18 Red Down AvgVol=1309 Rank=Peak Phase=Unknown Dom=CounterDominant
-19-19 Black Up AvgVol=736 Rank=Elevated Phase=PP1 Dom=Dominant
+19-19 Red Down AvgVol=274 Rank=Low Phase=Unknown Dom=NonDominant
+20-21 Black Up AvgVol=359 Rank=Normal Phase=Unknown Dom=Dominant
+22-22 Red Down AvgVol=365 Rank=Normal Phase=Unknown Dom=NonDominant
+23-24 Black Up AvgVol=931 Rank=Elevated Phase=PP1 Dom=Dominant
+25-25 Red Down AvgVol=1126 Rank=Peak Phase=Unknown Dom=CounterDominant
+26-27 Black Up AvgVol=723 Rank=Elevated Phase=PP1 Dom=Dominant
+28-28 Red Down AvgVol=473 Rank=Normal Phase=Unknown Dom=NonDominant
+29-29 Black Up AvgVol=307 Rank=Low Phase=Unknown Dom=Dominant
+30-30 Red Down AvgVol=562 Rank=Normal Phase=Unknown Dom=NonDominant
+31-32 Black Up AvgVol=573 Rank=Normal Phase=Unknown Dom=Dominant
+33-33 Red Down AvgVol=332 Rank=Normal Phase=Unknown Dom=NonDominant
+34-36 Black Up AvgVol=1504 Rank=Climax Phase=PP2 Dom=Dominant
+37-37 Red Down AvgVol=1309 Rank=Peak Phase=Unknown Dom=CounterDominant
+38-38 Black Up AvgVol=736 Rank=Elevated Phase=PP1 Dom=Dominant
 HasDominanceSequence: False
 HasFailureSequence: False
 FTT Candidate: False
@@ -511,19 +511,19 @@ IneffectiveDominance: False
 ----- APVA DEBUG -----
 Bar: 39 Time: 4/26/2026 6:20:00 PM
 InferredDirection: Up
-0-1 Black Up AvgVol=359 Rank=Normal Phase=Unknown Dom=Dominant
-2-2 Red Down AvgVol=365 Rank=Normal Phase=Unknown Dom=NonDominant
-3-4 Black Up AvgVol=931 Rank=Elevated Phase=PP1 Dom=Dominant
-5-5 Red Down AvgVol=1126 Rank=Elevated Phase=Unknown Dom=NonDominant
-6-7 Black Up AvgVol=723 Rank=Elevated Phase=PP2 Dom=Dominant
-8-8 Red Down AvgVol=473 Rank=Normal Phase=T1 Dom=NonDominant
-9-9 Black Up AvgVol=307 Rank=Low Phase=T2F Dom=Dominant
-10-10 Red Down AvgVol=562 Rank=Normal Phase=Unknown Dom=NonDominant
-11-12 Black Up AvgVol=573 Rank=Normal Phase=Unknown Dom=Dominant
-13-13 Red Down AvgVol=332 Rank=Low Phase=Unknown Dom=NonDominant
-14-16 Black Up AvgVol=1504 Rank=Climax Phase=PP1 Dom=Dominant
-17-17 Red Down AvgVol=1309 Rank=Peak Phase=Unknown Dom=CounterDominant
-18-19 Black Up AvgVol=738 Rank=Elevated Phase=PP1 Dom=Dominant
+20-21 Black Up AvgVol=359 Rank=Normal Phase=Unknown Dom=Dominant
+22-22 Red Down AvgVol=365 Rank=Normal Phase=Unknown Dom=NonDominant
+23-24 Black Up AvgVol=931 Rank=Elevated Phase=PP1 Dom=Dominant
+25-25 Red Down AvgVol=1126 Rank=Elevated Phase=Unknown Dom=NonDominant
+26-27 Black Up AvgVol=723 Rank=Elevated Phase=PP2 Dom=Dominant
+28-28 Red Down AvgVol=473 Rank=Normal Phase=T1 Dom=NonDominant
+29-29 Black Up AvgVol=307 Rank=Low Phase=T2F Dom=Dominant
+30-30 Red Down AvgVol=562 Rank=Normal Phase=Unknown Dom=NonDominant
+31-32 Black Up AvgVol=573 Rank=Normal Phase=Unknown Dom=Dominant
+33-33 Red Down AvgVol=332 Rank=Low Phase=Unknown Dom=NonDominant
+34-36 Black Up AvgVol=1504 Rank=Climax Phase=PP1 Dom=Dominant
+37-37 Red Down AvgVol=1309 Rank=Peak Phase=Unknown Dom=CounterDominant
+38-39 Black Up AvgVol=738 Rank=Elevated Phase=PP1 Dom=Dominant
 HasDominanceSequence: False
 HasFailureSequence: False
 FTT Candidate: True
@@ -549,19 +549,19 @@ IneffectiveDominance: False
 ----- APVA DEBUG -----
 Bar: 40 Time: 4/26/2026 6:25:00 PM
 InferredDirection: Up
-0-0 Black Up AvgVol=396 Rank=Normal Phase=Unknown Dom=Dominant
-1-1 Red Down AvgVol=365 Rank=Normal Phase=Unknown Dom=NonDominant
-2-3 Black Up AvgVol=931 Rank=Elevated Phase=PP1 Dom=Dominant
-4-4 Red Down AvgVol=1126 Rank=Elevated Phase=Unknown Dom=NonDominant
-5-6 Black Up AvgVol=723 Rank=Elevated Phase=PP2 Dom=Dominant
-7-7 Red Down AvgVol=473 Rank=Normal Phase=T1 Dom=NonDominant
-8-8 Black Up AvgVol=307 Rank=Low Phase=T2F Dom=Dominant
-9-9 Red Down AvgVol=562 Rank=Normal Phase=Unknown Dom=NonDominant
-10-11 Black Up AvgVol=573 Rank=Normal Phase=Unknown Dom=Dominant
-12-12 Red Down AvgVol=332 Rank=Low Phase=Unknown Dom=NonDominant
-13-15 Black Up AvgVol=1504 Rank=Climax Phase=PP1 Dom=Dominant
-16-16 Red Down AvgVol=1309 Rank=Peak Phase=Unknown Dom=CounterDominant
-17-19 Black Up AvgVol=684 Rank=Elevated Phase=PP1 Dom=Dominant
+21-21 Black Up AvgVol=396 Rank=Normal Phase=Unknown Dom=Dominant
+22-22 Red Down AvgVol=365 Rank=Normal Phase=Unknown Dom=NonDominant
+23-24 Black Up AvgVol=931 Rank=Elevated Phase=PP1 Dom=Dominant
+25-25 Red Down AvgVol=1126 Rank=Elevated Phase=Unknown Dom=NonDominant
+26-27 Black Up AvgVol=723 Rank=Elevated Phase=PP2 Dom=Dominant
+28-28 Red Down AvgVol=473 Rank=Normal Phase=T1 Dom=NonDominant
+29-29 Black Up AvgVol=307 Rank=Low Phase=T2F Dom=Dominant
+30-30 Red Down AvgVol=562 Rank=Normal Phase=Unknown Dom=NonDominant
+31-32 Black Up AvgVol=573 Rank=Normal Phase=Unknown Dom=Dominant
+33-33 Red Down AvgVol=332 Rank=Low Phase=Unknown Dom=NonDominant
+34-36 Black Up AvgVol=1504 Rank=Climax Phase=PP1 Dom=Dominant
+37-37 Red Down AvgVol=1309 Rank=Peak Phase=Unknown Dom=CounterDominant
+38-40 Black Up AvgVol=684 Rank=Elevated Phase=PP1 Dom=Dominant
 HasDominanceSequence: False
 HasFailureSequence: False
 FTT Candidate: True
@@ -587,18 +587,18 @@ IneffectiveDominance: True
 ----- APVA DEBUG -----
 Bar: 41 Time: 4/26/2026 6:30:00 PM
 InferredDirection: Up
-0-0 Red Down AvgVol=365 Rank=Normal Phase=Unknown Dom=NonDominant
-1-2 Black Up AvgVol=931 Rank=Elevated Phase=PP1 Dom=Dominant
-3-3 Red Down AvgVol=1126 Rank=Elevated Phase=Unknown Dom=NonDominant
-4-5 Black Up AvgVol=723 Rank=Normal Phase=Unknown Dom=Dominant
-6-6 Red Down AvgVol=473 Rank=Normal Phase=Unknown Dom=NonDominant
-7-7 Black Up AvgVol=307 Rank=Low Phase=Unknown Dom=Dominant
-8-8 Red Down AvgVol=562 Rank=Normal Phase=Unknown Dom=NonDominant
-9-10 Black Up AvgVol=573 Rank=Normal Phase=Unknown Dom=Dominant
-11-11 Red Down AvgVol=332 Rank=Low Phase=Unknown Dom=NonDominant
-12-14 Black Up AvgVol=1504 Rank=Climax Phase=PP2 Dom=Dominant
-15-15 Red Down AvgVol=1309 Rank=Peak Phase=Unknown Dom=CounterDominant
-16-19 Black Up AvgVol=756 Rank=Elevated Phase=PP1 Dom=Dominant
+22-22 Red Down AvgVol=365 Rank=Normal Phase=Unknown Dom=NonDominant
+23-24 Black Up AvgVol=931 Rank=Elevated Phase=PP1 Dom=Dominant
+25-25 Red Down AvgVol=1126 Rank=Elevated Phase=Unknown Dom=NonDominant
+26-27 Black Up AvgVol=723 Rank=Normal Phase=Unknown Dom=Dominant
+28-28 Red Down AvgVol=473 Rank=Normal Phase=Unknown Dom=NonDominant
+29-29 Black Up AvgVol=307 Rank=Low Phase=Unknown Dom=Dominant
+30-30 Red Down AvgVol=562 Rank=Normal Phase=Unknown Dom=NonDominant
+31-32 Black Up AvgVol=573 Rank=Normal Phase=Unknown Dom=Dominant
+33-33 Red Down AvgVol=332 Rank=Low Phase=Unknown Dom=NonDominant
+34-36 Black Up AvgVol=1504 Rank=Climax Phase=PP2 Dom=Dominant
+37-37 Red Down AvgVol=1309 Rank=Peak Phase=Unknown Dom=CounterDominant
+38-41 Black Up AvgVol=756 Rank=Elevated Phase=PP1 Dom=Dominant
 HasDominanceSequence: False
 HasFailureSequence: False
 FTT Candidate: True
@@ -624,17 +624,17 @@ IneffectiveDominance: True
 ----- APVA DEBUG -----
 Bar: 42 Time: 4/26/2026 6:35:00 PM
 InferredDirection: Up
-0-1 Black Up AvgVol=931 Rank=Elevated Phase=PP1 Dom=Dominant
-2-2 Red Down AvgVol=1126 Rank=Elevated Phase=Unknown Dom=NonDominant
-3-4 Black Up AvgVol=723 Rank=Normal Phase=Unknown Dom=Dominant
-5-5 Red Down AvgVol=473 Rank=Normal Phase=Unknown Dom=NonDominant
-6-6 Black Up AvgVol=307 Rank=Low Phase=Unknown Dom=Dominant
-7-7 Red Down AvgVol=562 Rank=Normal Phase=Unknown Dom=NonDominant
-8-9 Black Up AvgVol=573 Rank=Normal Phase=Unknown Dom=Dominant
-10-10 Red Down AvgVol=332 Rank=Low Phase=Unknown Dom=NonDominant
-11-13 Black Up AvgVol=1504 Rank=Climax Phase=PP2 Dom=Dominant
-14-14 Red Down AvgVol=1309 Rank=Peak Phase=Unknown Dom=CounterDominant
-15-19 Black Up AvgVol=812 Rank=Elevated Phase=PP1 Dom=Dominant
+23-24 Black Up AvgVol=931 Rank=Elevated Phase=PP1 Dom=Dominant
+25-25 Red Down AvgVol=1126 Rank=Elevated Phase=Unknown Dom=NonDominant
+26-27 Black Up AvgVol=723 Rank=Normal Phase=Unknown Dom=Dominant
+28-28 Red Down AvgVol=473 Rank=Normal Phase=Unknown Dom=NonDominant
+29-29 Black Up AvgVol=307 Rank=Low Phase=Unknown Dom=Dominant
+30-30 Red Down AvgVol=562 Rank=Normal Phase=Unknown Dom=NonDominant
+31-32 Black Up AvgVol=573 Rank=Normal Phase=Unknown Dom=Dominant
+33-33 Red Down AvgVol=332 Rank=Low Phase=Unknown Dom=NonDominant
+34-36 Black Up AvgVol=1504 Rank=Climax Phase=PP2 Dom=Dominant
+37-37 Red Down AvgVol=1309 Rank=Peak Phase=Unknown Dom=CounterDominant
+38-42 Black Up AvgVol=812 Rank=Elevated Phase=PP1 Dom=Dominant
 HasDominanceSequence: False
 HasFailureSequence: False
 FTT Candidate: True
@@ -660,24 +660,24 @@ IneffectiveDominance: True
 ----- APVA DEBUG -----
 Bar: 43 Time: 4/26/2026 6:40:00 PM
 InferredDirection: Up
-0-0 Black Up AvgVol=1625 Rank=Climax Phase=PP1 Dom=Dominant
-1-1 Red Down AvgVol=1126 Rank=Elevated Phase=Unknown Dom=NonDominant
-2-3 Black Up AvgVol=723 Rank=Normal Phase=Unknown Dom=Dominant
-4-4 Red Down AvgVol=473 Rank=Normal Phase=Unknown Dom=NonDominant
-5-5 Black Up AvgVol=307 Rank=Low Phase=Unknown Dom=Dominant
-6-6 Red Down AvgVol=562 Rank=Normal Phase=Unknown Dom=NonDominant
-7-8 Black Up AvgVol=573 Rank=Normal Phase=Unknown Dom=Dominant
-9-9 Red Down AvgVol=332 Rank=Low Phase=Unknown Dom=NonDominant
-10-12 Black Up AvgVol=1504 Rank=Peak Phase=PP2 Dom=Dominant
-13-13 Red Down AvgVol=1309 Rank=Elevated Phase=T1 Dom=NonDominant
-14-19 Black Up AvgVol=773 Rank=Elevated Phase=T2P Dom=Dominant
+24-24 Black Up AvgVol=1625 Rank=Climax Phase=PP1 Dom=Dominant
+25-25 Red Down AvgVol=1126 Rank=Elevated Phase=Unknown Dom=NonDominant
+26-27 Black Up AvgVol=723 Rank=Normal Phase=Unknown Dom=Dominant
+28-28 Red Down AvgVol=473 Rank=Normal Phase=Unknown Dom=NonDominant
+29-29 Black Up AvgVol=307 Rank=Low Phase=Unknown Dom=Dominant
+30-30 Red Down AvgVol=562 Rank=Normal Phase=Unknown Dom=NonDominant
+31-32 Black Up AvgVol=573 Rank=Normal Phase=Unknown Dom=Dominant
+33-33 Red Down AvgVol=332 Rank=Low Phase=Unknown Dom=NonDominant
+34-36 Black Up AvgVol=1504 Rank=Peak Phase=PP2 Dom=Dominant
+37-37 Red Down AvgVol=1309 Rank=Elevated Phase=T1 Dom=NonDominant
+38-43 Black Up AvgVol=773 Rank=Elevated Phase=T2P Dom=Dominant
 HasDominanceSequence: True
 HasFailureSequence: False
 FTT Candidate: True
 FTT Confirmed: False
 FTT Reason: Valid P3 and failed structural continuation, but no T2F confirmation.
 CurrentSegmentDominance: Dominant
-ContainerBias: Dominant
+ContainerBias: Unknown
 RecentBias: Dominant
 LTL@43: 27558.2777777778
 LastHigh: 27521.25 LastClose: 27515.25
@@ -696,17 +696,17 @@ IneffectiveDominance: True
 ----- APVA DEBUG -----
 Bar: 44 Time: 4/26/2026 6:45:00 PM
 InferredDirection: Up
-0-0 Red Down AvgVol=1126 Rank=Elevated Phase=Unknown Dom=NonDominant
-1-2 Black Up AvgVol=723 Rank=Elevated Phase=PP1 Dom=Dominant
-3-3 Red Down AvgVol=473 Rank=Normal Phase=Unknown Dom=NonDominant
-4-4 Black Up AvgVol=307 Rank=Low Phase=Unknown Dom=Dominant
-5-5 Red Down AvgVol=562 Rank=Normal Phase=Unknown Dom=NonDominant
-6-7 Black Up AvgVol=573 Rank=Normal Phase=Unknown Dom=Dominant
-8-8 Red Down AvgVol=332 Rank=Low Phase=Unknown Dom=NonDominant
-9-11 Black Up AvgVol=1504 Rank=Climax Phase=PP2 Dom=Dominant
-12-12 Red Down AvgVol=1309 Rank=Peak Phase=Unknown Dom=CounterDominant
-13-18 Black Up AvgVol=773 Rank=Elevated Phase=PP1 Dom=Dominant
-19-19 Red Down AvgVol=448 Rank=Normal Phase=Unknown Dom=NonDominant
+25-25 Red Down AvgVol=1126 Rank=Elevated Phase=Unknown Dom=NonDominant
+26-27 Black Up AvgVol=723 Rank=Elevated Phase=PP1 Dom=Dominant
+28-28 Red Down AvgVol=473 Rank=Normal Phase=Unknown Dom=NonDominant
+29-29 Black Up AvgVol=307 Rank=Low Phase=Unknown Dom=Dominant
+30-30 Red Down AvgVol=562 Rank=Normal Phase=Unknown Dom=NonDominant
+31-32 Black Up AvgVol=573 Rank=Normal Phase=Unknown Dom=Dominant
+33-33 Red Down AvgVol=332 Rank=Low Phase=Unknown Dom=NonDominant
+34-36 Black Up AvgVol=1504 Rank=Climax Phase=PP2 Dom=Dominant
+37-37 Red Down AvgVol=1309 Rank=Peak Phase=Unknown Dom=CounterDominant
+38-43 Black Up AvgVol=773 Rank=Elevated Phase=PP1 Dom=Dominant
+44-44 Red Down AvgVol=448 Rank=Normal Phase=Unknown Dom=NonDominant
 HasDominanceSequence: False
 HasFailureSequence: False
 FTT Candidate: True
@@ -732,17 +732,17 @@ IneffectiveDominance: False
 ----- APVA DEBUG -----
 Bar: 45 Time: 4/26/2026 6:50:00 PM
 InferredDirection: Up
-0-1 Black Up AvgVol=723 Rank=Elevated Phase=PP1 Dom=Dominant
-2-2 Red Down AvgVol=473 Rank=Normal Phase=Unknown Dom=NonDominant
-3-3 Black Up AvgVol=307 Rank=Low Phase=Unknown Dom=Dominant
-4-4 Red Down AvgVol=562 Rank=Normal Phase=Unknown Dom=NonDominant
-5-6 Black Up AvgVol=573 Rank=Elevated Phase=PP2 Dom=Dominant
-7-7 Red Down AvgVol=332 Rank=Low Phase=T1 Dom=NonDominant
-8-10 Black Up AvgVol=1504 Rank=Climax Phase=T2P Dom=Dominant
-11-11 Red Down AvgVol=1309 Rank=Peak Phase=Unknown Dom=CounterDominant
-12-17 Black Up AvgVol=773 Rank=Elevated Phase=PP1 Dom=Dominant
-18-18 Red Down AvgVol=448 Rank=Normal Phase=Unknown Dom=NonDominant
-19-19 Black Up AvgVol=520 Rank=Normal Phase=Unknown Dom=Dominant
+26-27 Black Up AvgVol=723 Rank=Elevated Phase=PP1 Dom=Dominant
+28-28 Red Down AvgVol=473 Rank=Normal Phase=Unknown Dom=NonDominant
+29-29 Black Up AvgVol=307 Rank=Low Phase=Unknown Dom=Dominant
+30-30 Red Down AvgVol=562 Rank=Normal Phase=Unknown Dom=NonDominant
+31-32 Black Up AvgVol=573 Rank=Elevated Phase=PP2 Dom=Dominant
+33-33 Red Down AvgVol=332 Rank=Low Phase=T1 Dom=NonDominant
+34-36 Black Up AvgVol=1504 Rank=Climax Phase=T2P Dom=Dominant
+37-37 Red Down AvgVol=1309 Rank=Peak Phase=Unknown Dom=CounterDominant
+38-43 Black Up AvgVol=773 Rank=Elevated Phase=PP1 Dom=Dominant
+44-44 Red Down AvgVol=448 Rank=Normal Phase=Unknown Dom=NonDominant
+45-45 Black Up AvgVol=520 Rank=Normal Phase=Unknown Dom=Dominant
 HasDominanceSequence: True
 HasFailureSequence: False
 FTT Candidate: True
@@ -768,24 +768,24 @@ IneffectiveDominance: True
 ----- APVA DEBUG -----
 Bar: 46 Time: 4/26/2026 6:55:00 PM
 InferredDirection: Up
-0-0 Black Up AvgVol=782 Rank=Elevated Phase=PP1 Dom=Dominant
-1-1 Red Down AvgVol=473 Rank=Normal Phase=Unknown Dom=NonDominant
-2-2 Black Up AvgVol=307 Rank=Low Phase=Unknown Dom=Dominant
-3-3 Red Down AvgVol=562 Rank=Normal Phase=Unknown Dom=NonDominant
-4-5 Black Up AvgVol=573 Rank=Normal Phase=Unknown Dom=Dominant
-6-6 Red Down AvgVol=332 Rank=Low Phase=Unknown Dom=NonDominant
-7-9 Black Up AvgVol=1504 Rank=Climax Phase=PP2 Dom=Dominant
-10-10 Red Down AvgVol=1309 Rank=Peak Phase=Unknown Dom=CounterDominant
-11-16 Black Up AvgVol=773 Rank=Elevated Phase=PP1 Dom=Dominant
-17-17 Red Down AvgVol=448 Rank=Normal Phase=Unknown Dom=NonDominant
-18-19 Black Up AvgVol=744 Rank=Elevated Phase=PP2 Dom=Dominant
+27-27 Black Up AvgVol=782 Rank=Elevated Phase=PP1 Dom=Dominant
+28-28 Red Down AvgVol=473 Rank=Normal Phase=Unknown Dom=NonDominant
+29-29 Black Up AvgVol=307 Rank=Low Phase=Unknown Dom=Dominant
+30-30 Red Down AvgVol=562 Rank=Normal Phase=Unknown Dom=NonDominant
+31-32 Black Up AvgVol=573 Rank=Normal Phase=Unknown Dom=Dominant
+33-33 Red Down AvgVol=332 Rank=Low Phase=Unknown Dom=NonDominant
+34-36 Black Up AvgVol=1504 Rank=Climax Phase=PP2 Dom=Dominant
+37-37 Red Down AvgVol=1309 Rank=Peak Phase=Unknown Dom=CounterDominant
+38-43 Black Up AvgVol=773 Rank=Elevated Phase=PP1 Dom=Dominant
+44-44 Red Down AvgVol=448 Rank=Normal Phase=Unknown Dom=NonDominant
+45-46 Black Up AvgVol=744 Rank=Elevated Phase=PP2 Dom=Dominant
 HasDominanceSequence: False
 HasFailureSequence: False
 FTT Candidate: True
 FTT Confirmed: False
 FTT Reason: Valid P3 and failed structural continuation, but no T2F confirmation.
 CurrentSegmentDominance: Dominant
-ContainerBias: CounterDominant
+ContainerBias: Dominant
 RecentBias: Dominant
 LTL@46: 27552.9
 LastHigh: 27540 LastClose: 27532.5
@@ -796,7 +796,7 @@ P3: 46 27519
 HasValidP3: True
 FTT Kind: StructuralWarning
 WarningDuration: 6
-ImminentFTT: True
+ImminentFTT: False
 ExpectedContinuationFailed: True
 DistanceToLTL: 12.9000000000015
 DistanceDelta: -28.7136363636346
@@ -804,23 +804,23 @@ IneffectiveDominance: True
 ----- APVA DEBUG -----
 Bar: 47 Time: 4/26/2026 7:00:00 PM
 InferredDirection: Up
-0-0 Red Down AvgVol=473 Rank=Normal Phase=Unknown Dom=NonDominant
-1-1 Black Up AvgVol=307 Rank=Low Phase=Unknown Dom=Dominant
-2-2 Red Down AvgVol=562 Rank=Normal Phase=Unknown Dom=NonDominant
-3-4 Black Up AvgVol=573 Rank=Elevated Phase=PP1 Dom=Dominant
-5-5 Red Down AvgVol=332 Rank=Normal Phase=Unknown Dom=NonDominant
-6-8 Black Up AvgVol=1504 Rank=Climax Phase=PP2 Dom=Dominant
-9-9 Red Down AvgVol=1309 Rank=Peak Phase=Unknown Dom=CounterDominant
-10-15 Black Up AvgVol=773 Rank=Elevated Phase=PP1 Dom=Dominant
-16-16 Red Down AvgVol=448 Rank=Normal Phase=Unknown Dom=NonDominant
-17-19 Black Up AvgVol=675 Rank=Elevated Phase=PP2 Dom=Dominant
+28-28 Red Down AvgVol=473 Rank=Normal Phase=Unknown Dom=NonDominant
+29-29 Black Up AvgVol=307 Rank=Low Phase=Unknown Dom=Dominant
+30-30 Red Down AvgVol=562 Rank=Normal Phase=Unknown Dom=NonDominant
+31-32 Black Up AvgVol=573 Rank=Elevated Phase=PP1 Dom=Dominant
+33-33 Red Down AvgVol=332 Rank=Normal Phase=Unknown Dom=NonDominant
+34-36 Black Up AvgVol=1504 Rank=Climax Phase=PP2 Dom=Dominant
+37-37 Red Down AvgVol=1309 Rank=Peak Phase=Unknown Dom=CounterDominant
+38-43 Black Up AvgVol=773 Rank=Elevated Phase=PP1 Dom=Dominant
+44-44 Red Down AvgVol=448 Rank=Normal Phase=Unknown Dom=NonDominant
+45-47 Black Up AvgVol=675 Rank=Elevated Phase=PP2 Dom=Dominant
 HasDominanceSequence: False
 HasFailureSequence: False
 FTT Candidate: True
 FTT Confirmed: False
 FTT Reason: Valid P3 and failed structural continuation, but no T2F confirmation.
 CurrentSegmentDominance: Dominant
-ContainerBias: CounterDominant
+ContainerBias: Dominant
 RecentBias: Dominant
 LTL@47: 27559.9166666667
 LastHigh: 27538 LastClose: 27537.75
@@ -831,7 +831,7 @@ P3: 47 27524.25
 HasValidP3: True
 FTT Kind: StructuralWarning
 WarningDuration: 7
-ImminentFTT: True
+ImminentFTT: False
 ExpectedContinuationFailed: True
 DistanceToLTL: 21.9166666666679
 DistanceDelta: 9.01666666666642
@@ -839,23 +839,23 @@ IneffectiveDominance: True
 ----- APVA DEBUG -----
 Bar: 48 Time: 4/26/2026 7:05:00 PM
 InferredDirection: Up
-0-0 Black Up AvgVol=307 Rank=Low Phase=Unknown Dom=Dominant
-1-1 Red Down AvgVol=562 Rank=Normal Phase=Unknown Dom=NonDominant
-2-3 Black Up AvgVol=573 Rank=Normal Phase=Unknown Dom=Dominant
-4-4 Red Down AvgVol=332 Rank=Normal Phase=Unknown Dom=NonDominant
-5-7 Black Up AvgVol=1504 Rank=Climax Phase=PP1 Dom=Dominant
-8-8 Red Down AvgVol=1309 Rank=Peak Phase=Unknown Dom=CounterDominant
-9-14 Black Up AvgVol=773 Rank=Elevated Phase=PP1 Dom=Dominant
-15-15 Red Down AvgVol=448 Rank=Normal Phase=Unknown Dom=NonDominant
-16-18 Black Up AvgVol=675 Rank=Elevated Phase=PP2 Dom=Dominant
-19-19 Red Down AvgVol=623 Rank=Elevated Phase=T1 Dom=NonDominant
+29-29 Black Up AvgVol=307 Rank=Low Phase=Unknown Dom=Dominant
+30-30 Red Down AvgVol=562 Rank=Normal Phase=Unknown Dom=NonDominant
+31-32 Black Up AvgVol=573 Rank=Normal Phase=Unknown Dom=Dominant
+33-33 Red Down AvgVol=332 Rank=Normal Phase=Unknown Dom=NonDominant
+34-36 Black Up AvgVol=1504 Rank=Climax Phase=PP1 Dom=Dominant
+37-37 Red Down AvgVol=1309 Rank=Peak Phase=Unknown Dom=CounterDominant
+38-43 Black Up AvgVol=773 Rank=Elevated Phase=PP1 Dom=Dominant
+44-44 Red Down AvgVol=448 Rank=Normal Phase=Unknown Dom=NonDominant
+45-47 Black Up AvgVol=675 Rank=Elevated Phase=PP2 Dom=Dominant
+48-48 Red Down AvgVol=623 Rank=Elevated Phase=T1 Dom=NonDominant
 HasDominanceSequence: False
 HasFailureSequence: False
 FTT Candidate: True
 FTT Confirmed: False
 FTT Reason: Valid P3 and failed structural continuation, but no T2F confirmation.
 CurrentSegmentDominance: NonDominant
-ContainerBias: CounterDominant
+ContainerBias: Dominant
 RecentBias: Unknown
 LTL@48: 27566.4285714286
 LastHigh: 27542.5 LastClose: 27532.75
@@ -866,7 +866,7 @@ P3: 48 27529.5
 HasValidP3: True
 FTT Kind: StructuralWarning
 WarningDuration: 8
-ImminentFTT: True
+ImminentFTT: False
 ExpectedContinuationFailed: True
 DistanceToLTL: 23.9285714285725
 DistanceDelta: 2.01190476190459
@@ -874,22 +874,22 @@ IneffectiveDominance: False
 ----- APVA DEBUG -----
 Bar: 49 Time: 4/26/2026 7:10:00 PM
 InferredDirection: Up
-0-0 Red Down AvgVol=562 Rank=Normal Phase=Unknown Dom=NonDominant
-1-2 Black Up AvgVol=573 Rank=Normal Phase=Unknown Dom=Dominant
-3-3 Red Down AvgVol=332 Rank=Low Phase=Unknown Dom=NonDominant
-4-6 Black Up AvgVol=1504 Rank=Climax Phase=PP1 Dom=Dominant
-7-7 Red Down AvgVol=1309 Rank=Peak Phase=Unknown Dom=CounterDominant
-8-13 Black Up AvgVol=773 Rank=Elevated Phase=PP1 Dom=Dominant
-14-14 Red Down AvgVol=448 Rank=Normal Phase=Unknown Dom=NonDominant
-15-17 Black Up AvgVol=675 Rank=Elevated Phase=PP2 Dom=Dominant
-18-19 Red Down AvgVol=583 Rank=Normal Phase=T1 Dom=NonDominant
+30-30 Red Down AvgVol=562 Rank=Normal Phase=Unknown Dom=NonDominant
+31-32 Black Up AvgVol=573 Rank=Normal Phase=Unknown Dom=Dominant
+33-33 Red Down AvgVol=332 Rank=Low Phase=Unknown Dom=NonDominant
+34-36 Black Up AvgVol=1504 Rank=Climax Phase=PP1 Dom=Dominant
+37-37 Red Down AvgVol=1309 Rank=Peak Phase=Unknown Dom=CounterDominant
+38-43 Black Up AvgVol=773 Rank=Elevated Phase=PP1 Dom=Dominant
+44-44 Red Down AvgVol=448 Rank=Normal Phase=Unknown Dom=NonDominant
+45-47 Black Up AvgVol=675 Rank=Elevated Phase=PP2 Dom=Dominant
+48-49 Red Down AvgVol=583 Rank=Normal Phase=T1 Dom=NonDominant
 HasDominanceSequence: False
 HasFailureSequence: False
 FTT Candidate: True
 FTT Confirmed: False
 FTT Reason: Valid P3 and failed structural continuation, but no T2F confirmation.
 CurrentSegmentDominance: NonDominant
-ContainerBias: CounterDominant
+ContainerBias: Dominant
 RecentBias: Unknown
 LTL@49: 27560.4375
 LastHigh: 27532 LastClose: 27530.25
@@ -900,7 +900,7 @@ P3: 49 27518.5
 HasValidP3: True
 FTT Kind: StructuralWarning
 WarningDuration: 9
-ImminentFTT: True
+ImminentFTT: False
 ExpectedContinuationFailed: True
 DistanceToLTL: 28.4375
 DistanceDelta: 4.50892857142753
@@ -908,21 +908,21 @@ IneffectiveDominance: False
 ----- APVA DEBUG -----
 Bar: 50 Time: 4/26/2026 7:15:00 PM
 InferredDirection: Up
-0-1 Black Up AvgVol=573 Rank=Normal Phase=Unknown Dom=Dominant
-2-2 Red Down AvgVol=332 Rank=Low Phase=Unknown Dom=NonDominant
-3-5 Black Up AvgVol=1504 Rank=Climax Phase=PP1 Dom=Dominant
-6-6 Red Down AvgVol=1309 Rank=Peak Phase=Unknown Dom=CounterDominant
-7-12 Black Up AvgVol=773 Rank=Elevated Phase=PP1 Dom=Dominant
-13-13 Red Down AvgVol=448 Rank=Normal Phase=Unknown Dom=NonDominant
-14-16 Black Up AvgVol=675 Rank=Elevated Phase=PP2 Dom=Dominant
-17-19 Red Down AvgVol=497 Rank=Normal Phase=T1 Dom=NonDominant
+31-32 Black Up AvgVol=573 Rank=Normal Phase=Unknown Dom=Dominant
+33-33 Red Down AvgVol=332 Rank=Low Phase=Unknown Dom=NonDominant
+34-36 Black Up AvgVol=1504 Rank=Climax Phase=PP1 Dom=Dominant
+37-37 Red Down AvgVol=1309 Rank=Peak Phase=Unknown Dom=CounterDominant
+38-43 Black Up AvgVol=773 Rank=Elevated Phase=PP1 Dom=Dominant
+44-44 Red Down AvgVol=448 Rank=Normal Phase=Unknown Dom=NonDominant
+45-47 Black Up AvgVol=675 Rank=Elevated Phase=PP2 Dom=Dominant
+48-50 Red Down AvgVol=497 Rank=Normal Phase=T1 Dom=NonDominant
 HasDominanceSequence: False
 HasFailureSequence: False
 FTT Candidate: True
 FTT Confirmed: False
 FTT Reason: Valid P3 and failed structural continuation, but no T2F confirmation.
 CurrentSegmentDominance: NonDominant
-ContainerBias: CounterDominant
+ContainerBias: Unknown
 RecentBias: Unknown
 LTL@50: 27547
 LastHigh: 27532 LastClose: 27527
@@ -933,7 +933,7 @@ P3: 50 27521.75
 HasValidP3: True
 FTT Kind: StructuralWarning
 WarningDuration: 10
-ImminentFTT: True
+ImminentFTT: False
 ExpectedContinuationFailed: True
 DistanceToLTL: 15
 DistanceDelta: -13.4375
@@ -941,21 +941,21 @@ IneffectiveDominance: False
 ----- APVA DEBUG -----
 Bar: 51 Time: 4/26/2026 7:20:00 PM
 InferredDirection: Up
-0-0 Black Up AvgVol=654 Rank=Normal Phase=Unknown Dom=Dominant
-1-1 Red Down AvgVol=332 Rank=Low Phase=Unknown Dom=NonDominant
-2-4 Black Up AvgVol=1504 Rank=Climax Phase=PP1 Dom=Dominant
-5-5 Red Down AvgVol=1309 Rank=Peak Phase=Unknown Dom=CounterDominant
-6-11 Black Up AvgVol=773 Rank=Elevated Phase=PP1 Dom=Dominant
-12-12 Red Down AvgVol=448 Rank=Normal Phase=Unknown Dom=NonDominant
-13-15 Black Up AvgVol=675 Rank=Elevated Phase=PP2 Dom=Dominant
-16-19 Red Down AvgVol=482 Rank=Normal Phase=T1 Dom=NonDominant
+32-32 Black Up AvgVol=654 Rank=Normal Phase=Unknown Dom=Dominant
+33-33 Red Down AvgVol=332 Rank=Low Phase=Unknown Dom=NonDominant
+34-36 Black Up AvgVol=1504 Rank=Climax Phase=PP1 Dom=Dominant
+37-37 Red Down AvgVol=1309 Rank=Peak Phase=Unknown Dom=CounterDominant
+38-43 Black Up AvgVol=773 Rank=Elevated Phase=PP1 Dom=Dominant
+44-44 Red Down AvgVol=448 Rank=Normal Phase=Unknown Dom=NonDominant
+45-47 Black Up AvgVol=675 Rank=Elevated Phase=PP2 Dom=Dominant
+48-51 Red Down AvgVol=482 Rank=Normal Phase=T1 Dom=NonDominant
 HasDominanceSequence: False
 HasFailureSequence: False
 FTT Candidate: True
 FTT Confirmed: False
 FTT Reason: Valid P3 and failed structural continuation, but no T2F confirmation.
 CurrentSegmentDominance: NonDominant
-ContainerBias: CounterDominant
+ContainerBias: Unknown
 RecentBias: Unknown
 LTL@51: 27549.125
 LastHigh: 27538 LastClose: 27525.5
@@ -966,7 +966,7 @@ P3: 51 27523.75
 HasValidP3: True
 FTT Kind: StructuralWarning
 WarningDuration: 11
-ImminentFTT: True
+ImminentFTT: False
 ExpectedContinuationFailed: True
 DistanceToLTL: 11.125
 DistanceDelta: -3.875
@@ -974,20 +974,20 @@ IneffectiveDominance: False
 ----- APVA DEBUG -----
 Bar: 52 Time: 4/26/2026 7:25:00 PM
 InferredDirection: Up
-0-0 Red Down AvgVol=332 Rank=Low Phase=Unknown Dom=Dominant
-1-3 Black Up AvgVol=1504 Rank=Climax Phase=Unknown Dom=CounterDominant
-4-4 Red Down AvgVol=1309 Rank=Peak Phase=PP1 Dom=Dominant
-5-10 Black Up AvgVol=773 Rank=Elevated Phase=Unknown Dom=NonDominant
-11-11 Red Down AvgVol=448 Rank=Normal Phase=Unknown Dom=Dominant
-12-14 Black Up AvgVol=675 Rank=Normal Phase=Unknown Dom=NonDominant
-15-19 Red Down AvgVol=517 Rank=Normal Phase=Unknown Dom=Dominant
+33-33 Red Down AvgVol=332 Rank=Low Phase=Unknown Dom=Dominant
+34-36 Black Up AvgVol=1504 Rank=Climax Phase=Unknown Dom=CounterDominant
+37-37 Red Down AvgVol=1309 Rank=Peak Phase=PP1 Dom=Dominant
+38-43 Black Up AvgVol=773 Rank=Elevated Phase=Unknown Dom=NonDominant
+44-44 Red Down AvgVol=448 Rank=Normal Phase=Unknown Dom=Dominant
+45-47 Black Up AvgVol=675 Rank=Normal Phase=Unknown Dom=NonDominant
+48-52 Red Down AvgVol=517 Rank=Normal Phase=Unknown Dom=Dominant
 HasDominanceSequence: False
 HasFailureSequence: False
 FTT Candidate: True
 FTT Confirmed: False
 FTT Reason: Valid P3 and failed structural continuation, but no T2F confirmation.
 CurrentSegmentDominance: Dominant
-ContainerBias: CounterDominant
+ContainerBias: Unknown
 RecentBias: Dominant
 LTL@52: 27506.5
 LastHigh: 27526.5 LastClose: 27521.5
@@ -998,7 +998,7 @@ P3: 52 27526.5
 HasValidP3: True
 FTT Kind: StructuralWarning
 WarningDuration: 12
-ImminentFTT: True
+ImminentFTT: False
 ExpectedContinuationFailed: True
 DistanceToLTL: 4.5
 DistanceDelta: -6.625
@@ -1006,21 +1006,21 @@ IneffectiveDominance: True
 ----- APVA DEBUG -----
 Bar: 53 Time: 4/26/2026 7:30:00 PM
 InferredDirection: Up
-0-2 Black Up AvgVol=1504 Rank=Climax Phase=Unknown Dom=CounterDominant
-3-3 Red Down AvgVol=1309 Rank=Peak Phase=PP1 Dom=Dominant
-4-9 Black Up AvgVol=773 Rank=Elevated Phase=Unknown Dom=NonDominant
-10-10 Red Down AvgVol=448 Rank=Normal Phase=Unknown Dom=Dominant
-11-13 Black Up AvgVol=675 Rank=Normal Phase=Unknown Dom=NonDominant
-14-18 Red Down AvgVol=517 Rank=Normal Phase=Unknown Dom=Dominant
-19-19 Black Up AvgVol=312 Rank=Low Phase=Unknown Dom=NonDominant
+34-36 Black Up AvgVol=1504 Rank=Climax Phase=Unknown Dom=CounterDominant
+37-37 Red Down AvgVol=1309 Rank=Peak Phase=PP1 Dom=Dominant
+38-43 Black Up AvgVol=773 Rank=Elevated Phase=Unknown Dom=NonDominant
+44-44 Red Down AvgVol=448 Rank=Normal Phase=Unknown Dom=Dominant
+45-47 Black Up AvgVol=675 Rank=Normal Phase=Unknown Dom=NonDominant
+48-52 Red Down AvgVol=517 Rank=Normal Phase=Unknown Dom=Dominant
+53-53 Black Up AvgVol=312 Rank=Low Phase=Unknown Dom=NonDominant
 HasDominanceSequence: False
 HasFailureSequence: False
 FTT Candidate: True
 FTT Confirmed: False
 FTT Reason: Valid P3 and failed structural continuation, but no T2F confirmation.
 CurrentSegmentDominance: NonDominant
-ContainerBias: CounterDominant
-RecentBias: NonDominant
+ContainerBias: Unknown
+RecentBias: Unknown
 LTL@53: 27503.9
 LastHigh: 27524.25 LastClose: 27522.5
 ContainerDirection: Down
@@ -1030,7 +1030,7 @@ P3: 53 27524.25
 HasValidP3: True
 FTT Kind: StructuralWarning
 WarningDuration: 13
-ImminentFTT: True
+ImminentFTT: False
 ExpectedContinuationFailed: True
 DistanceToLTL: 10.3499999999985
 DistanceDelta: 5.84999999999854
@@ -1038,21 +1038,21 @@ IneffectiveDominance: False
 ----- APVA DEBUG -----
 Bar: 54 Time: 4/26/2026 7:35:00 PM
 InferredDirection: Up
-0-1 Black Up AvgVol=2109 Rank=Climax Phase=Unknown Dom=CounterDominant
-2-2 Red Down AvgVol=1309 Rank=Peak Phase=PP1 Dom=Dominant
-3-8 Black Up AvgVol=773 Rank=Elevated Phase=Unknown Dom=NonDominant
-9-9 Red Down AvgVol=448 Rank=Normal Phase=Unknown Dom=Dominant
-10-12 Black Up AvgVol=675 Rank=Normal Phase=Unknown Dom=NonDominant
-13-17 Red Down AvgVol=517 Rank=Normal Phase=Unknown Dom=Dominant
-18-19 Black Up AvgVol=358 Rank=Low Phase=Unknown Dom=NonDominant
+35-36 Black Up AvgVol=2109 Rank=Climax Phase=Unknown Dom=CounterDominant
+37-37 Red Down AvgVol=1309 Rank=Peak Phase=PP1 Dom=Dominant
+38-43 Black Up AvgVol=773 Rank=Elevated Phase=Unknown Dom=NonDominant
+44-44 Red Down AvgVol=448 Rank=Normal Phase=Unknown Dom=Dominant
+45-47 Black Up AvgVol=675 Rank=Normal Phase=Unknown Dom=NonDominant
+48-52 Red Down AvgVol=517 Rank=Normal Phase=Unknown Dom=Dominant
+53-54 Black Up AvgVol=358 Rank=Low Phase=Unknown Dom=NonDominant
 HasDominanceSequence: False
 HasFailureSequence: False
 FTT Candidate: True
 FTT Confirmed: False
 FTT Reason: Valid P3 and failed structural continuation, but no T2F confirmation.
 CurrentSegmentDominance: NonDominant
-ContainerBias: CounterDominant
-RecentBias: NonDominant
+ContainerBias: Unknown
+RecentBias: Unknown
 LTL@54: 27507.875
 LastHigh: 27529.75 LastClose: 27522
 ContainerDirection: Down
@@ -1062,7 +1062,7 @@ P3: 54 27529.75
 HasValidP3: True
 FTT Kind: StructuralWarning
 WarningDuration: 14
-ImminentFTT: True
+ImminentFTT: False
 ExpectedContinuationFailed: True
 DistanceToLTL: 10.875
 DistanceDelta: 0.525000000001455
@@ -1070,21 +1070,21 @@ IneffectiveDominance: False
 ----- APVA DEBUG -----
 Bar: 55 Time: 4/26/2026 7:40:00 PM
 InferredDirection: Up
-0-0 Black Up AvgVol=2335 Rank=Climax Phase=Unknown Dom=CounterDominant
-1-1 Red Down AvgVol=1309 Rank=Peak Phase=PP1 Dom=Dominant
-2-7 Black Up AvgVol=773 Rank=Elevated Phase=Unknown Dom=NonDominant
-8-8 Red Down AvgVol=448 Rank=Normal Phase=Unknown Dom=Dominant
-9-11 Black Up AvgVol=675 Rank=Normal Phase=Unknown Dom=NonDominant
-12-16 Red Down AvgVol=517 Rank=Normal Phase=Unknown Dom=Dominant
-17-19 Black Up AvgVol=353 Rank=Low Phase=Unknown Dom=NonDominant
+36-36 Black Up AvgVol=2335 Rank=Climax Phase=Unknown Dom=CounterDominant
+37-37 Red Down AvgVol=1309 Rank=Peak Phase=PP1 Dom=Dominant
+38-43 Black Up AvgVol=773 Rank=Elevated Phase=Unknown Dom=NonDominant
+44-44 Red Down AvgVol=448 Rank=Normal Phase=Unknown Dom=Dominant
+45-47 Black Up AvgVol=675 Rank=Normal Phase=Unknown Dom=NonDominant
+48-52 Red Down AvgVol=517 Rank=Normal Phase=Unknown Dom=Dominant
+53-55 Black Up AvgVol=353 Rank=Low Phase=Unknown Dom=NonDominant
 HasDominanceSequence: False
 HasFailureSequence: False
 FTT Candidate: True
 FTT Confirmed: False
 FTT Reason: Valid P3 and failed structural continuation, but no T2F confirmation.
 CurrentSegmentDominance: NonDominant
-ContainerBias: CounterDominant
-RecentBias: NonDominant
+ContainerBias: Unknown
+RecentBias: Unknown
 LTL@55: 27510.3571428571
 LastHigh: 27533 LastClose: 27523
 ContainerDirection: Down
@@ -1094,7 +1094,7 @@ P3: 55 27533
 HasValidP3: True
 FTT Kind: StructuralWarning
 WarningDuration: 15
-ImminentFTT: True
+ImminentFTT: False
 ExpectedContinuationFailed: True
 DistanceToLTL: 11.3928571428587
 DistanceDelta: 0.517857142858702
@@ -1102,20 +1102,20 @@ IneffectiveDominance: False
 ----- APVA DEBUG -----
 Bar: 56 Time: 4/26/2026 7:45:00 PM
 InferredDirection: Up
-0-0 Red Down AvgVol=1309 Rank=Climax Phase=PP1 Dom=Dominant
-1-6 Black Up AvgVol=773 Rank=Peak Phase=Unknown Dom=CounterDominant
-7-7 Red Down AvgVol=448 Rank=Normal Phase=Unknown Dom=Dominant
-8-10 Black Up AvgVol=675 Rank=Elevated Phase=Unknown Dom=NonDominant
-11-15 Red Down AvgVol=517 Rank=Normal Phase=Unknown Dom=Dominant
-16-18 Black Up AvgVol=353 Rank=Normal Phase=Unknown Dom=NonDominant
-19-19 Red Down AvgVol=280 Rank=Low Phase=Unknown Dom=Dominant
+37-37 Red Down AvgVol=1309 Rank=Climax Phase=PP1 Dom=Dominant
+38-43 Black Up AvgVol=773 Rank=Peak Phase=Unknown Dom=CounterDominant
+44-44 Red Down AvgVol=448 Rank=Normal Phase=Unknown Dom=Dominant
+45-47 Black Up AvgVol=675 Rank=Elevated Phase=Unknown Dom=NonDominant
+48-52 Red Down AvgVol=517 Rank=Normal Phase=Unknown Dom=Dominant
+53-55 Black Up AvgVol=353 Rank=Normal Phase=Unknown Dom=NonDominant
+56-56 Red Down AvgVol=280 Rank=Low Phase=Unknown Dom=Dominant
 HasDominanceSequence: False
 HasFailureSequence: False
 FTT Candidate: True
 FTT Confirmed: False
 FTT Reason: Valid P3 and failed structural continuation, but no T2F confirmation.
 CurrentSegmentDominance: Dominant
-ContainerBias: CounterDominant
+ContainerBias: Unknown
 RecentBias: Dominant
 LTL@56: 27499.4
 LastHigh: 27523.5 LastClose: 27519
@@ -1126,7 +1126,7 @@ P3: 56 27523.5
 HasValidP3: True
 FTT Kind: StructuralWarning
 WarningDuration: 16
-ImminentFTT: True
+ImminentFTT: False
 ExpectedContinuationFailed: True
 DistanceToLTL: 17.0999999999985
 DistanceDelta: 5.70714285713984
@@ -1134,21 +1134,21 @@ IneffectiveDominance: True
 ----- APVA DEBUG -----
 Bar: 57 Time: 4/26/2026 7:50:00 PM
 InferredDirection: Up
-0-5 Black Up AvgVol=773 Rank=Climax Phase=PP1 Dom=Dominant
-6-6 Red Down AvgVol=448 Rank=Normal Phase=Unknown Dom=NonDominant
-7-9 Black Up AvgVol=675 Rank=Peak Phase=PP2 Dom=Dominant
-10-14 Red Down AvgVol=517 Rank=Elevated Phase=T1 Dom=NonDominant
-15-17 Black Up AvgVol=353 Rank=Normal Phase=T2F Dom=Dominant
-18-18 Red Down AvgVol=280 Rank=Normal Phase=Unknown Dom=NonDominant
-19-19 Black Up AvgVol=225 Rank=Low Phase=Unknown Dom=Dominant
+38-43 Black Up AvgVol=773 Rank=Climax Phase=PP1 Dom=Dominant
+44-44 Red Down AvgVol=448 Rank=Normal Phase=Unknown Dom=NonDominant
+45-47 Black Up AvgVol=675 Rank=Peak Phase=PP2 Dom=Dominant
+48-52 Red Down AvgVol=517 Rank=Elevated Phase=T1 Dom=NonDominant
+53-55 Black Up AvgVol=353 Rank=Normal Phase=T2F Dom=Dominant
+56-56 Red Down AvgVol=280 Rank=Normal Phase=Unknown Dom=NonDominant
+57-57 Black Up AvgVol=225 Rank=Low Phase=Unknown Dom=Dominant
 HasDominanceSequence: False
 HasFailureSequence: False
 FTT Candidate: True
 FTT Confirmed: True
 FTT Reason: T2F plus valid P3 and failed structural continuation.
 CurrentSegmentDominance: Dominant
-ContainerBias: Dominant
-RecentBias: Dominant
+ContainerBias: Unknown
+RecentBias: Unknown
 LTL@57: 27535.7
 LastHigh: 27525.75 LastClose: 27524.75
 ContainerDirection: Up
@@ -1166,22 +1166,22 @@ IneffectiveDominance: True
 ----- APVA DEBUG -----
 Bar: 58 Time: 4/26/2026 7:55:00 PM
 InferredDirection: Up
-0-4 Black Up AvgVol=781 Rank=Climax Phase=Unknown Dom=CounterDominant
-5-5 Red Down AvgVol=448 Rank=Elevated Phase=PP1 Dom=Dominant
-6-8 Black Up AvgVol=675 Rank=Peak Phase=Unknown Dom=CounterDominant
-9-13 Red Down AvgVol=517 Rank=Elevated Phase=PP1 Dom=Dominant
-14-16 Black Up AvgVol=353 Rank=Normal Phase=Unknown Dom=NonDominant
-17-17 Red Down AvgVol=280 Rank=Normal Phase=Unknown Dom=Dominant
-18-18 Black Up AvgVol=225 Rank=Low Phase=Unknown Dom=NonDominant
-19-19 Red Down AvgVol=317 Rank=Normal Phase=Unknown Dom=Dominant
+39-43 Black Up AvgVol=781 Rank=Climax Phase=Unknown Dom=CounterDominant
+44-44 Red Down AvgVol=448 Rank=Elevated Phase=PP1 Dom=Dominant
+45-47 Black Up AvgVol=675 Rank=Peak Phase=Unknown Dom=CounterDominant
+48-52 Red Down AvgVol=517 Rank=Elevated Phase=PP1 Dom=Dominant
+53-55 Black Up AvgVol=353 Rank=Normal Phase=Unknown Dom=NonDominant
+56-56 Red Down AvgVol=280 Rank=Normal Phase=Unknown Dom=Dominant
+57-57 Black Up AvgVol=225 Rank=Low Phase=Unknown Dom=NonDominant
+58-58 Red Down AvgVol=317 Rank=Normal Phase=Unknown Dom=Dominant
 HasDominanceSequence: False
 HasFailureSequence: False
 FTT Candidate: True
 FTT Confirmed: False
 FTT Reason: Valid P3 and failed structural continuation, but no T2F confirmation.
 CurrentSegmentDominance: Dominant
-ContainerBias: CounterDominant
-RecentBias: Dominant
+ContainerBias: Unknown
+RecentBias: Unknown
 LTL@58: 27510.6666666667
 LastHigh: 27524.25 LastClose: 27517
 ContainerDirection: Down
@@ -1199,22 +1199,22 @@ IneffectiveDominance: True
 ----- APVA DEBUG -----
 Bar: 59 Time: 4/26/2026 8:00:00 PM
 InferredDirection: Up
-0-3 Black Up AvgVol=791 Rank=Climax Phase=Unknown Dom=CounterDominant
-4-4 Red Down AvgVol=448 Rank=Elevated Phase=PP1 Dom=Dominant
-5-7 Black Up AvgVol=675 Rank=Peak Phase=Unknown Dom=CounterDominant
-8-12 Red Down AvgVol=517 Rank=Elevated Phase=PP1 Dom=Dominant
-13-15 Black Up AvgVol=353 Rank=Normal Phase=Unknown Dom=NonDominant
-16-16 Red Down AvgVol=280 Rank=Normal Phase=Unknown Dom=Dominant
-17-17 Black Up AvgVol=225 Rank=Normal Phase=Unknown Dom=NonDominant
-18-18 Red Down AvgVol=317 Rank=Normal Phase=Unknown Dom=Dominant
-19-19 Black Up AvgVol=200 Rank=Low Phase=Unknown Dom=NonDominant
+40-43 Black Up AvgVol=791 Rank=Climax Phase=Unknown Dom=CounterDominant
+44-44 Red Down AvgVol=448 Rank=Elevated Phase=PP1 Dom=Dominant
+45-47 Black Up AvgVol=675 Rank=Peak Phase=Unknown Dom=CounterDominant
+48-52 Red Down AvgVol=517 Rank=Elevated Phase=PP1 Dom=Dominant
+53-55 Black Up AvgVol=353 Rank=Normal Phase=Unknown Dom=NonDominant
+56-56 Red Down AvgVol=280 Rank=Normal Phase=Unknown Dom=Dominant
+57-57 Black Up AvgVol=225 Rank=Normal Phase=Unknown Dom=NonDominant
+58-58 Red Down AvgVol=317 Rank=Normal Phase=Unknown Dom=Dominant
+59-59 Black Up AvgVol=200 Rank=Low Phase=Unknown Dom=NonDominant
 HasDominanceSequence: False
 HasFailureSequence: False
 FTT Candidate: True
 FTT Confirmed: False
 FTT Reason: Valid P3 and failed structural continuation, but no T2F confirmation.
 CurrentSegmentDominance: NonDominant
-ContainerBias: CounterDominant
+ContainerBias: Unknown
 RecentBias: NonDominant
 LTL@59: 27509.1875
 LastHigh: 27523.25 LastClose: 27518.75
@@ -1225,7 +1225,7 @@ P3: 59 27523.25
 HasValidP3: True
 FTT Kind: StructuralWarning
 WarningDuration: 2
-ImminentFTT: True
+ImminentFTT: False
 ExpectedContinuationFailed: True
 DistanceToLTL: 6.5625
 DistanceDelta: 2.22916666666788
@@ -1233,22 +1233,22 @@ IneffectiveDominance: False
 ----- APVA DEBUG -----
 Bar: 60 Time: 4/26/2026 8:05:00 PM
 InferredDirection: Up
-0-2 Black Up AvgVol=862 Rank=Climax Phase=Unknown Dom=CounterDominant
-3-3 Red Down AvgVol=448 Rank=Normal Phase=Unknown Dom=Dominant
-4-6 Black Up AvgVol=675 Rank=Peak Phase=Unknown Dom=CounterDominant
-7-11 Red Down AvgVol=517 Rank=Elevated Phase=PP1 Dom=Dominant
-12-14 Black Up AvgVol=353 Rank=Normal Phase=Unknown Dom=NonDominant
-15-15 Red Down AvgVol=280 Rank=Normal Phase=Unknown Dom=Dominant
-16-16 Black Up AvgVol=225 Rank=Low Phase=Unknown Dom=NonDominant
-17-17 Red Down AvgVol=317 Rank=Normal Phase=Unknown Dom=Dominant
-18-19 Black Up AvgVol=589 Rank=Elevated Phase=Unknown Dom=NonDominant
+41-43 Black Up AvgVol=862 Rank=Climax Phase=Unknown Dom=CounterDominant
+44-44 Red Down AvgVol=448 Rank=Normal Phase=Unknown Dom=Dominant
+45-47 Black Up AvgVol=675 Rank=Peak Phase=Unknown Dom=CounterDominant
+48-52 Red Down AvgVol=517 Rank=Elevated Phase=PP1 Dom=Dominant
+53-55 Black Up AvgVol=353 Rank=Normal Phase=Unknown Dom=NonDominant
+56-56 Red Down AvgVol=280 Rank=Normal Phase=Unknown Dom=Dominant
+57-57 Black Up AvgVol=225 Rank=Low Phase=Unknown Dom=NonDominant
+58-58 Red Down AvgVol=317 Rank=Normal Phase=Unknown Dom=Dominant
+59-60 Black Up AvgVol=589 Rank=Elevated Phase=Unknown Dom=NonDominant
 HasDominanceSequence: False
 HasFailureSequence: False
 FTT Candidate: True
 FTT Confirmed: False
 FTT Reason: Valid P3 and failed structural continuation, but no T2F confirmation.
 CurrentSegmentDominance: NonDominant
-ContainerBias: CounterDominant
+ContainerBias: Unknown
 RecentBias: NonDominant
 LTL@60: 27502
 LastHigh: 27536.25 LastClose: 27527.5
@@ -1259,7 +1259,7 @@ P3: 57 27525.75
 HasValidP3: True
 FTT Kind: StructuralWarning
 WarningDuration: 3
-ImminentFTT: True
+ImminentFTT: False
 ExpectedContinuationFailed: True
 DistanceToLTL: 14.5
 DistanceDelta: 7.9375
@@ -1267,16 +1267,16 @@ IneffectiveDominance: False
 ----- APVA DEBUG -----
 Bar: 61 Time: 4/26/2026 8:10:00 PM
 InferredDirection: Up
-0-1 Black Up AvgVol=809 Rank=Climax Phase=PP1 Dom=Dominant
-2-2 Red Down AvgVol=448 Rank=Elevated Phase=Unknown Dom=NonDominant
-3-5 Black Up AvgVol=675 Rank=Peak Phase=PP2 Dom=Dominant
-6-10 Red Down AvgVol=517 Rank=Elevated Phase=T1 Dom=NonDominant
-11-13 Black Up AvgVol=353 Rank=Normal Phase=T2F Dom=Dominant
-14-14 Red Down AvgVol=280 Rank=Normal Phase=Unknown Dom=NonDominant
-15-15 Black Up AvgVol=225 Rank=Low Phase=Unknown Dom=Dominant
-16-16 Red Down AvgVol=317 Rank=Normal Phase=Unknown Dom=NonDominant
-17-18 Black Up AvgVol=589 Rank=Elevated Phase=PP1 Dom=Dominant
-19-19 Red Down AvgVol=290 Rank=Normal Phase=Unknown Dom=NonDominant
+42-43 Black Up AvgVol=809 Rank=Climax Phase=PP1 Dom=Dominant
+44-44 Red Down AvgVol=448 Rank=Elevated Phase=Unknown Dom=NonDominant
+45-47 Black Up AvgVol=675 Rank=Peak Phase=PP2 Dom=Dominant
+48-52 Red Down AvgVol=517 Rank=Elevated Phase=T1 Dom=NonDominant
+53-55 Black Up AvgVol=353 Rank=Normal Phase=T2F Dom=Dominant
+56-56 Red Down AvgVol=280 Rank=Normal Phase=Unknown Dom=NonDominant
+57-57 Black Up AvgVol=225 Rank=Low Phase=Unknown Dom=Dominant
+58-58 Red Down AvgVol=317 Rank=Normal Phase=Unknown Dom=NonDominant
+59-60 Black Up AvgVol=589 Rank=Elevated Phase=PP1 Dom=Dominant
+61-61 Red Down AvgVol=290 Rank=Normal Phase=Unknown Dom=NonDominant
 HasDominanceSequence: False
 HasFailureSequence: False
 FTT Candidate: True
@@ -1289,15 +1289,15 @@ Container: none
 ----- APVA DEBUG -----
 Bar: 64 Time: 4/26/2026 8:25:00 PM
 InferredDirection: Up
-0-2 Black Up AvgVol=675 Rank=Climax Phase=PP1 Dom=Dominant
-3-7 Red Down AvgVol=517 Rank=Elevated Phase=Unknown Dom=NonDominant
-8-10 Black Up AvgVol=353 Rank=Elevated Phase=PP2 Dom=Dominant
-11-11 Red Down AvgVol=280 Rank=Normal Phase=T1 Dom=NonDominant
-12-12 Black Up AvgVol=225 Rank=Normal Phase=T2F Dom=Dominant
-13-13 Red Down AvgVol=317 Rank=Normal Phase=Unknown Dom=NonDominant
-14-15 Black Up AvgVol=589 Rank=Peak Phase=PP1 Dom=Dominant
-16-16 Red Down AvgVol=290 Rank=Normal Phase=Unknown Dom=NonDominant
-17-19 Black Up AvgVol=211 Rank=Low Phase=Unknown Dom=Dominant
+45-47 Black Up AvgVol=675 Rank=Climax Phase=PP1 Dom=Dominant
+48-52 Red Down AvgVol=517 Rank=Elevated Phase=Unknown Dom=NonDominant
+53-55 Black Up AvgVol=353 Rank=Elevated Phase=PP2 Dom=Dominant
+56-56 Red Down AvgVol=280 Rank=Normal Phase=T1 Dom=NonDominant
+57-57 Black Up AvgVol=225 Rank=Normal Phase=T2F Dom=Dominant
+58-58 Red Down AvgVol=317 Rank=Normal Phase=Unknown Dom=NonDominant
+59-60 Black Up AvgVol=589 Rank=Peak Phase=PP1 Dom=Dominant
+61-61 Red Down AvgVol=290 Rank=Normal Phase=Unknown Dom=NonDominant
+62-64 Black Up AvgVol=211 Rank=Low Phase=Unknown Dom=Dominant
 HasDominanceSequence: False
 HasFailureSequence: False
 FTT Candidate: True
@@ -1310,15 +1310,15 @@ Container: none
 ----- APVA DEBUG -----
 Bar: 67 Time: 4/26/2026 8:40:00 PM
 InferredDirection: Down
-0-4 Red Down AvgVol=517 Rank=Peak Phase=PP1 Dom=Dominant
-5-7 Black Up AvgVol=353 Rank=Elevated Phase=Unknown Dom=NonDominant
-8-8 Red Down AvgVol=280 Rank=Normal Phase=Unknown Dom=Dominant
-9-9 Black Up AvgVol=225 Rank=Low Phase=Unknown Dom=NonDominant
-10-10 Red Down AvgVol=317 Rank=Elevated Phase=PP2 Dom=Dominant
-11-12 Black Up AvgVol=589 Rank=Climax Phase=Unknown Dom=CounterDominant
-13-13 Red Down AvgVol=290 Rank=Normal Phase=Unknown Dom=Dominant
-14-18 Black Up AvgVol=249 Rank=Normal Phase=Unknown Dom=NonDominant
-19-19 Red Down AvgVol=315 Rank=Normal Phase=Unknown Dom=Dominant
+48-52 Red Down AvgVol=517 Rank=Peak Phase=PP1 Dom=Dominant
+53-55 Black Up AvgVol=353 Rank=Elevated Phase=Unknown Dom=NonDominant
+56-56 Red Down AvgVol=280 Rank=Normal Phase=Unknown Dom=Dominant
+57-57 Black Up AvgVol=225 Rank=Low Phase=Unknown Dom=NonDominant
+58-58 Red Down AvgVol=317 Rank=Elevated Phase=PP2 Dom=Dominant
+59-60 Black Up AvgVol=589 Rank=Climax Phase=Unknown Dom=CounterDominant
+61-61 Red Down AvgVol=290 Rank=Normal Phase=Unknown Dom=Dominant
+62-66 Black Up AvgVol=249 Rank=Normal Phase=Unknown Dom=NonDominant
+67-67 Red Down AvgVol=315 Rank=Normal Phase=Unknown Dom=Dominant
 HasDominanceSequence: False
 HasFailureSequence: False
 FTT Candidate: False
@@ -1331,23 +1331,23 @@ Container: none
 ----- APVA DEBUG -----
 Bar: 68 Time: 4/26/2026 8:45:00 PM
 InferredDirection: Unknown
-0-3 Red Down AvgVol=491 Rank=Peak Phase=Unknown Dom=CounterDominant
-4-6 Black Up AvgVol=353 Rank=Elevated Phase=PP1 Dom=Dominant
-7-7 Red Down AvgVol=280 Rank=Normal Phase=Unknown Dom=NonDominant
-8-8 Black Up AvgVol=225 Rank=Normal Phase=Unknown Dom=Dominant
-9-9 Red Down AvgVol=317 Rank=Elevated Phase=Unknown Dom=NonDominant
-10-11 Black Up AvgVol=589 Rank=Climax Phase=PP2 Dom=Dominant
-12-12 Red Down AvgVol=290 Rank=Normal Phase=T1 Dom=NonDominant
-13-17 Black Up AvgVol=249 Rank=Normal Phase=T2F Dom=Dominant
-18-18 Red Down AvgVol=315 Rank=Elevated Phase=Unknown Dom=NonDominant
-19-19 Black Up AvgVol=185 Rank=Low Phase=Unknown Dom=Dominant
+49-52 Red Down AvgVol=491 Rank=Peak Phase=Unknown Dom=CounterDominant
+53-55 Black Up AvgVol=353 Rank=Elevated Phase=PP1 Dom=Dominant
+56-56 Red Down AvgVol=280 Rank=Normal Phase=Unknown Dom=NonDominant
+57-57 Black Up AvgVol=225 Rank=Normal Phase=Unknown Dom=Dominant
+58-58 Red Down AvgVol=317 Rank=Elevated Phase=Unknown Dom=NonDominant
+59-60 Black Up AvgVol=589 Rank=Climax Phase=PP2 Dom=Dominant
+61-61 Red Down AvgVol=290 Rank=Normal Phase=T1 Dom=NonDominant
+62-66 Black Up AvgVol=249 Rank=Normal Phase=T2F Dom=Dominant
+67-67 Red Down AvgVol=315 Rank=Elevated Phase=Unknown Dom=NonDominant
+68-68 Black Up AvgVol=185 Rank=Low Phase=Unknown Dom=Dominant
 HasDominanceSequence: False
 HasFailureSequence: False
 FTT Candidate: True
 FTT Confirmed: True
 FTT Reason: T2F plus valid P3 and failed structural continuation.
 CurrentSegmentDominance: Dominant
-ContainerBias: CounterDominant
+ContainerBias: Unknown
 RecentBias: Dominant
 LTL@68: 27542.85
 LastHigh: 27532 LastClose: 27529.5
@@ -1366,24 +1366,24 @@ IneffectiveDominance: True
 ----- APVA DEBUG -----
 Bar: 69 Time: 4/26/2026 8:50:00 PM
 InferredDirection: Unknown
-0-2 Red Down AvgVol=473 Rank=Peak Phase=Unknown Dom=CounterDominant
-3-5 Black Up AvgVol=353 Rank=Elevated Phase=PP1 Dom=Dominant
-6-6 Red Down AvgVol=280 Rank=Normal Phase=Unknown Dom=NonDominant
-7-7 Black Up AvgVol=225 Rank=Normal Phase=Unknown Dom=Dominant
-8-8 Red Down AvgVol=317 Rank=Elevated Phase=Unknown Dom=NonDominant
-9-10 Black Up AvgVol=589 Rank=Climax Phase=PP2 Dom=Dominant
-11-11 Red Down AvgVol=290 Rank=Normal Phase=T1 Dom=NonDominant
-12-16 Black Up AvgVol=249 Rank=Normal Phase=T2F Dom=Dominant
-17-17 Red Down AvgVol=315 Rank=Elevated Phase=Unknown Dom=NonDominant
-18-18 Black Up AvgVol=185 Rank=Low Phase=Unknown Dom=Dominant
-19-19 Red Down AvgVol=218 Rank=Low Phase=Unknown Dom=NonDominant
+50-52 Red Down AvgVol=473 Rank=Peak Phase=Unknown Dom=CounterDominant
+53-55 Black Up AvgVol=353 Rank=Elevated Phase=PP1 Dom=Dominant
+56-56 Red Down AvgVol=280 Rank=Normal Phase=Unknown Dom=NonDominant
+57-57 Black Up AvgVol=225 Rank=Normal Phase=Unknown Dom=Dominant
+58-58 Red Down AvgVol=317 Rank=Elevated Phase=Unknown Dom=NonDominant
+59-60 Black Up AvgVol=589 Rank=Climax Phase=PP2 Dom=Dominant
+61-61 Red Down AvgVol=290 Rank=Normal Phase=T1 Dom=NonDominant
+62-66 Black Up AvgVol=249 Rank=Normal Phase=T2F Dom=Dominant
+67-67 Red Down AvgVol=315 Rank=Elevated Phase=Unknown Dom=NonDominant
+68-68 Black Up AvgVol=185 Rank=Low Phase=Unknown Dom=Dominant
+69-69 Red Down AvgVol=218 Rank=Low Phase=Unknown Dom=NonDominant
 HasDominanceSequence: False
 HasFailureSequence: False
 FTT Candidate: True
 FTT Confirmed: True
 FTT Reason: T2F plus valid P3 and failed structural continuation.
 CurrentSegmentDominance: NonDominant
-ContainerBias: CounterDominant
+ContainerBias: Unknown
 RecentBias: NonDominant
 LTL@69: 27542.7954545455
 LastHigh: 27530.25 LastClose: 27527
@@ -1402,25 +1402,25 @@ IneffectiveDominance: False
 ----- APVA DEBUG -----
 Bar: 70 Time: 4/26/2026 8:55:00 PM
 InferredDirection: Unknown
-0-1 Red Down AvgVol=547 Rank=Peak Phase=Unknown Dom=CounterDominant
-2-4 Black Up AvgVol=353 Rank=Elevated Phase=PP1 Dom=Dominant
-5-5 Red Down AvgVol=280 Rank=Normal Phase=Unknown Dom=NonDominant
-6-6 Black Up AvgVol=225 Rank=Normal Phase=Unknown Dom=Dominant
-7-7 Red Down AvgVol=317 Rank=Elevated Phase=Unknown Dom=NonDominant
-8-9 Black Up AvgVol=589 Rank=Climax Phase=PP2 Dom=Dominant
-10-10 Red Down AvgVol=290 Rank=Normal Phase=T1 Dom=NonDominant
-11-15 Black Up AvgVol=249 Rank=Normal Phase=T2F Dom=Dominant
-16-16 Red Down AvgVol=315 Rank=Elevated Phase=Unknown Dom=NonDominant
-17-17 Black Up AvgVol=185 Rank=Low Phase=Unknown Dom=Dominant
-18-18 Red Down AvgVol=218 Rank=Low Phase=Unknown Dom=NonDominant
-19-19 Black Up AvgVol=245 Rank=Normal Phase=Unknown Dom=Dominant
+51-52 Red Down AvgVol=547 Rank=Peak Phase=Unknown Dom=CounterDominant
+53-55 Black Up AvgVol=353 Rank=Elevated Phase=PP1 Dom=Dominant
+56-56 Red Down AvgVol=280 Rank=Normal Phase=Unknown Dom=NonDominant
+57-57 Black Up AvgVol=225 Rank=Normal Phase=Unknown Dom=Dominant
+58-58 Red Down AvgVol=317 Rank=Elevated Phase=Unknown Dom=NonDominant
+59-60 Black Up AvgVol=589 Rank=Climax Phase=PP2 Dom=Dominant
+61-61 Red Down AvgVol=290 Rank=Normal Phase=T1 Dom=NonDominant
+62-66 Black Up AvgVol=249 Rank=Normal Phase=T2F Dom=Dominant
+67-67 Red Down AvgVol=315 Rank=Elevated Phase=Unknown Dom=NonDominant
+68-68 Black Up AvgVol=185 Rank=Low Phase=Unknown Dom=Dominant
+69-69 Red Down AvgVol=218 Rank=Low Phase=Unknown Dom=NonDominant
+70-70 Black Up AvgVol=245 Rank=Normal Phase=Unknown Dom=Dominant
 HasDominanceSequence: False
 HasFailureSequence: False
 FTT Candidate: True
 FTT Confirmed: True
 FTT Reason: T2F plus valid P3 and failed structural continuation.
 CurrentSegmentDominance: Dominant
-ContainerBias: CounterDominant
+ContainerBias: Unknown
 RecentBias: Dominant
 LTL@70: 27537.3125
 LastHigh: 27531 LastClose: 27530.25
@@ -1439,26 +1439,26 @@ IneffectiveDominance: True
 ----- APVA DEBUG -----
 Bar: 71 Time: 4/26/2026 9:00:00 PM
 InferredDirection: Up
-0-0 Red Down AvgVol=659 Rank=Climax Phase=PP1 Dom=Dominant
-1-3 Black Up AvgVol=353 Rank=Elevated Phase=Unknown Dom=NonDominant
-4-4 Red Down AvgVol=280 Rank=Normal Phase=Unknown Dom=Dominant
-5-5 Black Up AvgVol=225 Rank=Normal Phase=Unknown Dom=NonDominant
-6-6 Red Down AvgVol=317 Rank=Elevated Phase=PP2 Dom=Dominant
-7-8 Black Up AvgVol=589 Rank=Peak Phase=Unknown Dom=CounterDominant
-9-9 Red Down AvgVol=290 Rank=Elevated Phase=PP1 Dom=Dominant
-10-14 Black Up AvgVol=249 Rank=Normal Phase=Unknown Dom=NonDominant
-15-15 Red Down AvgVol=315 Rank=Elevated Phase=PP2 Dom=Dominant
-16-16 Black Up AvgVol=185 Rank=Low Phase=T1 Dom=NonDominant
-17-17 Red Down AvgVol=218 Rank=Normal Phase=T2F Dom=Dominant
-18-18 Black Up AvgVol=245 Rank=Normal Phase=Unknown Dom=NonDominant
-19-19 Red Down AvgVol=151 Rank=Low Phase=Unknown Dom=Dominant
+52-52 Red Down AvgVol=659 Rank=Climax Phase=PP1 Dom=Dominant
+53-55 Black Up AvgVol=353 Rank=Elevated Phase=Unknown Dom=NonDominant
+56-56 Red Down AvgVol=280 Rank=Normal Phase=Unknown Dom=Dominant
+57-57 Black Up AvgVol=225 Rank=Normal Phase=Unknown Dom=NonDominant
+58-58 Red Down AvgVol=317 Rank=Elevated Phase=PP2 Dom=Dominant
+59-60 Black Up AvgVol=589 Rank=Peak Phase=Unknown Dom=CounterDominant
+61-61 Red Down AvgVol=290 Rank=Elevated Phase=PP1 Dom=Dominant
+62-66 Black Up AvgVol=249 Rank=Normal Phase=Unknown Dom=NonDominant
+67-67 Red Down AvgVol=315 Rank=Elevated Phase=PP2 Dom=Dominant
+68-68 Black Up AvgVol=185 Rank=Low Phase=T1 Dom=NonDominant
+69-69 Red Down AvgVol=218 Rank=Normal Phase=T2F Dom=Dominant
+70-70 Black Up AvgVol=245 Rank=Normal Phase=Unknown Dom=NonDominant
+71-71 Red Down AvgVol=151 Rank=Low Phase=Unknown Dom=Dominant
 HasDominanceSequence: False
 HasFailureSequence: False
 FTT Candidate: True
 FTT Confirmed: True
 FTT Reason: T2F plus valid P3 and failed structural continuation.
 CurrentSegmentDominance: Dominant
-ContainerBias: CounterDominant
+ContainerBias: Unknown
 RecentBias: Dominant
 LTL@71: 27521.5
 LastHigh: 27530 LastClose: 27524.5
@@ -1475,65 +1475,28 @@ DistanceToLTL: 2
 DistanceDelta: 0
 IneffectiveDominance: True
 ----- APVA DEBUG -----
-Bar: 72 Time: 4/26/2026 9:05:00 PM
-InferredDirection: Unknown
-0-2 Black Up AvgVol=353 Rank=Peak Phase=Unknown Dom=CounterDominant
-3-3 Red Down AvgVol=280 Rank=Normal Phase=Unknown Dom=Dominant
-4-4 Black Up AvgVol=225 Rank=Normal Phase=Unknown Dom=NonDominant
-5-5 Red Down AvgVol=317 Rank=Elevated Phase=PP1 Dom=Dominant
-6-7 Black Up AvgVol=589 Rank=Climax Phase=Unknown Dom=CounterDominant
-8-8 Red Down AvgVol=290 Rank=Normal Phase=Unknown Dom=Dominant
-9-13 Black Up AvgVol=249 Rank=Normal Phase=Unknown Dom=NonDominant
-14-14 Red Down AvgVol=315 Rank=Elevated Phase=PP1 Dom=Dominant
-15-15 Black Up AvgVol=185 Rank=Low Phase=Unknown Dom=NonDominant
-16-16 Red Down AvgVol=218 Rank=Low Phase=Unknown Dom=Dominant
-17-17 Black Up AvgVol=245 Rank=Normal Phase=Unknown Dom=NonDominant
-18-19 Red Down AvgVol=328 Rank=Elevated Phase=PP2 Dom=Dominant
-HasDominanceSequence: False
-HasFailureSequence: False
-FTT Candidate: False
-FTT Confirmed: False
-FTT Reason: 
-CurrentSegmentDominance: Dominant
-ContainerBias: CounterDominant
-RecentBias: Dominant
-LTL@72: 27519.1
-LastHigh: 27526.5 LastClose: 27511
-ContainerDirection: Down
-P1: 67 27533
-P2: 69 27523
-P3: 72 27526.5
-HasValidP3: True
-FTT Kind: None
-WarningDuration: 0
-ImminentFTT: False
-ExpectedContinuationFailed: False
-DistanceToLTL: -11.0999999999985
-DistanceDelta: 0
-IneffectiveDominance: False
------ APVA DEBUG -----
 Bar: 73 Time: 4/26/2026 9:10:00 PM
 InferredDirection: Down
-0-1 Black Up AvgVol=374 Rank=Peak Phase=Unknown Dom=CounterDominant
-2-2 Red Down AvgVol=280 Rank=Normal Phase=Unknown Dom=Dominant
-3-3 Black Up AvgVol=225 Rank=Normal Phase=Unknown Dom=NonDominant
-4-4 Red Down AvgVol=317 Rank=Elevated Phase=PP1 Dom=Dominant
-5-6 Black Up AvgVol=589 Rank=Climax Phase=Unknown Dom=CounterDominant
-7-7 Red Down AvgVol=290 Rank=Elevated Phase=PP1 Dom=Dominant
-8-12 Black Up AvgVol=249 Rank=Normal Phase=Unknown Dom=NonDominant
-13-13 Red Down AvgVol=315 Rank=Elevated Phase=PP2 Dom=Dominant
-14-14 Black Up AvgVol=185 Rank=Low Phase=T1 Dom=NonDominant
-15-15 Red Down AvgVol=218 Rank=Low Phase=T2F Dom=Dominant
-16-16 Black Up AvgVol=245 Rank=Normal Phase=Unknown Dom=NonDominant
-17-18 Red Down AvgVol=328 Rank=Elevated Phase=PP1 Dom=Dominant
-19-19 Black Up AvgVol=287 Rank=Normal Phase=Unknown Dom=NonDominant
+54-55 Black Up AvgVol=374 Rank=Peak Phase=Unknown Dom=CounterDominant
+56-56 Red Down AvgVol=280 Rank=Normal Phase=Unknown Dom=Dominant
+57-57 Black Up AvgVol=225 Rank=Normal Phase=Unknown Dom=NonDominant
+58-58 Red Down AvgVol=317 Rank=Elevated Phase=PP1 Dom=Dominant
+59-60 Black Up AvgVol=589 Rank=Climax Phase=Unknown Dom=CounterDominant
+61-61 Red Down AvgVol=290 Rank=Elevated Phase=PP1 Dom=Dominant
+62-66 Black Up AvgVol=249 Rank=Normal Phase=Unknown Dom=NonDominant
+67-67 Red Down AvgVol=315 Rank=Elevated Phase=PP2 Dom=Dominant
+68-68 Black Up AvgVol=185 Rank=Low Phase=T1 Dom=NonDominant
+69-69 Red Down AvgVol=218 Rank=Low Phase=T2F Dom=Dominant
+70-70 Black Up AvgVol=245 Rank=Normal Phase=Unknown Dom=NonDominant
+71-72 Red Down AvgVol=328 Rank=Elevated Phase=PP1 Dom=Dominant
+73-73 Black Up AvgVol=287 Rank=Normal Phase=Unknown Dom=NonDominant
 HasDominanceSequence: False
 HasFailureSequence: False
 FTT Candidate: True
 FTT Confirmed: False
 FTT Reason: T2F detected after dominance expectation.
 CurrentSegmentDominance: NonDominant
-ContainerBias: CounterDominant
+ContainerBias: Unknown
 RecentBias: NonDominant
 LTL@73: 27515.5
 LastHigh: 27521.75 LastClose: 27517.75
@@ -1552,27 +1515,27 @@ IneffectiveDominance: False
 ----- APVA DEBUG -----
 Bar: 74 Time: 4/26/2026 9:15:00 PM
 InferredDirection: Down
-0-0 Black Up AvgVol=343 Rank=Peak Phase=Unknown Dom=CounterDominant
-1-1 Red Down AvgVol=280 Rank=Normal Phase=Unknown Dom=Dominant
-2-2 Black Up AvgVol=225 Rank=Normal Phase=Unknown Dom=NonDominant
-3-3 Red Down AvgVol=317 Rank=Elevated Phase=PP1 Dom=Dominant
-4-5 Black Up AvgVol=589 Rank=Climax Phase=Unknown Dom=CounterDominant
-6-6 Red Down AvgVol=290 Rank=Elevated Phase=PP1 Dom=Dominant
-7-11 Black Up AvgVol=249 Rank=Normal Phase=Unknown Dom=NonDominant
-12-12 Red Down AvgVol=315 Rank=Elevated Phase=PP2 Dom=Dominant
-13-13 Black Up AvgVol=185 Rank=Low Phase=T1 Dom=NonDominant
-14-14 Red Down AvgVol=218 Rank=Low Phase=T2F Dom=Dominant
-15-15 Black Up AvgVol=245 Rank=Normal Phase=Unknown Dom=NonDominant
-16-17 Red Down AvgVol=328 Rank=Peak Phase=PP1 Dom=Dominant
-18-18 Black Up AvgVol=287 Rank=Normal Phase=Unknown Dom=NonDominant
-19-19 Red Down AvgVol=223 Rank=Normal Phase=Unknown Dom=Dominant
+55-55 Black Up AvgVol=343 Rank=Peak Phase=Unknown Dom=CounterDominant
+56-56 Red Down AvgVol=280 Rank=Normal Phase=Unknown Dom=Dominant
+57-57 Black Up AvgVol=225 Rank=Normal Phase=Unknown Dom=NonDominant
+58-58 Red Down AvgVol=317 Rank=Elevated Phase=PP1 Dom=Dominant
+59-60 Black Up AvgVol=589 Rank=Climax Phase=Unknown Dom=CounterDominant
+61-61 Red Down AvgVol=290 Rank=Elevated Phase=PP1 Dom=Dominant
+62-66 Black Up AvgVol=249 Rank=Normal Phase=Unknown Dom=NonDominant
+67-67 Red Down AvgVol=315 Rank=Elevated Phase=PP2 Dom=Dominant
+68-68 Black Up AvgVol=185 Rank=Low Phase=T1 Dom=NonDominant
+69-69 Red Down AvgVol=218 Rank=Low Phase=T2F Dom=Dominant
+70-70 Black Up AvgVol=245 Rank=Normal Phase=Unknown Dom=NonDominant
+71-72 Red Down AvgVol=328 Rank=Peak Phase=PP1 Dom=Dominant
+73-73 Black Up AvgVol=287 Rank=Normal Phase=Unknown Dom=NonDominant
+74-74 Red Down AvgVol=223 Rank=Normal Phase=Unknown Dom=Dominant
 HasDominanceSequence: False
 HasFailureSequence: False
 FTT Candidate: True
 FTT Confirmed: False
 FTT Reason: T2F detected after dominance expectation.
 CurrentSegmentDominance: Dominant
-ContainerBias: CounterDominant
+ContainerBias: Unknown
 RecentBias: Dominant
 LTL@74: 27513.5357142857
 LastHigh: 27519.75 LastClose: 27514.75
@@ -1591,27 +1554,27 @@ IneffectiveDominance: False
 ----- APVA DEBUG -----
 Bar: 75 Time: 4/26/2026 9:20:00 PM
 InferredDirection: Unknown
-0-0 Red Down AvgVol=280 Rank=Normal Phase=Unknown Dom=Dominant
-1-1 Black Up AvgVol=225 Rank=Normal Phase=Unknown Dom=NonDominant
-2-2 Red Down AvgVol=317 Rank=Peak Phase=PP1 Dom=Dominant
-3-4 Black Up AvgVol=589 Rank=Climax Phase=Unknown Dom=CounterDominant
-5-5 Red Down AvgVol=290 Rank=Elevated Phase=PP1 Dom=Dominant
-6-10 Black Up AvgVol=249 Rank=Normal Phase=Unknown Dom=NonDominant
-11-11 Red Down AvgVol=315 Rank=Elevated Phase=PP2 Dom=Dominant
-12-12 Black Up AvgVol=185 Rank=Low Phase=T1 Dom=NonDominant
-13-13 Red Down AvgVol=218 Rank=Normal Phase=T2F Dom=Dominant
-14-14 Black Up AvgVol=245 Rank=Normal Phase=Unknown Dom=NonDominant
-15-16 Red Down AvgVol=328 Rank=Peak Phase=PP1 Dom=Dominant
-17-17 Black Up AvgVol=287 Rank=Elevated Phase=Unknown Dom=NonDominant
-18-18 Red Down AvgVol=223 Rank=Normal Phase=Unknown Dom=Dominant
-19-19 Black Up AvgVol=174 Rank=Low Phase=Unknown Dom=NonDominant
+56-56 Red Down AvgVol=280 Rank=Normal Phase=Unknown Dom=Dominant
+57-57 Black Up AvgVol=225 Rank=Normal Phase=Unknown Dom=NonDominant
+58-58 Red Down AvgVol=317 Rank=Peak Phase=PP1 Dom=Dominant
+59-60 Black Up AvgVol=589 Rank=Climax Phase=Unknown Dom=CounterDominant
+61-61 Red Down AvgVol=290 Rank=Elevated Phase=PP1 Dom=Dominant
+62-66 Black Up AvgVol=249 Rank=Normal Phase=Unknown Dom=NonDominant
+67-67 Red Down AvgVol=315 Rank=Elevated Phase=PP2 Dom=Dominant
+68-68 Black Up AvgVol=185 Rank=Low Phase=T1 Dom=NonDominant
+69-69 Red Down AvgVol=218 Rank=Normal Phase=T2F Dom=Dominant
+70-70 Black Up AvgVol=245 Rank=Normal Phase=Unknown Dom=NonDominant
+71-72 Red Down AvgVol=328 Rank=Peak Phase=PP1 Dom=Dominant
+73-73 Black Up AvgVol=287 Rank=Elevated Phase=Unknown Dom=NonDominant
+74-74 Red Down AvgVol=223 Rank=Normal Phase=Unknown Dom=Dominant
+75-75 Black Up AvgVol=174 Rank=Low Phase=Unknown Dom=NonDominant
 HasDominanceSequence: False
 HasFailureSequence: False
 FTT Candidate: True
 FTT Confirmed: False
 FTT Reason: T2F detected after dominance expectation.
 CurrentSegmentDominance: NonDominant
-ContainerBias: CounterDominant
+ContainerBias: Unknown
 RecentBias: NonDominant
 LTL@75: 27514
 LastHigh: 27521 LastClose: 27515.25
@@ -1630,26 +1593,26 @@ IneffectiveDominance: False
 ----- APVA DEBUG -----
 Bar: 76 Time: 4/26/2026 9:25:00 PM
 InferredDirection: Unknown
-0-0 Black Up AvgVol=225 Rank=Normal Phase=Unknown Dom=NonDominant
-1-1 Red Down AvgVol=317 Rank=Elevated Phase=PP1 Dom=Dominant
-2-3 Black Up AvgVol=589 Rank=Climax Phase=Unknown Dom=CounterDominant
-4-4 Red Down AvgVol=290 Rank=Elevated Phase=PP1 Dom=Dominant
-5-9 Black Up AvgVol=249 Rank=Normal Phase=Unknown Dom=NonDominant
-10-10 Red Down AvgVol=315 Rank=Elevated Phase=PP2 Dom=Dominant
-11-11 Black Up AvgVol=185 Rank=Low Phase=T1 Dom=NonDominant
-12-12 Red Down AvgVol=218 Rank=Low Phase=T2F Dom=Dominant
-13-13 Black Up AvgVol=245 Rank=Normal Phase=Unknown Dom=NonDominant
-14-15 Red Down AvgVol=328 Rank=Peak Phase=PP1 Dom=Dominant
-16-16 Black Up AvgVol=287 Rank=Elevated Phase=Unknown Dom=NonDominant
-17-17 Red Down AvgVol=223 Rank=Normal Phase=Unknown Dom=Dominant
-18-19 Black Up AvgVol=228 Rank=Normal Phase=Unknown Dom=NonDominant
+57-57 Black Up AvgVol=225 Rank=Normal Phase=Unknown Dom=NonDominant
+58-58 Red Down AvgVol=317 Rank=Elevated Phase=PP1 Dom=Dominant
+59-60 Black Up AvgVol=589 Rank=Climax Phase=Unknown Dom=CounterDominant
+61-61 Red Down AvgVol=290 Rank=Elevated Phase=PP1 Dom=Dominant
+62-66 Black Up AvgVol=249 Rank=Normal Phase=Unknown Dom=NonDominant
+67-67 Red Down AvgVol=315 Rank=Elevated Phase=PP2 Dom=Dominant
+68-68 Black Up AvgVol=185 Rank=Low Phase=T1 Dom=NonDominant
+69-69 Red Down AvgVol=218 Rank=Low Phase=T2F Dom=Dominant
+70-70 Black Up AvgVol=245 Rank=Normal Phase=Unknown Dom=NonDominant
+71-72 Red Down AvgVol=328 Rank=Peak Phase=PP1 Dom=Dominant
+73-73 Black Up AvgVol=287 Rank=Elevated Phase=Unknown Dom=NonDominant
+74-74 Red Down AvgVol=223 Rank=Normal Phase=Unknown Dom=Dominant
+75-76 Black Up AvgVol=228 Rank=Normal Phase=Unknown Dom=NonDominant
 HasDominanceSequence: False
 HasFailureSequence: False
 FTT Candidate: True
 FTT Confirmed: False
 FTT Reason: T2F detected after dominance expectation.
 CurrentSegmentDominance: NonDominant
-ContainerBias: CounterDominant
+ContainerBias: Unknown
 RecentBias: NonDominant
 LTL@76: 27517.5555555556
 LastHigh: 27526 LastClose: 27524.25
@@ -1668,26 +1631,26 @@ IneffectiveDominance: False
 ----- APVA DEBUG -----
 Bar: 77 Time: 4/26/2026 9:30:00 PM
 InferredDirection: Up
-0-0 Red Down AvgVol=317 Rank=Elevated Phase=PP1 Dom=Dominant
-1-2 Black Up AvgVol=589 Rank=Climax Phase=Unknown Dom=CounterDominant
-3-3 Red Down AvgVol=290 Rank=Elevated Phase=PP1 Dom=Dominant
-4-8 Black Up AvgVol=249 Rank=Normal Phase=Unknown Dom=NonDominant
-9-9 Red Down AvgVol=315 Rank=Elevated Phase=PP2 Dom=Dominant
-10-10 Black Up AvgVol=185 Rank=Low Phase=T1 Dom=NonDominant
-11-11 Red Down AvgVol=218 Rank=Low Phase=T2F Dom=Dominant
-12-12 Black Up AvgVol=245 Rank=Normal Phase=Unknown Dom=NonDominant
-13-14 Red Down AvgVol=328 Rank=Peak Phase=PP1 Dom=Dominant
-15-15 Black Up AvgVol=287 Rank=Normal Phase=Unknown Dom=NonDominant
-16-16 Red Down AvgVol=223 Rank=Normal Phase=Unknown Dom=Dominant
-17-19 Black Up AvgVol=227 Rank=Normal Phase=Unknown Dom=NonDominant
+58-58 Red Down AvgVol=317 Rank=Elevated Phase=PP1 Dom=Dominant
+59-60 Black Up AvgVol=589 Rank=Climax Phase=Unknown Dom=CounterDominant
+61-61 Red Down AvgVol=290 Rank=Elevated Phase=PP1 Dom=Dominant
+62-66 Black Up AvgVol=249 Rank=Normal Phase=Unknown Dom=NonDominant
+67-67 Red Down AvgVol=315 Rank=Elevated Phase=PP2 Dom=Dominant
+68-68 Black Up AvgVol=185 Rank=Low Phase=T1 Dom=NonDominant
+69-69 Red Down AvgVol=218 Rank=Low Phase=T2F Dom=Dominant
+70-70 Black Up AvgVol=245 Rank=Normal Phase=Unknown Dom=NonDominant
+71-72 Red Down AvgVol=328 Rank=Peak Phase=PP1 Dom=Dominant
+73-73 Black Up AvgVol=287 Rank=Normal Phase=Unknown Dom=NonDominant
+74-74 Red Down AvgVol=223 Rank=Normal Phase=Unknown Dom=Dominant
+75-77 Black Up AvgVol=227 Rank=Normal Phase=Unknown Dom=NonDominant
 HasDominanceSequence: False
 HasFailureSequence: False
 FTT Candidate: True
 FTT Confirmed: True
 FTT Reason: T2F plus valid P3 and failed structural continuation.
 CurrentSegmentDominance: NonDominant
-ContainerBias: CounterDominant
-RecentBias: NonDominant
+ContainerBias: Unknown
+RecentBias: Unknown
 LTL@77: 27517.6666666667
 LastHigh: 27531 LastClose: 27528.75
 ContainerDirection: Down
@@ -1705,25 +1668,25 @@ IneffectiveDominance: False
 ----- APVA DEBUG -----
 Bar: 78 Time: 4/26/2026 9:35:00 PM
 InferredDirection: Up
-0-1 Black Up AvgVol=589 Rank=Climax Phase=Unknown Dom=CounterDominant
-2-2 Red Down AvgVol=290 Rank=Elevated Phase=PP1 Dom=Dominant
-3-7 Black Up AvgVol=249 Rank=Normal Phase=Unknown Dom=NonDominant
-8-8 Red Down AvgVol=315 Rank=Elevated Phase=PP2 Dom=Dominant
-9-9 Black Up AvgVol=185 Rank=Low Phase=T1 Dom=NonDominant
-10-10 Red Down AvgVol=218 Rank=Low Phase=T2F Dom=Dominant
-11-11 Black Up AvgVol=245 Rank=Normal Phase=Unknown Dom=NonDominant
-12-13 Red Down AvgVol=328 Rank=Peak Phase=PP1 Dom=Dominant
-14-14 Black Up AvgVol=287 Rank=Elevated Phase=Unknown Dom=NonDominant
-15-15 Red Down AvgVol=223 Rank=Normal Phase=Unknown Dom=Dominant
-16-19 Black Up AvgVol=237 Rank=Normal Phase=Unknown Dom=NonDominant
+59-60 Black Up AvgVol=589 Rank=Climax Phase=Unknown Dom=CounterDominant
+61-61 Red Down AvgVol=290 Rank=Elevated Phase=PP1 Dom=Dominant
+62-66 Black Up AvgVol=249 Rank=Normal Phase=Unknown Dom=NonDominant
+67-67 Red Down AvgVol=315 Rank=Elevated Phase=PP2 Dom=Dominant
+68-68 Black Up AvgVol=185 Rank=Low Phase=T1 Dom=NonDominant
+69-69 Red Down AvgVol=218 Rank=Low Phase=T2F Dom=Dominant
+70-70 Black Up AvgVol=245 Rank=Normal Phase=Unknown Dom=NonDominant
+71-72 Red Down AvgVol=328 Rank=Peak Phase=PP1 Dom=Dominant
+73-73 Black Up AvgVol=287 Rank=Elevated Phase=Unknown Dom=NonDominant
+74-74 Red Down AvgVol=223 Rank=Normal Phase=Unknown Dom=Dominant
+75-78 Black Up AvgVol=237 Rank=Normal Phase=Unknown Dom=NonDominant
 HasDominanceSequence: False
 HasFailureSequence: False
 FTT Candidate: True
 FTT Confirmed: True
 FTT Reason: T2F plus valid P3 and failed structural continuation.
 CurrentSegmentDominance: NonDominant
-ContainerBias: CounterDominant
-RecentBias: NonDominant
+ContainerBias: Unknown
+RecentBias: Unknown
 LTL@78: 27517
 LastHigh: 27534 LastClose: 27530
 ContainerDirection: Down
@@ -1741,25 +1704,25 @@ IneffectiveDominance: False
 ----- APVA DEBUG -----
 Bar: 79 Time: 4/26/2026 9:40:00 PM
 InferredDirection: Up
-0-0 Black Up AvgVol=977 Rank=Climax Phase=Unknown Dom=CounterDominant
-1-1 Red Down AvgVol=290 Rank=Elevated Phase=PP1 Dom=Dominant
-2-6 Black Up AvgVol=249 Rank=Normal Phase=Unknown Dom=NonDominant
-7-7 Red Down AvgVol=315 Rank=Elevated Phase=PP2 Dom=Dominant
-8-8 Black Up AvgVol=185 Rank=Low Phase=T1 Dom=NonDominant
-9-9 Red Down AvgVol=218 Rank=Low Phase=T2F Dom=Dominant
-10-10 Black Up AvgVol=245 Rank=Normal Phase=Unknown Dom=NonDominant
-11-12 Red Down AvgVol=328 Rank=Peak Phase=PP1 Dom=Dominant
-13-13 Black Up AvgVol=287 Rank=Normal Phase=Unknown Dom=NonDominant
-14-14 Red Down AvgVol=223 Rank=Normal Phase=Unknown Dom=Dominant
-15-19 Black Up AvgVol=295 Rank=Elevated Phase=Unknown Dom=NonDominant
+60-60 Black Up AvgVol=977 Rank=Climax Phase=Unknown Dom=CounterDominant
+61-61 Red Down AvgVol=290 Rank=Elevated Phase=PP1 Dom=Dominant
+62-66 Black Up AvgVol=249 Rank=Normal Phase=Unknown Dom=NonDominant
+67-67 Red Down AvgVol=315 Rank=Elevated Phase=PP2 Dom=Dominant
+68-68 Black Up AvgVol=185 Rank=Low Phase=T1 Dom=NonDominant
+69-69 Red Down AvgVol=218 Rank=Low Phase=T2F Dom=Dominant
+70-70 Black Up AvgVol=245 Rank=Normal Phase=Unknown Dom=NonDominant
+71-72 Red Down AvgVol=328 Rank=Peak Phase=PP1 Dom=Dominant
+73-73 Black Up AvgVol=287 Rank=Normal Phase=Unknown Dom=NonDominant
+74-74 Red Down AvgVol=223 Rank=Normal Phase=Unknown Dom=Dominant
+75-79 Black Up AvgVol=295 Rank=Elevated Phase=Unknown Dom=NonDominant
 HasDominanceSequence: False
 HasFailureSequence: False
 FTT Candidate: True
 FTT Confirmed: True
 FTT Reason: T2F plus valid P3 and failed structural continuation.
 CurrentSegmentDominance: NonDominant
-ContainerBias: CounterDominant
-RecentBias: NonDominant
+ContainerBias: Unknown
+RecentBias: Unknown
 LTL@79: 27516.3333333333
 LastHigh: 27540 LastClose: 27536.25
 ContainerDirection: Down
@@ -1777,17 +1740,17 @@ IneffectiveDominance: False
 ----- APVA DEBUG -----
 Bar: 80 Time: 4/26/2026 9:45:00 PM
 InferredDirection: Up
-0-0 Red Down AvgVol=290 Rank=Elevated Phase=Unknown Dom=NonDominant
-1-5 Black Up AvgVol=249 Rank=Normal Phase=Unknown Dom=Dominant
-6-6 Red Down AvgVol=315 Rank=Peak Phase=Unknown Dom=CounterDominant
-7-7 Black Up AvgVol=185 Rank=Low Phase=Unknown Dom=Dominant
-8-8 Red Down AvgVol=218 Rank=Low Phase=Unknown Dom=NonDominant
-9-9 Black Up AvgVol=245 Rank=Normal Phase=Unknown Dom=Dominant
-10-11 Red Down AvgVol=328 Rank=Climax Phase=Unknown Dom=CounterDominant
-12-12 Black Up AvgVol=287 Rank=Elevated Phase=PP1 Dom=Dominant
-13-13 Red Down AvgVol=223 Rank=Normal Phase=Unknown Dom=NonDominant
-14-18 Black Up AvgVol=295 Rank=Elevated Phase=PP2 Dom=Dominant
-19-19 Red Down AvgVol=248 Rank=Normal Phase=T1 Dom=NonDominant
+61-61 Red Down AvgVol=290 Rank=Elevated Phase=Unknown Dom=NonDominant
+62-66 Black Up AvgVol=249 Rank=Normal Phase=Unknown Dom=Dominant
+67-67 Red Down AvgVol=315 Rank=Peak Phase=Unknown Dom=CounterDominant
+68-68 Black Up AvgVol=185 Rank=Low Phase=Unknown Dom=Dominant
+69-69 Red Down AvgVol=218 Rank=Low Phase=Unknown Dom=NonDominant
+70-70 Black Up AvgVol=245 Rank=Normal Phase=Unknown Dom=Dominant
+71-72 Red Down AvgVol=328 Rank=Climax Phase=Unknown Dom=CounterDominant
+73-73 Black Up AvgVol=287 Rank=Elevated Phase=PP1 Dom=Dominant
+74-74 Red Down AvgVol=223 Rank=Normal Phase=Unknown Dom=NonDominant
+75-79 Black Up AvgVol=295 Rank=Elevated Phase=PP2 Dom=Dominant
+80-80 Red Down AvgVol=248 Rank=Normal Phase=T1 Dom=NonDominant
 HasDominanceSequence: False
 HasFailureSequence: False
 FTT Candidate: True
@@ -1813,16 +1776,16 @@ IneffectiveDominance: False
 ----- APVA DEBUG -----
 Bar: 81 Time: 4/26/2026 9:50:00 PM
 InferredDirection: Up
-0-4 Black Up AvgVol=249 Rank=Elevated Phase=PP1 Dom=Dominant
-5-5 Red Down AvgVol=315 Rank=Peak Phase=Unknown Dom=CounterDominant
-6-6 Black Up AvgVol=185 Rank=Low Phase=Unknown Dom=Dominant
-7-7 Red Down AvgVol=218 Rank=Normal Phase=Unknown Dom=NonDominant
-8-8 Black Up AvgVol=245 Rank=Normal Phase=Unknown Dom=Dominant
-9-10 Red Down AvgVol=328 Rank=Climax Phase=Unknown Dom=CounterDominant
-11-11 Black Up AvgVol=287 Rank=Elevated Phase=PP1 Dom=Dominant
-12-12 Red Down AvgVol=223 Rank=Normal Phase=Unknown Dom=NonDominant
-13-17 Black Up AvgVol=295 Rank=Elevated Phase=PP2 Dom=Dominant
-18-19 Red Down AvgVol=244 Rank=Normal Phase=T1 Dom=NonDominant
+62-66 Black Up AvgVol=249 Rank=Elevated Phase=PP1 Dom=Dominant
+67-67 Red Down AvgVol=315 Rank=Peak Phase=Unknown Dom=CounterDominant
+68-68 Black Up AvgVol=185 Rank=Low Phase=Unknown Dom=Dominant
+69-69 Red Down AvgVol=218 Rank=Normal Phase=Unknown Dom=NonDominant
+70-70 Black Up AvgVol=245 Rank=Normal Phase=Unknown Dom=Dominant
+71-72 Red Down AvgVol=328 Rank=Climax Phase=Unknown Dom=CounterDominant
+73-73 Black Up AvgVol=287 Rank=Elevated Phase=PP1 Dom=Dominant
+74-74 Red Down AvgVol=223 Rank=Normal Phase=Unknown Dom=NonDominant
+75-79 Black Up AvgVol=295 Rank=Elevated Phase=PP2 Dom=Dominant
+80-81 Red Down AvgVol=244 Rank=Normal Phase=T1 Dom=NonDominant
 HasDominanceSequence: False
 HasFailureSequence: False
 FTT Candidate: False
@@ -1848,16 +1811,16 @@ IneffectiveDominance: False
 ----- APVA DEBUG -----
 Bar: 82 Time: 4/26/2026 9:55:00 PM
 InferredDirection: Up
-0-3 Black Up AvgVol=242 Rank=Normal Phase=Unknown Dom=Dominant
-4-4 Red Down AvgVol=315 Rank=Peak Phase=Unknown Dom=CounterDominant
-5-5 Black Up AvgVol=185 Rank=Low Phase=Unknown Dom=Dominant
-6-6 Red Down AvgVol=218 Rank=Normal Phase=Unknown Dom=NonDominant
-7-7 Black Up AvgVol=245 Rank=Normal Phase=Unknown Dom=Dominant
-8-9 Red Down AvgVol=328 Rank=Climax Phase=Unknown Dom=CounterDominant
-10-10 Black Up AvgVol=287 Rank=Elevated Phase=PP1 Dom=Dominant
-11-11 Red Down AvgVol=223 Rank=Normal Phase=Unknown Dom=NonDominant
-12-16 Black Up AvgVol=295 Rank=Elevated Phase=PP2 Dom=Dominant
-17-19 Red Down AvgVol=271 Rank=Elevated Phase=T1 Dom=NonDominant
+63-66 Black Up AvgVol=242 Rank=Normal Phase=Unknown Dom=Dominant
+67-67 Red Down AvgVol=315 Rank=Peak Phase=Unknown Dom=CounterDominant
+68-68 Black Up AvgVol=185 Rank=Low Phase=Unknown Dom=Dominant
+69-69 Red Down AvgVol=218 Rank=Normal Phase=Unknown Dom=NonDominant
+70-70 Black Up AvgVol=245 Rank=Normal Phase=Unknown Dom=Dominant
+71-72 Red Down AvgVol=328 Rank=Climax Phase=Unknown Dom=CounterDominant
+73-73 Black Up AvgVol=287 Rank=Elevated Phase=PP1 Dom=Dominant
+74-74 Red Down AvgVol=223 Rank=Normal Phase=Unknown Dom=NonDominant
+75-79 Black Up AvgVol=295 Rank=Elevated Phase=PP2 Dom=Dominant
+80-82 Red Down AvgVol=271 Rank=Elevated Phase=T1 Dom=NonDominant
 HasDominanceSequence: False
 HasFailureSequence: False
 FTT Candidate: True
@@ -1865,7 +1828,7 @@ FTT Confirmed: False
 FTT Reason: Valid P3 and failed structural continuation, but no T2F confirmation.
 CurrentSegmentDominance: NonDominant
 ContainerBias: CounterDominant
-RecentBias: Unknown
+RecentBias: Dominant
 LTL@82: 27533.4
 LastHigh: 27531 LastClose: 27526.5
 ContainerDirection: Up
@@ -1883,16 +1846,16 @@ IneffectiveDominance: False
 ----- APVA DEBUG -----
 Bar: 83 Time: 4/26/2026 10:00:00 PM
 InferredDirection: Unknown
-0-2 Black Up AvgVol=264 Rank=Normal Phase=Unknown Dom=Dominant
-3-3 Red Down AvgVol=315 Rank=Elevated Phase=Unknown Dom=NonDominant
-4-4 Black Up AvgVol=185 Rank=Low Phase=Unknown Dom=Dominant
-5-5 Red Down AvgVol=218 Rank=Normal Phase=Unknown Dom=NonDominant
-6-6 Black Up AvgVol=245 Rank=Normal Phase=Unknown Dom=Dominant
-7-8 Red Down AvgVol=328 Rank=Climax Phase=Unknown Dom=CounterDominant
-9-9 Black Up AvgVol=287 Rank=Elevated Phase=PP1 Dom=Dominant
-10-10 Red Down AvgVol=223 Rank=Normal Phase=Unknown Dom=NonDominant
-11-15 Black Up AvgVol=295 Rank=Elevated Phase=PP2 Dom=Dominant
-16-19 Red Down AvgVol=319 Rank=Peak Phase=Unknown Dom=CounterDominant
+64-66 Black Up AvgVol=264 Rank=Normal Phase=Unknown Dom=Dominant
+67-67 Red Down AvgVol=315 Rank=Elevated Phase=Unknown Dom=NonDominant
+68-68 Black Up AvgVol=185 Rank=Low Phase=Unknown Dom=Dominant
+69-69 Red Down AvgVol=218 Rank=Normal Phase=Unknown Dom=NonDominant
+70-70 Black Up AvgVol=245 Rank=Normal Phase=Unknown Dom=Dominant
+71-72 Red Down AvgVol=328 Rank=Climax Phase=Unknown Dom=CounterDominant
+73-73 Black Up AvgVol=287 Rank=Elevated Phase=PP1 Dom=Dominant
+74-74 Red Down AvgVol=223 Rank=Normal Phase=Unknown Dom=NonDominant
+75-79 Black Up AvgVol=295 Rank=Elevated Phase=PP2 Dom=Dominant
+80-83 Red Down AvgVol=319 Rank=Peak Phase=Unknown Dom=CounterDominant
 HasDominanceSequence: False
 HasFailureSequence: False
 FTT Candidate: True
@@ -1900,7 +1863,7 @@ FTT Confirmed: False
 FTT Reason: Valid P3 and failed structural continuation, but no T2F confirmation.
 CurrentSegmentDominance: CounterDominant
 ContainerBias: CounterDominant
-RecentBias: CounterDominant
+RecentBias: Dominant
 LTL@83: 27533.6
 LastHigh: 27527.5 LastClose: 27517.75
 ContainerDirection: Up
@@ -1918,16 +1881,16 @@ IneffectiveDominance: False
 ----- APVA DEBUG -----
 Bar: 84 Time: 4/26/2026 10:05:00 PM
 InferredDirection: Down
-0-1 Black Up AvgVol=306 Rank=Elevated Phase=PP1 Dom=Dominant
-2-2 Red Down AvgVol=315 Rank=Elevated Phase=Unknown Dom=NonDominant
-3-3 Black Up AvgVol=185 Rank=Low Phase=Unknown Dom=Dominant
-4-4 Red Down AvgVol=218 Rank=Normal Phase=Unknown Dom=NonDominant
-5-5 Black Up AvgVol=245 Rank=Normal Phase=Unknown Dom=Dominant
-6-7 Red Down AvgVol=328 Rank=Peak Phase=Unknown Dom=CounterDominant
-8-8 Black Up AvgVol=287 Rank=Normal Phase=Unknown Dom=Dominant
-9-9 Red Down AvgVol=223 Rank=Normal Phase=Unknown Dom=NonDominant
-10-14 Black Up AvgVol=295 Rank=Elevated Phase=PP1 Dom=Dominant
-15-19 Red Down AvgVol=373 Rank=Climax Phase=Unknown Dom=CounterDominant
+65-66 Black Up AvgVol=306 Rank=Elevated Phase=PP1 Dom=Dominant
+67-67 Red Down AvgVol=315 Rank=Elevated Phase=Unknown Dom=NonDominant
+68-68 Black Up AvgVol=185 Rank=Low Phase=Unknown Dom=Dominant
+69-69 Red Down AvgVol=218 Rank=Normal Phase=Unknown Dom=NonDominant
+70-70 Black Up AvgVol=245 Rank=Normal Phase=Unknown Dom=Dominant
+71-72 Red Down AvgVol=328 Rank=Peak Phase=Unknown Dom=CounterDominant
+73-73 Black Up AvgVol=287 Rank=Normal Phase=Unknown Dom=Dominant
+74-74 Red Down AvgVol=223 Rank=Normal Phase=Unknown Dom=NonDominant
+75-79 Black Up AvgVol=295 Rank=Elevated Phase=PP1 Dom=Dominant
+80-84 Red Down AvgVol=373 Rank=Climax Phase=Unknown Dom=CounterDominant
 HasDominanceSequence: False
 HasFailureSequence: False
 FTT Candidate: True
@@ -1935,7 +1898,7 @@ FTT Confirmed: False
 FTT Reason: Valid P3 and failed structural continuation, but no T2F confirmation.
 CurrentSegmentDominance: CounterDominant
 ContainerBias: CounterDominant
-RecentBias: CounterDominant
+RecentBias: Dominant
 LTL@84: 27533.8
 LastHigh: 27520.25 LastClose: 27501
 ContainerDirection: Up
@@ -1953,24 +1916,24 @@ IneffectiveDominance: False
 ----- APVA DEBUG -----
 Bar: 85 Time: 4/26/2026 10:10:00 PM
 InferredDirection: Down
-0-0 Black Up AvgVol=364 Rank=Peak Phase=PP1 Dom=Dominant
-1-1 Red Down AvgVol=315 Rank=Elevated Phase=Unknown Dom=NonDominant
-2-2 Black Up AvgVol=185 Rank=Low Phase=Unknown Dom=Dominant
-3-3 Red Down AvgVol=218 Rank=Normal Phase=Unknown Dom=NonDominant
-4-4 Black Up AvgVol=245 Rank=Normal Phase=Unknown Dom=Dominant
-5-6 Red Down AvgVol=328 Rank=Elevated Phase=Unknown Dom=NonDominant
-7-7 Black Up AvgVol=287 Rank=Normal Phase=Unknown Dom=Dominant
-8-8 Red Down AvgVol=223 Rank=Normal Phase=Unknown Dom=NonDominant
-9-13 Black Up AvgVol=295 Rank=Elevated Phase=PP2 Dom=Dominant
-14-19 Red Down AvgVol=437 Rank=Climax Phase=Unknown Dom=CounterDominant
+66-66 Black Up AvgVol=364 Rank=Peak Phase=PP1 Dom=Dominant
+67-67 Red Down AvgVol=315 Rank=Elevated Phase=Unknown Dom=NonDominant
+68-68 Black Up AvgVol=185 Rank=Low Phase=Unknown Dom=Dominant
+69-69 Red Down AvgVol=218 Rank=Normal Phase=Unknown Dom=NonDominant
+70-70 Black Up AvgVol=245 Rank=Normal Phase=Unknown Dom=Dominant
+71-72 Red Down AvgVol=328 Rank=Elevated Phase=Unknown Dom=NonDominant
+73-73 Black Up AvgVol=287 Rank=Normal Phase=Unknown Dom=Dominant
+74-74 Red Down AvgVol=223 Rank=Normal Phase=Unknown Dom=NonDominant
+75-79 Black Up AvgVol=295 Rank=Elevated Phase=PP2 Dom=Dominant
+80-85 Red Down AvgVol=437 Rank=Climax Phase=Unknown Dom=CounterDominant
 HasDominanceSequence: False
 HasFailureSequence: False
 FTT Candidate: True
 FTT Confirmed: False
 FTT Reason: Valid P3 and failed structural continuation, but no T2F confirmation.
 CurrentSegmentDominance: CounterDominant
-ContainerBias: CounterDominant
-RecentBias: CounterDominant
+ContainerBias: Unknown
+RecentBias: Dominant
 LTL@85: 27534
 LastHigh: 27503.25 LastClose: 27494
 ContainerDirection: Up
@@ -1980,7 +1943,7 @@ P3: 79 27525
 HasValidP3: True
 FTT Kind: StructuralWarning
 WarningDuration: 4
-ImminentFTT: True
+ImminentFTT: False
 ExpectedContinuationFailed: True
 DistanceToLTL: 30.75
 DistanceDelta: 17.2000000000007
@@ -1988,15 +1951,15 @@ IneffectiveDominance: False
 ----- APVA DEBUG -----
 Bar: 86 Time: 4/26/2026 10:15:00 PM
 InferredDirection: Down
-0-0 Red Down AvgVol=315 Rank=Elevated Phase=Unknown Dom=NonDominant
-1-1 Black Up AvgVol=185 Rank=Low Phase=Unknown Dom=Dominant
-2-2 Red Down AvgVol=218 Rank=Normal Phase=Unknown Dom=NonDominant
-3-3 Black Up AvgVol=245 Rank=Normal Phase=Unknown Dom=Dominant
-4-5 Red Down AvgVol=328 Rank=Peak Phase=Unknown Dom=CounterDominant
-6-6 Black Up AvgVol=287 Rank=Normal Phase=Unknown Dom=Dominant
-7-7 Red Down AvgVol=223 Rank=Normal Phase=Unknown Dom=NonDominant
-8-12 Black Up AvgVol=295 Rank=Elevated Phase=PP1 Dom=Dominant
-13-19 Red Down AvgVol=458 Rank=Climax Phase=Unknown Dom=CounterDominant
+67-67 Red Down AvgVol=315 Rank=Elevated Phase=Unknown Dom=NonDominant
+68-68 Black Up AvgVol=185 Rank=Low Phase=Unknown Dom=Dominant
+69-69 Red Down AvgVol=218 Rank=Normal Phase=Unknown Dom=NonDominant
+70-70 Black Up AvgVol=245 Rank=Normal Phase=Unknown Dom=Dominant
+71-72 Red Down AvgVol=328 Rank=Peak Phase=Unknown Dom=CounterDominant
+73-73 Black Up AvgVol=287 Rank=Normal Phase=Unknown Dom=Dominant
+74-74 Red Down AvgVol=223 Rank=Normal Phase=Unknown Dom=NonDominant
+75-79 Black Up AvgVol=295 Rank=Elevated Phase=PP1 Dom=Dominant
+80-86 Red Down AvgVol=458 Rank=Climax Phase=Unknown Dom=CounterDominant
 HasDominanceSequence: False
 HasFailureSequence: False
 FTT Candidate: True
@@ -2004,7 +1967,7 @@ FTT Confirmed: False
 FTT Reason: Valid P3 and failed structural continuation, but no T2F confirmation.
 CurrentSegmentDominance: CounterDominant
 ContainerBias: CounterDominant
-RecentBias: CounterDominant
+RecentBias: Dominant
 LTL@86: 27534.2
 LastHigh: 27498 LastClose: 27479
 ContainerDirection: Up
@@ -2022,14 +1985,14 @@ IneffectiveDominance: False
 ----- APVA DEBUG -----
 Bar: 87 Time: 4/26/2026 10:20:00 PM
 InferredDirection: Down
-0-0 Black Up AvgVol=185 Rank=Low Phase=Unknown Dom=Dominant
-1-1 Red Down AvgVol=218 Rank=Normal Phase=Unknown Dom=NonDominant
-2-2 Black Up AvgVol=245 Rank=Normal Phase=Unknown Dom=Dominant
-3-4 Red Down AvgVol=328 Rank=Peak Phase=Unknown Dom=CounterDominant
-5-5 Black Up AvgVol=287 Rank=Elevated Phase=PP1 Dom=Dominant
-6-6 Red Down AvgVol=223 Rank=Normal Phase=Unknown Dom=NonDominant
-7-11 Black Up AvgVol=295 Rank=Elevated Phase=PP2 Dom=Dominant
-12-19 Red Down AvgVol=483 Rank=Climax Phase=Unknown Dom=CounterDominant
+68-68 Black Up AvgVol=185 Rank=Low Phase=Unknown Dom=Dominant
+69-69 Red Down AvgVol=218 Rank=Normal Phase=Unknown Dom=NonDominant
+70-70 Black Up AvgVol=245 Rank=Normal Phase=Unknown Dom=Dominant
+71-72 Red Down AvgVol=328 Rank=Peak Phase=Unknown Dom=CounterDominant
+73-73 Black Up AvgVol=287 Rank=Elevated Phase=PP1 Dom=Dominant
+74-74 Red Down AvgVol=223 Rank=Normal Phase=Unknown Dom=NonDominant
+75-79 Black Up AvgVol=295 Rank=Elevated Phase=PP2 Dom=Dominant
+80-87 Red Down AvgVol=483 Rank=Climax Phase=Unknown Dom=CounterDominant
 HasDominanceSequence: False
 HasFailureSequence: False
 FTT Candidate: True
@@ -2037,7 +2000,7 @@ FTT Confirmed: False
 FTT Reason: Valid P3 and failed structural continuation, but no T2F confirmation.
 CurrentSegmentDominance: CounterDominant
 ContainerBias: CounterDominant
-RecentBias: CounterDominant
+RecentBias: Dominant
 LTL@87: 27534.4
 LastHigh: 27483.25 LastClose: 27474
 ContainerDirection: Up
@@ -2055,14 +2018,14 @@ IneffectiveDominance: False
 ----- APVA DEBUG -----
 Bar: 88 Time: 4/26/2026 10:25:00 PM
 InferredDirection: Down
-0-0 Red Down AvgVol=218 Rank=Low Phase=Unknown Dom=Dominant
-1-1 Black Up AvgVol=245 Rank=Normal Phase=Unknown Dom=NonDominant
-2-3 Red Down AvgVol=328 Rank=Elevated Phase=PP1 Dom=Dominant
-4-4 Black Up AvgVol=287 Rank=Normal Phase=Unknown Dom=NonDominant
-5-5 Red Down AvgVol=223 Rank=Normal Phase=Unknown Dom=Dominant
-6-10 Black Up AvgVol=295 Rank=Elevated Phase=Unknown Dom=NonDominant
-11-18 Red Down AvgVol=483 Rank=Peak Phase=PP2 Dom=Dominant
-19-19 Black Up AvgVol=485 Rank=Climax Phase=Unknown Dom=CounterDominant
+69-69 Red Down AvgVol=218 Rank=Low Phase=Unknown Dom=Dominant
+70-70 Black Up AvgVol=245 Rank=Normal Phase=Unknown Dom=NonDominant
+71-72 Red Down AvgVol=328 Rank=Elevated Phase=PP1 Dom=Dominant
+73-73 Black Up AvgVol=287 Rank=Normal Phase=Unknown Dom=NonDominant
+74-74 Red Down AvgVol=223 Rank=Normal Phase=Unknown Dom=Dominant
+75-79 Black Up AvgVol=295 Rank=Elevated Phase=Unknown Dom=NonDominant
+80-87 Red Down AvgVol=483 Rank=Peak Phase=PP2 Dom=Dominant
+88-88 Black Up AvgVol=485 Rank=Climax Phase=Unknown Dom=CounterDominant
 HasDominanceSequence: False
 HasFailureSequence: False
 FTT Candidate: False
@@ -2075,14 +2038,14 @@ Container: none
 ----- APVA DEBUG -----
 Bar: 89 Time: 4/26/2026 10:30:00 PM
 InferredDirection: Down
-0-0 Black Up AvgVol=245 Rank=Normal Phase=Unknown Dom=NonDominant
-1-2 Red Down AvgVol=328 Rank=Elevated Phase=PP1 Dom=Dominant
-3-3 Black Up AvgVol=287 Rank=Normal Phase=Unknown Dom=NonDominant
-4-4 Red Down AvgVol=223 Rank=Low Phase=Unknown Dom=Dominant
-5-9 Black Up AvgVol=295 Rank=Normal Phase=Unknown Dom=NonDominant
-10-17 Red Down AvgVol=483 Rank=Elevated Phase=PP2 Dom=Dominant
-18-18 Black Up AvgVol=485 Rank=Peak Phase=Unknown Dom=CounterDominant
-19-19 Red Down AvgVol=703 Rank=Climax Phase=PP1 Dom=Dominant
+70-70 Black Up AvgVol=245 Rank=Normal Phase=Unknown Dom=NonDominant
+71-72 Red Down AvgVol=328 Rank=Elevated Phase=PP1 Dom=Dominant
+73-73 Black Up AvgVol=287 Rank=Normal Phase=Unknown Dom=NonDominant
+74-74 Red Down AvgVol=223 Rank=Low Phase=Unknown Dom=Dominant
+75-79 Black Up AvgVol=295 Rank=Normal Phase=Unknown Dom=NonDominant
+80-87 Red Down AvgVol=483 Rank=Elevated Phase=PP2 Dom=Dominant
+88-88 Black Up AvgVol=485 Rank=Peak Phase=Unknown Dom=CounterDominant
+89-89 Red Down AvgVol=703 Rank=Climax Phase=PP1 Dom=Dominant
 HasDominanceSequence: False
 HasFailureSequence: False
 FTT Candidate: False
@@ -2095,14 +2058,14 @@ Container: none
 ----- APVA DEBUG -----
 Bar: 90 Time: 4/26/2026 10:35:00 PM
 InferredDirection: Down
-0-1 Red Down AvgVol=328 Rank=Normal Phase=Unknown Dom=Dominant
-2-2 Black Up AvgVol=287 Rank=Normal Phase=Unknown Dom=NonDominant
-3-3 Red Down AvgVol=223 Rank=Low Phase=Unknown Dom=Dominant
-4-8 Black Up AvgVol=295 Rank=Normal Phase=Unknown Dom=NonDominant
-9-16 Red Down AvgVol=483 Rank=Elevated Phase=PP1 Dom=Dominant
-17-17 Black Up AvgVol=485 Rank=Elevated Phase=Unknown Dom=NonDominant
-18-18 Red Down AvgVol=703 Rank=Climax Phase=PP2 Dom=Dominant
-19-19 Black Up AvgVol=564 Rank=Peak Phase=Unknown Dom=CounterDominant
+71-72 Red Down AvgVol=328 Rank=Normal Phase=Unknown Dom=Dominant
+73-73 Black Up AvgVol=287 Rank=Normal Phase=Unknown Dom=NonDominant
+74-74 Red Down AvgVol=223 Rank=Low Phase=Unknown Dom=Dominant
+75-79 Black Up AvgVol=295 Rank=Normal Phase=Unknown Dom=NonDominant
+80-87 Red Down AvgVol=483 Rank=Elevated Phase=PP1 Dom=Dominant
+88-88 Black Up AvgVol=485 Rank=Elevated Phase=Unknown Dom=NonDominant
+89-89 Red Down AvgVol=703 Rank=Climax Phase=PP2 Dom=Dominant
+90-90 Black Up AvgVol=564 Rank=Peak Phase=Unknown Dom=CounterDominant
 HasDominanceSequence: False
 HasFailureSequence: False
 FTT Candidate: False
@@ -2115,15 +2078,15 @@ Container: none
 ----- APVA DEBUG -----
 Bar: 91 Time: 4/26/2026 10:40:00 PM
 InferredDirection: Down
-0-0 Red Down AvgVol=504 Rank=Elevated Phase=PP1 Dom=Dominant
-1-1 Black Up AvgVol=287 Rank=Normal Phase=Unknown Dom=NonDominant
-2-2 Red Down AvgVol=223 Rank=Low Phase=Unknown Dom=Dominant
-3-7 Black Up AvgVol=295 Rank=Normal Phase=Unknown Dom=NonDominant
-8-15 Red Down AvgVol=483 Rank=Normal Phase=Unknown Dom=Dominant
-16-16 Black Up AvgVol=485 Rank=Normal Phase=Unknown Dom=NonDominant
-17-17 Red Down AvgVol=703 Rank=Peak Phase=PP2 Dom=Dominant
-18-18 Black Up AvgVol=564 Rank=Elevated Phase=T1 Dom=NonDominant
-19-19 Red Down AvgVol=823 Rank=Climax Phase=T2P Dom=Dominant
+72-72 Red Down AvgVol=504 Rank=Elevated Phase=PP1 Dom=Dominant
+73-73 Black Up AvgVol=287 Rank=Normal Phase=Unknown Dom=NonDominant
+74-74 Red Down AvgVol=223 Rank=Low Phase=Unknown Dom=Dominant
+75-79 Black Up AvgVol=295 Rank=Normal Phase=Unknown Dom=NonDominant
+80-87 Red Down AvgVol=483 Rank=Normal Phase=Unknown Dom=Dominant
+88-88 Black Up AvgVol=485 Rank=Normal Phase=Unknown Dom=NonDominant
+89-89 Red Down AvgVol=703 Rank=Peak Phase=PP2 Dom=Dominant
+90-90 Black Up AvgVol=564 Rank=Elevated Phase=T1 Dom=NonDominant
+91-91 Red Down AvgVol=823 Rank=Climax Phase=T2P Dom=Dominant
 HasDominanceSequence: True
 HasFailureSequence: False
 FTT Candidate: False
@@ -2136,15 +2099,15 @@ Container: none
 ----- APVA DEBUG -----
 Bar: 93 Time: 4/26/2026 10:50:00 PM
 InferredDirection: Down
-0-0 Red Down AvgVol=223 Rank=Low Phase=Unknown Dom=Dominant
-1-5 Black Up AvgVol=295 Rank=Normal Phase=Unknown Dom=NonDominant
-6-13 Red Down AvgVol=483 Rank=Normal Phase=Unknown Dom=Dominant
-14-14 Black Up AvgVol=485 Rank=Elevated Phase=Unknown Dom=NonDominant
-15-15 Red Down AvgVol=703 Rank=Peak Phase=PP1 Dom=Dominant
-16-16 Black Up AvgVol=564 Rank=Elevated Phase=Unknown Dom=NonDominant
-17-17 Red Down AvgVol=823 Rank=Climax Phase=PP2 Dom=Dominant
-18-18 Black Up AvgVol=459 Rank=Normal Phase=T1 Dom=NonDominant
-19-19 Red Down AvgVol=252 Rank=Normal Phase=T2F Dom=Dominant
+74-74 Red Down AvgVol=223 Rank=Low Phase=Unknown Dom=Dominant
+75-79 Black Up AvgVol=295 Rank=Normal Phase=Unknown Dom=NonDominant
+80-87 Red Down AvgVol=483 Rank=Normal Phase=Unknown Dom=Dominant
+88-88 Black Up AvgVol=485 Rank=Elevated Phase=Unknown Dom=NonDominant
+89-89 Red Down AvgVol=703 Rank=Peak Phase=PP1 Dom=Dominant
+90-90 Black Up AvgVol=564 Rank=Elevated Phase=Unknown Dom=NonDominant
+91-91 Red Down AvgVol=823 Rank=Climax Phase=PP2 Dom=Dominant
+92-92 Black Up AvgVol=459 Rank=Normal Phase=T1 Dom=NonDominant
+93-93 Red Down AvgVol=252 Rank=Normal Phase=T2F Dom=Dominant
 HasDominanceSequence: False
 HasFailureSequence: False
 FTT Candidate: True
@@ -2157,15 +2120,15 @@ Container: none
 ----- APVA DEBUG -----
 Bar: 94 Time: 4/26/2026 10:55:00 PM
 InferredDirection: Down
-0-4 Black Up AvgVol=295 Rank=Normal Phase=Unknown Dom=NonDominant
-5-12 Red Down AvgVol=483 Rank=Normal Phase=Unknown Dom=Dominant
-13-13 Black Up AvgVol=485 Rank=Normal Phase=Unknown Dom=NonDominant
-14-14 Red Down AvgVol=703 Rank=Peak Phase=PP1 Dom=Dominant
-15-15 Black Up AvgVol=564 Rank=Elevated Phase=Unknown Dom=NonDominant
-16-16 Red Down AvgVol=823 Rank=Climax Phase=PP2 Dom=Dominant
-17-17 Black Up AvgVol=459 Rank=Normal Phase=T1 Dom=NonDominant
-18-18 Red Down AvgVol=252 Rank=Low Phase=T2F Dom=Dominant
-19-19 Black Up AvgVol=503 Rank=Elevated Phase=Unknown Dom=NonDominant
+75-79 Black Up AvgVol=295 Rank=Normal Phase=Unknown Dom=NonDominant
+80-87 Red Down AvgVol=483 Rank=Normal Phase=Unknown Dom=Dominant
+88-88 Black Up AvgVol=485 Rank=Normal Phase=Unknown Dom=NonDominant
+89-89 Red Down AvgVol=703 Rank=Peak Phase=PP1 Dom=Dominant
+90-90 Black Up AvgVol=564 Rank=Elevated Phase=Unknown Dom=NonDominant
+91-91 Red Down AvgVol=823 Rank=Climax Phase=PP2 Dom=Dominant
+92-92 Black Up AvgVol=459 Rank=Normal Phase=T1 Dom=NonDominant
+93-93 Red Down AvgVol=252 Rank=Low Phase=T2F Dom=Dominant
+94-94 Black Up AvgVol=503 Rank=Elevated Phase=Unknown Dom=NonDominant
 HasDominanceSequence: False
 HasFailureSequence: False
 FTT Candidate: True
@@ -2191,16 +2154,16 @@ IneffectiveDominance: False
 ----- APVA DEBUG -----
 Bar: 95 Time: 4/26/2026 11:00:00 PM
 InferredDirection: Down
-0-3 Black Up AvgVol=326 Rank=Normal Phase=Unknown Dom=Dominant
-4-11 Red Down AvgVol=483 Rank=Normal Phase=Unknown Dom=NonDominant
-12-12 Black Up AvgVol=485 Rank=Elevated Phase=PP1 Dom=Dominant
-13-13 Red Down AvgVol=703 Rank=Peak Phase=Unknown Dom=CounterDominant
-14-14 Black Up AvgVol=564 Rank=Elevated Phase=PP1 Dom=Dominant
-15-15 Red Down AvgVol=823 Rank=Climax Phase=Unknown Dom=CounterDominant
-16-16 Black Up AvgVol=459 Rank=Normal Phase=Unknown Dom=Dominant
-17-17 Red Down AvgVol=252 Rank=Normal Phase=Unknown Dom=NonDominant
-18-18 Black Up AvgVol=503 Rank=Elevated Phase=PP1 Dom=Dominant
-19-19 Red Down AvgVol=251 Rank=Low Phase=Unknown Dom=NonDominant
+76-79 Black Up AvgVol=326 Rank=Normal Phase=Unknown Dom=Dominant
+80-87 Red Down AvgVol=483 Rank=Normal Phase=Unknown Dom=NonDominant
+88-88 Black Up AvgVol=485 Rank=Elevated Phase=PP1 Dom=Dominant
+89-89 Red Down AvgVol=703 Rank=Peak Phase=Unknown Dom=CounterDominant
+90-90 Black Up AvgVol=564 Rank=Elevated Phase=PP1 Dom=Dominant
+91-91 Red Down AvgVol=823 Rank=Climax Phase=Unknown Dom=CounterDominant
+92-92 Black Up AvgVol=459 Rank=Normal Phase=Unknown Dom=Dominant
+93-93 Red Down AvgVol=252 Rank=Normal Phase=Unknown Dom=NonDominant
+94-94 Black Up AvgVol=503 Rank=Elevated Phase=PP1 Dom=Dominant
+95-95 Red Down AvgVol=251 Rank=Low Phase=Unknown Dom=NonDominant
 HasDominanceSequence: False
 HasFailureSequence: False
 FTT Candidate: True
@@ -2226,23 +2189,23 @@ IneffectiveDominance: False
 ----- APVA DEBUG -----
 Bar: 96 Time: 4/26/2026 11:05:00 PM
 InferredDirection: Down
-0-2 Black Up AvgVol=341 Rank=Normal Phase=Unknown Dom=NonDominant
-3-10 Red Down AvgVol=483 Rank=Normal Phase=Unknown Dom=Dominant
-11-11 Black Up AvgVol=485 Rank=Normal Phase=Unknown Dom=NonDominant
-12-12 Red Down AvgVol=703 Rank=Peak Phase=PP1 Dom=Dominant
-13-13 Black Up AvgVol=564 Rank=Elevated Phase=Unknown Dom=NonDominant
-14-14 Red Down AvgVol=823 Rank=Climax Phase=PP2 Dom=Dominant
-15-15 Black Up AvgVol=459 Rank=Normal Phase=T1 Dom=NonDominant
-16-16 Red Down AvgVol=252 Rank=Low Phase=T2F Dom=Dominant
-17-17 Black Up AvgVol=503 Rank=Elevated Phase=Unknown Dom=NonDominant
-18-19 Red Down AvgVol=559 Rank=Elevated Phase=PP1 Dom=Dominant
+77-79 Black Up AvgVol=341 Rank=Normal Phase=Unknown Dom=NonDominant
+80-87 Red Down AvgVol=483 Rank=Normal Phase=Unknown Dom=Dominant
+88-88 Black Up AvgVol=485 Rank=Normal Phase=Unknown Dom=NonDominant
+89-89 Red Down AvgVol=703 Rank=Peak Phase=PP1 Dom=Dominant
+90-90 Black Up AvgVol=564 Rank=Elevated Phase=Unknown Dom=NonDominant
+91-91 Red Down AvgVol=823 Rank=Climax Phase=PP2 Dom=Dominant
+92-92 Black Up AvgVol=459 Rank=Normal Phase=T1 Dom=NonDominant
+93-93 Red Down AvgVol=252 Rank=Low Phase=T2F Dom=Dominant
+94-94 Black Up AvgVol=503 Rank=Elevated Phase=Unknown Dom=NonDominant
+95-96 Red Down AvgVol=559 Rank=Elevated Phase=PP1 Dom=Dominant
 HasDominanceSequence: False
 HasFailureSequence: False
 FTT Candidate: True
 FTT Confirmed: False
 FTT Reason: T2F detected after dominance expectation.
 CurrentSegmentDominance: Dominant
-ContainerBias: Dominant
+ContainerBias: Unknown
 RecentBias: Dominant
 LTL@96: 27438
 LastHigh: 27456 LastClose: 27438.25
@@ -2261,25 +2224,25 @@ IneffectiveDominance: False
 ----- APVA DEBUG -----
 Bar: 97 Time: 4/26/2026 11:10:00 PM
 InferredDirection: Down
-0-1 Black Up AvgVol=398 Rank=Low Phase=Unknown Dom=NonDominant
-2-9 Red Down AvgVol=483 Rank=Normal Phase=Unknown Dom=Dominant
-10-10 Black Up AvgVol=485 Rank=Normal Phase=Unknown Dom=NonDominant
-11-11 Red Down AvgVol=703 Rank=Peak Phase=PP1 Dom=Dominant
-12-12 Black Up AvgVol=564 Rank=Elevated Phase=Unknown Dom=NonDominant
-13-13 Red Down AvgVol=823 Rank=Climax Phase=PP2 Dom=Dominant
-14-14 Black Up AvgVol=459 Rank=Normal Phase=T1 Dom=NonDominant
-15-15 Red Down AvgVol=252 Rank=Low Phase=T2F Dom=Dominant
-16-16 Black Up AvgVol=503 Rank=Normal Phase=Unknown Dom=NonDominant
-17-18 Red Down AvgVol=559 Rank=Elevated Phase=PP1 Dom=Dominant
-19-19 Black Up AvgVol=567 Rank=Elevated Phase=Unknown Dom=NonDominant
+78-79 Black Up AvgVol=398 Rank=Low Phase=Unknown Dom=NonDominant
+80-87 Red Down AvgVol=483 Rank=Normal Phase=Unknown Dom=Dominant
+88-88 Black Up AvgVol=485 Rank=Normal Phase=Unknown Dom=NonDominant
+89-89 Red Down AvgVol=703 Rank=Peak Phase=PP1 Dom=Dominant
+90-90 Black Up AvgVol=564 Rank=Elevated Phase=Unknown Dom=NonDominant
+91-91 Red Down AvgVol=823 Rank=Climax Phase=PP2 Dom=Dominant
+92-92 Black Up AvgVol=459 Rank=Normal Phase=T1 Dom=NonDominant
+93-93 Red Down AvgVol=252 Rank=Low Phase=T2F Dom=Dominant
+94-94 Black Up AvgVol=503 Rank=Normal Phase=Unknown Dom=NonDominant
+95-96 Red Down AvgVol=559 Rank=Elevated Phase=PP1 Dom=Dominant
+97-97 Black Up AvgVol=567 Rank=Elevated Phase=Unknown Dom=NonDominant
 HasDominanceSequence: False
 HasFailureSequence: False
 FTT Candidate: True
 FTT Confirmed: False
 FTT Reason: T2F detected after dominance expectation.
 CurrentSegmentDominance: NonDominant
-ContainerBias: Dominant
-RecentBias: NonDominant
+ContainerBias: Unknown
+RecentBias: Unknown
 LTL@97: 27429.75
 LastHigh: 27446 LastClose: 27440.75
 ContainerDirection: Down
@@ -2297,25 +2260,25 @@ IneffectiveDominance: False
 ----- APVA DEBUG -----
 Bar: 98 Time: 4/26/2026 11:15:00 PM
 InferredDirection: Down
-0-0 Black Up AvgVol=531 Rank=Normal Phase=Unknown Dom=NonDominant
-1-8 Red Down AvgVol=483 Rank=Normal Phase=Unknown Dom=Dominant
-9-9 Black Up AvgVol=485 Rank=Normal Phase=Unknown Dom=NonDominant
-10-10 Red Down AvgVol=703 Rank=Peak Phase=PP1 Dom=Dominant
-11-11 Black Up AvgVol=564 Rank=Elevated Phase=Unknown Dom=NonDominant
-12-12 Red Down AvgVol=823 Rank=Climax Phase=PP2 Dom=Dominant
-13-13 Black Up AvgVol=459 Rank=Low Phase=T1 Dom=NonDominant
-14-14 Red Down AvgVol=252 Rank=Low Phase=T2F Dom=Dominant
-15-15 Black Up AvgVol=503 Rank=Normal Phase=Unknown Dom=NonDominant
-16-17 Red Down AvgVol=559 Rank=Normal Phase=Unknown Dom=Dominant
-18-18 Black Up AvgVol=567 Rank=Elevated Phase=Unknown Dom=NonDominant
-19-19 Red Down AvgVol=620 Rank=Elevated Phase=PP1 Dom=Dominant
+79-79 Black Up AvgVol=531 Rank=Normal Phase=Unknown Dom=NonDominant
+80-87 Red Down AvgVol=483 Rank=Normal Phase=Unknown Dom=Dominant
+88-88 Black Up AvgVol=485 Rank=Normal Phase=Unknown Dom=NonDominant
+89-89 Red Down AvgVol=703 Rank=Peak Phase=PP1 Dom=Dominant
+90-90 Black Up AvgVol=564 Rank=Elevated Phase=Unknown Dom=NonDominant
+91-91 Red Down AvgVol=823 Rank=Climax Phase=PP2 Dom=Dominant
+92-92 Black Up AvgVol=459 Rank=Low Phase=T1 Dom=NonDominant
+93-93 Red Down AvgVol=252 Rank=Low Phase=T2F Dom=Dominant
+94-94 Black Up AvgVol=503 Rank=Normal Phase=Unknown Dom=NonDominant
+95-96 Red Down AvgVol=559 Rank=Normal Phase=Unknown Dom=Dominant
+97-97 Black Up AvgVol=567 Rank=Elevated Phase=Unknown Dom=NonDominant
+98-98 Red Down AvgVol=620 Rank=Elevated Phase=PP1 Dom=Dominant
 HasDominanceSequence: False
 HasFailureSequence: False
 FTT Candidate: True
 FTT Confirmed: True
 FTT Reason: T2F plus valid P3 and failed structural continuation.
 CurrentSegmentDominance: Dominant
-ContainerBias: Dominant
+ContainerBias: Unknown
 RecentBias: Dominant
 LTL@98: 27426.6
 LastHigh: 27443.25 LastClose: 27440
@@ -2334,25 +2297,25 @@ IneffectiveDominance: True
 ----- APVA DEBUG -----
 Bar: 99 Time: 4/26/2026 11:20:00 PM
 InferredDirection: Down
-0-7 Red Down AvgVol=483 Rank=Normal Phase=Unknown Dom=Dominant
-8-8 Black Up AvgVol=485 Rank=Normal Phase=Unknown Dom=NonDominant
-9-9 Red Down AvgVol=703 Rank=Peak Phase=PP1 Dom=Dominant
-10-10 Black Up AvgVol=564 Rank=Elevated Phase=Unknown Dom=NonDominant
-11-11 Red Down AvgVol=823 Rank=Climax Phase=PP2 Dom=Dominant
-12-12 Black Up AvgVol=459 Rank=Normal Phase=T1 Dom=NonDominant
-13-13 Red Down AvgVol=252 Rank=Low Phase=T2F Dom=Dominant
-14-14 Black Up AvgVol=503 Rank=Normal Phase=Unknown Dom=NonDominant
-15-16 Red Down AvgVol=559 Rank=Normal Phase=Unknown Dom=Dominant
-17-17 Black Up AvgVol=567 Rank=Elevated Phase=Unknown Dom=NonDominant
-18-18 Red Down AvgVol=620 Rank=Elevated Phase=PP1 Dom=Dominant
-19-19 Black Up AvgVol=435 Rank=Low Phase=Unknown Dom=NonDominant
+80-87 Red Down AvgVol=483 Rank=Normal Phase=Unknown Dom=Dominant
+88-88 Black Up AvgVol=485 Rank=Normal Phase=Unknown Dom=NonDominant
+89-89 Red Down AvgVol=703 Rank=Peak Phase=PP1 Dom=Dominant
+90-90 Black Up AvgVol=564 Rank=Elevated Phase=Unknown Dom=NonDominant
+91-91 Red Down AvgVol=823 Rank=Climax Phase=PP2 Dom=Dominant
+92-92 Black Up AvgVol=459 Rank=Normal Phase=T1 Dom=NonDominant
+93-93 Red Down AvgVol=252 Rank=Low Phase=T2F Dom=Dominant
+94-94 Black Up AvgVol=503 Rank=Normal Phase=Unknown Dom=NonDominant
+95-96 Red Down AvgVol=559 Rank=Normal Phase=Unknown Dom=Dominant
+97-97 Black Up AvgVol=567 Rank=Elevated Phase=Unknown Dom=NonDominant
+98-98 Red Down AvgVol=620 Rank=Elevated Phase=PP1 Dom=Dominant
+99-99 Black Up AvgVol=435 Rank=Low Phase=Unknown Dom=NonDominant
 HasDominanceSequence: False
 HasFailureSequence: False
 FTT Candidate: True
 FTT Confirmed: True
 FTT Reason: T2F plus valid P3 and failed structural continuation.
 CurrentSegmentDominance: NonDominant
-ContainerBias: Dominant
+ContainerBias: Unknown
 RecentBias: NonDominant
 LTL@99: 27425.6666666667
 LastHigh: 27443 LastClose: 27442
@@ -2371,25 +2334,25 @@ IneffectiveDominance: False
 ----- APVA DEBUG -----
 Bar: 100 Time: 4/26/2026 11:25:00 PM
 InferredDirection: Down
-0-6 Red Down AvgVol=516 Rank=Normal Phase=Unknown Dom=Dominant
-7-7 Black Up AvgVol=485 Rank=Normal Phase=Unknown Dom=NonDominant
-8-8 Red Down AvgVol=703 Rank=Peak Phase=PP1 Dom=Dominant
-9-9 Black Up AvgVol=564 Rank=Elevated Phase=Unknown Dom=NonDominant
-10-10 Red Down AvgVol=823 Rank=Climax Phase=PP2 Dom=Dominant
-11-11 Black Up AvgVol=459 Rank=Normal Phase=T1 Dom=NonDominant
-12-12 Red Down AvgVol=252 Rank=Low Phase=T2F Dom=Dominant
-13-13 Black Up AvgVol=503 Rank=Normal Phase=Unknown Dom=NonDominant
-14-15 Red Down AvgVol=559 Rank=Normal Phase=Unknown Dom=Dominant
-16-16 Black Up AvgVol=567 Rank=Elevated Phase=Unknown Dom=NonDominant
-17-17 Red Down AvgVol=620 Rank=Elevated Phase=PP1 Dom=Dominant
-18-19 Black Up AvgVol=430 Rank=Low Phase=Unknown Dom=NonDominant
+81-87 Red Down AvgVol=516 Rank=Normal Phase=Unknown Dom=Dominant
+88-88 Black Up AvgVol=485 Rank=Normal Phase=Unknown Dom=NonDominant
+89-89 Red Down AvgVol=703 Rank=Peak Phase=PP1 Dom=Dominant
+90-90 Black Up AvgVol=564 Rank=Elevated Phase=Unknown Dom=NonDominant
+91-91 Red Down AvgVol=823 Rank=Climax Phase=PP2 Dom=Dominant
+92-92 Black Up AvgVol=459 Rank=Normal Phase=T1 Dom=NonDominant
+93-93 Red Down AvgVol=252 Rank=Low Phase=T2F Dom=Dominant
+94-94 Black Up AvgVol=503 Rank=Normal Phase=Unknown Dom=NonDominant
+95-96 Red Down AvgVol=559 Rank=Normal Phase=Unknown Dom=Dominant
+97-97 Black Up AvgVol=567 Rank=Elevated Phase=Unknown Dom=NonDominant
+98-98 Red Down AvgVol=620 Rank=Elevated Phase=PP1 Dom=Dominant
+99-100 Black Up AvgVol=430 Rank=Low Phase=Unknown Dom=NonDominant
 HasDominanceSequence: False
 HasFailureSequence: False
 FTT Candidate: True
 FTT Confirmed: True
 FTT Reason: T2F plus valid P3 and failed structural continuation.
 CurrentSegmentDominance: NonDominant
-ContainerBias: Dominant
+ContainerBias: Unknown
 RecentBias: NonDominant
 LTL@100: 27433.0714285714
 LastHigh: 27452.25 LastClose: 27449.75
