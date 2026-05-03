@@ -378,7 +378,7 @@ FTT Candidate: False
 FTT Confirmed: False
 FTT Reason: 
 CurrentSegmentDominance: Dominant
-ContainerBias: Unknown
+ContainerBias: Dominant
 RecentBias: Unknown
 LTL@35: 27451.45
 LastHigh: 27474.5 LastClose: 27455.5
@@ -415,7 +415,7 @@ FTT Candidate: False
 FTT Confirmed: False
 FTT Reason: 
 CurrentSegmentDominance: Dominant
-ContainerBias: Unknown
+ContainerBias: Dominant
 RecentBias: Unknown
 LTL@36: 27463.75
 LastHigh: 27499.75 LastClose: 27490.5
@@ -955,7 +955,7 @@ FTT Candidate: True
 FTT Confirmed: False
 FTT Reason: Valid P3 and failed structural continuation, but no T2F confirmation.
 CurrentSegmentDominance: NonDominant
-ContainerBias: Unknown
+ContainerBias: NonDominant
 RecentBias: Unknown
 LTL@51: 27549.125
 LastHigh: 27538 LastClose: 27525.5
@@ -1019,7 +1019,7 @@ FTT Candidate: True
 FTT Confirmed: False
 FTT Reason: Valid P3 and failed structural continuation, but no T2F confirmation.
 CurrentSegmentDominance: NonDominant
-ContainerBias: Unknown
+ContainerBias: Dominant
 RecentBias: Unknown
 LTL@53: 27503.9
 LastHigh: 27524.25 LastClose: 27522.5
@@ -1051,7 +1051,7 @@ FTT Candidate: True
 FTT Confirmed: False
 FTT Reason: Valid P3 and failed structural continuation, but no T2F confirmation.
 CurrentSegmentDominance: NonDominant
-ContainerBias: Unknown
+ContainerBias: Dominant
 RecentBias: Unknown
 LTL@54: 27507.875
 LastHigh: 27529.75 LastClose: 27522
@@ -1083,7 +1083,7 @@ FTT Candidate: True
 FTT Confirmed: False
 FTT Reason: Valid P3 and failed structural continuation, but no T2F confirmation.
 CurrentSegmentDominance: NonDominant
-ContainerBias: Unknown
+ContainerBias: Dominant
 RecentBias: Unknown
 LTL@55: 27510.3571428571
 LastHigh: 27533 LastClose: 27523
@@ -1147,7 +1147,7 @@ FTT Candidate: True
 FTT Confirmed: True
 FTT Reason: T2F plus valid P3 and failed structural continuation.
 CurrentSegmentDominance: Dominant
-ContainerBias: Unknown
+ContainerBias: NonDominant
 RecentBias: Unknown
 LTL@57: 27535.7
 LastHigh: 27525.75 LastClose: 27524.75
@@ -1180,7 +1180,7 @@ FTT Candidate: True
 FTT Confirmed: False
 FTT Reason: Valid P3 and failed structural continuation, but no T2F confirmation.
 CurrentSegmentDominance: Dominant
-ContainerBias: Unknown
+ContainerBias: NonDominant
 RecentBias: Unknown
 LTL@58: 27510.6666666667
 LastHigh: 27524.25 LastClose: 27517
