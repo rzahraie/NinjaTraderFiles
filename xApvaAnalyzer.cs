@@ -51,11 +51,16 @@ namespace APVA.Core
 			if (result.Container != null)
 			{
 			    Bar currentBar = bars[bars.Count - 1];
+			
+			    result.Container.TryExtend(
+			        currentBar,
+			        tickTolerance);
+			
 			    double ltl = result.Container.LTL.ValueAt(currentBar.Index);
 			
 			    if (result.Container.Direction == ContainerDirection.Up)
 			        result.DistanceToLtl = ltl - currentBar.High;
-			    else
+			    else if (result.Container.Direction == ContainerDirection.Down)
 			        result.DistanceToLtl = currentBar.Low - ltl;
 			}
 			
@@ -112,9 +117,15 @@ namespace APVA.Core
 			        tickTolerance);
 			
 			if (continuationFailed)
+			{
 			    _warningStreak++;
+			}
 			else
-			    _warningStreak = 0;
+			{
+			    // NEW: decay instead of hard reset
+			    if (_warningStreak > 0)
+			        _warningStreak--;
+			}
 			
 			result.WarningDuration = _warningStreak;
 			
@@ -131,11 +142,20 @@ namespace APVA.Core
 			        result.Segments,
 			        hasValidP3: result.Container != null && result.Container.HasValidP3,
 			        expectedContinuationFailed: continuationFailed);
+			
+			if (result.Ftt.IsConfirmed)
+			{
+			    _warningStreak = 0;
+			}
 		
 		    return result;
 		}
     }
 }
+
+
+
+
 
 
 
