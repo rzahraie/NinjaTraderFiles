@@ -146,12 +146,14 @@ namespace APVA.Core
 			if (result.Ftt.IsConfirmed)
 			{
 			    _warningStreak = 0;
+			    _hasPrevDistanceToLtl = false;
 			}
 		
 		    return result;
 		}
     }
 }
+
 
 
 
