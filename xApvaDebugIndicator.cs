@@ -125,6 +125,7 @@ namespace NinjaTrader.NinjaScript.Indicators
 				Print("DistanceToLTL: " + result.DistanceToLtl);
 				Print("DistanceDelta: " + result.DistanceToLtlDelta);
 				Print("IneffectiveDominance: " + result.IneffectiveDominance);
+				Print("BarsSinceLastFTT: " + result.BarsSinceLastFtt);
 			}
 			else
 			{

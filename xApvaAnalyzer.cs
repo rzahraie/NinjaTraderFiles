@@ -27,6 +27,8 @@ namespace APVA.Core
 		public double DistanceToLtlDelta { get; set; }
 		
 		public bool IneffectiveDominance { get; set; }
+		
+		public int BarsSinceLastFtt { get; set; }
     }
 
     public static class xApvaAnalyzer
@@ -34,6 +36,7 @@ namespace APVA.Core
 		private static int _warningStreak = 0;
 		private static double _prevDistanceToLtl = 0;
 		private static bool _hasPrevDistanceToLtl = false;
+		private static int _lastFttBarIndex = -1;
 		
         public static ApvaAnalysisResult Analyze(
 		    IReadOnlyList<Bar> bars,
@@ -41,6 +44,8 @@ namespace APVA.Core
 		    double tickTolerance)
 		{
 		    var result = new ApvaAnalysisResult();
+			
+			Bar currentBar = bars[bars.Count - 1];
 		
 		    result.Container =
 		        xApvaContainerBuilder.BuildFromSwings(
@@ -50,8 +55,6 @@ namespace APVA.Core
 			
 			if (result.Container != null)
 			{
-			    Bar currentBar = bars[bars.Count - 1];
-			
 			    result.Container.TryExtend(
 			        currentBar,
 			        tickTolerance);
@@ -157,6 +160,28 @@ namespace APVA.Core
 			        hasValidP3: result.Container != null && result.Container.HasValidP3,
 			        expectedContinuationFailed: continuationFailed);
 			
+			const int MinFttSeparationBars = 8;
+
+			int barsSinceLastFtt =
+			    _lastFttBarIndex >= 0
+			        ? currentBar.Index - _lastFttBarIndex
+			        : int.MaxValue;
+			
+			result.BarsSinceLastFtt = barsSinceLastFtt;
+			
+			if (result.Ftt.IsConfirmed)
+			{
+			    if (barsSinceLastFtt >= MinFttSeparationBars)
+			    {
+			        _lastFttBarIndex = currentBar.Index;
+			    }
+			    else
+			    {
+			        result.Ftt.IsConfirmed = false;
+			        result.Ftt.Reason += " Blocked by FTT cooldown.";
+			    }
+			}
+			
 			if (result.Ftt.IsConfirmed)
 			{
 			    _warningStreak = 0;
@@ -188,6 +213,13 @@ namespace APVA.Core
 		}
     }
 }
+
+
+
+
+
+
+
 
 
 
