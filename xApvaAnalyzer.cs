@@ -65,8 +65,9 @@ namespace APVA.Core
 		        return;
 		
 		    result.Container.TryExtend(
-		        currentBar,
-		        tickTolerance);
+			    currentBar,
+			    tickTolerance,
+			    allowP3Promotion: false);
 		
 		    double ltl = result.Container.LTL.ValueAt(currentBar.Index);
 		
@@ -364,3 +365,4 @@ namespace APVA.Core
 		}
     }
 }
+

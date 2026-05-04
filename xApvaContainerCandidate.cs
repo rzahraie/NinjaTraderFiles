@@ -77,10 +77,16 @@ namespace APVA.Core
 		    return false;
 		}
 		
-		public void TryExtend(Bar bar, double tickTolerance)
+		public void TryExtend(
+		    Bar bar,
+		    double tickTolerance,
+		    bool allowP3Promotion)
 		{
 		    if (!HasValidP3)
 		        return;
+			
+			if (!allowP3Promotion)
+    			return;
 		
 		    if (Direction == ContainerDirection.Up)
 		    {
@@ -121,4 +127,5 @@ namespace APVA.Core
 	
 	
 }
+
 
