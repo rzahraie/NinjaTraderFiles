@@ -511,7 +511,7 @@ HasDominanceSequence: False
 HasFailureSequence: False
 FTT Candidate: False
 FTT Confirmed: False
-FTT Reason: T2F detected after dominance expectation. Blocked by FTT candidate cooldown.
+FTT Reason: Blocked by post-FTT grace period.
 CurrentSegmentDominance: CounterDominant
 ContainerBias: Dominant
 RecentBias: Dominant
@@ -529,7 +529,7 @@ ExpectedContinuationFailed: False
 DistanceToLTL: -2.25
 DistanceDelta: 28.9500000000007
 IneffectiveDominance: False
-BarsSinceLastFTT: 3
+BarsSinceLastFTT: 0
 P2P3Distance: 52.25
 IsWeakContainer: False
 ContainerAgeBars: 7
@@ -1382,7 +1382,7 @@ HasDominanceSequence: False
 HasFailureSequence: False
 FTT Candidate: False
 FTT Confirmed: False
-FTT Reason: No continuation attempt before failure.
+FTT Reason: Blocked by post-FTT grace period.
 CurrentSegmentDominance: Dominant
 ContainerBias: NonDominant
 RecentBias: NonDominant
@@ -1400,7 +1400,7 @@ ExpectedContinuationFailed: True
 DistanceToLTL: 15.25
 DistanceDelta: 2.375
 IneffectiveDominance: False
-BarsSinceLastFTT: 3
+BarsSinceLastFTT: 0
 P2P3Distance: 16.5
 IsWeakContainer: False
 ContainerAgeBars: 7

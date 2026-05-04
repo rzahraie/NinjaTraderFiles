@@ -246,8 +246,6 @@ namespace APVA.Core
 		{
 			if (state.PostFttGraceBars > 0)
 			{
-			    state.PostFttGraceBars--;
-			
 			    result.WarningDuration = 0;
 			    result.ImminentFtt = false;
 			    result.IneffectiveDominance = false;
@@ -393,6 +391,9 @@ namespace APVA.Core
 		        currentBar,
 		        continuationFailed,
 		        continuationAttempted);
+			
+			if (!result.Ftt.IsConfirmed && state.PostFttGraceBars > 0)
+    			state.PostFttGraceBars--;
 		
 		    return result;
 		}
@@ -419,6 +420,7 @@ namespace APVA.Core
 		}
     }
 }
+
 
 
 
