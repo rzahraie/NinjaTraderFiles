@@ -45,6 +45,7 @@ namespace APVA.Core
 	    public bool HasPrevDistance = false;
 	    public int LastFttBarIndex = -1;
 		public bool ContinuationAttempted = false;
+		public xApvaContainerCandidate ActiveContainer = null;
 	}
 
     public static class xApvaAnalyzer
@@ -53,21 +54,27 @@ namespace APVA.Core
 		    ApvaAnalysisResult result,
 		    IReadOnlyList<Bar> bars,
 		    Bar currentBar,
-		    double tickTolerance)
+		    double tickTolerance,
+		    ApvaAnalyzerState state)
 		{
-		    result.Container =
-		        xApvaContainerBuilder.BuildFromSwings(
-		            bars,
-		            swingStrength: 1,
-		            tickTolerance: tickTolerance);
+		    if (state.ActiveContainer == null)
+		    {
+		        state.ActiveContainer =
+		            xApvaContainerBuilder.BuildFromSwings(
+		                bars,
+		                swingStrength: 1,
+		                tickTolerance: tickTolerance);
+		    }
+		
+		    result.Container = state.ActiveContainer;
 		
 		    if (result.Container == null)
 		        return;
 		
 		    result.Container.TryExtend(
-			    currentBar,
-			    tickTolerance,
-			    allowP3Promotion: false);
+		        currentBar,
+		        tickTolerance,
+		        allowP3Promotion: false);
 		
 		    double ltl = result.Container.LTL.ValueAt(currentBar.Index);
 		
@@ -100,8 +107,29 @@ namespace APVA.Core
 			    dominanceSupportsContinuation &&
 			    !continuationFailed)
 			{
-			    result.Container.P3.Index = currentBar.Index;
-			    result.Container.P3.Price = currentBar.Close;
+			    result.Container.P3 = new xApvaPoint(
+			    currentBar.Index,
+			    currentBar.Close);
+			
+			result.Container.RTL =
+			    new xApvaLine(
+			        result.Container.P1,
+			        result.Container.P3);
+			
+			double rtlAtP2 =
+			    result.Container.RTL.ValueAt(result.Container.P2.Index);
+			
+			double offset =
+			    result.Container.P2.Price - rtlAtP2;
+			
+			result.Container.LTL =
+			    new xApvaLine(
+			        new xApvaPoint(
+			            result.Container.P1.Index,
+			            result.Container.P1.Price + offset),
+			        new xApvaPoint(
+			            result.Container.P3.Index,
+			            result.Container.P3.Price + offset));
 			}
 		}
 
@@ -295,7 +323,12 @@ namespace APVA.Core
 		    var result = new ApvaAnalysisResult();
 		    Bar currentBar = bars[bars.Count - 1];
 		
-		    BuildAndExtendContainer(result, bars, currentBar, tickTolerance);
+		    BuildAndExtendContainer(
+					    result,
+					    bars,
+					    currentBar,
+					    tickTolerance,
+					    state);
 		
 		    bool continuationFailed =
 		        result.Container != null &&
@@ -365,4 +398,5 @@ namespace APVA.Core
 		}
     }
 }
+
 
