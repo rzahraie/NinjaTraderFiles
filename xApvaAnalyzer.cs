@@ -88,14 +88,20 @@ namespace APVA.Core
 		    double minMove = 4 * tickTolerance;
 		
 		    bool strongContinuation =
-		        result.DistanceToLtl < 0 &&
-		        Math.Abs(result.DistanceToLtl) > minMove;
-		
-		    if (strongContinuation && !continuationFailed)
-		    {
-		        result.Container.P3.Index = currentBar.Index;
-		        result.Container.P3.Price = currentBar.Close;
-		    }
+			    result.DistanceToLtl < 0 &&
+			    Math.Abs(result.DistanceToLtl) > minMove;
+			
+			// NEW: require dominance agreement
+			bool dominanceSupportsContinuation =
+			    result.CurrentSegmentDominance == DominanceState.Dominant;
+			
+			if (strongContinuation &&
+			    dominanceSupportsContinuation &&
+			    !continuationFailed)
+			{
+			    result.Container.P3.Index = currentBar.Index;
+			    result.Container.P3.Price = currentBar.Close;
+			}
 		}
 
 		private static void ComputeContainerDiagnostics(
@@ -358,6 +364,7 @@ namespace APVA.Core
 		}
     }
 }
+
 
 
 
