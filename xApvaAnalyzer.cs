@@ -206,21 +206,22 @@ namespace APVA.Core
 			
 			result.BarsSinceLastFtt = barsSinceLastFtt;
 			
-			if (result.Ftt.IsConfirmed)
+			if (result.Ftt.IsCandidate && barsSinceLastFtt < MinFttSeparationBars)
+			{
+			    result.Ftt.IsCandidate = false;
+			    result.Ftt.IsConfirmed = false;
+			    result.Ftt.Reason += " Blocked by FTT candidate cooldown.";
+			}
+			else if (result.Ftt.IsConfirmed)
 			{
 			    if (!result.IsMatureContainer)
 			    {
 			        result.Ftt.IsConfirmed = false;
 			        result.Ftt.Reason += " Blocked by immature container.";
 			    }
-			    else if (barsSinceLastFtt >= MinFttSeparationBars)
-			    {
-			        state.LastFttBarIndex = currentBar.Index;
-			    }
 			    else
 			    {
-			        result.Ftt.IsConfirmed = false;
-			        result.Ftt.Reason += " Blocked by FTT cooldown.";
+			        state.LastFttBarIndex = currentBar.Index;
 			    }
 			}
 			
@@ -256,6 +257,7 @@ namespace APVA.Core
 		}
     }
 }
+
 
 
 
