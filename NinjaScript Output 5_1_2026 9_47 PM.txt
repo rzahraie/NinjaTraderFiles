@@ -90,9 +90,9 @@ InferredDirection: Up
 26-27 Black Up AvgVol=723 Rank=Elevated Phase=PP1 Dom=Dominant
 HasDominanceSequence: False
 HasFailureSequence: False
-FTT Candidate: True
+FTT Candidate: False
 FTT Confirmed: False
-FTT Reason: Valid P3 and failed structural continuation, but no T2F confirmation.
+FTT Reason: Valid P3 and failed structural continuation, but no T2F confirmation. Blocked by insufficient warning buildup.
 CurrentSegmentDominance: Dominant
 ContainerBias: CounterDominant
 RecentBias: Dominant
@@ -555,7 +555,7 @@ HasDominanceSequence: False
 HasFailureSequence: False
 FTT Candidate: False
 FTT Confirmed: False
-FTT Reason: Valid P3 and failed structural continuation, but no T2F confirmation. Blocked by FTT candidate cooldown.
+FTT Reason: Valid P3 and failed structural continuation, but no T2F confirmation. Blocked by insufficient warning buildup.
 CurrentSegmentDominance: Dominant
 ContainerBias: Dominant
 RecentBias: Dominant

@@ -289,11 +289,21 @@ namespace APVA.Core
 			}
 
 		    result.Ftt =
-		        xApvaFttDetector.Detect(
-		            result.Segments,
-		            hasValidP3: result.Container != null && result.Container.HasValidP3,
-		            expectedContinuationFailed: continuationFailed,
-		            continuationAttempted: continuationAttempted);
+			    xApvaFttDetector.Detect(
+			        result.Segments,
+			        hasValidP3: result.Container != null && result.Container.HasValidP3,
+			        expectedContinuationFailed: continuationFailed,
+			        continuationAttempted: continuationAttempted);
+			
+			// NEW: require sustained failure before candidate
+			const int MinWarningBarsForCandidate = 2;
+			
+			if (result.Ftt.IsCandidate && state.WarningStreak < MinWarningBarsForCandidate)
+			{
+			    result.Ftt.IsCandidate = false;
+			    result.Ftt.IsConfirmed = false;
+			    result.Ftt.Reason += " Blocked by insufficient warning buildup.";
+			}
 		
 		    const int MinFttSeparationBars = 8;
 		
@@ -420,6 +430,7 @@ namespace APVA.Core
 		}
     }
 }
+
 
 
 
