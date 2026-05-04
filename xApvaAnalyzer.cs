@@ -46,6 +46,7 @@ namespace APVA.Core
 	    public int LastFttBarIndex = -1;
 		public bool ContinuationAttempted = false;
 		public xApvaContainerCandidate ActiveContainer = null;
+		public int PostFttGraceBars = 0;
 	}
 
     public static class xApvaAnalyzer
@@ -243,6 +244,16 @@ namespace APVA.Core
 		    ApvaAnalyzerState state,
 		    bool continuationFailed)
 		{
+			if (state.PostFttGraceBars > 0)
+			{
+			    state.PostFttGraceBars--;
+			
+			    result.WarningDuration = 0;
+			    result.ImminentFtt = false;
+			    result.IneffectiveDominance = false;
+			    return;
+			}
+
 		    if (continuationFailed)
 		    {
 		        state.WarningStreak++;
@@ -271,6 +282,14 @@ namespace APVA.Core
 		    bool continuationFailed,
 		    bool continuationAttempted)
 		{
+			if (state.PostFttGraceBars > 0)
+			{
+			    result.Ftt.IsCandidate = false;
+			    result.Ftt.IsConfirmed = false;
+			    result.Ftt.Reason = "Blocked by post-FTT grace period.";
+			    return;
+			}
+
 		    result.Ftt =
 		        xApvaFttDetector.Detect(
 		            result.Segments,
@@ -307,12 +326,13 @@ namespace APVA.Core
 		    }
 		
 		   if (result.Ftt.IsConfirmed)
-			{
+		   {
 			    state.WarningStreak = 0;
 			    state.HasPrevDistance = false;
 			    state.ContinuationAttempted = false;
 			    state.ActiveContainer = null;
-			}
+			    state.PostFttGraceBars = 3;
+		   }
 		}
 		
         public static ApvaAnalysisResult Analyze(
@@ -399,6 +419,8 @@ namespace APVA.Core
 		}
     }
 }
+
+
 
 
 

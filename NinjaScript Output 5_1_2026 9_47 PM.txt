@@ -426,7 +426,7 @@ HasDominanceSequence: True
 HasFailureSequence: False
 FTT Candidate: False
 FTT Confirmed: False
-FTT Reason: 
+FTT Reason: Blocked by post-FTT grace period.
 CurrentSegmentDominance: Dominant
 ContainerBias: Dominant
 RecentBias: Dominant
@@ -444,7 +444,7 @@ ExpectedContinuationFailed: False
 DistanceToLTL: -23.75
 DistanceDelta: 0
 IneffectiveDominance: False
-BarsSinceLastFTT: 1
+BarsSinceLastFTT: 0
 P2P3Distance: 17.25
 IsWeakContainer: False
 ContainerAgeBars: 5
@@ -468,7 +468,7 @@ HasDominanceSequence: True
 HasFailureSequence: False
 FTT Candidate: False
 FTT Confirmed: False
-FTT Reason: 
+FTT Reason: Blocked by post-FTT grace period.
 CurrentSegmentDominance: Dominant
 ContainerBias: Dominant
 RecentBias: Dominant
@@ -486,7 +486,7 @@ ExpectedContinuationFailed: False
 DistanceToLTL: -31.2000000000007
 DistanceDelta: -7.45000000000073
 IneffectiveDominance: False
-BarsSinceLastFTT: 2
+BarsSinceLastFTT: 0
 P2P3Distance: 52.25
 IsWeakContainer: False
 ContainerAgeBars: 6
@@ -1305,7 +1305,7 @@ HasDominanceSequence: False
 HasFailureSequence: False
 FTT Candidate: False
 FTT Confirmed: False
-FTT Reason: No continuation attempt before failure.
+FTT Reason: Blocked by post-FTT grace period.
 CurrentSegmentDominance: Dominant
 ContainerBias: NonDominant
 RecentBias: NonDominant
@@ -1317,13 +1317,13 @@ P2: 55 27533
 P3: 56 27516.5
 HasValidP3: True
 FTT Kind: None
-WarningDuration: 1
+WarningDuration: 0
 ImminentFTT: False
 ExpectedContinuationFailed: True
 DistanceToLTL: 10
 DistanceDelta: 0
-IneffectiveDominance: True
-BarsSinceLastFTT: 1
+IneffectiveDominance: False
+BarsSinceLastFTT: 0
 P2P3Distance: 16.5
 IsWeakContainer: False
 ContainerAgeBars: 5
@@ -1343,7 +1343,7 @@ HasDominanceSequence: False
 HasFailureSequence: False
 FTT Candidate: False
 FTT Confirmed: False
-FTT Reason: No continuation attempt before failure.
+FTT Reason: Blocked by post-FTT grace period.
 CurrentSegmentDominance: NonDominant
 ContainerBias: NonDominant
 RecentBias: NonDominant
@@ -1355,13 +1355,13 @@ P2: 55 27533
 P3: 56 27516.5
 HasValidP3: True
 FTT Kind: None
-WarningDuration: 2
+WarningDuration: 0
 ImminentFTT: False
 ExpectedContinuationFailed: True
 DistanceToLTL: 12.875
 DistanceDelta: 2.875
 IneffectiveDominance: False
-BarsSinceLastFTT: 2
+BarsSinceLastFTT: 0
 P2P3Distance: 16.5
 IsWeakContainer: False
 ContainerAgeBars: 6
@@ -1394,12 +1394,12 @@ P2: 55 27533
 P3: 56 27516.5
 HasValidP3: True
 FTT Kind: None
-WarningDuration: 3
+WarningDuration: 0
 ImminentFTT: False
 ExpectedContinuationFailed: True
 DistanceToLTL: 15.25
 DistanceDelta: 2.375
-IneffectiveDominance: True
+IneffectiveDominance: False
 BarsSinceLastFTT: 3
 P2P3Distance: 16.5
 IsWeakContainer: False
@@ -1433,7 +1433,7 @@ P2: 55 27533
 P3: 56 27516.5
 HasValidP3: True
 FTT Kind: None
-WarningDuration: 4
+WarningDuration: 1
 ImminentFTT: False
 ExpectedContinuationFailed: True
 DistanceToLTL: 3.625
