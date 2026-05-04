@@ -47,6 +47,7 @@ namespace APVA.Core
 		public bool ContinuationAttempted = false;
 		public xApvaContainerCandidate ActiveContainer = null;
 		public int PostFttGraceBars = 0;
+		public int BarsFarFromStructure = 0;
 	}
 
     public static class xApvaAnalyzer
@@ -239,6 +240,22 @@ namespace APVA.Core
 		        xApvaDominanceEngine.HasFailureSequence(result.Segments);
 		}
 
+		private static void UpdateStructuralRelevance(
+		    ApvaAnalysisResult result,
+		    ApvaAnalyzerState state,
+		    double tickTolerance)
+		{
+		    double farThreshold = 10 * tickTolerance;
+		
+		    bool farFromStructure =
+		        Math.Abs(result.DistanceToLtl) > farThreshold;
+		
+		    if (farFromStructure)
+		        state.BarsFarFromStructure++;
+		    else
+		        state.BarsFarFromStructure = 0;
+		}
+
 		private static void UpdateWarningState(
 		    ApvaAnalysisResult result,
 		    ApvaAnalyzerState state,
@@ -357,6 +374,11 @@ namespace APVA.Core
 		{
 		    var result = new ApvaAnalysisResult();
 		    Bar currentBar = bars[bars.Count - 1];
+			
+			double farThreshold = 10 * tickTolerance;
+
+			bool farFromStructure =
+			    Math.Abs(result.DistanceToLtl) > farThreshold;
 		
 		    BuildAndExtendContainer(
 					    result,
@@ -391,6 +413,19 @@ namespace APVA.Core
 		        result,
 		        state);
 		
+			UpdateStructuralRelevance(
+				result,
+				state,
+				tickTolerance);
+			
+			const int MaxDriftBars = 5;
+
+			if (state.BarsFarFromStructure >= MaxDriftBars)
+			{
+			    state.ActiveContainer = null;
+			    state.BarsFarFromStructure = 0;
+			}
+			
 		    bool continuationAttempted =
 		        UpdateContinuationAttemptState(
 		            result,
@@ -437,6 +472,8 @@ namespace APVA.Core
 		}
     }
 }
+
+
 
 
 
