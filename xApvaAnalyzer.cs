@@ -306,12 +306,13 @@ namespace APVA.Core
 		        }
 		    }
 		
-		    if (result.Ftt.IsConfirmed)
-		    {
-		        state.WarningStreak = 0;
-		        state.HasPrevDistance = false;
-		        state.ContinuationAttempted = false;
-		    }
+		   if (result.Ftt.IsConfirmed)
+			{
+			    state.WarningStreak = 0;
+			    state.HasPrevDistance = false;
+			    state.ContinuationAttempted = false;
+			    state.ActiveContainer = null;
+			}
 		}
 		
         public static ApvaAnalysisResult Analyze(
@@ -398,5 +399,6 @@ namespace APVA.Core
 		}
     }
 }
+
 
 
