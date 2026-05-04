@@ -36,11 +36,14 @@ namespace APVA.Core
 
                 MakeClassified(6, VolumeColor.Red)
             };
+			
+			ApvaAnalyzerState _state = new ApvaAnalyzerState();
 
             ApvaAnalysisResult result = xApvaAnalyzer.Analyze(
 			    bars,
 			    classified,
-			    0.25);
+			    0.25,
+			    _state);
 
             Console.WriteLine("Segments:");
             foreach (VolumeSegment segment in result.Segments)
@@ -94,4 +97,6 @@ namespace APVA.Core
         }
     }
 }
+
+
 

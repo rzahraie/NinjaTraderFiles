@@ -10,6 +10,8 @@ namespace NinjaTrader.NinjaScript.Indicators
 {
     public class xApvaDebugIndicator : Indicator
     {
+		private ApvaAnalyzerState _state = new ApvaAnalyzerState();
+		
         protected override void OnStateChange()
         {
             if (State == State.SetDefaults)
@@ -60,7 +62,8 @@ namespace NinjaTrader.NinjaScript.Indicators
            ApvaAnalysisResult result = xApvaAnalyzer.Analyze(
 				    bars,
 				    classified,
-				    TickSize);
+				    TickSize,
+					_state);
 			
 			bool continuationFailed =
 			    result.Container != null &&

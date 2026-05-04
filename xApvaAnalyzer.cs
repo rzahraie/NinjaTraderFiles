@@ -37,18 +37,22 @@ namespace APVA.Core
 		public int ContainerAgeBars { get; set; }
 		public bool IsMatureContainer { get; set; }
     }
+	
+	public sealed class ApvaAnalyzerState
+	{
+	    public int WarningStreak = 0;
+	    public double PrevDistanceToLtl = 0;
+	    public bool HasPrevDistance = false;
+	    public int LastFttBarIndex = -1;
+	}
 
     public static class xApvaAnalyzer
     {
-		private static int _warningStreak = 0;
-		private static double _prevDistanceToLtl = 0;
-		private static bool _hasPrevDistanceToLtl = false;
-		private static int _lastFttBarIndex = -1;
-		
         public static ApvaAnalysisResult Analyze(
 		    IReadOnlyList<Bar> bars,
 		    IReadOnlyList<ClassifiedBar> classifiedBars,
-		    double tickTolerance)
+		    double tickTolerance,
+		    ApvaAnalyzerState state)
 		{
 		    var result = new ApvaAnalysisResult();
 			
@@ -94,19 +98,19 @@ namespace APVA.Core
 			}
 			
 			// THEN delta
-			if (!_hasPrevDistanceToLtl)
+			if (!state.HasPrevDistance)
 			{
 			    result.DistanceToLtlDelta = 0.0;
-			    _hasPrevDistanceToLtl = true;
+			    state.HasPrevDistance = true;
 			}
 			else
 			{
 			    result.DistanceToLtlDelta =
-			        result.DistanceToLtl - _prevDistanceToLtl;
+			        result.DistanceToLtl - state.PrevDistanceToLtl;
 			}
 
 			// FINALLY update state
-			_prevDistanceToLtl = result.DistanceToLtl;
+			state.PrevDistanceToLtl = result.DistanceToLtl;
 		
 		    ContainerDirection direction =
 		        result.Container != null
@@ -161,16 +165,16 @@ namespace APVA.Core
 			
 			if (continuationFailed)
 			{
-			    _warningStreak++;
+			    state.WarningStreak++;
 			}
 			else
 			{
 			    // NEW: decay instead of hard reset
-			    if (_warningStreak > 0)
-			        _warningStreak--;
+			    if (state.WarningStreak > 0)
+			        state.WarningStreak--;
 			}
 			
-			result.WarningDuration = _warningStreak;
+			result.WarningDuration = state.WarningStreak;
 			
 			result.ImminentFtt =
 			    result.WarningDuration >= 2 &&
@@ -189,8 +193,8 @@ namespace APVA.Core
 			const int MinFttSeparationBars = 8;
 
 			int barsSinceLastFtt =
-			    _lastFttBarIndex >= 0
-			        ? currentBar.Index - _lastFttBarIndex
+			    state.LastFttBarIndex >= 0
+			        ? currentBar.Index - state.LastFttBarIndex
 			        : int.MaxValue;
 			
 			result.BarsSinceLastFtt = barsSinceLastFtt;
@@ -204,7 +208,7 @@ namespace APVA.Core
 			    }
 			    else if (barsSinceLastFtt >= MinFttSeparationBars)
 			    {
-			        _lastFttBarIndex = currentBar.Index;
+			        state.LastFttBarIndex = currentBar.Index;
 			    }
 			    else
 			    {
@@ -215,8 +219,8 @@ namespace APVA.Core
 			
 			if (result.Ftt.IsConfirmed)
 			{
-			    _warningStreak = 0;
-			    _hasPrevDistanceToLtl = false;
+			    state.WarningStreak = 0;
+			    state.HasPrevDistance = false;
 			}
 		
 		    return result;
@@ -244,6 +248,8 @@ namespace APVA.Core
 		}
     }
 }
+
+
 
 
 
