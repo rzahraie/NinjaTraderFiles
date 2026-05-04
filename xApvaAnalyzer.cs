@@ -374,11 +374,6 @@ namespace APVA.Core
 		{
 		    var result = new ApvaAnalysisResult();
 		    Bar currentBar = bars[bars.Count - 1];
-			
-			double farThreshold = 10 * tickTolerance;
-
-			bool farFromStructure =
-			    Math.Abs(result.DistanceToLtl) > farThreshold;
 		
 		    BuildAndExtendContainer(
 					    result,
@@ -472,6 +467,7 @@ namespace APVA.Core
 		}
     }
 }
+
 
 
 
