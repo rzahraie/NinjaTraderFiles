@@ -39,6 +39,14 @@ namespace APVA.Core
 		        if (segment.Phase != VolumePhase.T2F)
 		            continue;
 		
+				if (!continuationAttempted)
+				{
+				    result.IsCandidate = false;
+				    result.IsConfirmed = false;
+				    result.Reason = "No continuation attempt before failure.";
+				    return result;
+				}
+				
 		        result.IsCandidate = true;
 		        result.SegmentIndex = i;
 		        result.BarIndex = segment.EndIndex;
@@ -55,13 +63,7 @@ namespace APVA.Core
 		        return result;
 		    }
 		
-			if (!continuationAttempted)
-			{
-			    result.IsCandidate = false;
-			    result.IsConfirmed = false;
-			    result.Reason = "No continuation attempt before failure.";
-			    return result;
-			}
+			
 
 		    if (hasValidP3 && expectedContinuationFailed)
 		    {
@@ -99,4 +101,5 @@ namespace APVA.Core
 		}	
     }
 }
+
 
