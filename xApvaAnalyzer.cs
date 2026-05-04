@@ -197,7 +197,12 @@ namespace APVA.Core
 			
 			if (result.Ftt.IsConfirmed)
 			{
-			    if (barsSinceLastFtt >= MinFttSeparationBars)
+			    if (!result.IsMatureContainer)
+			    {
+			        result.Ftt.IsConfirmed = false;
+			        result.Ftt.Reason += " Blocked by immature container.";
+			    }
+			    else if (barsSinceLastFtt >= MinFttSeparationBars)
 			    {
 			        _lastFttBarIndex = currentBar.Index;
 			    }
@@ -239,6 +244,7 @@ namespace APVA.Core
 		}
     }
 }
+
 
 
 
