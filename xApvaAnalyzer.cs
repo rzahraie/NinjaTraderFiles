@@ -301,6 +301,11 @@ namespace APVA.Core
 		        result.Container.ExpectedContinuationFailed(
 		            currentBar,
 		            tickTolerance);
+			
+			 BuildSegmentsAndDominance(
+		        result,
+		        bars,
+		        classifiedBars);
 		
 		    PromoteP3OnStrongContinuation(
 		        result,
@@ -321,11 +326,6 @@ namespace APVA.Core
 		        UpdateContinuationAttemptState(
 		            result,
 		            state);
-		
-		    BuildSegmentsAndDominance(
-		        result,
-		        bars,
-		        classifiedBars);
 		
 		    UpdateWarningState(
 		        result,
@@ -364,44 +364,3 @@ namespace APVA.Core
 		}
     }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
