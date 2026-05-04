@@ -509,9 +509,9 @@ InferredDirection: Up
 37-37 Red Down AvgVol=1309 Rank=Peak Phase=Unknown Dom=CounterDominant
 HasDominanceSequence: False
 HasFailureSequence: False
-FTT Candidate: True
+FTT Candidate: False
 FTT Confirmed: False
-FTT Reason: T2F detected after dominance expectation.
+FTT Reason: T2F detected after dominance expectation. Blocked by FTT candidate cooldown.
 CurrentSegmentDominance: CounterDominant
 ContainerBias: CounterDominant
 RecentBias: CounterDominant
@@ -596,9 +596,9 @@ InferredDirection: Up
 38-39 Black Up AvgVol=738 Rank=Elevated Phase=PP1 Dom=Dominant
 HasDominanceSequence: False
 HasFailureSequence: False
-FTT Candidate: True
+FTT Candidate: False
 FTT Confirmed: False
-FTT Reason: T2F detected after dominance expectation.
+FTT Reason: T2F detected after dominance expectation. Blocked by FTT candidate cooldown.
 CurrentSegmentDominance: Dominant
 ContainerBias: CounterDominant
 RecentBias: Dominant
@@ -639,9 +639,9 @@ InferredDirection: Up
 38-40 Black Up AvgVol=684 Rank=Elevated Phase=PP1 Dom=Dominant
 HasDominanceSequence: False
 HasFailureSequence: False
-FTT Candidate: True
+FTT Candidate: False
 FTT Confirmed: False
-FTT Reason: T2F plus valid P3 and failed structural continuation. Blocked by FTT cooldown.
+FTT Reason: T2F plus valid P3 and failed structural continuation. Blocked by FTT candidate cooldown.
 CurrentSegmentDominance: Dominant
 ContainerBias: CounterDominant
 RecentBias: Dominant
@@ -681,9 +681,9 @@ InferredDirection: Up
 38-41 Black Up AvgVol=756 Rank=Elevated Phase=PP1 Dom=Dominant
 HasDominanceSequence: False
 HasFailureSequence: False
-FTT Candidate: True
+FTT Candidate: False
 FTT Confirmed: False
-FTT Reason: Valid P3 and failed structural continuation, but no T2F confirmation.
+FTT Reason: Valid P3 and failed structural continuation, but no T2F confirmation. Blocked by FTT candidate cooldown.
 CurrentSegmentDominance: Dominant
 ContainerBias: CounterDominant
 RecentBias: Dominant
@@ -1341,9 +1341,9 @@ InferredDirection: Up
 58-58 Red Down AvgVol=317 Rank=Normal Phase=Unknown Dom=Dominant
 HasDominanceSequence: False
 HasFailureSequence: False
-FTT Candidate: True
+FTT Candidate: False
 FTT Confirmed: False
-FTT Reason: Valid P3 and failed structural continuation, but no T2F confirmation.
+FTT Reason: Valid P3 and failed structural continuation, but no T2F confirmation. Blocked by FTT candidate cooldown.
 CurrentSegmentDominance: Dominant
 ContainerBias: NonDominant
 RecentBias: NonDominant
@@ -1380,9 +1380,9 @@ InferredDirection: Up
 59-59 Black Up AvgVol=200 Rank=Low Phase=Unknown Dom=NonDominant
 HasDominanceSequence: False
 HasFailureSequence: False
-FTT Candidate: True
+FTT Candidate: False
 FTT Confirmed: False
-FTT Reason: Valid P3 and failed structural continuation, but no T2F confirmation.
+FTT Reason: Valid P3 and failed structural continuation, but no T2F confirmation. Blocked by FTT candidate cooldown.
 CurrentSegmentDominance: NonDominant
 ContainerBias: NonDominant
 RecentBias: NonDominant
@@ -1419,9 +1419,9 @@ InferredDirection: Up
 59-60 Black Up AvgVol=589 Rank=Elevated Phase=Unknown Dom=NonDominant
 HasDominanceSequence: False
 HasFailureSequence: False
-FTT Candidate: True
+FTT Candidate: False
 FTT Confirmed: False
-FTT Reason: Valid P3 and failed structural continuation, but no T2F confirmation.
+FTT Reason: Valid P3 and failed structural continuation, but no T2F confirmation. Blocked by FTT candidate cooldown.
 CurrentSegmentDominance: NonDominant
 ContainerBias: NonDominant
 RecentBias: NonDominant
