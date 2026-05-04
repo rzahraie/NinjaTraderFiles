@@ -169,6 +169,24 @@ namespace APVA.Core
 			        bars[bars.Count - 1],
 			        tickTolerance);
 			
+			if (result.Container != null && result.Container.HasValidP3)
+			{
+			    double distance =
+			        Math.Abs(result.Container.P2.Price - result.Container.P3.Price);
+			
+			    double minMove = 4 * tickTolerance;
+			
+			    bool strongContinuation =
+			        result.DistanceToLtl < 0 &&
+			        Math.Abs(result.DistanceToLtl) > minMove;
+			
+			    if (strongContinuation && !continuationFailed)
+			    {
+			       result.Container.P3.Index = currentBar.Index;
+					result.Container.P3.Price = currentBar.Close;
+			    }
+			}
+			
 			if (continuationFailed)
 			{
 			    state.WarningStreak++;
@@ -257,6 +275,8 @@ namespace APVA.Core
 		}
     }
 }
+
+
 
 
 

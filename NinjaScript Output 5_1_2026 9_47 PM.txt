@@ -23,7 +23,7 @@ LastHigh: 27407.5 LastClose: 27393.75
 ContainerDirection: Up
 P1: 20 27367.75
 P2: 21 27389.5
-P3: 25 27383.25
+P3: 25 27393.75
 HasValidP3: True
 FTT Kind: None
 WarningDuration: 0
@@ -101,7 +101,7 @@ LastHigh: 27418.25 LastClose: 27416.75
 ContainerDirection: Up
 P1: 20 27367.75
 P2: 21 27389.5
-P3: 27 27397.25
+P3: 27 27416.75
 HasValidP3: True
 FTT Kind: None
 WarningDuration: 0
@@ -435,7 +435,7 @@ LastHigh: 27474.5 LastClose: 27455.5
 ContainerDirection: Up
 P1: 30 27405
 P2: 33 27438.25
-P3: 35 27438
+P3: 35 27455.5
 HasValidP3: True
 FTT Kind: None
 WarningDuration: 0
@@ -477,7 +477,7 @@ LastHigh: 27499.75 LastClose: 27490.5
 ContainerDirection: Up
 P1: 30 27405
 P2: 33 27438.25
-P3: 36 27456
+P3: 36 27490.5
 HasValidP3: True
 FTT Kind: None
 WarningDuration: 0
@@ -520,7 +520,7 @@ LastHigh: 27497.5 LastClose: 27466
 ContainerDirection: Up
 P1: 30 27405
 P2: 33 27438.25
-P3: 37 27462
+P3: 37 27466
 HasValidP3: True
 FTT Kind: None
 WarningDuration: 0
@@ -564,7 +564,7 @@ LastHigh: 27479.5 LastClose: 27471.25
 ContainerDirection: Up
 P1: 30 27405
 P2: 33 27438.25
-P3: 38 27464
+P3: 38 27471.25
 HasValidP3: True
 FTT Kind: None
 WarningDuration: 0
