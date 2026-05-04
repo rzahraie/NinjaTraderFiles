@@ -111,6 +111,8 @@ namespace APVA.Core
 
 			// FINALLY update state
 			state.PrevDistanceToLtl = result.DistanceToLtl;
+			
+			bool continuationAttempted = result.DistanceToLtl < 0;
 		
 		    ContainerDirection direction =
 		        result.Container != null
@@ -188,7 +190,8 @@ namespace APVA.Core
 			    xApvaFttDetector.Detect(
 			        result.Segments,
 			        hasValidP3: result.Container != null && result.Container.HasValidP3,
-			        expectedContinuationFailed: continuationFailed);
+			        expectedContinuationFailed: continuationFailed,
+			        continuationAttempted: continuationAttempted);
 			
 			const int MinFttSeparationBars = 8;
 
@@ -248,6 +251,7 @@ namespace APVA.Core
 		}
     }
 }
+
 
 
 

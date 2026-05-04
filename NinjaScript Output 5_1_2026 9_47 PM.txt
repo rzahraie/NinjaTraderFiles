@@ -130,9 +130,9 @@ InferredDirection: Up
 28-28 Red Down AvgVol=473 Rank=Elevated Phase=Unknown Dom=NonDominant
 HasDominanceSequence: False
 HasFailureSequence: False
-FTT Candidate: True
+FTT Candidate: False
 FTT Confirmed: False
-FTT Reason: Valid P3 and failed structural continuation, but no T2F confirmation.
+FTT Reason: No continuation attempt before failure.
 CurrentSegmentDominance: NonDominant
 ContainerBias: CounterDominant
 RecentBias: Dominant
@@ -143,7 +143,7 @@ P1: 20 27367.75
 P2: 21 27389.5
 P3: 28 27409.75
 HasValidP3: True
-FTT Kind: StructuralWarning
+FTT Kind: None
 WarningDuration: 1
 ImminentFTT: False
 ExpectedContinuationFailed: True
@@ -171,9 +171,9 @@ InferredDirection: Up
 29-29 Black Up AvgVol=307 Rank=Low Phase=Unknown Dom=Dominant
 HasDominanceSequence: False
 HasFailureSequence: False
-FTT Candidate: True
+FTT Candidate: False
 FTT Confirmed: False
-FTT Reason: Valid P3 and failed structural continuation, but no T2F confirmation.
+FTT Reason: No continuation attempt before failure.
 CurrentSegmentDominance: Dominant
 ContainerBias: CounterDominant
 RecentBias: Dominant
@@ -184,7 +184,7 @@ P1: 20 27367.75
 P2: 21 27389.5
 P3: 29 27410.5
 HasValidP3: True
-FTT Kind: StructuralWarning
+FTT Kind: None
 WarningDuration: 2
 ImminentFTT: True
 ExpectedContinuationFailed: True
@@ -213,9 +213,9 @@ InferredDirection: Up
 30-30 Red Down AvgVol=562 Rank=Elevated Phase=Unknown Dom=NonDominant
 HasDominanceSequence: False
 HasFailureSequence: False
-FTT Candidate: True
+FTT Candidate: False
 FTT Confirmed: False
-FTT Reason: Valid P3 and failed structural continuation, but no T2F confirmation.
+FTT Reason: No continuation attempt before failure.
 CurrentSegmentDominance: NonDominant
 ContainerBias: CounterDominant
 RecentBias: Unknown
@@ -226,7 +226,7 @@ P1: 20 27367.75
 P2: 21 27389.5
 P3: 30 27405
 HasValidP3: True
-FTT Kind: StructuralWarning
+FTT Kind: None
 WarningDuration: 3
 ImminentFTT: True
 ExpectedContinuationFailed: True
@@ -255,9 +255,9 @@ InferredDirection: Up
 31-31 Black Up AvgVol=492 Rank=Normal Phase=Unknown Dom=Dominant
 HasDominanceSequence: False
 HasFailureSequence: False
-FTT Candidate: True
+FTT Candidate: False
 FTT Confirmed: False
-FTT Reason: Valid P3 and failed structural continuation, but no T2F confirmation.
+FTT Reason: No continuation attempt before failure.
 CurrentSegmentDominance: Dominant
 ContainerBias: CounterDominant
 RecentBias: Dominant
@@ -268,7 +268,7 @@ P1: 22 27369.75
 P2: 29 27420.25
 P3: 31 27409.25
 HasValidP3: True
-FTT Kind: StructuralWarning
+FTT Kind: None
 WarningDuration: 4
 ImminentFTT: True
 ExpectedContinuationFailed: True
@@ -339,9 +339,9 @@ InferredDirection: Up
 33-33 Red Down AvgVol=332 Rank=Low Phase=T1 Dom=NonDominant
 HasDominanceSequence: False
 HasFailureSequence: False
-FTT Candidate: True
+FTT Candidate: False
 FTT Confirmed: False
-FTT Reason: Valid P3 and failed structural continuation, but no T2F confirmation.
+FTT Reason: No continuation attempt before failure.
 CurrentSegmentDominance: NonDominant
 ContainerBias: CounterDominant
 RecentBias: Unknown
@@ -352,7 +352,7 @@ P1: 22 27369.75
 P2: 29 27420.25
 P3: 33 27431.5
 HasValidP3: True
-FTT Kind: StructuralWarning
+FTT Kind: None
 WarningDuration: 4
 ImminentFTT: True
 ExpectedContinuationFailed: True
@@ -681,9 +681,9 @@ InferredDirection: Up
 38-41 Black Up AvgVol=756 Rank=Elevated Phase=PP1 Dom=Dominant
 HasDominanceSequence: False
 HasFailureSequence: False
-FTT Candidate: True
+FTT Candidate: False
 FTT Confirmed: False
-FTT Reason: Valid P3 and failed structural continuation, but no T2F confirmation.
+FTT Reason: No continuation attempt before failure.
 CurrentSegmentDominance: Dominant
 ContainerBias: CounterDominant
 RecentBias: Dominant
@@ -694,7 +694,7 @@ P1: 34 27430
 P2: 36 27499.75
 P3: 41 27466.25
 HasValidP3: True
-FTT Kind: StructuralWarning
+FTT Kind: None
 WarningDuration: 2
 ImminentFTT: True
 ExpectedContinuationFailed: True
@@ -722,9 +722,9 @@ InferredDirection: Up
 38-42 Black Up AvgVol=812 Rank=Elevated Phase=PP1 Dom=Dominant
 HasDominanceSequence: False
 HasFailureSequence: False
-FTT Candidate: True
+FTT Candidate: False
 FTT Confirmed: False
-FTT Reason: Valid P3 and failed structural continuation, but no T2F confirmation.
+FTT Reason: No continuation attempt before failure.
 CurrentSegmentDominance: Dominant
 ContainerBias: CounterDominant
 RecentBias: Dominant
@@ -735,7 +735,7 @@ P1: 34 27430
 P2: 36 27499.75
 P3: 42 27490
 HasValidP3: True
-FTT Kind: StructuralWarning
+FTT Kind: None
 WarningDuration: 3
 ImminentFTT: True
 ExpectedContinuationFailed: True
@@ -763,9 +763,9 @@ InferredDirection: Up
 38-43 Black Up AvgVol=773 Rank=Elevated Phase=T2P Dom=Dominant
 HasDominanceSequence: True
 HasFailureSequence: False
-FTT Candidate: True
+FTT Candidate: False
 FTT Confirmed: False
-FTT Reason: Valid P3 and failed structural continuation, but no T2F confirmation.
+FTT Reason: No continuation attempt before failure.
 CurrentSegmentDominance: Dominant
 ContainerBias: Dominant
 RecentBias: Dominant
@@ -776,7 +776,7 @@ P1: 34 27430
 P2: 36 27499.75
 P3: 43 27505.25
 HasValidP3: True
-FTT Kind: StructuralWarning
+FTT Kind: None
 WarningDuration: 4
 ImminentFTT: False
 ExpectedContinuationFailed: True
@@ -804,9 +804,9 @@ InferredDirection: Up
 44-44 Red Down AvgVol=448 Rank=Normal Phase=Unknown Dom=NonDominant
 HasDominanceSequence: False
 HasFailureSequence: False
-FTT Candidate: True
+FTT Candidate: False
 FTT Confirmed: False
-FTT Reason: Valid P3 and failed structural continuation, but no T2F confirmation.
+FTT Reason: No continuation attempt before failure.
 CurrentSegmentDominance: NonDominant
 ContainerBias: CounterDominant
 RecentBias: Dominant
@@ -817,7 +817,7 @@ P1: 34 27430
 P2: 36 27499.75
 P3: 44 27511.75
 HasValidP3: True
-FTT Kind: StructuralWarning
+FTT Kind: None
 WarningDuration: 5
 ImminentFTT: True
 ExpectedContinuationFailed: True
@@ -845,9 +845,9 @@ InferredDirection: Up
 45-45 Black Up AvgVol=520 Rank=Normal Phase=Unknown Dom=Dominant
 HasDominanceSequence: True
 HasFailureSequence: False
-FTT Candidate: True
+FTT Candidate: False
 FTT Confirmed: False
-FTT Reason: Valid P3 and failed structural continuation, but no T2F confirmation.
+FTT Reason: No continuation attempt before failure.
 CurrentSegmentDominance: Dominant
 ContainerBias: CounterDominant
 RecentBias: Dominant
@@ -858,7 +858,7 @@ P1: 34 27430
 P2: 36 27499.75
 P3: 45 27510.5
 HasValidP3: True
-FTT Kind: StructuralWarning
+FTT Kind: None
 WarningDuration: 6
 ImminentFTT: True
 ExpectedContinuationFailed: True
@@ -886,9 +886,9 @@ InferredDirection: Up
 45-46 Black Up AvgVol=744 Rank=Elevated Phase=PP2 Dom=Dominant
 HasDominanceSequence: False
 HasFailureSequence: False
-FTT Candidate: True
+FTT Candidate: False
 FTT Confirmed: False
-FTT Reason: Valid P3 and failed structural continuation, but no T2F confirmation.
+FTT Reason: No continuation attempt before failure.
 CurrentSegmentDominance: Dominant
 ContainerBias: Dominant
 RecentBias: Dominant
@@ -899,7 +899,7 @@ P1: 41 27466.25
 P2: 43 27521.25
 P3: 46 27519
 HasValidP3: True
-FTT Kind: StructuralWarning
+FTT Kind: None
 WarningDuration: 7
 ImminentFTT: False
 ExpectedContinuationFailed: True
@@ -926,9 +926,9 @@ InferredDirection: Up
 45-47 Black Up AvgVol=675 Rank=Elevated Phase=PP2 Dom=Dominant
 HasDominanceSequence: False
 HasFailureSequence: False
-FTT Candidate: True
+FTT Candidate: False
 FTT Confirmed: False
-FTT Reason: Valid P3 and failed structural continuation, but no T2F confirmation.
+FTT Reason: No continuation attempt before failure.
 CurrentSegmentDominance: Dominant
 ContainerBias: Dominant
 RecentBias: Dominant
@@ -939,7 +939,7 @@ P1: 41 27466.25
 P2: 43 27521.25
 P3: 47 27524.25
 HasValidP3: True
-FTT Kind: StructuralWarning
+FTT Kind: None
 WarningDuration: 8
 ImminentFTT: False
 ExpectedContinuationFailed: True
@@ -966,9 +966,9 @@ InferredDirection: Up
 48-48 Red Down AvgVol=623 Rank=Elevated Phase=T1 Dom=NonDominant
 HasDominanceSequence: False
 HasFailureSequence: False
-FTT Candidate: True
+FTT Candidate: False
 FTT Confirmed: False
-FTT Reason: Valid P3 and failed structural continuation, but no T2F confirmation.
+FTT Reason: No continuation attempt before failure.
 CurrentSegmentDominance: NonDominant
 ContainerBias: Dominant
 RecentBias: Dominant
@@ -979,7 +979,7 @@ P1: 41 27466.25
 P2: 43 27521.25
 P3: 48 27529.5
 HasValidP3: True
-FTT Kind: StructuralWarning
+FTT Kind: None
 WarningDuration: 9
 ImminentFTT: False
 ExpectedContinuationFailed: True
@@ -1005,9 +1005,9 @@ InferredDirection: Up
 48-49 Red Down AvgVol=583 Rank=Normal Phase=T1 Dom=NonDominant
 HasDominanceSequence: False
 HasFailureSequence: False
-FTT Candidate: True
+FTT Candidate: False
 FTT Confirmed: False
-FTT Reason: Valid P3 and failed structural continuation, but no T2F confirmation.
+FTT Reason: No continuation attempt before failure.
 CurrentSegmentDominance: NonDominant
 ContainerBias: Dominant
 RecentBias: Dominant
@@ -1018,7 +1018,7 @@ P1: 41 27466.25
 P2: 43 27521.25
 P3: 49 27518.5
 HasValidP3: True
-FTT Kind: StructuralWarning
+FTT Kind: None
 WarningDuration: 10
 ImminentFTT: False
 ExpectedContinuationFailed: True
@@ -1043,9 +1043,9 @@ InferredDirection: Up
 48-50 Red Down AvgVol=497 Rank=Normal Phase=T1 Dom=NonDominant
 HasDominanceSequence: False
 HasFailureSequence: False
-FTT Candidate: True
+FTT Candidate: False
 FTT Confirmed: False
-FTT Reason: Valid P3 and failed structural continuation, but no T2F confirmation.
+FTT Reason: No continuation attempt before failure.
 CurrentSegmentDominance: NonDominant
 ContainerBias: Unknown
 RecentBias: Unknown
@@ -1056,7 +1056,7 @@ P1: 45 27510.5
 P2: 48 27542.5
 P3: 50 27521.75
 HasValidP3: True
-FTT Kind: StructuralWarning
+FTT Kind: None
 WarningDuration: 11
 ImminentFTT: False
 ExpectedContinuationFailed: True
@@ -1081,9 +1081,9 @@ InferredDirection: Up
 48-51 Red Down AvgVol=482 Rank=Normal Phase=T1 Dom=NonDominant
 HasDominanceSequence: False
 HasFailureSequence: False
-FTT Candidate: True
+FTT Candidate: False
 FTT Confirmed: False
-FTT Reason: Valid P3 and failed structural continuation, but no T2F confirmation.
+FTT Reason: No continuation attempt before failure.
 CurrentSegmentDominance: NonDominant
 ContainerBias: NonDominant
 RecentBias: NonDominant
@@ -1094,7 +1094,7 @@ P1: 45 27510.5
 P2: 48 27542.5
 P3: 51 27523.75
 HasValidP3: True
-FTT Kind: StructuralWarning
+FTT Kind: None
 WarningDuration: 12
 ImminentFTT: False
 ExpectedContinuationFailed: True
@@ -1118,9 +1118,9 @@ InferredDirection: Up
 48-52 Red Down AvgVol=517 Rank=Normal Phase=Unknown Dom=Dominant
 HasDominanceSequence: False
 HasFailureSequence: False
-FTT Candidate: True
+FTT Candidate: False
 FTT Confirmed: False
-FTT Reason: Valid P3 and failed structural continuation, but no T2F confirmation.
+FTT Reason: No continuation attempt before failure.
 CurrentSegmentDominance: Dominant
 ContainerBias: Dominant
 RecentBias: Dominant
@@ -1131,7 +1131,7 @@ P1: 48 27542.5
 P2: 49 27518.5
 P3: 52 27526.5
 HasValidP3: True
-FTT Kind: StructuralWarning
+FTT Kind: None
 WarningDuration: 13
 ImminentFTT: False
 ExpectedContinuationFailed: True
@@ -1155,9 +1155,9 @@ InferredDirection: Up
 53-53 Black Up AvgVol=312 Rank=Low Phase=Unknown Dom=NonDominant
 HasDominanceSequence: False
 HasFailureSequence: False
-FTT Candidate: True
+FTT Candidate: False
 FTT Confirmed: False
-FTT Reason: Valid P3 and failed structural continuation, but no T2F confirmation.
+FTT Reason: No continuation attempt before failure.
 CurrentSegmentDominance: NonDominant
 ContainerBias: Dominant
 RecentBias: Dominant
@@ -1168,7 +1168,7 @@ P1: 48 27542.5
 P2: 49 27518.5
 P3: 53 27524.25
 HasValidP3: True
-FTT Kind: StructuralWarning
+FTT Kind: None
 WarningDuration: 14
 ImminentFTT: False
 ExpectedContinuationFailed: True
@@ -1192,9 +1192,9 @@ InferredDirection: Up
 53-54 Black Up AvgVol=358 Rank=Low Phase=Unknown Dom=NonDominant
 HasDominanceSequence: False
 HasFailureSequence: False
-FTT Candidate: True
+FTT Candidate: False
 FTT Confirmed: False
-FTT Reason: Valid P3 and failed structural continuation, but no T2F confirmation.
+FTT Reason: No continuation attempt before failure.
 CurrentSegmentDominance: NonDominant
 ContainerBias: Dominant
 RecentBias: Dominant
@@ -1205,7 +1205,7 @@ P1: 48 27542.5
 P2: 49 27518.5
 P3: 54 27529.75
 HasValidP3: True
-FTT Kind: StructuralWarning
+FTT Kind: None
 WarningDuration: 15
 ImminentFTT: False
 ExpectedContinuationFailed: True
@@ -1229,9 +1229,9 @@ InferredDirection: Up
 53-55 Black Up AvgVol=353 Rank=Low Phase=Unknown Dom=NonDominant
 HasDominanceSequence: False
 HasFailureSequence: False
-FTT Candidate: True
+FTT Candidate: False
 FTT Confirmed: False
-FTT Reason: Valid P3 and failed structural continuation, but no T2F confirmation.
+FTT Reason: No continuation attempt before failure.
 CurrentSegmentDominance: NonDominant
 ContainerBias: Dominant
 RecentBias: Dominant
@@ -1242,7 +1242,7 @@ P1: 48 27542.5
 P2: 49 27518.5
 P3: 55 27533
 HasValidP3: True
-FTT Kind: StructuralWarning
+FTT Kind: None
 WarningDuration: 16
 ImminentFTT: False
 ExpectedContinuationFailed: True
@@ -1266,9 +1266,9 @@ InferredDirection: Up
 56-56 Red Down AvgVol=280 Rank=Low Phase=Unknown Dom=Dominant
 HasDominanceSequence: False
 HasFailureSequence: False
-FTT Candidate: True
+FTT Candidate: False
 FTT Confirmed: False
-FTT Reason: Valid P3 and failed structural continuation, but no T2F confirmation.
+FTT Reason: No continuation attempt before failure.
 CurrentSegmentDominance: Dominant
 ContainerBias: Dominant
 RecentBias: Dominant
@@ -1279,7 +1279,7 @@ P1: 51 27538
 P2: 52 27511
 P3: 56 27523.5
 HasValidP3: True
-FTT Kind: StructuralWarning
+FTT Kind: None
 WarningDuration: 17
 ImminentFTT: False
 ExpectedContinuationFailed: True
@@ -1341,9 +1341,9 @@ InferredDirection: Up
 58-58 Red Down AvgVol=317 Rank=Normal Phase=Unknown Dom=Dominant
 HasDominanceSequence: False
 HasFailureSequence: False
-FTT Candidate: True
+FTT Candidate: False
 FTT Confirmed: False
-FTT Reason: Valid P3 and failed structural continuation, but no T2F confirmation.
+FTT Reason: No continuation attempt before failure.
 CurrentSegmentDominance: Dominant
 ContainerBias: NonDominant
 RecentBias: NonDominant
@@ -1354,7 +1354,7 @@ P1: 55 27533
 P2: 56 27516.5
 P3: 58 27524.25
 HasValidP3: True
-FTT Kind: StructuralWarning
+FTT Kind: None
 WarningDuration: 1
 ImminentFTT: False
 ExpectedContinuationFailed: True
@@ -1380,9 +1380,9 @@ InferredDirection: Up
 59-59 Black Up AvgVol=200 Rank=Low Phase=Unknown Dom=NonDominant
 HasDominanceSequence: False
 HasFailureSequence: False
-FTT Candidate: True
+FTT Candidate: False
 FTT Confirmed: False
-FTT Reason: Valid P3 and failed structural continuation, but no T2F confirmation.
+FTT Reason: No continuation attempt before failure.
 CurrentSegmentDominance: NonDominant
 ContainerBias: NonDominant
 RecentBias: NonDominant
@@ -1393,7 +1393,7 @@ P1: 55 27533
 P2: 56 27516.5
 P3: 59 27523.25
 HasValidP3: True
-FTT Kind: StructuralWarning
+FTT Kind: None
 WarningDuration: 2
 ImminentFTT: False
 ExpectedContinuationFailed: True
@@ -1419,9 +1419,9 @@ InferredDirection: Up
 59-60 Black Up AvgVol=589 Rank=Elevated Phase=Unknown Dom=NonDominant
 HasDominanceSequence: False
 HasFailureSequence: False
-FTT Candidate: True
+FTT Candidate: False
 FTT Confirmed: False
-FTT Reason: Valid P3 and failed structural continuation, but no T2F confirmation.
+FTT Reason: No continuation attempt before failure.
 CurrentSegmentDominance: NonDominant
 ContainerBias: NonDominant
 RecentBias: NonDominant
@@ -1432,7 +1432,7 @@ P1: 55 27533
 P2: 56 27516.5
 P3: 57 27525.75
 HasValidP3: True
-FTT Kind: StructuralWarning
+FTT Kind: None
 WarningDuration: 3
 ImminentFTT: False
 ExpectedContinuationFailed: True

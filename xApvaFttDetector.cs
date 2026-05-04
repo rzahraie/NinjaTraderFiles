@@ -22,7 +22,8 @@ namespace APVA.Core
         public static FttResult Detect(
 		    IReadOnlyList<VolumeSegment> segments,
 		    bool hasValidP3,
-		    bool expectedContinuationFailed)
+		    bool expectedContinuationFailed,
+		    bool continuationAttempted)
 		{
 		    var result = new FttResult();
 		
@@ -54,6 +55,14 @@ namespace APVA.Core
 		        return result;
 		    }
 		
+			if (!continuationAttempted)
+			{
+			    result.IsCandidate = false;
+			    result.IsConfirmed = false;
+			    result.Reason = "No continuation attempt before failure.";
+			    return result;
+			}
+
 		    if (hasValidP3 && expectedContinuationFailed)
 		    {
 		        result.IsCandidate = true;
@@ -90,3 +99,4 @@ namespace APVA.Core
 		}	
     }
 }
+
