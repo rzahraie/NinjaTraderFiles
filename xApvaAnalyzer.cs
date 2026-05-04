@@ -44,6 +44,7 @@ namespace APVA.Core
 	    public double PrevDistanceToLtl = 0;
 	    public bool HasPrevDistance = false;
 	    public int LastFttBarIndex = -1;
+		public bool ContinuationAttempted = false;
 	}
 
     public static class xApvaAnalyzer
@@ -112,7 +113,10 @@ namespace APVA.Core
 			// FINALLY update state
 			state.PrevDistanceToLtl = result.DistanceToLtl;
 			
-			bool continuationAttempted = result.DistanceToLtl < 0;
+			if (result.DistanceToLtl < 0)
+			    state.ContinuationAttempted = true;
+			
+			bool continuationAttempted = state.ContinuationAttempted;
 		
 		    ContainerDirection direction =
 		        result.Container != null
@@ -224,6 +228,7 @@ namespace APVA.Core
 			{
 			    state.WarningStreak = 0;
 			    state.HasPrevDistance = false;
+				state.ContinuationAttempted = false;
 			}
 		
 		    return result;
@@ -251,6 +256,7 @@ namespace APVA.Core
 		}
     }
 }
+
 
 
 
