@@ -242,7 +242,8 @@ namespace APVA.Core
 		private static void UpdateWarningState(
 		    ApvaAnalysisResult result,
 		    ApvaAnalyzerState state,
-		    bool continuationFailed)
+		    bool continuationFailed,
+		    double tickTolerance)
 		{
 			if (state.PostFttGraceBars > 0)
 			{
@@ -252,15 +253,20 @@ namespace APVA.Core
 			    return;
 			}
 
-		    if (continuationFailed)
-		    {
-		        state.WarningStreak++;
-		    }
-		    else
-		    {
-		        if (state.WarningStreak > 0)
-		            state.WarningStreak--;
-		    }
+		   double proximityThreshold = 6 * tickTolerance;
+
+			bool nearStructure =
+			    Math.Abs(result.DistanceToLtl) <= proximityThreshold;
+			
+			if (continuationFailed && nearStructure)
+			{
+			    state.WarningStreak++;
+			}
+			else
+			{
+			    if (state.WarningStreak > 0)
+			        state.WarningStreak--;
+			}
 		
 		    result.WarningDuration = state.WarningStreak;
 		
@@ -390,10 +396,11 @@ namespace APVA.Core
 		            result,
 		            state);
 		
-		    UpdateWarningState(
-		        result,
-		        state,
-		        continuationFailed);
+		   UpdateWarningState(
+			    result,
+			    state,
+			    continuationFailed,
+			    tickTolerance);
 		
 		    DetectAndGateFtt(
 		        result,
@@ -430,6 +437,8 @@ namespace APVA.Core
 		}
     }
 }
+
+
 
 
 
