@@ -33,7 +33,7 @@ DistanceToLTL: -5.59999999999854
 DistanceDelta: 0
 IneffectiveDominance: False
 BarsSinceLastFTT: None
-P2P3Distance: 6.25
+P2P3Distance: 4.25
 IsWeakContainer: False
 ContainerAgeBars: 5
 IsMatureContainer: True
@@ -111,7 +111,7 @@ DistanceToLTL: -3.46428571428623
 DistanceDelta: -2.79761904761835
 IneffectiveDominance: False
 BarsSinceLastFTT: None
-P2P3Distance: 7.75
+P2P3Distance: 27.25
 IsWeakContainer: False
 ContainerAgeBars: 7
 IsMatureContainer: True
@@ -445,10 +445,10 @@ DistanceToLTL: -23.0499999999993
 DistanceDelta: 0
 IneffectiveDominance: False
 BarsSinceLastFTT: 1
-P2P3Distance: 0.25
-IsWeakContainer: True
+P2P3Distance: 17.25
+IsWeakContainer: False
 ContainerAgeBars: 5
-IsMatureContainer: False
+IsMatureContainer: True
 ----- APVA DEBUG -----
 Bar: 36 Time: 4/26/2026 6:05:00 PM
 InferredDirection: Up
@@ -487,7 +487,7 @@ DistanceToLTL: -36
 DistanceDelta: -12.9500000000007
 IneffectiveDominance: False
 BarsSinceLastFTT: 2
-P2P3Distance: 17.75
+P2P3Distance: 52.25
 IsWeakContainer: False
 ContainerAgeBars: 6
 IsMatureContainer: True
@@ -530,7 +530,7 @@ DistanceToLTL: -26.6785714285725
 DistanceDelta: 9.32142857142753
 IneffectiveDominance: False
 BarsSinceLastFTT: 3
-P2P3Distance: 23.75
+P2P3Distance: 27.75
 IsWeakContainer: False
 ContainerAgeBars: 7
 IsMatureContainer: True
@@ -574,7 +574,7 @@ DistanceToLTL: -4.375
 DistanceDelta: 22.3035714285725
 IneffectiveDominance: False
 BarsSinceLastFTT: 4
-P2P3Distance: 25.75
+P2P3Distance: 33
 IsWeakContainer: False
 ContainerAgeBars: 8
 IsMatureContainer: True
