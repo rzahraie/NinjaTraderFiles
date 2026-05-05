@@ -401,10 +401,14 @@ namespace APVA.Core
 			double secondaryDistance =
 			    Math.Abs(secondaryLtl - currentBar.Close);
 		
-		    // choose the container that price interacts with more closely
-		    return secondaryDistance < primaryDistance
-		        ? state.SecondaryContainer
-		        : state.PrimaryContainer;
+		   double improvementRequired = 4.0; // points, temporary fixed threshold
+
+		   bool secondaryMeaningfullyBetter =
+			    secondaryDistance + improvementRequired < primaryDistance;
+			
+		   return secondaryMeaningfullyBetter
+			    ? state.SecondaryContainer
+			    : state.PrimaryContainer;
 		}
 		
 		private static bool AreContainersEquivalent(
@@ -527,6 +531,7 @@ namespace APVA.Core
 		}
     }
 }
+
 
 
 
