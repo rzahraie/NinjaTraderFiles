@@ -389,11 +389,17 @@ namespace APVA.Core
 		    if (state.SecondaryContainer == null)
 		        return state.PrimaryContainer;
 		
-		    double primaryDistance =
-		        Math.Abs(state.PrimaryContainer.LTL.ValueAt(currentBar.Index));
+		   	double primaryLtl =
+		    	state.PrimaryContainer.LTL.ValueAt(currentBar.Index);
 		
-		    double secondaryDistance =
-		        Math.Abs(state.SecondaryContainer.LTL.ValueAt(currentBar.Index));
+			double secondaryLtl =
+			    state.SecondaryContainer.LTL.ValueAt(currentBar.Index);
+			
+			double primaryDistance =
+			    Math.Abs(primaryLtl - currentBar.Close);
+			
+			double secondaryDistance =
+			    Math.Abs(secondaryLtl - currentBar.Close);
 		
 		    // choose the container that price interacts with more closely
 		    return secondaryDistance < primaryDistance
@@ -521,6 +527,7 @@ namespace APVA.Core
 		}
     }
 }
+
 
 
 
