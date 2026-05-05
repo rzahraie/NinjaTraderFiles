@@ -410,8 +410,25 @@ namespace APVA.Core
 		    ApvaAnalyzerState state,
 		    Bar currentBar)
 		{
-		    if (state.SecondaryContainer == null)
-		        return state.PrimaryContainer;
+		   	if (state.SecondaryContainer == null)
+			    return state.PrimaryContainer;
+			
+			// Do not allow immature secondary to displace primary.
+			if (!state.SecondaryContainer.HasValidP3)
+			    return state.PrimaryContainer;
+			
+			int secondaryAge =
+			    currentBar.Index - state.SecondaryContainer.P1.Index;
+			
+			double secondaryP2P3Distance =
+			    Math.Abs(state.SecondaryContainer.P2.Price - state.SecondaryContainer.P3.Price);
+			
+			bool secondaryMature =
+			    secondaryAge >= 4 &&
+			    secondaryP2P3Distance >= 4.0;
+			
+			if (!secondaryMature)
+			    return state.PrimaryContainer;
 		
 		   	double primaryLtl =
 		    	state.PrimaryContainer.LTL.ValueAt(currentBar.Index);
@@ -555,6 +572,7 @@ namespace APVA.Core
 		}
     }
 }
+
 
 
 
