@@ -45,7 +45,8 @@ namespace APVA.Core
 	    public bool HasPrevDistance = false;
 	    public int LastFttBarIndex = -1;
 		public bool ContinuationAttempted = false;
-		public xApvaContainerCandidate ActiveContainer = null;
+		public xApvaContainerCandidate PrimaryContainer = null;
+		public xApvaContainerCandidate SecondaryContainer = null;
 		public int PostFttGraceBars = 0;
 		public int BarsFarFromStructure = 0;
 	}
@@ -59,24 +60,38 @@ namespace APVA.Core
 		    double tickTolerance,
 		    ApvaAnalyzerState state)
 		{
-		    if (state.ActiveContainer == null)
-		    {
-		        state.ActiveContainer =
-		            xApvaContainerBuilder.BuildFromSwings(
-		                bars,
-		                swingStrength: 1,
-		                tickTolerance: tickTolerance);
-		    }
-		
-		    result.Container = state.ActiveContainer;
+		    if (state.PrimaryContainer == null)
+			{
+			    state.PrimaryContainer =
+			        xApvaContainerBuilder.BuildFromSwings(
+			            bars,
+			            swingStrength: 1,
+			            tickTolerance: tickTolerance);
+			}
+			else
+			{
+			    // Attempt to build alternative container
+			    var candidate =
+			        xApvaContainerBuilder.BuildFromSwings(
+			            bars,
+			            swingStrength: 1,
+			            tickTolerance: tickTolerance);
+			
+			    if (candidate != null &&
+			        !AreContainersEquivalent(state.PrimaryContainer, candidate))
+			    {
+			        state.SecondaryContainer = candidate;
+			    }
+			}
+
+			// Default: use primary
+			result.Container = SelectBestContainer(state, currentBar);
 		
 		    if (result.Container == null)
 		        return;
 		
-		    result.Container.TryExtend(
-		        currentBar,
-		        tickTolerance,
-		        allowP3Promotion: false);
+		    state.PrimaryContainer?.TryExtend(currentBar, tickTolerance, false);
+			state.SecondaryContainer?.TryExtend(currentBar, tickTolerance, false);
 		
 		    double ltl = result.Container.LTL.ValueAt(currentBar.Index);
 		
@@ -361,9 +376,47 @@ namespace APVA.Core
 			    state.WarningStreak = 0;
 			    state.HasPrevDistance = false;
 			    state.ContinuationAttempted = false;
-			    state.ActiveContainer = null;
+			    state.PrimaryContainer = null;
+				state.SecondaryContainer = null;
 			    state.PostFttGraceBars = 3;
 		   }
+		}
+		
+		private static xApvaContainerCandidate SelectBestContainer(
+		    ApvaAnalyzerState state,
+		    Bar currentBar)
+		{
+		    if (state.SecondaryContainer == null)
+		        return state.PrimaryContainer;
+		
+		    double primaryDistance =
+		        Math.Abs(state.PrimaryContainer.LTL.ValueAt(currentBar.Index));
+		
+		    double secondaryDistance =
+		        Math.Abs(state.SecondaryContainer.LTL.ValueAt(currentBar.Index));
+		
+		    // choose the container that price interacts with more closely
+		    return secondaryDistance < primaryDistance
+		        ? state.SecondaryContainer
+		        : state.PrimaryContainer;
+		}
+		
+		private static bool AreContainersEquivalent(
+		    xApvaContainerCandidate a,
+		    xApvaContainerCandidate b)
+		{
+		    if (a == null || b == null)
+		        return false;
+		
+		    if (!a.HasValidP3 || !b.HasValidP3)
+		        return false;
+		
+		    // Same structural anchors → equivalent
+		    bool sameP1 = a.P1.Index == b.P1.Index;
+		    bool sameP2 = a.P2.Index == b.P2.Index;
+		    bool sameP3 = a.P3.Index == b.P3.Index;
+		
+		    return sameP1 && sameP2 && sameP3;
 		}
 		
         public static ApvaAnalysisResult Analyze(
@@ -417,7 +470,8 @@ namespace APVA.Core
 
 			if (state.BarsFarFromStructure >= MaxDriftBars)
 			{
-			    state.ActiveContainer = null;
+			    state.PrimaryContainer  = null;
+				state.SecondaryContainer  = null;
 			    state.BarsFarFromStructure = 0;
 			}
 			
@@ -467,6 +521,10 @@ namespace APVA.Core
 		}
     }
 }
+
+
+
+
 
 
 
