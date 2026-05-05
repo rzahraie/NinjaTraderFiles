@@ -49,6 +49,8 @@ namespace APVA.Core
 		public xApvaContainerCandidate SecondaryContainer = null;
 		public int PostFttGraceBars = 0;
 		public int BarsFarFromStructure = 0;
+		public xApvaContainerCandidate PendingSecondaryContainer = null;
+		public int PendingSecondaryConfirmBars = 0;
 	}
 
     public static class xApvaAnalyzer
@@ -78,10 +80,30 @@ namespace APVA.Core
 			            tickTolerance: tickTolerance);
 			
 			    if (candidate != null &&
-			        !AreContainersEquivalent(state.PrimaryContainer, candidate))
-			    {
-			        state.SecondaryContainer = candidate;
-			    }
+				    !AreContainersEquivalent(state.PrimaryContainer, candidate))
+				{
+				    if (AreContainersEquivalent(state.PendingSecondaryContainer, candidate))
+				    {
+				        state.PendingSecondaryConfirmBars++;
+				    }
+				    else
+				    {
+				        state.PendingSecondaryContainer = candidate;
+				        state.PendingSecondaryConfirmBars = 1;
+				    }
+				
+				    if (state.PendingSecondaryConfirmBars >= 2)
+				    {
+				        state.SecondaryContainer = state.PendingSecondaryContainer;
+				        state.PendingSecondaryContainer = null;
+				        state.PendingSecondaryConfirmBars = 0;
+				    }
+				}
+				else
+				{
+				    state.PendingSecondaryContainer = null;
+				    state.PendingSecondaryConfirmBars = 0;
+				}
 			}
 
 			// Default: use primary
@@ -379,6 +401,8 @@ namespace APVA.Core
 			    state.PrimaryContainer = null;
 				state.SecondaryContainer = null;
 			    state.PostFttGraceBars = 3;
+			   	state.PendingSecondaryContainer = null;
+				state.PendingSecondaryConfirmBars = 0;
 		   }
 		}
 		
@@ -531,6 +555,7 @@ namespace APVA.Core
 		}
     }
 }
+
 
 
 
