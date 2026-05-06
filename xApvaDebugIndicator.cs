@@ -33,7 +33,8 @@ namespace NinjaTrader.NinjaScript.Indicators
 		        "P1=" + c.P1.Index + "@" + c.P1.Price + " " +
 		        "P2=" + c.P2.Index + "@" + c.P2.Price + " " +
 		        "P3=" + c.P3.Index + "@" + c.P3.Price + " " +
-		        "ValidP3=" + c.HasValidP3;
+		        "ValidP3=" + c.HasValidP3 + " " +
+				"Score=" + c.Score.ToString("F2");
 		}
 
         protected override void OnBarUpdate()

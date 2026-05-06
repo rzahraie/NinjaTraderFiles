@@ -18,7 +18,7 @@ FTT Reason:
 CurrentSegmentDominance: CounterDominant
 ContainerBias: Dominant
 RecentBias: Dominant
-Primary: Dir=Up P1=20@27367.75 P2=21@27389.5 P3=22@27369.75 ValidP3=True
+Primary: Dir=Up P1=20@27367.75 P2=21@27389.5 P3=22@27369.75 ValidP3=True Score=8.00
 Secondary: none
 PendingSecondary: none
 PendingSecondaryConfirmBars: 0
@@ -62,7 +62,7 @@ FTT Reason:
 CurrentSegmentDominance: Dominant
 ContainerBias: Dominant
 RecentBias: Dominant
-Primary: Dir=Up P1=20@27367.75 P2=21@27389.5 P3=26@27408.75 ValidP3=True
+Primary: Dir=Up P1=20@27367.75 P2=21@27389.5 P3=26@27408.75 ValidP3=True Score=8.00
 Secondary: none
 PendingSecondary: none
 PendingSecondaryConfirmBars: 0
@@ -106,9 +106,9 @@ FTT Reason: Valid P3 and failed structural continuation, but no T2F confirmation
 CurrentSegmentDominance: Dominant
 ContainerBias: CounterDominant
 RecentBias: Dominant
-Primary: Dir=Up P1=20@27367.75 P2=21@27389.5 P3=26@27408.75 ValidP3=True
+Primary: Dir=Up P1=20@27367.75 P2=21@27389.5 P3=26@27408.75 ValidP3=True Score=2.00
 Secondary: none
-PendingSecondary: Dir=Up P1=20@27367.75 P2=21@27389.5 P3=22@27369.75 ValidP3=True
+PendingSecondary: Dir=Up P1=20@27367.75 P2=21@27389.5 P3=22@27369.75 ValidP3=True Score=0.00
 PendingSecondaryConfirmBars: 1
 SelectedContainer: Primary
 LTL@27: 27430.5
@@ -151,8 +151,8 @@ FTT Reason: Valid P3 and failed structural continuation, but no T2F confirmation
 CurrentSegmentDominance: NonDominant
 ContainerBias: CounterDominant
 RecentBias: Dominant
-Primary: Dir=Up P1=20@27367.75 P2=21@27389.5 P3=26@27408.75 ValidP3=True
-Secondary: Dir=Up P1=20@27367.75 P2=21@27389.5 P3=22@27369.75 ValidP3=True
+Primary: Dir=Up P1=20@27367.75 P2=21@27389.5 P3=26@27408.75 ValidP3=True Score=2.00
+Secondary: Dir=Up P1=20@27367.75 P2=21@27389.5 P3=22@27369.75 ValidP3=True Score=8.00
 PendingSecondary: none
 PendingSecondaryConfirmBars: 0
 SelectedContainer: Primary
@@ -198,9 +198,9 @@ FTT Reason:
 CurrentSegmentDominance: Dominant
 ContainerBias: Dominant
 RecentBias: Dominant
-Primary: Dir=Up P1=20@27367.75 P2=21@27389.5 P3=31@27425 ValidP3=True
+Primary: Dir=Up P1=20@27367.75 P2=21@27389.5 P3=31@27425 ValidP3=True Score=8.00
 Secondary: none
-PendingSecondary: Dir=Up P1=22@27369.75 P2=29@27420.25 P3=30@27405 ValidP3=True
+PendingSecondary: Dir=Up P1=22@27369.75 P2=29@27420.25 P3=30@27405 ValidP3=True Score=0.00
 PendingSecondaryConfirmBars: 1
 SelectedContainer: Primary
 LTL@31: 27441.5454545455
@@ -245,8 +245,8 @@ FTT Reason: Valid P3 and failed structural continuation, but no T2F confirmation
 CurrentSegmentDominance: Dominant
 ContainerBias: CounterDominant
 RecentBias: Dominant
-Primary: Dir=Up P1=20@27367.75 P2=21@27389.5 P3=31@27425 ValidP3=True
-Secondary: Dir=Up P1=22@27369.75 P2=29@27420.25 P3=30@27405 ValidP3=True
+Primary: Dir=Up P1=20@27367.75 P2=21@27389.5 P3=31@27425 ValidP3=True Score=2.00
+Secondary: Dir=Up P1=22@27369.75 P2=29@27420.25 P3=30@27405 ValidP3=True Score=2.00
 PendingSecondary: none
 PendingSecondaryConfirmBars: 0
 SelectedContainer: Primary
@@ -292,9 +292,9 @@ FTT Reason: Valid P3 and failed structural continuation, but no T2F confirmation
 CurrentSegmentDominance: NonDominant
 ContainerBias: CounterDominant
 RecentBias: Dominant
-Primary: Dir=Up P1=20@27367.75 P2=21@27389.5 P3=31@27425 ValidP3=True
-Secondary: Dir=Up P1=22@27369.75 P2=29@27420.25 P3=30@27405 ValidP3=True
-PendingSecondary: Dir=Up P1=22@27369.75 P2=29@27420.25 P3=30@27405 ValidP3=True
+Primary: Dir=Up P1=20@27367.75 P2=21@27389.5 P3=31@27425 ValidP3=True Score=2.00
+Secondary: Dir=Up P1=22@27369.75 P2=29@27420.25 P3=30@27405 ValidP3=True Score=2.00
+PendingSecondary: Dir=Up P1=22@27369.75 P2=29@27420.25 P3=30@27405 ValidP3=True Score=0.00
 PendingSecondaryConfirmBars: 1
 SelectedContainer: Primary
 LTL@33: 27451.9545454545
@@ -369,7 +369,7 @@ FTT Reason:
 CurrentSegmentDominance: Dominant
 ContainerBias: Dominant
 RecentBias: Dominant
-Primary: Dir=Up P1=30@27405 P2=33@27438.25 P3=35@27455.5 ValidP3=True
+Primary: Dir=Up P1=30@27405 P2=33@27438.25 P3=35@27455.5 ValidP3=True Score=8.00
 Secondary: none
 PendingSecondary: none
 PendingSecondaryConfirmBars: 0
@@ -416,9 +416,9 @@ FTT Reason:
 CurrentSegmentDominance: Dominant
 ContainerBias: Dominant
 RecentBias: Dominant
-Primary: Dir=Up P1=30@27405 P2=33@27438.25 P3=36@27490.5 ValidP3=True
+Primary: Dir=Up P1=30@27405 P2=33@27438.25 P3=36@27490.5 ValidP3=True Score=8.00
 Secondary: none
-PendingSecondary: Dir=Up P1=30@27405 P2=33@27438.25 P3=34@27430 ValidP3=True
+PendingSecondary: Dir=Up P1=30@27405 P2=33@27438.25 P3=34@27430 ValidP3=True Score=0.00
 PendingSecondaryConfirmBars: 1
 SelectedContainer: Primary
 LTL@36: 27481
@@ -464,8 +464,8 @@ FTT Reason: T2F detected after dominance expectation. Blocked by insufficient wa
 CurrentSegmentDominance: CounterDominant
 ContainerBias: Dominant
 RecentBias: Dominant
-Primary: Dir=Up P1=30@27405 P2=33@27438.25 P3=36@27490.5 ValidP3=True
-Secondary: Dir=Up P1=30@27405 P2=33@27438.25 P3=34@27430 ValidP3=True
+Primary: Dir=Up P1=30@27405 P2=33@27438.25 P3=36@27490.5 ValidP3=True Score=8.00
+Secondary: Dir=Up P1=30@27405 P2=33@27438.25 P3=34@27430 ValidP3=True Score=8.00
 PendingSecondary: none
 PendingSecondaryConfirmBars: 0
 SelectedContainer: Primary
@@ -513,9 +513,9 @@ FTT Reason: Valid P3 and failed structural continuation, but no T2F confirmation
 CurrentSegmentDominance: Dominant
 ContainerBias: Dominant
 RecentBias: Dominant
-Primary: Dir=Up P1=30@27405 P2=33@27438.25 P3=36@27490.5 ValidP3=True
-Secondary: Dir=Up P1=30@27405 P2=33@27438.25 P3=34@27430 ValidP3=True
-PendingSecondary: Dir=Up P1=30@27405 P2=33@27438.25 P3=34@27430 ValidP3=True
+Primary: Dir=Up P1=30@27405 P2=33@27438.25 P3=36@27490.5 ValidP3=True Score=8.00
+Secondary: Dir=Up P1=30@27405 P2=33@27438.25 P3=34@27430 ValidP3=True Score=8.00
+PendingSecondary: Dir=Up P1=30@27405 P2=33@27438.25 P3=34@27430 ValidP3=True Score=0.00
 PendingSecondaryConfirmBars: 1
 SelectedContainer: Primary
 LTL@38: 27509.5
@@ -561,8 +561,8 @@ FTT Reason: T2F plus valid P3 and failed structural continuation. Blocked by ins
 CurrentSegmentDominance: Dominant
 ContainerBias: Dominant
 RecentBias: Dominant
-Primary: Dir=Up P1=30@27405 P2=33@27438.25 P3=36@27490.5 ValidP3=True
-Secondary: Dir=Up P1=30@27405 P2=33@27438.25 P3=34@27430 ValidP3=True
+Primary: Dir=Up P1=30@27405 P2=33@27438.25 P3=36@27490.5 ValidP3=True Score=8.00
+Secondary: Dir=Up P1=30@27405 P2=33@27438.25 P3=34@27430 ValidP3=True Score=8.00
 PendingSecondary: none
 PendingSecondaryConfirmBars: 0
 SelectedContainer: Primary
@@ -609,9 +609,9 @@ FTT Reason: T2F plus valid P3 and failed structural continuation. Blocked by ins
 CurrentSegmentDominance: Dominant
 ContainerBias: Dominant
 RecentBias: Dominant
-Primary: Dir=Up P1=30@27405 P2=33@27438.25 P3=36@27490.5 ValidP3=True
-Secondary: Dir=Up P1=30@27405 P2=33@27438.25 P3=34@27430 ValidP3=True
-PendingSecondary: Dir=Up P1=34@27430 P2=36@27499.75 P3=39@27456 ValidP3=True
+Primary: Dir=Up P1=30@27405 P2=33@27438.25 P3=36@27490.5 ValidP3=True Score=8.00
+Secondary: Dir=Up P1=30@27405 P2=33@27438.25 P3=34@27430 ValidP3=True Score=8.00
+PendingSecondary: Dir=Up P1=34@27430 P2=36@27499.75 P3=39@27456 ValidP3=True Score=0.00
 PendingSecondaryConfirmBars: 1
 SelectedContainer: Primary
 LTL@40: 27538
@@ -656,8 +656,8 @@ FTT Reason: Valid P3 and failed structural continuation, but no T2F confirmation
 CurrentSegmentDominance: Dominant
 ContainerBias: Dominant
 RecentBias: Dominant
-Primary: Dir=Up P1=30@27405 P2=33@27438.25 P3=36@27490.5 ValidP3=True
-Secondary: Dir=Up P1=34@27430 P2=36@27499.75 P3=39@27456 ValidP3=True
+Primary: Dir=Up P1=30@27405 P2=33@27438.25 P3=36@27490.5 ValidP3=True Score=8.00
+Secondary: Dir=Up P1=34@27430 P2=36@27499.75 P3=39@27456 ValidP3=True Score=2.00
 PendingSecondary: none
 PendingSecondaryConfirmBars: 0
 SelectedContainer: Primary
@@ -702,7 +702,7 @@ FTT Reason: Valid P3 and failed structural continuation, but no T2F confirmation
 CurrentSegmentDominance: Dominant
 ContainerBias: Dominant
 RecentBias: Dominant
-Primary: Dir=Up P1=34@27430 P2=36@27499.75 P3=41@27466.25 ValidP3=True
+Primary: Dir=Up P1=34@27430 P2=36@27499.75 P3=41@27466.25 ValidP3=True Score=8.00
 Secondary: none
 PendingSecondary: none
 PendingSecondaryConfirmBars: 0
@@ -748,7 +748,7 @@ FTT Reason: Valid P3 and failed structural continuation, but no T2F confirmation
 CurrentSegmentDominance: NonDominant
 ContainerBias: CounterDominant
 RecentBias: Dominant
-Primary: Dir=Up P1=34@27430 P2=36@27499.75 P3=41@27466.25 ValidP3=True
+Primary: Dir=Up P1=34@27430 P2=36@27499.75 P3=41@27466.25 ValidP3=True Score=2.00
 Secondary: none
 PendingSecondary: none
 PendingSecondaryConfirmBars: 0
@@ -794,7 +794,7 @@ FTT Reason: Valid P3 and failed structural continuation, but no T2F confirmation
 CurrentSegmentDominance: Dominant
 ContainerBias: CounterDominant
 RecentBias: Dominant
-Primary: Dir=Up P1=34@27430 P2=36@27499.75 P3=41@27466.25 ValidP3=True
+Primary: Dir=Up P1=34@27430 P2=36@27499.75 P3=41@27466.25 ValidP3=True Score=2.00
 Secondary: none
 PendingSecondary: none
 PendingSecondaryConfirmBars: 0
@@ -840,9 +840,9 @@ FTT Reason: Valid P3 and failed structural continuation, but no T2F confirmation
 CurrentSegmentDominance: Dominant
 ContainerBias: CounterDominant
 RecentBias: Dominant
-Primary: Dir=Up P1=34@27430 P2=36@27499.75 P3=41@27466.25 ValidP3=True
+Primary: Dir=Up P1=34@27430 P2=36@27499.75 P3=41@27466.25 ValidP3=True Score=2.00
 Secondary: none
-PendingSecondary: Dir=Up P1=41@27466.25 P2=43@27521.25 P3=45@27510.5 ValidP3=True
+PendingSecondary: Dir=Up P1=41@27466.25 P2=43@27521.25 P3=45@27510.5 ValidP3=True Score=0.00
 PendingSecondaryConfirmBars: 1
 SelectedContainer: Primary
 LTL@46: 27551.5357142857
@@ -912,7 +912,7 @@ FTT Reason: Valid P3 and failed structural continuation, but no T2F confirmation
 CurrentSegmentDominance: NonDominant
 ContainerBias: Dominant
 RecentBias: Dominant
-Primary: Dir=Up P1=41@27466.25 P2=43@27521.25 P3=45@27510.5 ValidP3=True
+Primary: Dir=Up P1=41@27466.25 P2=43@27521.25 P3=45@27510.5 ValidP3=True Score=8.00
 Secondary: none
 PendingSecondary: none
 PendingSecondaryConfirmBars: 0
@@ -956,7 +956,7 @@ FTT Reason: Valid P3 and failed structural continuation, but no T2F confirmation
 CurrentSegmentDominance: NonDominant
 ContainerBias: Dominant
 RecentBias: Dominant
-Primary: Dir=Up P1=41@27466.25 P2=43@27521.25 P3=45@27510.5 ValidP3=True
+Primary: Dir=Up P1=41@27466.25 P2=43@27521.25 P3=45@27510.5 ValidP3=True Score=8.00
 Secondary: none
 PendingSecondary: none
 PendingSecondaryConfirmBars: 0
@@ -999,9 +999,9 @@ FTT Reason: Valid P3 and failed structural continuation, but no T2F confirmation
 CurrentSegmentDominance: NonDominant
 ContainerBias: Dominant
 RecentBias: Dominant
-Primary: Dir=Up P1=41@27466.25 P2=43@27521.25 P3=45@27510.5 ValidP3=True
+Primary: Dir=Up P1=41@27466.25 P2=43@27521.25 P3=45@27510.5 ValidP3=True Score=8.00
 Secondary: none
-PendingSecondary: Dir=Up P1=45@27510.5 P2=48@27542.5 P3=49@27518.5 ValidP3=True
+PendingSecondary: Dir=Up P1=45@27510.5 P2=48@27542.5 P3=49@27518.5 ValidP3=True Score=0.00
 PendingSecondaryConfirmBars: 1
 SelectedContainer: Primary
 LTL@50: 27598.6875
@@ -1042,8 +1042,8 @@ FTT Reason: Valid P3 and failed structural continuation, but no T2F confirmation
 CurrentSegmentDominance: NonDominant
 ContainerBias: Dominant
 RecentBias: Dominant
-Primary: Dir=Up P1=41@27466.25 P2=43@27521.25 P3=45@27510.5 ValidP3=True
-Secondary: Dir=Up P1=45@27510.5 P2=48@27542.5 P3=49@27518.5 ValidP3=True
+Primary: Dir=Up P1=41@27466.25 P2=43@27521.25 P3=45@27510.5 ValidP3=True Score=8.00
+Secondary: Dir=Up P1=45@27510.5 P2=48@27542.5 P3=49@27518.5 ValidP3=True Score=5.00
 PendingSecondary: none
 PendingSecondaryConfirmBars: 0
 SelectedContainer: Primary
@@ -1084,7 +1084,7 @@ FTT Reason: Valid P3 and failed structural continuation, but no T2F confirmation
 CurrentSegmentDominance: NonDominant
 ContainerBias: Dominant
 RecentBias: Dominant
-Primary: Dir=Down P1=48@27542.5 P2=49@27518.5 P3=51@27538 ValidP3=True
+Primary: Dir=Down P1=48@27542.5 P2=49@27518.5 P3=51@27538 ValidP3=True Score=8.00
 Secondary: none
 PendingSecondary: none
 PendingSecondaryConfirmBars: 0
@@ -1126,7 +1126,7 @@ FTT Reason: Valid P3 and failed structural continuation, but no T2F confirmation
 CurrentSegmentDominance: NonDominant
 ContainerBias: Dominant
 RecentBias: Dominant
-Primary: Dir=Down P1=48@27542.5 P2=49@27518.5 P3=51@27538 ValidP3=True
+Primary: Dir=Down P1=48@27542.5 P2=49@27518.5 P3=51@27538 ValidP3=True Score=8.00
 Secondary: none
 PendingSecondary: none
 PendingSecondaryConfirmBars: 0
@@ -1168,7 +1168,7 @@ FTT Reason: Valid P3 and failed structural continuation, but no T2F confirmation
 CurrentSegmentDominance: NonDominant
 ContainerBias: Dominant
 RecentBias: Dominant
-Primary: Dir=Down P1=48@27542.5 P2=49@27518.5 P3=51@27538 ValidP3=True
+Primary: Dir=Down P1=48@27542.5 P2=49@27518.5 P3=51@27538 ValidP3=True Score=8.00
 Secondary: none
 PendingSecondary: none
 PendingSecondaryConfirmBars: 0
@@ -1210,9 +1210,9 @@ FTT Reason: Valid P3 and failed structural continuation, but no T2F confirmation
 CurrentSegmentDominance: Dominant
 ContainerBias: Dominant
 RecentBias: Dominant
-Primary: Dir=Down P1=48@27542.5 P2=49@27518.5 P3=51@27538 ValidP3=True
+Primary: Dir=Down P1=48@27542.5 P2=49@27518.5 P3=51@27538 ValidP3=True Score=8.00
 Secondary: none
-PendingSecondary: Dir=Down P1=51@27538 P2=52@27511 P3=55@27533 ValidP3=True
+PendingSecondary: Dir=Down P1=51@27538 P2=52@27511 P3=55@27533 ValidP3=True Score=0.00
 PendingSecondaryConfirmBars: 1
 SelectedContainer: Primary
 LTL@56: 27508
@@ -1252,9 +1252,9 @@ FTT Reason: Valid P3 and failed structural continuation, but no T2F confirmation
 CurrentSegmentDominance: NonDominant
 ContainerBias: Dominant
 RecentBias: Dominant
-Primary: Dir=Down P1=48@27542.5 P2=49@27518.5 P3=51@27538 ValidP3=True
+Primary: Dir=Down P1=48@27542.5 P2=49@27518.5 P3=51@27538 ValidP3=True Score=8.00
 Secondary: none
-PendingSecondary: Dir=Up P1=52@27511 P2=55@27533 P3=56@27516.5 ValidP3=True
+PendingSecondary: Dir=Up P1=52@27511 P2=55@27533 P3=56@27516.5 ValidP3=True Score=0.00
 PendingSecondaryConfirmBars: 1
 SelectedContainer: Primary
 LTL@57: 27506.5
@@ -1296,7 +1296,7 @@ FTT Reason: Valid P3 and failed structural continuation, but no T2F confirmation
 CurrentSegmentDominance: NonDominant
 ContainerBias: NonDominant
 RecentBias: NonDominant
-Primary: Dir=Down P1=55@27533 P2=56@27516.5 P3=57@27525.75 ValidP3=True
+Primary: Dir=Down P1=55@27533 P2=56@27516.5 P3=57@27525.75 ValidP3=True Score=5.00
 Secondary: none
 PendingSecondary: none
 PendingSecondaryConfirmBars: 0
@@ -1340,7 +1340,7 @@ FTT Reason: Valid P3 and failed structural continuation, but no T2F confirmation
 CurrentSegmentDominance: NonDominant
 ContainerBias: NonDominant
 RecentBias: NonDominant
-Primary: Dir=Down P1=55@27533 P2=56@27516.5 P3=57@27525.75 ValidP3=True
+Primary: Dir=Down P1=55@27533 P2=56@27516.5 P3=57@27525.75 ValidP3=True Score=5.00
 Secondary: none
 PendingSecondary: none
 PendingSecondaryConfirmBars: 0
