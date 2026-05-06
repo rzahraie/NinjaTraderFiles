@@ -326,11 +326,12 @@ namespace APVA.Core
 			{
 			    state.WarningStreak++;
 			}
-			else
+			else if (!continuationFailed)
 			{
-			    if (state.WarningStreak > 0)
-			        state.WarningStreak--;
+			    // Only reset if continuation actually succeeds
+			    state.WarningStreak = 0;
 			}
+			// else: continuationFailed but not nearStructure → HOLD streak (do not decay)
 		
 		    result.WarningDuration = state.WarningStreak;
 		
@@ -676,6 +677,7 @@ namespace APVA.Core
 		}
     }
 }
+
 
 
 
