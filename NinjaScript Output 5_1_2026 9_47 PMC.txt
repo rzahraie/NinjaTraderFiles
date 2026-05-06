@@ -1057,13 +1057,13 @@ Primary: Dir=Down P1=143@27466.25 P2=146@27440 P3=148@27465.25 ValidP3=True Scor
 Secondary: Dir=Up P1=146@27440 P2=148@27465.25 P3=149@27449.25 ValidP3=True Score=8.00
 PendingSecondary: none
 PendingSecondaryConfirmBars: 0
-SelectedContainer: Primary
-LTL@151: 27439
+SelectedContainer: Secondary
+LTL@151: 27474.5
 LastHigh: 27469.75 LastClose: 27468.75
-ContainerDirection: Down
-P1: 143 27466.25
-P2: 146 27440
-P3: 148 27465.25
+ContainerDirection: Up
+P1: 146 27440
+P2: 148 27465.25
+P3: 149 27449.25
 HasValidP3: True
 FTT Kind: StructuralWarning
 WarningDuration: 0
@@ -1073,9 +1073,9 @@ DistanceToLTL: 22
 DistanceDelta: 9.44999999999709
 IneffectiveDominance: False
 BarsSinceLastFTT: None
-P2P3Distance: 25.25
+P2P3Distance: 16
 IsWeakContainer: False
-ContainerAgeBars: 8
+ContainerAgeBars: 5
 IsMatureContainer: True
 ----- APVA DEBUG -----
 Bar: 152 Time: 4/27/2026 3:45:00 AM
@@ -1491,7 +1491,7 @@ HasDominanceSequence: False
 HasFailureSequence: False
 FTT Candidate: False
 FTT Confirmed: False
-FTT Reason: 
+FTT Reason: Valid P3 and failed structural continuation, but no T2F confirmation. Blocked by insufficient warning buildup.
 CurrentSegmentDominance: CounterDominant
 ContainerBias: CounterDominant
 RecentBias: Dominant
@@ -1499,25 +1499,25 @@ Primary: Dir=Up P1=149@27449.25 P2=152@27481 P3=153@27467.25 ValidP3=True Score=
 Secondary: Dir=Up P1=153@27467.25 P2=158@27492.25 P3=159@27478 ValidP3=True Score=2.00
 PendingSecondary: Dir=Up P1=153@27467.25 P2=158@27492.25 P3=159@27478 ValidP3=True Score=0.00
 PendingSecondaryConfirmBars: 1
-SelectedContainer: Secondary
-LTL@162: 27499.4166666667
+SelectedContainer: Primary
+LTL@162: 27526
 LastHigh: 27500.25 LastClose: 27485
 ContainerDirection: Up
-P1: 153 27467.25
-P2: 158 27492.25
-P3: 159 27478
+P1: 149 27449.25
+P2: 152 27481
+P3: 153 27467.25
 HasValidP3: True
-FTT Kind: None
-WarningDuration: 0
+FTT Kind: StructuralWarning
+WarningDuration: 1
 ImminentFTT: False
-ExpectedContinuationFailed: False
+ExpectedContinuationFailed: True
 DistanceToLTL: -0.833333333332121
 DistanceDelta: 0.291666666667879
 IneffectiveDominance: False
 BarsSinceLastFTT: None
-P2P3Distance: 14.25
+P2P3Distance: 13.75
 IsWeakContainer: False
-ContainerAgeBars: 9
+ContainerAgeBars: 13
 IsMatureContainer: True
 ----- APVA DEBUG -----
 Bar: 163 Time: 4/27/2026 4:40:00 AM

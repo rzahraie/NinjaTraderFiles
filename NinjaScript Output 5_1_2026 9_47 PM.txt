@@ -147,7 +147,7 @@ HasDominanceSequence: False
 HasFailureSequence: False
 FTT Candidate: False
 FTT Confirmed: False
-FTT Reason: Valid P3 and failed structural continuation, but no T2F confirmation. Blocked by insufficient warning buildup.
+FTT Reason: 
 CurrentSegmentDominance: NonDominant
 ContainerBias: CounterDominant
 RecentBias: Dominant
@@ -155,23 +155,23 @@ Primary: Dir=Up P1=20@27367.75 P2=21@27389.5 P3=26@27408.75 ValidP3=True Score=2
 Secondary: Dir=Up P1=20@27367.75 P2=21@27389.5 P3=22@27369.75 ValidP3=True Score=6.00
 PendingSecondary: none
 PendingSecondaryConfirmBars: 0
-SelectedContainer: Primary
-LTL@28: 27437.3333333333
+SelectedContainer: Secondary
+LTL@28: 27396.5
 LastHigh: 27420.5 LastClose: 27411.25
 ContainerDirection: Up
 P1: 20 27367.75
 P2: 21 27389.5
-P3: 26 27408.75
+P3: 22 27369.75
 HasValidP3: True
-FTT Kind: StructuralWarning
+FTT Kind: None
 WarningDuration: 0
 ImminentFTT: False
-ExpectedContinuationFailed: True
+ExpectedContinuationFailed: False
 DistanceToLTL: 16.8333333333358
 DistanceDelta: 4.58333333333576
 IneffectiveDominance: False
 BarsSinceLastFTT: None
-P2P3Distance: 19.25
+P2P3Distance: 19.75
 IsWeakContainer: False
 ContainerAgeBars: 8
 IsMatureContainer: True
@@ -1046,13 +1046,13 @@ Primary: Dir=Up P1=41@27466.25 P2=43@27521.25 P3=45@27510.5 ValidP3=True Score=6
 Secondary: Dir=Up P1=45@27510.5 P2=48@27542.5 P3=49@27518.5 ValidP3=True Score=5.00
 PendingSecondary: none
 PendingSecondaryConfirmBars: 0
-SelectedContainer: Primary
-LTL@51: 27609.75
+SelectedContainer: Secondary
+LTL@51: 27548.5
 LastHigh: 27538 LastClose: 27525.5
 ContainerDirection: Up
-P1: 41 27466.25
-P2: 43 27521.25
-P3: 45 27510.5
+P1: 45 27510.5
+P2: 48 27542.5
+P3: 49 27518.5
 HasValidP3: True
 FTT Kind: StructuralWarning
 WarningDuration: 0
@@ -1062,9 +1062,9 @@ DistanceToLTL: 71.75
 DistanceDelta: 5.0625
 IneffectiveDominance: False
 BarsSinceLastFTT: None
-P2P3Distance: 10.75
+P2P3Distance: 24
 IsWeakContainer: False
-ContainerAgeBars: 10
+ContainerAgeBars: 6
 IsMatureContainer: True
 ----- APVA DEBUG -----
 Bar: 53 Time: 4/26/2026 7:30:00 PM

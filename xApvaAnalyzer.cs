@@ -561,9 +561,9 @@ namespace APVA.Core
 		            tickTolerance);
 			
 			 BuildSegmentsAndDominance(
-		        result,
-		        bars,
-		        classifiedBars);
+			    result,
+			    bars,
+			    classifiedBars);
 			
 			if (state.PrimaryContainer != null)
 			    state.PrimaryContainer.Score =
@@ -572,12 +572,23 @@ namespace APVA.Core
 			if (state.SecondaryContainer != null)
 			    state.SecondaryContainer.Score =
 			        ComputeContainerScore(state.SecondaryContainer, result.Segments, currentBar);
-		
-		    PromoteP3OnStrongContinuation(
-		        result,
-		        currentBar,
-		        continuationFailed,
-		        tickTolerance);
+			
+			// Re-select after current-bar scores are known.
+			// This prevents SelectBestContainer() from using stale scores.
+			result.Container = SelectBestContainer(state, currentBar);
+			
+			// Recompute continuation failure against the selected container.
+			continuationFailed =
+			    result.Container != null &&
+			    result.Container.ExpectedContinuationFailed(
+			        currentBar,
+			        tickTolerance);
+			
+			PromoteP3OnStrongContinuation(
+			    result,
+			    currentBar,
+			    continuationFailed,
+			    tickTolerance);
 		
 		    ComputeContainerDiagnostics(
 		        result,
@@ -653,6 +664,7 @@ namespace APVA.Core
 		}
     }
 }
+
 
 
 
