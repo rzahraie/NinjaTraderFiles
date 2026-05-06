@@ -529,9 +529,14 @@ namespace APVA.Core
 
 			if (state.BarsFarFromStructure >= MaxDriftBars)
 			{
-			    state.PrimaryContainer  = null;
-				state.SecondaryContainer  = null;
+			    state.PrimaryContainer = null;
+			    state.SecondaryContainer = null;
+			    state.PendingSecondaryContainer = null;
+			    state.PendingSecondaryConfirmBars = 0;
 			    state.BarsFarFromStructure = 0;
+			
+			    result.Container = null;
+			    return result;
 			}
 			
 		    bool continuationAttempted =
@@ -580,6 +585,7 @@ namespace APVA.Core
 		}
     }
 }
+
 
 
 
