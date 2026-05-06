@@ -2,6 +2,8 @@ namespace APVA.Core
 {
     public sealed class xApvaContainerCandidate
     {
+		public double Score = 0.0;
+		
         public ContainerDirection Direction { get; set; } = ContainerDirection.Unknown;
 
         public xApvaPoint P1 { get; set; }
@@ -127,5 +129,6 @@ namespace APVA.Core
 	
 	
 }
+
 
 

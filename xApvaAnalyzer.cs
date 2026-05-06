@@ -112,6 +112,12 @@ namespace APVA.Core
 		    if (result.Container == null)
 		        return;
 		
+			state.PrimaryContainer.Score =
+			    ComputeContainerScore(state.PrimaryContainer, result.Segments, currentBar);
+			
+			state.SecondaryContainer.Score =
+			    ComputeContainerScore(state.SecondaryContainer, result.Segments, currentBar);
+			
 		    state.PrimaryContainer?.TryExtend(currentBar, tickTolerance, false);
 			state.SecondaryContainer?.TryExtend(currentBar, tickTolerance, false);
 		
@@ -430,6 +436,16 @@ namespace APVA.Core
 			if (!secondaryMature)
 			    return state.PrimaryContainer;
 			
+			
+			double primaryScore = state.PrimaryContainer.Score;
+			double secondaryScore = state.SecondaryContainer.Score;
+			
+			if (secondaryScore > primaryScore + 1.0)
+			    return state.SecondaryContainer;
+			
+			if (primaryScore > secondaryScore + 1.0)
+			    return state.PrimaryContainer;
+
 			// Secondary must represent forward structural development,
 			// not a backward-overlapping reinterpretation of the same area.
 			bool secondaryIsForward =
@@ -478,6 +494,45 @@ namespace APVA.Core
 		    return sameP1 && sameP2 && sameP3;
 		}
 		
+		private static double ComputeContainerScore(
+		    xApvaContainerCandidate c,
+		    IReadOnlyList<VolumeSegment> segments,
+		    Bar currentBar)
+		{
+		    if (c == null || !c.HasValidP3)
+		        return double.MinValue;
+		
+		    double score = 0;
+		
+		    // 1. Maturity
+		    int age = currentBar.Index - c.P1.Index;
+		    if (age >= 4)
+		        score += 2;
+		
+		    // 2. P2–P3 distance (strength)
+		    double p2p3 = Math.Abs(c.P2.Price - c.P3.Price);
+		    if (p2p3 > 4.0)
+		        score += 2;
+		
+		    // 3. Volume alignment (VERY important)
+		    var containerSegments = FilterSegmentsByContainer(segments, c);
+		
+		    var bias = xApvaDominanceEngine.GetContainerBias(containerSegments);
+		
+		    if (bias == DominanceState.Dominant)
+		        score += 3;
+		    else if (bias == DominanceState.CounterDominant)
+		        score -= 2;
+		
+		    // 4. Recent bias stability
+		    var recent = xApvaDominanceEngine.GetRecentBias(containerSegments, 3);
+		
+		    if (recent == bias)
+		        score += 1;
+		
+		    return score;
+		}
+
         public static ApvaAnalysisResult Analyze(
 		    IReadOnlyList<Bar> bars,
 		    IReadOnlyList<ClassifiedBar> classifiedBars,
@@ -585,6 +640,7 @@ namespace APVA.Core
 		}
     }
 }
+
 
 
 
