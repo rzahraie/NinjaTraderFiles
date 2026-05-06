@@ -55,6 +55,21 @@ namespace APVA.Core
 
     public static class xApvaAnalyzer
     {
+		private static void ComputeDistanceToLtl(
+		    ApvaAnalysisResult result,
+		    Bar currentBar)
+		{
+		    if (result.Container == null)
+		        return;
+		
+		    double ltl = result.Container.LTL.ValueAt(currentBar.Index);
+		
+		    if (result.Container.Direction == ContainerDirection.Up)
+		        result.DistanceToLtl = ltl - currentBar.High;
+		    else if (result.Container.Direction == ContainerDirection.Down)
+		        result.DistanceToLtl = currentBar.Low - ltl;
+		}
+
 		private static void BuildAndExtendContainer(
 		    ApvaAnalysisResult result,
 		    IReadOnlyList<Bar> bars,
@@ -115,12 +130,7 @@ namespace APVA.Core
 		    state.PrimaryContainer?.TryExtend(currentBar, tickTolerance, false);
 			state.SecondaryContainer?.TryExtend(currentBar, tickTolerance, false);
 		
-		    double ltl = result.Container.LTL.ValueAt(currentBar.Index);
-		
-		    if (result.Container.Direction == ContainerDirection.Up)
-		        result.DistanceToLtl = ltl - currentBar.High;
-		    else if (result.Container.Direction == ContainerDirection.Down)
-		        result.DistanceToLtl = currentBar.Low - ltl;
+		   ComputeDistanceToLtl(result, currentBar);
 		}
 
 		private static void PromoteP3OnStrongContinuation(
@@ -577,6 +587,8 @@ namespace APVA.Core
 			// This prevents SelectBestContainer() from using stale scores.
 			result.Container = SelectBestContainer(state, currentBar);
 			
+			ComputeDistanceToLtl(result, currentBar);
+			
 			// Recompute continuation failure against the selected container.
 			continuationFailed =
 			    result.Container != null &&
@@ -664,6 +676,7 @@ namespace APVA.Core
 		}
     }
 }
+
 
 
 
