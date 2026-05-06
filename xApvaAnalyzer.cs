@@ -507,6 +507,13 @@ namespace APVA.Core
 		    double p2p3 = Math.Abs(c.P2.Price - c.P3.Price);
 		    if (p2p3 > 4.0)
 		        score += 2;
+			
+			// Penalize weak backward reinterpretations.
+			if (c.P3.Index < currentBar.Index - 3)
+			    score -= 2;
+			
+			if (p2p3 < 10.0)
+			    score -= 2;
 		
 		    // 3. Volume alignment (VERY important)
 		    var containerSegments = FilterSegmentsByContainer(segments, c);
@@ -642,6 +649,7 @@ namespace APVA.Core
 		}
     }
 }
+
 
 
 
