@@ -23,6 +23,19 @@ namespace NinjaTrader.NinjaScript.Indicators
             }
         }
 
+		private string FormatContainer(string name, xApvaContainerCandidate c)
+		{
+		    if (c == null)
+		        return name + ": none";
+		
+		    return name + ": " +
+		        "Dir=" + c.Direction + " " +
+		        "P1=" + c.P1.Index + "@" + c.P1.Price + " " +
+		        "P2=" + c.P2.Index + "@" + c.P2.Price + " " +
+		        "P3=" + c.P3.Index + "@" + c.P3.Price + " " +
+		        "ValidP3=" + c.HasValidP3;
+		}
+
         protected override void OnBarUpdate()
         {
             if (CurrentBar < 25)
@@ -108,6 +121,26 @@ namespace NinjaTrader.NinjaScript.Indicators
 			Print("CurrentSegmentDominance: " + result.CurrentSegmentDominance);
 			Print("ContainerBias: " + result.ContainerBias);
 			Print("RecentBias: " + result.RecentBias);
+			Print(FormatContainer("Primary", _state.PrimaryContainer));
+			Print(FormatContainer("Secondary", _state.SecondaryContainer));
+			Print(FormatContainer("PendingSecondary", _state.PendingSecondaryContainer));
+			Print("PendingSecondaryConfirmBars: " + _state.PendingSecondaryConfirmBars);
+			
+			string selected = "None";
+			
+			if (result.Container != null)
+			{
+			    if (ReferenceEquals(result.Container, _state.PrimaryContainer))
+			        selected = "Primary";
+			    else if (ReferenceEquals(result.Container, _state.SecondaryContainer))
+			        selected = "Secondary";
+			    else if (ReferenceEquals(result.Container, _state.PendingSecondaryContainer))
+			        selected = "PendingSecondary";
+			    else
+			        selected = "UnknownReference";
+			}
+			
+			Print("SelectedContainer: " + selected);
 			
 			if (result.Container != null)
 			{
