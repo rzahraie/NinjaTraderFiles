@@ -111,12 +111,6 @@ namespace APVA.Core
 		
 		    if (result.Container == null)
 		        return;
-		
-			state.PrimaryContainer.Score =
-			    ComputeContainerScore(state.PrimaryContainer, result.Segments, currentBar);
-			
-			state.SecondaryContainer.Score =
-			    ComputeContainerScore(state.SecondaryContainer, result.Segments, currentBar);
 			
 		    state.PrimaryContainer?.TryExtend(currentBar, tickTolerance, false);
 			state.SecondaryContainer?.TryExtend(currentBar, tickTolerance, false);
@@ -559,6 +553,14 @@ namespace APVA.Core
 		        result,
 		        bars,
 		        classifiedBars);
+			
+			if (state.PrimaryContainer != null)
+			    state.PrimaryContainer.Score =
+			        ComputeContainerScore(state.PrimaryContainer, result.Segments, currentBar);
+			
+			if (state.SecondaryContainer != null)
+			    state.SecondaryContainer.Score =
+			        ComputeContainerScore(state.SecondaryContainer, result.Segments, currentBar);
 		
 		    PromoteP3OnStrongContinuation(
 		        result,
@@ -640,6 +642,7 @@ namespace APVA.Core
 		}
     }
 }
+
 
 
 
