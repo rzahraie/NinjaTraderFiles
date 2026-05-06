@@ -429,6 +429,14 @@ namespace APVA.Core
 			
 			if (!secondaryMature)
 			    return state.PrimaryContainer;
+			
+			// Secondary must represent forward structural development,
+			// not a backward-overlapping reinterpretation of the same area.
+			bool secondaryIsForward =
+			    state.SecondaryContainer.P1.Index >= state.PrimaryContainer.P3.Index - 2;
+			
+			if (!secondaryIsForward)
+			    return state.PrimaryContainer;
 		
 		   	double primaryLtl =
 		    	state.PrimaryContainer.LTL.ValueAt(currentBar.Index);
@@ -572,6 +580,7 @@ namespace APVA.Core
 		}
     }
 }
+
 
 
 

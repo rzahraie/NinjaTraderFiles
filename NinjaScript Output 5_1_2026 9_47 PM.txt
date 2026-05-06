@@ -116,6 +116,46 @@ IsWeakContainer: False
 ContainerAgeBars: 7
 IsMatureContainer: True
 ----- APVA DEBUG -----
+Bar: 28 Time: 4/26/2026 5:25:00 PM
+InferredDirection: Up
+9-11 Black Up AvgVol=380 Rank=Normal Phase=Unknown Dom=Dominant
+12-13 Red Down AvgVol=460 Rank=Normal Phase=Unknown Dom=NonDominant
+14-15 Black Up AvgVol=644 Rank=Elevated Phase=PP1 Dom=Dominant
+16-19 Red Down AvgVol=335 Rank=Low Phase=Unknown Dom=NonDominant
+20-21 Black Up AvgVol=359 Rank=Normal Phase=Unknown Dom=Dominant
+22-22 Red Down AvgVol=365 Rank=Normal Phase=Unknown Dom=NonDominant
+23-24 Black Up AvgVol=931 Rank=Peak Phase=PP2 Dom=Dominant
+25-25 Red Down AvgVol=1126 Rank=Climax Phase=Unknown Dom=CounterDominant
+26-27 Black Up AvgVol=723 Rank=Elevated Phase=PP1 Dom=Dominant
+28-28 Red Down AvgVol=473 Rank=Elevated Phase=Unknown Dom=NonDominant
+HasDominanceSequence: False
+HasFailureSequence: False
+FTT Candidate: False
+FTT Confirmed: False
+FTT Reason: Valid P3 and failed structural continuation, but no T2F confirmation. Blocked by insufficient warning buildup.
+CurrentSegmentDominance: NonDominant
+ContainerBias: CounterDominant
+RecentBias: Dominant
+LTL@28: 27437.3333333333
+LastHigh: 27420.5 LastClose: 27411.25
+ContainerDirection: Up
+P1: 20 27367.75
+P2: 21 27389.5
+P3: 26 27408.75
+HasValidP3: True
+FTT Kind: StructuralWarning
+WarningDuration: 0
+ImminentFTT: False
+ExpectedContinuationFailed: True
+DistanceToLTL: 16.8333333333358
+DistanceDelta: 4.58333333333576
+IneffectiveDominance: False
+BarsSinceLastFTT: None
+P2P3Distance: 19.25
+IsWeakContainer: False
+ContainerAgeBars: 8
+IsMatureContainer: True
+----- APVA DEBUG -----
 Bar: 29 Time: 4/26/2026 5:30:00 PM
 InferredDirection: Up
 10-11 Black Up AvgVol=421 Rank=Normal Phase=Unknown Dom=Dominant
@@ -133,26 +173,26 @@ HasDominanceSequence: False
 HasFailureSequence: False
 FTT Candidate: False
 FTT Confirmed: False
-FTT Reason: 
+FTT Reason: Valid P3 and failed structural continuation, but no T2F confirmation. Blocked by insufficient warning buildup.
 CurrentSegmentDominance: Dominant
-ContainerBias: Dominant
+ContainerBias: CounterDominant
 RecentBias: Dominant
-LTL@29: 27434.6111111111
+LTL@29: 27444.1666666667
 LastHigh: 27420.25 LastClose: 27418.5
 ContainerDirection: Up
 P1: 20 27367.75
 P2: 21 27389.5
-P3: 29 27418.5
+P3: 26 27408.75
 HasValidP3: True
-FTT Kind: None
+FTT Kind: StructuralWarning
 WarningDuration: 0
 ImminentFTT: False
 ExpectedContinuationFailed: True
-DistanceToLTL: -22.75
-DistanceDelta: 1.25
-IneffectiveDominance: False
+DistanceToLTL: 23.9166666666679
+DistanceDelta: 7.08333333333212
+IneffectiveDominance: True
 BarsSinceLastFTT: None
-P2P3Distance: 29
+P2P3Distance: 19.25
 IsWeakContainer: False
 ContainerAgeBars: 9
 IsMatureContainer: True
@@ -217,28 +257,28 @@ HasDominanceSequence: False
 HasFailureSequence: False
 FTT Candidate: False
 FTT Confirmed: False
-FTT Reason: 
+FTT Reason: Valid P3 and failed structural continuation, but no T2F confirmation. Blocked by insufficient warning buildup.
 CurrentSegmentDominance: Dominant
 ContainerBias: CounterDominant
-RecentBias: Unknown
-LTL@32: 27439.6
+RecentBias: Dominant
+LTL@32: 27446.75
 LastHigh: 27437.75 LastClose: 27434.25
 ContainerDirection: Up
-P1: 22 27369.75
-P2: 29 27420.25
-P3: 32 27434.25
+P1: 20 27367.75
+P2: 21 27389.5
+P3: 31 27425
 HasValidP3: True
-FTT Kind: None
+FTT Kind: StructuralWarning
 WarningDuration: 0
 ImminentFTT: False
 ExpectedContinuationFailed: True
-DistanceToLTL: -4.28125
-DistanceDelta: 21.96875
-IneffectiveDominance: False
+DistanceToLTL: 9
+DistanceDelta: 35.25
+IneffectiveDominance: True
 BarsSinceLastFTT: None
-P2P3Distance: 14
+P2P3Distance: 35.5
 IsWeakContainer: False
-ContainerAgeBars: 10
+ContainerAgeBars: 12
 IsMatureContainer: True
 ----- APVA DEBUG -----
 Bar: 33 Time: 4/26/2026 5:50:00 PM
@@ -263,24 +303,24 @@ FTT Reason: Valid P3 and failed structural continuation, but no T2F confirmation
 CurrentSegmentDominance: NonDominant
 ContainerBias: CounterDominant
 RecentBias: Dominant
-LTL@33: 27446.05
+LTL@33: 27451.9545454545
 LastHigh: 27438.25 LastClose: 27433.5
 ContainerDirection: Up
-P1: 22 27369.75
-P2: 29 27420.25
-P3: 32 27434.25
+P1: 20 27367.75
+P2: 21 27389.5
+P3: 31 27425
 HasValidP3: True
 FTT Kind: StructuralWarning
 WarningDuration: 0
 ImminentFTT: False
 ExpectedContinuationFailed: True
-DistanceToLTL: 7.79999999999927
-DistanceDelta: 12.0812499999993
+DistanceToLTL: 13.7045454545478
+DistanceDelta: 4.70454545454777
 IneffectiveDominance: False
 BarsSinceLastFTT: None
-P2P3Distance: 14
+P2P3Distance: 35.5
 IsWeakContainer: False
-ContainerAgeBars: 11
+ContainerAgeBars: 13
 IsMatureContainer: True
 ----- APVA DEBUG -----
 Bar: 34 Time: 4/26/2026 5:55:00 PM
@@ -305,25 +345,25 @@ FTT Confirmed: False
 FTT Reason: T2F plus valid P3 and failed structural continuation. Blocked by insufficient warning buildup.
 CurrentSegmentDominance: Dominant
 ContainerBias: CounterDominant
-RecentBias: Unknown
-LTL@34: 27442.28125
+RecentBias: Dominant
+LTL@34: 27457.1590909091
 LastHigh: 27438 LastClose: 27438
 ContainerDirection: Up
-P1: 22 27369.75
-P2: 29 27420.25
-P3: 30 27405
+P1: 20 27367.75
+P2: 21 27389.5
+P3: 31 27425
 HasValidP3: True
 FTT Kind: T2F_FailedContinuation
 WarningDuration: 0
 ImminentFTT: False
 ExpectedContinuationFailed: True
-DistanceToLTL: 4.28125
-DistanceDelta: -3.51874999999927
+DistanceToLTL: 19.1590909090919
+DistanceDelta: 5.45454545454413
 IneffectiveDominance: True
 BarsSinceLastFTT: None
-P2P3Distance: 15.25
+P2P3Distance: 35.5
 IsWeakContainer: False
-ContainerAgeBars: 12
+ContainerAgeBars: 14
 IsMatureContainer: True
 ----- APVA DEBUG -----
 Bar: 35 Time: 4/26/2026 6:00:00 PM
@@ -360,7 +400,7 @@ WarningDuration: 0
 ImminentFTT: False
 ExpectedContinuationFailed: False
 DistanceToLTL: -23.75
-DistanceDelta: -28.03125
+DistanceDelta: -42.9090909090919
 IneffectiveDominance: False
 BarsSinceLastFTT: None
 P2P3Distance: 17.25
@@ -433,24 +473,68 @@ FTT Reason: T2F detected after dominance expectation. Blocked by insufficient wa
 CurrentSegmentDominance: CounterDominant
 ContainerBias: Dominant
 RecentBias: Dominant
-LTL@37: 27463.25
+LTL@37: 27495.25
 LastHigh: 27497.5 LastClose: 27466
 ContainerDirection: Up
 P1: 30 27405
 P2: 33 27438.25
-P3: 34 27430
+P3: 36 27490.5
 HasValidP3: True
 FTT Kind: None
 WarningDuration: 0
 ImminentFTT: False
 ExpectedContinuationFailed: False
-DistanceToLTL: -34.25
-DistanceDelta: -3.04999999999927
+DistanceToLTL: -2.25
+DistanceDelta: 28.9500000000007
 IneffectiveDominance: False
 BarsSinceLastFTT: None
-P2P3Distance: 8.25
+P2P3Distance: 52.25
 IsWeakContainer: False
 ContainerAgeBars: 7
+IsMatureContainer: True
+----- APVA DEBUG -----
+Bar: 38 Time: 4/26/2026 6:15:00 PM
+InferredDirection: Up
+19-19 Red Down AvgVol=274 Rank=Low Phase=Unknown Dom=NonDominant
+20-21 Black Up AvgVol=359 Rank=Normal Phase=Unknown Dom=Dominant
+22-22 Red Down AvgVol=365 Rank=Normal Phase=Unknown Dom=NonDominant
+23-24 Black Up AvgVol=931 Rank=Elevated Phase=PP1 Dom=Dominant
+25-25 Red Down AvgVol=1126 Rank=Peak Phase=Unknown Dom=CounterDominant
+26-27 Black Up AvgVol=723 Rank=Elevated Phase=PP1 Dom=Dominant
+28-28 Red Down AvgVol=473 Rank=Normal Phase=Unknown Dom=NonDominant
+29-29 Black Up AvgVol=307 Rank=Low Phase=Unknown Dom=Dominant
+30-30 Red Down AvgVol=562 Rank=Normal Phase=Unknown Dom=NonDominant
+31-32 Black Up AvgVol=573 Rank=Normal Phase=Unknown Dom=Dominant
+33-33 Red Down AvgVol=332 Rank=Normal Phase=Unknown Dom=NonDominant
+34-36 Black Up AvgVol=1504 Rank=Climax Phase=PP2 Dom=Dominant
+37-37 Red Down AvgVol=1309 Rank=Peak Phase=Unknown Dom=CounterDominant
+38-38 Black Up AvgVol=736 Rank=Elevated Phase=PP1 Dom=Dominant
+HasDominanceSequence: False
+HasFailureSequence: False
+FTT Candidate: False
+FTT Confirmed: False
+FTT Reason: Valid P3 and failed structural continuation, but no T2F confirmation. Blocked by insufficient warning buildup.
+CurrentSegmentDominance: Dominant
+ContainerBias: Dominant
+RecentBias: Dominant
+LTL@38: 27509.5
+LastHigh: 27479.5 LastClose: 27471.25
+ContainerDirection: Up
+P1: 30 27405
+P2: 33 27438.25
+P3: 36 27490.5
+HasValidP3: True
+FTT Kind: StructuralWarning
+WarningDuration: 0
+ImminentFTT: False
+ExpectedContinuationFailed: True
+DistanceToLTL: 30
+DistanceDelta: 32.25
+IneffectiveDominance: True
+BarsSinceLastFTT: None
+P2P3Distance: 52.25
+IsWeakContainer: False
+ContainerAgeBars: 8
 IsMatureContainer: True
 ----- APVA DEBUG -----
 Bar: 39 Time: 4/26/2026 6:20:00 PM
@@ -476,22 +560,22 @@ FTT Reason: T2F plus valid P3 and failed structural continuation. Blocked by ins
 CurrentSegmentDominance: Dominant
 ContainerBias: Dominant
 RecentBias: Dominant
-LTL@39: 27475.75
+LTL@39: 27523.75
 LastHigh: 27473.25 LastClose: 27471.75
 ContainerDirection: Up
 P1: 30 27405
 P2: 33 27438.25
-P3: 34 27430
+P3: 36 27490.5
 HasValidP3: True
 FTT Kind: T2F_FailedContinuation
 WarningDuration: 0
 ImminentFTT: False
 ExpectedContinuationFailed: True
-DistanceToLTL: 2.5
-DistanceDelta: 12.5
+DistanceToLTL: 50.5
+DistanceDelta: 20.5
 IneffectiveDominance: True
 BarsSinceLastFTT: None
-P2P3Distance: 8.25
+P2P3Distance: 52.25
 IsWeakContainer: False
 ContainerAgeBars: 9
 IsMatureContainer: True
@@ -515,26 +599,26 @@ HasDominanceSequence: False
 HasFailureSequence: False
 FTT Candidate: False
 FTT Confirmed: False
-FTT Reason: T2F detected after dominance expectation. Blocked by insufficient warning buildup.
+FTT Reason: T2F plus valid P3 and failed structural continuation. Blocked by insufficient warning buildup.
 CurrentSegmentDominance: Dominant
 ContainerBias: Dominant
 RecentBias: Dominant
-LTL@40: 27495.3
+LTL@40: 27538
 LastHigh: 27488.75 LastClose: 27486.5
 ContainerDirection: Up
 P1: 30 27405
 P2: 33 27438.25
-P3: 40 27486.5
+P3: 36 27490.5
 HasValidP3: True
-FTT Kind: None
+FTT Kind: T2F_FailedContinuation
 WarningDuration: 0
 ImminentFTT: False
 ExpectedContinuationFailed: True
-DistanceToLTL: -6.75
-DistanceDelta: -9.25
-IneffectiveDominance: False
+DistanceToLTL: 49.25
+DistanceDelta: -1.25
+IneffectiveDominance: True
 BarsSinceLastFTT: None
-P2P3Distance: 48.25
+P2P3Distance: 52.25
 IsWeakContainer: False
 ContainerAgeBars: 10
 IsMatureContainer: True
@@ -573,7 +657,7 @@ WarningDuration: 0
 ImminentFTT: False
 ExpectedContinuationFailed: True
 DistanceToLTL: 29.5
-DistanceDelta: 36.25
+DistanceDelta: -19.75
 IneffectiveDominance: True
 BarsSinceLastFTT: None
 P2P3Distance: 43.75
@@ -844,26 +928,26 @@ FTT Candidate: False
 FTT Confirmed: False
 FTT Reason: Valid P3 and failed structural continuation, but no T2F confirmation. Blocked by insufficient warning buildup.
 CurrentSegmentDominance: NonDominant
-ContainerBias: CounterDominant
+ContainerBias: Dominant
 RecentBias: Dominant
-LTL@48: 27561.8928571429
+LTL@48: 27576.5625
 LastHigh: 27542.5 LastClose: 27532.75
 ContainerDirection: Up
-P1: 34 27430
-P2: 36 27499.75
-P3: 41 27466.25
+P1: 41 27466.25
+P2: 43 27521.25
+P3: 45 27510.5
 HasValidP3: True
 FTT Kind: StructuralWarning
 WarningDuration: 0
 ImminentFTT: False
 ExpectedContinuationFailed: True
-DistanceToLTL: 19.3928571428587
-DistanceDelta: 0.678571428572468
+DistanceToLTL: 34.0625
+DistanceDelta: 15.3482142857138
 IneffectiveDominance: False
 BarsSinceLastFTT: None
-P2P3Distance: 33.5
+P2P3Distance: 10.75
 IsWeakContainer: False
-ContainerAgeBars: 14
+ContainerAgeBars: 7
 IsMatureContainer: True
 ----- APVA DEBUG -----
 Bar: 49 Time: 4/26/2026 7:10:00 PM
@@ -883,26 +967,26 @@ FTT Candidate: False
 FTT Confirmed: False
 FTT Reason: Valid P3 and failed structural continuation, but no T2F confirmation. Blocked by insufficient warning buildup.
 CurrentSegmentDominance: NonDominant
-ContainerBias: CounterDominant
+ContainerBias: Dominant
 RecentBias: Dominant
-LTL@49: 27567.0714285714
+LTL@49: 27587.625
 LastHigh: 27532 LastClose: 27530.25
 ContainerDirection: Up
-P1: 34 27430
-P2: 36 27499.75
-P3: 41 27466.25
+P1: 41 27466.25
+P2: 43 27521.25
+P3: 45 27510.5
 HasValidP3: True
 FTT Kind: StructuralWarning
 WarningDuration: 0
 ImminentFTT: False
 ExpectedContinuationFailed: True
-DistanceToLTL: 35.0714285714312
-DistanceDelta: 15.6785714285725
+DistanceToLTL: 55.625
+DistanceDelta: 21.5625
 IneffectiveDominance: False
 BarsSinceLastFTT: None
-P2P3Distance: 33.5
+P2P3Distance: 10.75
 IsWeakContainer: False
-ContainerAgeBars: 15
+ContainerAgeBars: 8
 IsMatureContainer: True
 ----- APVA DEBUG -----
 Bar: 50 Time: 4/26/2026 7:15:00 PM
@@ -921,26 +1005,26 @@ FTT Candidate: False
 FTT Confirmed: False
 FTT Reason: Valid P3 and failed structural continuation, but no T2F confirmation. Blocked by insufficient warning buildup.
 CurrentSegmentDominance: NonDominant
-ContainerBias: Unknown
-RecentBias: Unknown
-LTL@50: 27546.5
+ContainerBias: Dominant
+RecentBias: Dominant
+LTL@50: 27598.6875
 LastHigh: 27532 LastClose: 27527
 ContainerDirection: Up
-P1: 45 27510.5
-P2: 48 27542.5
-P3: 49 27518.5
+P1: 41 27466.25
+P2: 43 27521.25
+P3: 45 27510.5
 HasValidP3: True
 FTT Kind: StructuralWarning
 WarningDuration: 0
 ImminentFTT: False
 ExpectedContinuationFailed: True
-DistanceToLTL: 14.5
-DistanceDelta: -20.5714285714312
+DistanceToLTL: 66.6875
+DistanceDelta: 11.0625
 IneffectiveDominance: False
 BarsSinceLastFTT: None
-P2P3Distance: 24
+P2P3Distance: 10.75
 IsWeakContainer: False
-ContainerAgeBars: 5
+ContainerAgeBars: 9
 IsMatureContainer: True
 ----- APVA DEBUG -----
 Bar: 51 Time: 4/26/2026 7:20:00 PM
@@ -973,7 +1057,7 @@ WarningDuration: 0
 ImminentFTT: False
 ExpectedContinuationFailed: True
 DistanceToLTL: 10.5
-DistanceDelta: -4
+DistanceDelta: -56.1875
 IneffectiveDominance: False
 BarsSinceLastFTT: None
 P2P3Distance: 24
