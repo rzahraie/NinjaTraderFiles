@@ -360,15 +360,32 @@ namespace APVA.Core
 
 		private static void DetectFtt(
 		    ApvaAnalysisResult result,
+		    ApvaAnalyzerState state,
 		    bool continuationFailed,
 		    bool continuationAttempted)
 		{
-		    result.Ftt =
-		        xApvaFttDetector.Detect(
-		            result.Segments,
-		            hasValidP3: result.Container != null && result.Container.HasValidP3,
-		            expectedContinuationFailed: continuationFailed,
-		            continuationAttempted: continuationAttempted);
+		   	// Pre-filter: do not even attempt FTT detection
+			// unless warning has started or structure supports it.
+			
+			bool allowDetection =
+			    continuationFailed &&
+			    (
+			        state.WarningStreak > 0 ||
+			        result.IneffectiveDominance
+			    );
+			
+			if (!allowDetection)
+			{
+			    result.Ftt = new FttResult();
+			    return;
+			}
+			
+			result.Ftt =
+			    xApvaFttDetector.Detect(
+			        result.Segments,
+			        hasValidP3: result.Container != null && result.Container.HasValidP3,
+			        expectedContinuationFailed: continuationFailed,
+			        continuationAttempted: continuationAttempted);
 		}
 
 		private static void GateFtt(
@@ -662,6 +679,7 @@ namespace APVA.Core
 		
 		    DetectFtt(
 			    result,
+			    state,
 			    continuationFailed,
 			    continuationAttempted);
 			
@@ -706,6 +724,8 @@ namespace APVA.Core
 		}
     }
 }
+
+
 
 
 
