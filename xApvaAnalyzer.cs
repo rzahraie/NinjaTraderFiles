@@ -326,13 +326,18 @@ namespace APVA.Core
 			{
 			    state.WarningStreak++;
 			}
+			else if (continuationFailed && state.WarningStreak > 0)
+			{
+			    // Once warning has started, continued failure matures it
+			    // even if price has moved away from the LTL.
+			    state.WarningStreak++;
+			}
 			else if (!continuationFailed)
 			{
-			    // Only reset if continuation actually succeeds
+			    // Only reset if continuation actually succeeds.
 			    state.WarningStreak = 0;
 			}
-			// else: continuationFailed but not nearStructure → HOLD streak (do not decay)
-		
+
 		    result.WarningDuration = state.WarningStreak;
 		
 		    result.ImminentFtt =
@@ -677,6 +682,7 @@ namespace APVA.Core
 		}
     }
 }
+
 
 
 
