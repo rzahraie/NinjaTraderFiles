@@ -322,7 +322,11 @@ namespace APVA.Core
 			bool nearStructure =
 			    Math.Abs(result.DistanceToLtl) <= proximityThreshold;
 			
-			if (continuationFailed && nearStructure)
+			bool hasT2F =
+			    result.Ftt != null &&
+			    result.Ftt.Kind == FttKind.T2F_FailedContinuation;
+			
+			if (continuationFailed && (nearStructure || hasT2F))
 			{
 			    state.WarningStreak++;
 			}
@@ -641,18 +645,18 @@ namespace APVA.Core
 		            result,
 		            state);
 		
-		   UpdateWarningState(
-			    result,
-			    state,
-			    continuationFailed,
-			    tickTolerance);
-		
 		    DetectAndGateFtt(
 		        result,
 		        state,
 		        currentBar,
 		        continuationFailed,
 		        continuationAttempted);
+			
+			UpdateWarningState(
+			    result,
+			    state,
+			    continuationFailed,
+			    tickTolerance);
 			
 			if (!result.Ftt.IsConfirmed && state.PostFttGraceBars > 0)
     			state.PostFttGraceBars--;
@@ -682,6 +686,7 @@ namespace APVA.Core
 		}
     }
 }
+
 
 
 
