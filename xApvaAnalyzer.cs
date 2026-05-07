@@ -348,14 +348,14 @@ namespace APVA.Core
 
 		    result.WarningDuration = state.WarningStreak;
 		
-		   result.ImminentFtt =
+		   	result.IneffectiveDominance =
+			    result.CurrentSegmentDominance == DominanceState.Dominant &&
+			    result.DistanceToLtl > 0;
+			
+			result.ImminentFtt =
 			    result.WarningDuration >= 3 &&
 			    result.ContainerBias == DominanceState.CounterDominant &&
 			    result.IneffectiveDominance;
-		
-		    result.IneffectiveDominance =
-		        result.CurrentSegmentDominance == DominanceState.Dominant &&
-		        result.DistanceToLtl > 0;
 		}
 
 		private static void DetectFtt(
@@ -706,6 +706,7 @@ namespace APVA.Core
 		}
     }
 }
+
 
 
 
