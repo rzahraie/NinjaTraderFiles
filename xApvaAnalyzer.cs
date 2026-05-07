@@ -348,9 +348,10 @@ namespace APVA.Core
 
 		    result.WarningDuration = state.WarningStreak;
 		
-		    result.ImminentFtt =
-		        result.WarningDuration >= 2 &&
-		        result.ContainerBias == DominanceState.CounterDominant;
+		   result.ImminentFtt =
+			    result.WarningDuration >= 3 &&
+			    result.ContainerBias == DominanceState.CounterDominant &&
+			    result.IneffectiveDominance;
 		
 		    result.IneffectiveDominance =
 		        result.CurrentSegmentDominance == DominanceState.Dominant &&
@@ -386,7 +387,7 @@ namespace APVA.Core
 			}
 			
 			// NEW: require sustained failure before candidate
-			const int MinWarningBarsForCandidate = 2;
+			const int MinWarningBarsForCandidate = 3;
 			
 			if (result.Ftt.IsCandidate && state.WarningStreak < MinWarningBarsForCandidate)
 			{
@@ -705,6 +706,7 @@ namespace APVA.Core
 		}
     }
 }
+
 
 
 
