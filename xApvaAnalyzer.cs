@@ -428,16 +428,20 @@ namespace APVA.Core
 			}
 		
 		   if (result.Ftt.IsConfirmed)
-		   {
+			{
 			    state.WarningStreak = 0;
 			    state.HasPrevDistance = false;
 			    state.ContinuationAttempted = false;
+			
 			    state.PrimaryContainer = null;
-				state.SecondaryContainer = null;
+			    state.SecondaryContainer = null;
+			    state.PendingSecondaryContainer = null;
+			    state.PendingSecondaryConfirmBars = 0;
+			
+			    result.Container = null;
+			
 			    state.PostFttGraceBars = 3;
-			   	state.PendingSecondaryContainer = null;
-				state.PendingSecondaryConfirmBars = 0;
-		   }
+			}
 		}
 		
 		private static xApvaContainerCandidate SelectBestContainer(
@@ -701,6 +705,7 @@ namespace APVA.Core
 		}
     }
 }
+
 
 
 

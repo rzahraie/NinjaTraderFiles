@@ -565,26 +565,8 @@ Primary: none
 Secondary: none
 PendingSecondary: none
 PendingSecondaryConfirmBars: 0
-SelectedContainer: UnknownReference
-LTL@39: 27523.75
-LastHigh: 27473.25 LastClose: 27471.75
-ContainerDirection: Up
-P1: 30 27405
-P2: 33 27438.25
-P3: 36 27490.5
-HasValidP3: True
-FTT Kind: T2F_FailedContinuation
-WarningDuration: 2
-ImminentFTT: False
-ExpectedContinuationFailed: True
-DistanceToLTL: 50.5
-DistanceDelta: 20.5
-IneffectiveDominance: True
-BarsSinceLastFTT: None
-P2P3Distance: 52.25
-IsWeakContainer: False
-ContainerAgeBars: 9
-IsMatureContainer: True
+SelectedContainer: None
+Container: none
 ----- APVA DEBUG -----
 Bar: 40 Time: 4/26/2026 6:25:00 PM
 InferredDirection: Up
@@ -1821,26 +1803,8 @@ Primary: none
 Secondary: none
 PendingSecondary: none
 PendingSecondaryConfirmBars: 0
-SelectedContainer: UnknownReference
-LTL@76: 27504.75
-LastHigh: 27526 LastClose: 27524.25
-ContainerDirection: Down
-P1: 67 27533
-P2: 69 27523
-P3: 74 27514.75
-HasValidP3: True
-FTT Kind: T2F_FailedContinuation
-WarningDuration: 2
-ImminentFTT: False
-ExpectedContinuationFailed: True
-DistanceToLTL: 9.75
-DistanceDelta: 3.10714285714494
-IneffectiveDominance: False
-BarsSinceLastFTT: 37
-P2P3Distance: 8.25
-IsWeakContainer: False
-ContainerAgeBars: 9
-IsMatureContainer: True
+SelectedContainer: None
+Container: none
 ----- APVA DEBUG -----
 Bar: 78 Time: 4/26/2026 9:35:00 PM
 InferredDirection: Up
@@ -2444,26 +2408,8 @@ Primary: none
 Secondary: none
 PendingSecondary: none
 PendingSecondaryConfirmBars: 0
-SelectedContainer: UnknownReference
-LTL@93: 27442.5
-LastHigh: 27465 LastClose: 27456
-ContainerDirection: Down
-P1: 67 27533
-P2: 69 27523
-P3: 91 27452.5
-HasValidP3: True
-FTT Kind: T2F_FailedContinuation
-WarningDuration: 2
-ImminentFTT: False
-ExpectedContinuationFailed: True
-DistanceToLTL: 12
-DistanceDelta: 7.35416666666424
-IneffectiveDominance: True
-BarsSinceLastFTT: 17
-P2P3Distance: 70.5
-IsWeakContainer: False
-ContainerAgeBars: 26
-IsMatureContainer: True
+SelectedContainer: None
+Container: none
 ----- APVA DEBUG -----
 Bar: 94 Time: 4/26/2026 10:55:00 PM
 InferredDirection: Down
@@ -2720,26 +2666,8 @@ Primary: none
 Secondary: none
 PendingSecondary: none
 PendingSecondaryConfirmBars: 0
-SelectedContainer: UnknownReference
-LTL@101: 27425.625
-LastHigh: 27451.75 LastClose: 27451
-ContainerDirection: Down
-P1: 93 27465
-P2: 94 27444
-P3: 95 27459.75
-HasValidP3: True
-FTT Kind: T2F_FailedContinuation
-WarningDuration: 3
-ImminentFTT: False
-ExpectedContinuationFailed: True
-DistanceToLTL: 18.125
-DistanceDelta: 7.875
-IneffectiveDominance: False
-BarsSinceLastFTT: 8
-P2P3Distance: 15.75
-IsWeakContainer: False
-ContainerAgeBars: 8
-IsMatureContainer: True
+SelectedContainer: None
+Container: none
 ----- APVA DEBUG -----
 Bar: 102 Time: 4/26/2026 11:35:00 PM
 InferredDirection: Down
@@ -3562,26 +3490,8 @@ Primary: none
 Secondary: none
 PendingSecondary: none
 PendingSecondaryConfirmBars: 0
-SelectedContainer: UnknownReference
-LTL@119: 27436.6666666667
-LastHigh: 27435 LastClose: 27426
-ContainerDirection: Up
-P1: 115 27405.75
-P2: 117 27430
-P3: 118 27415.75
-HasValidP3: True
-FTT Kind: T2F_FailedContinuation
-WarningDuration: 8
-ImminentFTT: False
-ExpectedContinuationFailed: True
-DistanceToLTL: 1.66666666666424
-DistanceDelta: -21.5833333333358
-IneffectiveDominance: True
-BarsSinceLastFTT: 18
-P2P3Distance: 14.25
-IsWeakContainer: False
-ContainerAgeBars: 4
-IsMatureContainer: True
+SelectedContainer: None
+Container: none
 ----- APVA DEBUG -----
 Bar: 120 Time: 4/27/2026 1:05:00 AM
 InferredDirection: Down
@@ -4871,26 +4781,8 @@ Primary: none
 Secondary: none
 PendingSecondary: none
 PendingSecondaryConfirmBars: 0
-SelectedContainer: UnknownReference
-LTL@155: 27494.5
-LastHigh: 27483.25 LastClose: 27475.5
-ContainerDirection: Up
-P1: 149 27449.25
-P2: 152 27481
-P3: 153 27467.25
-HasValidP3: True
-FTT Kind: T2F_FailedContinuation
-WarningDuration: 3
-ImminentFTT: False
-ExpectedContinuationFailed: True
-DistanceToLTL: 11.25
-DistanceDelta: 10.25
-IneffectiveDominance: True
-BarsSinceLastFTT: 36
-P2P3Distance: 13.75
-IsWeakContainer: False
-ContainerAgeBars: 6
-IsMatureContainer: True
+SelectedContainer: None
+Container: none
 ----- APVA DEBUG -----
 Bar: 156 Time: 4/27/2026 4:05:00 AM
 InferredDirection: Up
@@ -7283,26 +7175,8 @@ Primary: none
 Secondary: none
 PendingSecondary: none
 PendingSecondaryConfirmBars: 0
-SelectedContainer: UnknownReference
-LTL@215: 27403.875
-LastHigh: 27369.25 LastClose: 27367.25
-ContainerDirection: Up
-P1: 208 27307.5
-P2: 212 27383
-P3: 214 27349.25
-HasValidP3: True
-FTT Kind: T2F_FailedContinuation
-WarningDuration: 9
-ImminentFTT: False
-ExpectedContinuationFailed: True
-DistanceToLTL: 34.625
-DistanceDelta: -1.69642857142753
-IneffectiveDominance: True
-BarsSinceLastFTT: 60
-P2P3Distance: 33.75
-IsWeakContainer: False
-ContainerAgeBars: 7
-IsMatureContainer: True
+SelectedContainer: None
+Container: none
 ----- APVA DEBUG -----
 Bar: 216 Time: 4/27/2026 9:05:00 AM
 InferredDirection: Unknown
@@ -8068,26 +7942,8 @@ Primary: none
 Secondary: none
 PendingSecondary: none
 PendingSecondaryConfirmBars: 0
-SelectedContainer: UnknownReference
-LTL@234: 27445.175
-LastHigh: 27438.5 LastClose: 27438
-ContainerDirection: Up
-P1: 220 27370
-P2: 225 27406.25
-P3: 230 27413.25
-HasValidP3: True
-FTT Kind: T2F_FailedContinuation
-WarningDuration: 4
-ImminentFTT: False
-ExpectedContinuationFailed: True
-DistanceToLTL: 6.67499999999927
-DistanceDelta: -18.1749999999993
-IneffectiveDominance: True
-BarsSinceLastFTT: 19
-P2P3Distance: 7
-IsWeakContainer: False
-ContainerAgeBars: 14
-IsMatureContainer: True
+SelectedContainer: None
+Container: none
 ----- APVA DEBUG -----
 Bar: 235 Time: 4/27/2026 10:40:00 AM
 InferredDirection: Up
@@ -8690,26 +8546,8 @@ Primary: none
 Secondary: none
 PendingSecondary: none
 PendingSecondaryConfirmBars: 0
-SelectedContainer: UnknownReference
-LTL@253: 27388.0416666667
-LastHigh: 27404.25 LastClose: 27399
-ContainerDirection: Down
-P1: 238 27439.75
-P2: 243 27427
-P3: 250 27393
-HasValidP3: True
-FTT Kind: T2F_FailedContinuation
-WarningDuration: 2
-ImminentFTT: False
-ExpectedContinuationFailed: True
-DistanceToLTL: 2.45833333333212
-DistanceDelta: 1.14583333333212
-IneffectiveDominance: True
-BarsSinceLastFTT: 19
-P2P3Distance: 34
-IsWeakContainer: False
-ContainerAgeBars: 15
-IsMatureContainer: True
+SelectedContainer: None
+Container: none
 ----- APVA DEBUG -----
 Bar: 255 Time: 4/27/2026 12:20:00 PM
 InferredDirection: Unknown
@@ -9582,26 +9420,8 @@ Primary: none
 Secondary: none
 PendingSecondary: none
 PendingSecondaryConfirmBars: 0
-SelectedContainer: UnknownReference
-LTL@282: 27541.85
-LastHigh: 27499.25 LastClose: 27494.75
-ContainerDirection: Up
-P1: 275 27417.25
-P2: 279 27501.5
-P3: 280 27484.5
-HasValidP3: True
-FTT Kind: T2F_FailedContinuation
-WarningDuration: 2
-ImminentFTT: False
-ExpectedContinuationFailed: True
-DistanceToLTL: 42.6000000000022
-DistanceDelta: 7.95000000000073
-IneffectiveDominance: True
-BarsSinceLastFTT: 29
-P2P3Distance: 17
-IsWeakContainer: False
-ContainerAgeBars: 7
-IsMatureContainer: True
+SelectedContainer: None
+Container: none
 ----- APVA DEBUG -----
 Bar: 283 Time: 4/27/2026 3:40:00 PM
 InferredDirection: Up
@@ -10178,26 +9998,8 @@ Primary: none
 Secondary: none
 PendingSecondary: none
 PendingSecondaryConfirmBars: 0
-SelectedContainer: UnknownReference
-LTL@298: 27508.55
-LastHigh: 27492 LastClose: 27491.5
-ContainerDirection: Up
-P1: 289 27474.75
-P2: 292 27494.75
-P3: 294 27486.25
-HasValidP3: True
-FTT Kind: T2F_FailedContinuation
-WarningDuration: 2
-ImminentFTT: False
-ExpectedContinuationFailed: True
-DistanceToLTL: 16.5499999999993
-DistanceDelta: 11.0499999999993
-IneffectiveDominance: False
-BarsSinceLastFTT: 16
-P2P3Distance: 8.5
-IsWeakContainer: False
-ContainerAgeBars: 9
-IsMatureContainer: True
+SelectedContainer: None
+Container: none
 ----- APVA DEBUG -----
 Bar: 302 Time: 4/27/2026 5:15:00 PM
 InferredDirection: Up
@@ -11080,26 +10882,8 @@ Primary: none
 Secondary: none
 PendingSecondary: none
 PendingSecondaryConfirmBars: 0
-SelectedContainer: UnknownReference
-LTL@330: 27409.28125
-LastHigh: 27430 LastClose: 27421.75
-ContainerDirection: Down
-P1: 320 27484.5
-P2: 327 27427
-P3: 328 27437.25
-HasValidP3: True
-FTT Kind: T2F_FailedContinuation
-WarningDuration: 2
-ImminentFTT: False
-ExpectedContinuationFailed: True
-DistanceToLTL: 3.71875
-DistanceDelta: -5.84375
-IneffectiveDominance: True
-BarsSinceLastFTT: 32
-P2P3Distance: 10.25
-IsWeakContainer: False
-ContainerAgeBars: 10
-IsMatureContainer: True
+SelectedContainer: None
+Container: none
 ----- APVA DEBUG -----
 Bar: 331 Time: 4/27/2026 7:40:00 PM
 InferredDirection: Down
@@ -11464,26 +11248,8 @@ Primary: none
 Secondary: none
 PendingSecondary: none
 PendingSecondaryConfirmBars: 0
-SelectedContainer: UnknownReference
-LTL@339: 27376.5
-LastHigh: 27417 LastClose: 27412
-ContainerDirection: Down
-P1: 328 27437.25
-P2: 333 27401
-P3: 334 27412.75
-HasValidP3: True
-FTT Kind: T2F_FailedContinuation
-WarningDuration: 3
-ImminentFTT: False
-ExpectedContinuationFailed: True
-DistanceToLTL: 29.5
-DistanceDelta: 9.58333333333576
-IneffectiveDominance: False
-BarsSinceLastFTT: 9
-P2P3Distance: 11.75
-IsWeakContainer: False
-ContainerAgeBars: 11
-IsMatureContainer: True
+SelectedContainer: None
+Container: none
 ----- APVA DEBUG -----
 Bar: 345 Time: 4/27/2026 8:50:00 PM
 InferredDirection: Down
@@ -12672,26 +12438,8 @@ Primary: none
 Secondary: none
 PendingSecondary: none
 PendingSecondaryConfirmBars: 0
-SelectedContainer: UnknownReference
-LTL@383: 27312.4285714286
-LastHigh: 27340.75 LastClose: 27337.75
-ContainerDirection: Down
-P1: 374 27378.25
-P2: 377 27357
-P3: 381 27326.25
-HasValidP3: True
-FTT Kind: T2F_FailedContinuation
-WarningDuration: 2
-ImminentFTT: False
-ExpectedContinuationFailed: True
-DistanceToLTL: 17.5714285714275
-DistanceDelta: 13.4285714285688
-IneffectiveDominance: False
-BarsSinceLastFTT: 44
-P2P3Distance: 30.75
-IsWeakContainer: False
-ContainerAgeBars: 9
-IsMatureContainer: True
+SelectedContainer: None
+Container: none
 ----- APVA DEBUG -----
 Bar: 385 Time: 4/28/2026 12:10:00 AM
 InferredDirection: Down
@@ -13361,26 +13109,8 @@ Primary: none
 Secondary: none
 PendingSecondary: none
 PendingSecondaryConfirmBars: 0
-SelectedContainer: UnknownReference
-LTL@400: 27304.75
-LastHigh: 27344.75 LastClose: 27332.5
-ContainerDirection: Down
-P1: 392 27352.25
-P2: 394 27321.75
-P3: 395 27343.75
-HasValidP3: True
-FTT Kind: T2F_FailedContinuation
-WarningDuration: 2
-ImminentFTT: False
-ExpectedContinuationFailed: True
-DistanceToLTL: 25.75
-DistanceDelta: 17.8333333333358
-IneffectiveDominance: True
-BarsSinceLastFTT: 17
-P2P3Distance: 22
-IsWeakContainer: False
-ContainerAgeBars: 8
-IsMatureContainer: True
+SelectedContainer: None
+Container: none
 ----- APVA DEBUG -----
 Bar: 401 Time: 4/28/2026 1:30:00 AM
 InferredDirection: Up
@@ -13894,26 +13624,8 @@ Primary: none
 Secondary: none
 PendingSecondary: none
 PendingSecondaryConfirmBars: 0
-SelectedContainer: UnknownReference
-LTL@415: 27276.55
-LastHigh: 27306 LastClose: 27284.5
-ContainerDirection: Down
-P1: 408 27355.25
-P2: 409 27325.75
-P3: 413 27314.25
-HasValidP3: True
-FTT Kind: T2F_FailedContinuation
-WarningDuration: 2
-ImminentFTT: False
-ExpectedContinuationFailed: True
-DistanceToLTL: 3.70000000000073
-DistanceDelta: -0.0499999999992724
-IneffectiveDominance: True
-BarsSinceLastFTT: 15
-P2P3Distance: 11.5
-IsWeakContainer: False
-ContainerAgeBars: 7
-IsMatureContainer: True
+SelectedContainer: None
+Container: none
 ----- APVA DEBUG -----
 Bar: 416 Time: 4/28/2026 2:45:00 AM
 InferredDirection: Down
@@ -15969,26 +15681,8 @@ Primary: none
 Secondary: none
 PendingSecondary: none
 PendingSecondaryConfirmBars: 0
-SelectedContainer: UnknownReference
-LTL@471: 27123.75
-LastHigh: 27217.25 LastClose: 27184.75
-ContainerDirection: Down
-P1: 465 27252
-P2: 467 27140.75
-P3: 469 27235
-HasValidP3: True
-FTT Kind: T2F_FailedContinuation
-WarningDuration: 4
-ImminentFTT: True
-ExpectedContinuationFailed: True
-DistanceToLTL: 53.25
-DistanceDelta: -48
-IneffectiveDominance: False
-BarsSinceLastFTT: 56
-P2P3Distance: 94.25
-IsWeakContainer: False
-ContainerAgeBars: 6
-IsMatureContainer: True
+SelectedContainer: None
+Container: none
 ----- APVA DEBUG -----
 Bar: 472 Time: 4/28/2026 7:25:00 AM
 InferredDirection: Up
@@ -16944,26 +16638,8 @@ Primary: none
 Secondary: none
 PendingSecondary: none
 PendingSecondaryConfirmBars: 0
-SelectedContainer: UnknownReference
-LTL@497: 27116.5833333333
-LastHigh: 27084.75 LastClose: 27070.5
-ContainerDirection: Up
-P1: 489 27009.5
-P2: 493 27086.75
-P3: 495 27054.25
-HasValidP3: True
-FTT Kind: T2F_FailedContinuation
-WarningDuration: 2
-ImminentFTT: False
-ExpectedContinuationFailed: True
-DistanceToLTL: 31.8333333333358
-DistanceDelta: 11.2083333333358
-IneffectiveDominance: False
-BarsSinceLastFTT: 26
-P2P3Distance: 32.5
-IsWeakContainer: False
-ContainerAgeBars: 8
-IsMatureContainer: True
+SelectedContainer: None
+Container: none
 ----- APVA DEBUG -----
 Bar: 498 Time: 4/28/2026 9:35:00 AM
 InferredDirection: Unknown
@@ -17470,26 +17146,8 @@ Primary: none
 Secondary: none
 PendingSecondary: none
 PendingSecondaryConfirmBars: 0
-SelectedContainer: UnknownReference
-LTL@513: 27153.5833333333
-LastHigh: 27131 LastClose: 27120.25
-ContainerDirection: Up
-P1: 505 27047.5
-P2: 506 27077.75
-P3: 511 27112.5
-HasValidP3: True
-FTT Kind: T2F_FailedContinuation
-WarningDuration: 2
-ImminentFTT: False
-ExpectedContinuationFailed: True
-DistanceToLTL: 22.5833333333358
-DistanceDelta: 11.3333333333358
-IneffectiveDominance: True
-BarsSinceLastFTT: 16
-P2P3Distance: 34.75
-IsWeakContainer: False
-ContainerAgeBars: 8
-IsMatureContainer: True
+SelectedContainer: None
+Container: none
 ----- APVA DEBUG -----
 Bar: 514 Time: 4/28/2026 10:55:00 AM
 InferredDirection: Up
@@ -19163,26 +18821,8 @@ Primary: none
 Secondary: none
 PendingSecondary: none
 PendingSecondaryConfirmBars: 0
-SelectedContainer: UnknownReference
-LTL@559: 27251.5
-LastHigh: 27227 LastClose: 27223.75
-ContainerDirection: Up
-P1: 551 27185.25
-P2: 554 27231.5
-P3: 557 27209.25
-HasValidP3: True
-FTT Kind: T2F_FailedContinuation
-WarningDuration: 2
-ImminentFTT: False
-ExpectedContinuationFailed: True
-DistanceToLTL: 24.5
-DistanceDelta: 4
-IneffectiveDominance: False
-BarsSinceLastFTT: 46
-P2P3Distance: 22.25
-IsWeakContainer: False
-ContainerAgeBars: 8
-IsMatureContainer: True
+SelectedContainer: None
+Container: none
 ----- APVA DEBUG -----
 Bar: 560 Time: 4/28/2026 3:45:00 PM
 InferredDirection: Up
@@ -19479,26 +19119,8 @@ Primary: none
 Secondary: none
 PendingSecondary: none
 PendingSecondaryConfirmBars: 0
-SelectedContainer: UnknownReference
-LTL@569: 27217.25
-LastHigh: 27224.25 LastClose: 27223.5
-ContainerDirection: Down
-P1: 559 27227
-P2: 560 27217.25
-P3: 564 27227
-HasValidP3: True
-FTT Kind: T2F_FailedContinuation
-WarningDuration: 2
-ImminentFTT: False
-ExpectedContinuationFailed: True
-DistanceToLTL: 3.75
-DistanceDelta: 0.5
-IneffectiveDominance: False
-BarsSinceLastFTT: 10
-P2P3Distance: 9.75
-IsWeakContainer: False
-ContainerAgeBars: 10
-IsMatureContainer: True
+SelectedContainer: None
+Container: none
 ----- APVA DEBUG -----
 Bar: 570 Time: 4/28/2026 4:35:00 PM
 InferredDirection: Up
@@ -20326,26 +19948,8 @@ Primary: none
 Secondary: none
 PendingSecondary: none
 PendingSecondaryConfirmBars: 0
-SelectedContainer: UnknownReference
-LTL@594: 27162.875
-LastHigh: 27247.75 LastClose: 27246.25
-ContainerDirection: Down
-P1: 582 27294
-P2: 589 27191.75
-P3: 592 27236.25
-HasValidP3: True
-FTT Kind: T2F_FailedContinuation
-WarningDuration: 2
-ImminentFTT: False
-ExpectedContinuationFailed: True
-DistanceToLTL: 60.875
-DistanceDelta: 2.77499999999782
-IneffectiveDominance: False
-BarsSinceLastFTT: 25
-P2P3Distance: 44.5
-IsWeakContainer: False
-ContainerAgeBars: 12
-IsMatureContainer: True
+SelectedContainer: None
+Container: none
 ----- APVA DEBUG -----
 Bar: 595 Time: 4/28/2026 6:40:00 PM
 InferredDirection: Unknown
@@ -20683,26 +20287,8 @@ Primary: none
 Secondary: none
 PendingSecondary: none
 PendingSecondaryConfirmBars: 0
-SelectedContainer: UnknownReference
-LTL@603: 27288.5
-LastHigh: 27281.5 LastClose: 27274
-ContainerDirection: Up
-P1: 594 27223.75
-P2: 596 27270
-P3: 601 27242.25
-HasValidP3: True
-FTT Kind: T2F_FailedContinuation
-WarningDuration: 4
-ImminentFTT: False
-ExpectedContinuationFailed: True
-DistanceToLTL: 7
-DistanceDelta: -16
-IneffectiveDominance: True
-BarsSinceLastFTT: 9
-P2P3Distance: 27.75
-IsWeakContainer: False
-ContainerAgeBars: 9
-IsMatureContainer: True
+SelectedContainer: None
+Container: none
 ----- APVA DEBUG -----
 Bar: 604 Time: 4/28/2026 7:25:00 PM
 InferredDirection: Unknown
@@ -21202,26 +20788,8 @@ Primary: none
 Secondary: none
 PendingSecondary: none
 PendingSecondaryConfirmBars: 0
-SelectedContainer: UnknownReference
-LTL@617: 27309.25
-LastHigh: 27291.75 LastClose: 27288
-ContainerDirection: Up
-P1: 611 27260.5
-P2: 614 27293.5
-P3: 615 27281.5
-HasValidP3: True
-FTT Kind: T2F_FailedContinuation
-WarningDuration: 3
-ImminentFTT: False
-ExpectedContinuationFailed: True
-DistanceToLTL: 17.5
-DistanceDelta: 9
-IneffectiveDominance: True
-BarsSinceLastFTT: 14
-P2P3Distance: 12
-IsWeakContainer: False
-ContainerAgeBars: 6
-IsMatureContainer: True
+SelectedContainer: None
+Container: none
 ----- APVA DEBUG -----
 Bar: 618 Time: 4/28/2026 8:35:00 PM
 InferredDirection: Up
@@ -21732,26 +21300,8 @@ Primary: none
 Secondary: none
 PendingSecondary: none
 PendingSecondaryConfirmBars: 0
-SelectedContainer: UnknownReference
-LTL@629: 27312.5
-LastHigh: 27294.75 LastClose: 27293.75
-ContainerDirection: Up
-P1: 622 27276.25
-P2: 624 27296.25
-P3: 626 27289.25
-HasValidP3: True
-FTT Kind: T2F_FailedContinuation
-WarningDuration: 6
-ImminentFTT: False
-ExpectedContinuationFailed: True
-DistanceToLTL: 17.75
-DistanceDelta: 1.41666666666424
-IneffectiveDominance: True
-BarsSinceLastFTT: 12
-P2P3Distance: 7
-IsWeakContainer: False
-ContainerAgeBars: 7
-IsMatureContainer: True
+SelectedContainer: None
+Container: none
 ----- APVA DEBUG -----
 Bar: 630 Time: 4/28/2026 9:35:00 PM
 InferredDirection: Up
@@ -22254,26 +21804,8 @@ Primary: none
 Secondary: none
 PendingSecondary: none
 PendingSecondaryConfirmBars: 0
-SelectedContainer: UnknownReference
-LTL@642: 27260
-LastHigh: 27299.75 LastClose: 27291.5
-ContainerDirection: Down
-P1: 631 27312.25
-P2: 633 27292.75
-P3: 640 27279.5
-HasValidP3: True
-FTT Kind: T2F_FailedContinuation
-WarningDuration: 2
-ImminentFTT: False
-ExpectedContinuationFailed: True
-DistanceToLTL: 31.5
-DistanceDelta: 18.8888888888869
-IneffectiveDominance: True
-BarsSinceLastFTT: 13
-P2P3Distance: 13.25
-IsWeakContainer: False
-ContainerAgeBars: 11
-IsMatureContainer: True
+SelectedContainer: None
+Container: none
 ----- APVA DEBUG -----
 Bar: 643 Time: 4/28/2026 10:40:00 PM
 InferredDirection: Up
@@ -23957,26 +23489,8 @@ Primary: none
 Secondary: none
 PendingSecondary: none
 PendingSecondaryConfirmBars: 0
-SelectedContainer: UnknownReference
-LTL@685: 27227.375
-LastHigh: 27248.75 LastClose: 27248
-ContainerDirection: Down
-P1: 681 27249.5
-P2: 682 27229.25
-P3: 683 27248.25
-HasValidP3: True
-FTT Kind: T2F_FailedContinuation
-WarningDuration: 10
-ImminentFTT: False
-ExpectedContinuationFailed: True
-DistanceToLTL: 4.625
-DistanceDelta: 2.875
-IneffectiveDominance: False
-BarsSinceLastFTT: 43
-P2P3Distance: 19
-IsWeakContainer: False
-ContainerAgeBars: 4
-IsMatureContainer: True
+SelectedContainer: None
+Container: none
 ----- APVA DEBUG -----
 Bar: 686 Time: 4/29/2026 2:15:00 AM
 InferredDirection: Unknown
@@ -24787,26 +24301,8 @@ Primary: none
 Secondary: none
 PendingSecondary: none
 PendingSecondaryConfirmBars: 0
-SelectedContainer: UnknownReference
-LTL@706: 27311.5
-LastHigh: 27269.5 LastClose: 27263.25
-ContainerDirection: Up
-P1: 696 27212
-P2: 702 27288.5
-P3: 704 27258
-HasValidP3: True
-FTT Kind: T2F_FailedContinuation
-WarningDuration: 8
-ImminentFTT: False
-ExpectedContinuationFailed: True
-DistanceToLTL: 42
-DistanceDelta: -38.25
-IneffectiveDominance: False
-BarsSinceLastFTT: 21
-P2P3Distance: 30.5
-IsWeakContainer: False
-ContainerAgeBars: 10
-IsMatureContainer: True
+SelectedContainer: None
+Container: none
 ----- APVA DEBUG -----
 Bar: 707 Time: 4/29/2026 4:00:00 AM
 InferredDirection: Unknown
@@ -25174,26 +24670,8 @@ Primary: none
 Secondary: none
 PendingSecondary: none
 PendingSecondaryConfirmBars: 0
-SelectedContainer: UnknownReference
-LTL@716: 27282.5
-LastHigh: 27261.75 LastClose: 27247.25
-ContainerDirection: Up
-P1: 709 27254.5
-P2: 711 27279.75
-P3: 714 27257.25
-HasValidP3: True
-FTT Kind: T2F_FailedContinuation
-WarningDuration: 4
-ImminentFTT: False
-ExpectedContinuationFailed: True
-DistanceToLTL: 20.75
-DistanceDelta: 28.375
-IneffectiveDominance: False
-BarsSinceLastFTT: 10
-P2P3Distance: 22.5
-IsWeakContainer: False
-ContainerAgeBars: 7
-IsMatureContainer: True
+SelectedContainer: None
+Container: none
 ----- APVA DEBUG -----
 Bar: 717 Time: 4/29/2026 4:50:00 AM
 InferredDirection: Unknown
@@ -25684,26 +25162,8 @@ Primary: none
 Secondary: none
 PendingSecondary: none
 PendingSecondaryConfirmBars: 0
-SelectedContainer: UnknownReference
-LTL@728: 27187.875
-LastHigh: 27248 LastClose: 27241
-ContainerDirection: Down
-P1: 718 27262
-P2: 724 27217.75
-P3: 726 27202.25
-HasValidP3: True
-FTT Kind: T2F_FailedContinuation
-WarningDuration: 2
-ImminentFTT: False
-ExpectedContinuationFailed: True
-DistanceToLTL: 37.875
-DistanceDelta: 31.71875
-IneffectiveDominance: False
-BarsSinceLastFTT: 12
-P2P3Distance: 15.5
-IsWeakContainer: False
-ContainerAgeBars: 10
-IsMatureContainer: True
+SelectedContainer: None
+Container: none
 ----- APVA DEBUG -----
 Bar: 729 Time: 4/29/2026 5:50:00 AM
 InferredDirection: Down
@@ -26705,26 +26165,8 @@ Primary: none
 Secondary: none
 PendingSecondary: none
 PendingSecondaryConfirmBars: 0
-SelectedContainer: UnknownReference
-LTL@753: 27383.75
-LastHigh: 27312 LastClose: 27288.25
-ContainerDirection: Up
-P1: 741 27155.5
-P2: 743 27235.75
-P3: 751 27303.5
-HasValidP3: True
-FTT Kind: T2F_FailedContinuation
-WarningDuration: 2
-ImminentFTT: False
-ExpectedContinuationFailed: True
-DistanceToLTL: 71.75
-DistanceDelta: 9.29999999999927
-IneffectiveDominance: False
-BarsSinceLastFTT: 25
-P2P3Distance: 67.75
-IsWeakContainer: False
-ContainerAgeBars: 12
-IsMatureContainer: True
+SelectedContainer: None
+Container: none
 ----- APVA DEBUG -----
 Bar: 754 Time: 4/29/2026 7:55:00 AM
 InferredDirection: Up
@@ -27522,26 +26964,8 @@ Primary: none
 Secondary: none
 PendingSecondary: none
 PendingSecondaryConfirmBars: 0
-SelectedContainer: UnknownReference
-LTL@778: 27111.1666666667
-LastHigh: 27222 LastClose: 27204.5
-ContainerDirection: Down
-P1: 770 27273.5
-P2: 774 27153.5
-P3: 776 27210
-HasValidP3: True
-FTT Kind: T2F_FailedContinuation
-WarningDuration: 3
-ImminentFTT: False
-ExpectedContinuationFailed: True
-DistanceToLTL: 86.3333333333358
-DistanceDelta: 37.9333333333379
-IneffectiveDominance: False
-BarsSinceLastFTT: 25
-P2P3Distance: 56.5
-IsWeakContainer: False
-ContainerAgeBars: 8
-IsMatureContainer: True
+SelectedContainer: None
+Container: none
 ----- APVA DEBUG -----
 Bar: 779 Time: 4/29/2026 10:00:00 AM
 InferredDirection: Down
@@ -28073,26 +27497,8 @@ Primary: none
 Secondary: none
 PendingSecondary: none
 PendingSecondaryConfirmBars: 0
-SelectedContainer: UnknownReference
-LTL@793: 27257.8333333333
-LastHigh: 27226.75 LastClose: 27177.5
-ContainerDirection: Up
-P1: 785 27194.25
-P2: 786 27231
-P3: 788 27205.75
-HasValidP3: True
-FTT Kind: T2F_FailedContinuation
-WarningDuration: 2
-ImminentFTT: False
-ExpectedContinuationFailed: True
-DistanceToLTL: 31.0833333333358
-DistanceDelta: -2.08333333333212
-IneffectiveDominance: False
-BarsSinceLastFTT: 15
-P2P3Distance: 25.25
-IsWeakContainer: False
-ContainerAgeBars: 8
-IsMatureContainer: True
+SelectedContainer: None
+Container: none
 ----- APVA DEBUG -----
 Bar: 794 Time: 4/29/2026 11:15:00 AM
 InferredDirection: Unknown
@@ -29571,26 +28977,8 @@ Primary: none
 Secondary: none
 PendingSecondary: none
 PendingSecondaryConfirmBars: 0
-SelectedContainer: UnknownReference
-LTL@839: 27657.3611111111
-LastHigh: 27486.75 LastClose: 27471.25
-ContainerDirection: Up
-P1: 827 27148.5
-P2: 834 27488.75
-P3: 836 27452
-HasValidP3: True
-FTT Kind: T2F_FailedContinuation
-WarningDuration: 2
-ImminentFTT: False
-ExpectedContinuationFailed: True
-DistanceToLTL: 170.611111111113
-DistanceDelta: 42.4722222222226
-IneffectiveDominance: False
-BarsSinceLastFTT: 46
-P2P3Distance: 36.75
-IsWeakContainer: False
-ContainerAgeBars: 12
-IsMatureContainer: True
+SelectedContainer: None
+Container: none
 ----- APVA DEBUG -----
 Bar: 840 Time: 4/29/2026 4:05:00 PM
 InferredDirection: Up
@@ -31352,26 +30740,8 @@ Primary: none
 Secondary: none
 PendingSecondary: none
 PendingSecondaryConfirmBars: 0
-SelectedContainer: UnknownReference
-LTL@893: 27459.1
-LastHigh: 27426.25 LastClose: 27422.75
-ContainerDirection: Up
-P1: 886 27395.5
-P2: 889 27453.5
-P3: 891 27402.5
-HasValidP3: True
-FTT Kind: T2F_FailedContinuation
-WarningDuration: 2
-ImminentFTT: False
-ExpectedContinuationFailed: True
-DistanceToLTL: 32.8499999999985
-DistanceDelta: -3.93571428571522
-IneffectiveDominance: True
-BarsSinceLastFTT: 54
-P2P3Distance: 51
-IsWeakContainer: False
-ContainerAgeBars: 7
-IsMatureContainer: True
+SelectedContainer: None
+Container: none
 ----- APVA DEBUG -----
 Bar: 894 Time: 4/29/2026 8:35:00 PM
 InferredDirection: Down
@@ -32270,26 +31640,8 @@ Primary: none
 Secondary: none
 PendingSecondary: none
 PendingSecondaryConfirmBars: 0
-SelectedContainer: UnknownReference
-LTL@919: 27317.0833333333
-LastHigh: 27292 LastClose: 27288
-ContainerDirection: Up
-P1: 911 27231.5
-P2: 915 27308.75
-P3: 917 27244
-HasValidP3: True
-FTT Kind: T2F_FailedContinuation
-WarningDuration: 2
-ImminentFTT: False
-ExpectedContinuationFailed: True
-DistanceToLTL: 25.0833333333358
-DistanceDelta: -5.41666666666424
-IneffectiveDominance: True
-BarsSinceLastFTT: 26
-P2P3Distance: 64.75
-IsWeakContainer: False
-ContainerAgeBars: 8
-IsMatureContainer: True
+SelectedContainer: None
+Container: none
 ----- APVA DEBUG -----
 Bar: 920 Time: 4/29/2026 10:45:00 PM
 InferredDirection: Down
@@ -33590,26 +32942,8 @@ Primary: none
 Secondary: none
 PendingSecondary: none
 PendingSecondaryConfirmBars: 0
-SelectedContainer: UnknownReference
-LTL@955: 27309.4
-LastHigh: 27390.5 LastClose: 27389.25
-ContainerDirection: Down
-P1: 942 27377.25
-P2: 943 27352
-P3: 952 27341.75
-HasValidP3: True
-FTT Kind: T2F_FailedContinuation
-WarningDuration: 3
-ImminentFTT: False
-ExpectedContinuationFailed: True
-DistanceToLTL: 49.8500000000022
-DistanceDelta: 0.30000000000291
-IneffectiveDominance: False
-BarsSinceLastFTT: 36
-P2P3Distance: 10.25
-IsWeakContainer: False
-ContainerAgeBars: 13
-IsMatureContainer: True
+SelectedContainer: None
+Container: none
 ----- APVA DEBUG -----
 Bar: 956 Time: 4/30/2026 1:45:00 AM
 InferredDirection: Up
@@ -34235,26 +33569,8 @@ Primary: none
 Secondary: none
 PendingSecondary: none
 PendingSecondaryConfirmBars: 0
-SelectedContainer: UnknownReference
-LTL@971: 27493.5625
-LastHigh: 27378 LastClose: 27367.75
-ContainerDirection: Up
-P1: 964 27330.75
-P2: 966 27442
-P3: 968 27372
-HasValidP3: True
-FTT Kind: T2F_FailedContinuation
-WarningDuration: 3
-ImminentFTT: False
-ExpectedContinuationFailed: True
-DistanceToLTL: 115.5625
-DistanceDelta: 16.8125
-IneffectiveDominance: False
-BarsSinceLastFTT: 16
-P2P3Distance: 70
-IsWeakContainer: False
-ContainerAgeBars: 7
-IsMatureContainer: True
+SelectedContainer: None
+Container: none
 ----- APVA DEBUG -----
 Bar: 972 Time: 4/30/2026 3:05:00 AM
 InferredDirection: Up
@@ -34612,26 +33928,8 @@ Primary: none
 Secondary: none
 PendingSecondary: none
 PendingSecondaryConfirmBars: 0
-SelectedContainer: UnknownReference
-LTL@980: 27423.625
-LastHigh: 27393.25 LastClose: 27378.75
-ContainerDirection: Up
-P1: 971 27356
-P2: 974 27400.75
-P3: 975 27371.25
-HasValidP3: True
-FTT Kind: T2F_FailedContinuation
-WarningDuration: 2
-ImminentFTT: False
-ExpectedContinuationFailed: True
-DistanceToLTL: 30.375
-DistanceDelta: 29.5625
-IneffectiveDominance: False
-BarsSinceLastFTT: 9
-P2P3Distance: 29.5
-IsWeakContainer: False
-ContainerAgeBars: 9
-IsMatureContainer: True
+SelectedContainer: None
+Container: none
 ----- APVA DEBUG -----
 Bar: 981 Time: 4/30/2026 3:50:00 AM
 InferredDirection: Up
@@ -37007,26 +36305,8 @@ Primary: none
 Secondary: none
 PendingSecondary: none
 PendingSecondaryConfirmBars: 0
-SelectedContainer: UnknownReference
-LTL@1047: 27455.3333333333
-LastHigh: 27435 LastClose: 27424.75
-ContainerDirection: Up
-P1: 1041 27331.25
-P2: 1043 27422
-P3: 1044 27356.25
-HasValidP3: True
-FTT Kind: T2F_FailedContinuation
-WarningDuration: 12
-ImminentFTT: False
-ExpectedContinuationFailed: True
-DistanceToLTL: 20.3333333333321
-DistanceDelta: 6.58333333333212
-IneffectiveDominance: False
-BarsSinceLastFTT: 67
-P2P3Distance: 65.75
-IsWeakContainer: False
-ContainerAgeBars: 6
-IsMatureContainer: True
+SelectedContainer: None
+Container: none
 ----- APVA DEBUG -----
 Bar: 1048 Time: 4/30/2026 9:25:00 AM
 InferredDirection: Up
@@ -37846,26 +37126,8 @@ Primary: none
 Secondary: none
 PendingSecondary: none
 PendingSecondaryConfirmBars: 0
-SelectedContainer: UnknownReference
-LTL@1072: 27642.2166666667
-LastHigh: 27572.5 LastClose: 27558.75
-ContainerDirection: Up
-P1: 1055 27347.75
-P2: 1068 27586.75
-P3: 1070 27555.75
-HasValidP3: True
-FTT Kind: T2F_FailedContinuation
-WarningDuration: 2
-ImminentFTT: False
-ExpectedContinuationFailed: True
-DistanceToLTL: 69.7166666666672
-DistanceDelta: 26.8666666666686
-IneffectiveDominance: False
-BarsSinceLastFTT: 25
-P2P3Distance: 31
-IsWeakContainer: False
-ContainerAgeBars: 17
-IsMatureContainer: True
+SelectedContainer: None
+Container: none
 ----- APVA DEBUG -----
 Bar: 1073 Time: 4/30/2026 11:30:00 AM
 InferredDirection: Up
@@ -38290,26 +37552,8 @@ Primary: none
 Secondary: none
 PendingSecondary: none
 PendingSecondaryConfirmBars: 0
-SelectedContainer: UnknownReference
-LTL@1086: 27638.25
-LastHigh: 27598 LastClose: 27596
-ContainerDirection: Up
-P1: 1080 27542
-P2: 1083 27604.5
-P3: 1084 27587
-HasValidP3: True
-FTT Kind: T2F_FailedContinuation
-WarningDuration: 2
-ImminentFTT: False
-ExpectedContinuationFailed: True
-DistanceToLTL: 40.25
-DistanceDelta: 21.75
-IneffectiveDominance: True
-BarsSinceLastFTT: 14
-P2P3Distance: 17.5
-IsWeakContainer: False
-ContainerAgeBars: 6
-IsMatureContainer: True
+SelectedContainer: None
+Container: none
 ----- APVA DEBUG -----
 Bar: 1087 Time: 4/30/2026 12:40:00 PM
 InferredDirection: Up
@@ -39096,26 +38340,8 @@ Primary: none
 Secondary: none
 PendingSecondary: none
 PendingSecondaryConfirmBars: 0
-SelectedContainer: UnknownReference
-LTL@1113: 27660
-LastHigh: 27615.75 LastClose: 27596
-ContainerDirection: Up
-P1: 1103 27590
-P2: 1105 27646.5
-P3: 1111 27603.5
-HasValidP3: True
-FTT Kind: T2F_FailedContinuation
-WarningDuration: 2
-ImminentFTT: False
-ExpectedContinuationFailed: True
-DistanceToLTL: 44.25
-DistanceDelta: 4.9375
-IneffectiveDominance: False
-BarsSinceLastFTT: 27
-P2P3Distance: 43
-IsWeakContainer: False
-ContainerAgeBars: 10
-IsMatureContainer: True
+SelectedContainer: None
+Container: none
 ----- APVA DEBUG -----
 Bar: 1117 Time: 4/30/2026 4:10:00 PM
 InferredDirection: Unknown
@@ -39326,26 +38552,8 @@ Primary: none
 Secondary: none
 PendingSecondary: none
 PendingSecondaryConfirmBars: 0
-SelectedContainer: UnknownReference
-LTL@1122: 27630
-LastHigh: 27620 LastClose: 27614.5
-ContainerDirection: Up
-P1: 1115 27556.25
-P2: 1117 27600
-P3: 1119 27580.25
-HasValidP3: True
-FTT Kind: T2F_FailedContinuation
-WarningDuration: 4
-ImminentFTT: False
-ExpectedContinuationFailed: True
-DistanceToLTL: 10
-DistanceDelta: -7
-IneffectiveDominance: True
-BarsSinceLastFTT: 9
-P2P3Distance: 19.75
-IsWeakContainer: False
-ContainerAgeBars: 7
-IsMatureContainer: True
+SelectedContainer: None
+Container: none
 ----- APVA DEBUG -----
 Bar: 1123 Time: 4/30/2026 4:40:00 PM
 InferredDirection: Unknown
@@ -40340,26 +39548,8 @@ Primary: none
 Secondary: none
 PendingSecondary: none
 PendingSecondaryConfirmBars: 0
-SelectedContainer: UnknownReference
-LTL@1148: 27674.775
-LastHigh: 27652.75 LastClose: 27646
-ContainerDirection: Up
-P1: 1136 27621.75
-P2: 1137 27641.5
-P3: 1146 27652
-HasValidP3: True
-FTT Kind: T2F_FailedContinuation
-WarningDuration: 2
-ImminentFTT: False
-ExpectedContinuationFailed: True
-DistanceToLTL: 22.0249999999978
-DistanceDelta: 7.77499999999782
-IneffectiveDominance: False
-BarsSinceLastFTT: 26
-P2P3Distance: 10.5
-IsWeakContainer: False
-ContainerAgeBars: 12
-IsMatureContainer: True
+SelectedContainer: None
+Container: none
 ----- APVA DEBUG -----
 Bar: 1149 Time: 4/30/2026 6:50:00 PM
 InferredDirection: Up
@@ -41276,26 +40466,8 @@ Primary: none
 Secondary: none
 PendingSecondary: none
 PendingSecondaryConfirmBars: 0
-SelectedContainer: UnknownReference
-LTL@1179: 27590.75
-LastHigh: 27636 LastClose: 27631.25
-ContainerDirection: Down
-P1: 1170 27674.5
-P2: 1173 27634.25
-P3: 1174 27645.5
-HasValidP3: True
-FTT Kind: T2F_FailedContinuation
-WarningDuration: 5
-ImminentFTT: False
-ExpectedContinuationFailed: True
-DistanceToLTL: 38.75
-DistanceDelta: -8.75
-IneffectiveDominance: True
-BarsSinceLastFTT: 31
-P2P3Distance: 11.25
-IsWeakContainer: False
-ContainerAgeBars: 9
-IsMatureContainer: True
+SelectedContainer: None
+Container: none
 ----- APVA DEBUG -----
 Bar: 1180 Time: 4/30/2026 9:25:00 PM
 InferredDirection: Unknown
@@ -41549,26 +40721,8 @@ Primary: none
 Secondary: none
 PendingSecondary: none
 PendingSecondaryConfirmBars: 0
-SelectedContainer: UnknownReference
-LTL@1187: 27621.75
-LastHigh: 27632.5 LastClose: 27628.5
-ContainerDirection: Down
-P1: 1179 27636
-P2: 1181 27625.5
-P3: 1183 27633.5
-HasValidP3: True
-FTT Kind: T2F_FailedContinuation
-WarningDuration: 3
-ImminentFTT: False
-ExpectedContinuationFailed: True
-DistanceToLTL: 4.5
-DistanceDelta: 2.125
-IneffectiveDominance: True
-BarsSinceLastFTT: 8
-P2P3Distance: 8
-IsWeakContainer: False
-ContainerAgeBars: 8
-IsMatureContainer: True
+SelectedContainer: None
+Container: none
 ----- APVA DEBUG -----
 Bar: 1188 Time: 4/30/2026 10:05:00 PM
 InferredDirection: Down
@@ -43577,26 +42731,8 @@ Primary: none
 Secondary: none
 PendingSecondary: none
 PendingSecondaryConfirmBars: 0
-SelectedContainer: UnknownReference
-LTL@1239: 27526.6
-LastHigh: 27563 LastClose: 27555.25
-ContainerDirection: Down
-P1: 1229 27592.5
-P2: 1233 27554.5
-P3: 1234 27569.25
-HasValidP3: True
-FTT Kind: T2F_FailedContinuation
-WarningDuration: 5
-ImminentFTT: False
-ExpectedContinuationFailed: True
-DistanceToLTL: 26.4000000000015
-DistanceDelta: 5.40000000000146
-IneffectiveDominance: True
-BarsSinceLastFTT: 52
-P2P3Distance: 14.75
-IsWeakContainer: False
-ContainerAgeBars: 10
-IsMatureContainer: True
+SelectedContainer: None
+Container: none
 ----- APVA DEBUG -----
 Bar: 1241 Time: 5/1/2026 2:30:00 AM
 InferredDirection: Down
@@ -43986,26 +43122,8 @@ Primary: none
 Secondary: none
 PendingSecondary: none
 PendingSecondaryConfirmBars: 0
-SelectedContainer: UnknownReference
-LTL@1250: 27579.5
-LastHigh: 27569.5 LastClose: 27569.5
-ContainerDirection: Up
-P1: 1242 27556
-P2: 1244 27569
-P3: 1245 27561.25
-HasValidP3: True
-FTT Kind: T2F_FailedContinuation
-WarningDuration: 4
-ImminentFTT: False
-ExpectedContinuationFailed: True
-DistanceToLTL: 10
-DistanceDelta: -0.3125
-IneffectiveDominance: True
-BarsSinceLastFTT: 11
-P2P3Distance: 7.75
-IsWeakContainer: False
-ContainerAgeBars: 8
-IsMatureContainer: True
+SelectedContainer: None
+Container: none
 ----- APVA DEBUG -----
 Bar: 1251 Time: 5/1/2026 3:20:00 AM
 InferredDirection: Up
@@ -45885,26 +45003,8 @@ Primary: none
 Secondary: none
 PendingSecondary: none
 PendingSecondaryConfirmBars: 0
-SelectedContainer: UnknownReference
-LTL@1308: 27879.25
-LastHigh: 27819 LastClose: 27795.25
-ContainerDirection: Up
-P1: 1303 27751
-P2: 1305 27836.75
-P3: 1306 27793.5
-HasValidP3: True
-FTT Kind: T2F_FailedContinuation
-WarningDuration: 4
-ImminentFTT: False
-ExpectedContinuationFailed: True
-DistanceToLTL: 60.25
-DistanceDelta: -74.75
-IneffectiveDominance: False
-BarsSinceLastFTT: 58
-P2P3Distance: 43.25
-IsWeakContainer: False
-ContainerAgeBars: 5
-IsMatureContainer: True
+SelectedContainer: None
+Container: none
 ----- APVA DEBUG -----
 Bar: 1312 Time: 5/1/2026 8:25:00 AM
 InferredDirection: Up
@@ -46402,26 +45502,8 @@ Primary: none
 Secondary: none
 PendingSecondary: none
 PendingSecondaryConfirmBars: 0
-SelectedContainer: UnknownReference
-LTL@1328: 27769.1136363636
-LastHigh: 27848.5 LastClose: 27819.5
-ContainerDirection: Down
-P1: 1315 27903
-P2: 1318 27837.75
-P3: 1326 27827.5
-HasValidP3: True
-FTT Kind: T2F_FailedContinuation
-WarningDuration: 2
-ImminentFTT: False
-ExpectedContinuationFailed: True
-DistanceToLTL: 49.636363636364
-DistanceDelta: 4.11363636363603
-IneffectiveDominance: True
-BarsSinceLastFTT: 20
-P2P3Distance: 10.25
-IsWeakContainer: False
-ContainerAgeBars: 13
-IsMatureContainer: True
+SelectedContainer: None
+Container: none
 ----- APVA DEBUG -----
 Bar: 1329 Time: 5/1/2026 9:50:00 AM
 InferredDirection: Unknown
@@ -48127,26 +47209,8 @@ Primary: none
 Secondary: none
 PendingSecondary: none
 PendingSecondaryConfirmBars: 0
-SelectedContainer: UnknownReference
-LTL@1385: 28094.3333333333
-LastHigh: 27852.5 LastClose: 27845.5
-ContainerDirection: Up
-P1: 1379 27755.75
-P2: 1380 27926
-P3: 1382 27856.75
-HasValidP3: True
-FTT Kind: T2F_FailedContinuation
-WarningDuration: 5
-ImminentFTT: False
-ExpectedContinuationFailed: True
-DistanceToLTL: 241.833333333332
-DistanceDelta: 60.9166666666679
-IneffectiveDominance: False
-BarsSinceLastFTT: 57
-P2P3Distance: 69.25
-IsWeakContainer: False
-ContainerAgeBars: 6
-IsMatureContainer: True
+SelectedContainer: None
+Container: none
 ----- APVA DEBUG -----
 Bar: 1386 Time: 5/3/2026 3:35:00 PM
 InferredDirection: Unknown
@@ -49388,26 +48452,8 @@ Primary: none
 Secondary: none
 PendingSecondary: none
 PendingSecondaryConfirmBars: 0
-SelectedContainer: UnknownReference
-LTL@1417: 27967.6590909091
-LastHigh: 27875.75 LastClose: 27868.5
-ContainerDirection: Up
-P1: 1404 27800.25
-P2: 1405 27866.75
-P3: 1415 27892.75
-HasValidP3: True
-FTT Kind: T2F_FailedContinuation
-WarningDuration: 2
-ImminentFTT: False
-ExpectedContinuationFailed: True
-DistanceToLTL: 91.9090909090883
-DistanceDelta: 31.1590909090883
-IneffectiveDominance: True
-BarsSinceLastFTT: 32
-P2P3Distance: 26
-IsWeakContainer: False
-ContainerAgeBars: 13
-IsMatureContainer: True
+SelectedContainer: None
+Container: none
 ----- APVA DEBUG -----
 Bar: 1418 Time: 5/3/2026 6:15:00 PM
 InferredDirection: Up
@@ -49983,26 +49029,8 @@ Primary: none
 Secondary: none
 PendingSecondary: none
 PendingSecondaryConfirmBars: 0
-SelectedContainer: UnknownReference
-LTL@1431: 27986
-LastHigh: 27913 LastClose: 27908.25
-ContainerDirection: Up
-P1: 1422 27872.5
-P2: 1423 27912
-P3: 1425 27900.25
-HasValidP3: True
-FTT Kind: T2F_FailedContinuation
-WarningDuration: 5
-ImminentFTT: False
-ExpectedContinuationFailed: True
-DistanceToLTL: 73
-DistanceDelta: 14.1785714285725
-IneffectiveDominance: False
-BarsSinceLastFTT: 14
-P2P3Distance: 11.75
-IsWeakContainer: False
-ContainerAgeBars: 9
-IsMatureContainer: True
+SelectedContainer: None
+Container: none
 ----- APVA DEBUG -----
 Bar: 1432 Time: 5/3/2026 7:25:00 PM
 InferredDirection: Up
@@ -51180,26 +50208,8 @@ Primary: none
 Secondary: none
 PendingSecondary: none
 PendingSecondaryConfirmBars: 0
-SelectedContainer: UnknownReference
-LTL@1467: 27921.625
-LastHigh: 27965.75 LastClose: 27959.5
-ContainerDirection: Down
-P1: 1459 27953.25
-P2: 1461 27937
-P3: 1463 27943
-HasValidP3: True
-FTT Kind: T2F_FailedContinuation
-WarningDuration: 4
-ImminentFTT: False
-ExpectedContinuationFailed: True
-DistanceToLTL: 25.625
-DistanceDelta: 5.3125
-IneffectiveDominance: False
-BarsSinceLastFTT: 36
-P2P3Distance: 6
-IsWeakContainer: False
-ContainerAgeBars: 8
-IsMatureContainer: True
+SelectedContainer: None
+Container: none
 ----- APVA DEBUG -----
 Bar: 1468 Time: 5/3/2026 10:25:00 PM
 InferredDirection: Up
@@ -51779,26 +50789,8 @@ Primary: none
 Secondary: none
 PendingSecondary: none
 PendingSecondaryConfirmBars: 0
-SelectedContainer: UnknownReference
-LTL@1481: 27890.25
-LastHigh: 27910 LastClose: 27910
-ContainerDirection: Down
-P1: 1476 27940.25
-P2: 1478 27905
-P3: 1479 27925.5
-HasValidP3: True
-FTT Kind: T2F_FailedContinuation
-WarningDuration: 5
-ImminentFTT: False
-ExpectedContinuationFailed: True
-DistanceToLTL: 2.5
-DistanceDelta: -21.4444444444453
-IneffectiveDominance: False
-BarsSinceLastFTT: 14
-P2P3Distance: 20.5
-IsWeakContainer: False
-ContainerAgeBars: 5
-IsMatureContainer: True
+SelectedContainer: None
+Container: none
 ----- APVA DEBUG -----
 Bar: 1482 Time: 5/3/2026 11:35:00 PM
 InferredDirection: Down
@@ -52304,26 +51296,8 @@ Primary: none
 Secondary: none
 PendingSecondary: none
 PendingSecondaryConfirmBars: 0
-SelectedContainer: UnknownReference
-LTL@1494: 27861.3333333333
-LastHigh: 27937.5 LastClose: 27928.5
-ContainerDirection: Down
-P1: 1479 27925.5
-P2: 1481 27892.75
-P3: 1482 27918.25
-HasValidP3: True
-FTT Kind: T2F_FailedContinuation
-WarningDuration: 7
-ImminentFTT: False
-ExpectedContinuationFailed: True
-DistanceToLTL: 63.4166666666679
-DistanceDelta: -3.83333333333212
-IneffectiveDominance: True
-BarsSinceLastFTT: 13
-P2P3Distance: 25.5
-IsWeakContainer: False
-ContainerAgeBars: 15
-IsMatureContainer: True
+SelectedContainer: None
+Container: none
 ----- APVA DEBUG -----
 Bar: 1496 Time: 5/4/2026 12:45:00 AM
 InferredDirection: Up
@@ -52822,26 +51796,8 @@ Primary: none
 Secondary: none
 PendingSecondary: none
 PendingSecondaryConfirmBars: 0
-SelectedContainer: UnknownReference
-LTL@1509: 27939.7916666667
-LastHigh: 27899 LastClose: 27898
-ContainerDirection: Up
-P1: 1501 27864.25
-P2: 1502 27892.25
-P3: 1507 27905
-HasValidP3: True
-FTT Kind: T2F_FailedContinuation
-WarningDuration: 2
-ImminentFTT: False
-ExpectedContinuationFailed: True
-DistanceToLTL: 40.7916666666642
-DistanceDelta: 15.0416666666642
-IneffectiveDominance: True
-BarsSinceLastFTT: 15
-P2P3Distance: 12.75
-IsWeakContainer: False
-ContainerAgeBars: 8
-IsMatureContainer: True
+SelectedContainer: None
+Container: none
 ----- APVA DEBUG -----
 Bar: 1510 Time: 5/4/2026 1:55:00 AM
 InferredDirection: Down
@@ -54519,26 +53475,8 @@ Primary: none
 Secondary: none
 PendingSecondary: none
 PendingSecondaryConfirmBars: 0
-SelectedContainer: UnknownReference
-LTL@1553: 27889.6875
-LastHigh: 27871.5 LastClose: 27864
-ContainerDirection: Up
-P1: 1543 27778.75
-P2: 1548 27858.75
-P3: 1551 27828.25
-HasValidP3: True
-FTT Kind: T2F_FailedContinuation
-WarningDuration: 2
-ImminentFTT: False
-ExpectedContinuationFailed: True
-DistanceToLTL: 18.1875
-DistanceDelta: 7.1875
-IneffectiveDominance: True
-BarsSinceLastFTT: 44
-P2P3Distance: 30.5
-IsWeakContainer: False
-ContainerAgeBars: 10
-IsMatureContainer: True
+SelectedContainer: None
+Container: none
 ----- APVA DEBUG -----
 Bar: 1554 Time: 5/4/2026 5:35:00 AM
 InferredDirection: Up
@@ -56508,26 +55446,8 @@ Primary: none
 Secondary: none
 PendingSecondary: none
 PendingSecondaryConfirmBars: 0
-SelectedContainer: UnknownReference
-LTL@1604: 27793.875
-LastHigh: 27732.25 LastClose: 27711.75
-ContainerDirection: Up
-P1: 1599 27629.5
-P2: 1601 27747.75
-P3: 1603 27691
-HasValidP3: True
-FTT Kind: T2F_FailedContinuation
-WarningDuration: 4
-ImminentFTT: False
-ExpectedContinuationFailed: True
-DistanceToLTL: 61.625
-DistanceDelta: -15.7083333333358
-IneffectiveDominance: True
-BarsSinceLastFTT: 51
-P2P3Distance: 56.75
-IsWeakContainer: False
-ContainerAgeBars: 5
-IsMatureContainer: True
+SelectedContainer: None
+Container: none
 ----- APVA DEBUG -----
 Bar: 1605 Time: 5/4/2026 9:50:00 AM
 InferredDirection: Down
@@ -59277,26 +58197,8 @@ Primary: none
 Secondary: none
 PendingSecondary: none
 PendingSecondaryConfirmBars: 0
-SelectedContainer: UnknownReference
-LTL@1676: 27766.5
-LastHigh: 27756.75 LastClose: 27745.25
-ContainerDirection: Up
-P1: 1668 27743
-P2: 1670 27764.75
-P3: 1674 27744.75
-HasValidP3: True
-FTT Kind: T2F_FailedContinuation
-WarningDuration: 8
-ImminentFTT: False
-ExpectedContinuationFailed: True
-DistanceToLTL: 9.75
-DistanceDelta: -12.3333333333358
-IneffectiveDominance: False
-BarsSinceLastFTT: 72
-P2P3Distance: 20
-IsWeakContainer: False
-ContainerAgeBars: 8
-IsMatureContainer: True
+SelectedContainer: None
+Container: none
 ----- APVA DEBUG -----
 Bar: 1677 Time: 5/4/2026 4:50:00 PM
 InferredDirection: Down
@@ -60055,26 +58957,8 @@ Primary: none
 Secondary: none
 PendingSecondary: none
 PendingSecondaryConfirmBars: 0
-SelectedContainer: UnknownReference
-LTL@1700: 27833.4166666667
-LastHigh: 27817.25 LastClose: 27811.25
-ContainerDirection: Up
-P1: 1692 27767.75
-P2: 1695 27814.25
-P3: 1698 27790.75
-HasValidP3: True
-FTT Kind: T2F_FailedContinuation
-WarningDuration: 5
-ImminentFTT: False
-ExpectedContinuationFailed: True
-DistanceToLTL: 16.1666666666679
-DistanceDelta: -10.5833333333321
-IneffectiveDominance: False
-BarsSinceLastFTT: 24
-P2P3Distance: 23.5
-IsWeakContainer: False
-ContainerAgeBars: 8
-IsMatureContainer: True
+SelectedContainer: None
+Container: none
 ----- APVA DEBUG -----
 Bar: 1701 Time: 5/4/2026 6:50:00 PM
 InferredDirection: Up
@@ -60990,26 +59874,8 @@ Primary: none
 Secondary: none
 PendingSecondary: none
 PendingSecondaryConfirmBars: 0
-SelectedContainer: UnknownReference
-LTL@1731: 27852.5
-LastHigh: 27846.25 LastClose: 27842
-ContainerDirection: Up
-P1: 1725 27835.5
-P2: 1726 27847.5
-P3: 1727 27837.5
-HasValidP3: True
-FTT Kind: T2F_FailedContinuation
-WarningDuration: 2
-ImminentFTT: False
-ExpectedContinuationFailed: True
-DistanceToLTL: 6.25
-DistanceDelta: -10.0384615384646
-IneffectiveDominance: False
-BarsSinceLastFTT: 31
-P2P3Distance: 10
-IsWeakContainer: False
-ContainerAgeBars: 6
-IsMatureContainer: True
+SelectedContainer: None
+Container: none
 ----- APVA DEBUG -----
 Bar: 1732 Time: 5/4/2026 9:25:00 PM
 InferredDirection: Up
@@ -61522,26 +60388,8 @@ Primary: none
 Secondary: none
 PendingSecondary: none
 PendingSecondaryConfirmBars: 0
-SelectedContainer: UnknownReference
-LTL@1745: 27861.25
-LastHigh: 27845.5 LastClose: 27835.25
-ContainerDirection: Up
-P1: 1740 27818.75
-P2: 1741 27837.75
-P3: 1742 27830.5
-HasValidP3: True
-FTT Kind: T2F_FailedContinuation
-WarningDuration: 4
-ImminentFTT: False
-ExpectedContinuationFailed: True
-DistanceToLTL: 15.75
-DistanceDelta: 6.375
-IneffectiveDominance: False
-BarsSinceLastFTT: 14
-P2P3Distance: 7.25
-IsWeakContainer: False
-ContainerAgeBars: 5
-IsMatureContainer: True
+SelectedContainer: None
+Container: none
 ----- APVA DEBUG -----
 Bar: 1746 Time: 5/4/2026 10:35:00 PM
 InferredDirection: Unknown
@@ -62955,26 +61803,8 @@ Primary: none
 Secondary: none
 PendingSecondary: none
 PendingSecondaryConfirmBars: 0
-SelectedContainer: UnknownReference
-LTL@1784: 27950.9642857143
-LastHigh: 27930 LastClose: 27928
-ContainerDirection: Up
-P1: 1775 27874.75
-P2: 1781 27935
-P3: 1782 27912
-HasValidP3: True
-FTT Kind: T2F_FailedContinuation
-WarningDuration: 2
-ImminentFTT: False
-ExpectedContinuationFailed: True
-DistanceToLTL: 20.9642857142862
-DistanceDelta: 8.32142857143117
-IneffectiveDominance: True
-BarsSinceLastFTT: 39
-P2P3Distance: 23
-IsWeakContainer: False
-ContainerAgeBars: 9
-IsMatureContainer: True
+SelectedContainer: None
+Container: none
 ----- APVA DEBUG -----
 Bar: 1785 Time: 5/5/2026 1:50:00 AM
 InferredDirection: Up
@@ -63275,26 +62105,8 @@ Primary: none
 Secondary: none
 PendingSecondary: none
 PendingSecondaryConfirmBars: 0
-SelectedContainer: UnknownReference
-LTL@1793: 27944.75
-LastHigh: 27934.25 LastClose: 27929.25
-ContainerDirection: Up
-P1: 1789 27908.5
-P2: 1790 27939.75
-P3: 1792 27913.5
-HasValidP3: True
-FTT Kind: T2F_FailedContinuation
-WarningDuration: 4
-ImminentFTT: False
-ExpectedContinuationFailed: True
-DistanceToLTL: 10.5
-DistanceDelta: -21.875
-IneffectiveDominance: True
-BarsSinceLastFTT: 9
-P2P3Distance: 26.25
-IsWeakContainer: False
-ContainerAgeBars: 4
-IsMatureContainer: True
+SelectedContainer: None
+Container: none
 ----- APVA DEBUG -----
 Bar: 1794 Time: 5/5/2026 2:35:00 AM
 InferredDirection: Up
@@ -63607,26 +62419,8 @@ Primary: none
 Secondary: none
 PendingSecondary: none
 PendingSecondaryConfirmBars: 0
-SelectedContainer: UnknownReference
-LTL@1801: 27958.0833333333
-LastHigh: 27934.5 LastClose: 27925.75
-ContainerDirection: Up
-P1: 1789 27908.5
-P2: 1790 27939.75
-P3: 1792 27913.5
-HasValidP3: True
-FTT Kind: T2F_FailedContinuation
-WarningDuration: 4
-ImminentFTT: False
-ExpectedContinuationFailed: True
-DistanceToLTL: 23.5833333333321
-DistanceDelta: 5.41666666666788
-IneffectiveDominance: False
-BarsSinceLastFTT: 8
-P2P3Distance: 26.25
-IsWeakContainer: False
-ContainerAgeBars: 12
-IsMatureContainer: True
+SelectedContainer: None
+Container: none
 ----- APVA DEBUG -----
 Bar: 1803 Time: 5/5/2026 3:20:00 AM
 InferredDirection: Up
@@ -66015,26 +64809,8 @@ Primary: none
 Secondary: none
 PendingSecondary: none
 PendingSecondaryConfirmBars: 0
-SelectedContainer: UnknownReference
-LTL@1866: 28087.75
-LastHigh: 28134 LastClose: 28119.25
-ContainerDirection: Down
-P1: 1855 28139.25
-P2: 1860 28087.75
-P3: 1863 28139.25
-HasValidP3: True
-FTT Kind: T2F_FailedContinuation
-WarningDuration: 8
-ImminentFTT: False
-ExpectedContinuationFailed: True
-DistanceToLTL: 22.75
-DistanceDelta: -4.75
-IneffectiveDominance: True
-BarsSinceLastFTT: 65
-P2P3Distance: 51.5
-IsWeakContainer: False
-ContainerAgeBars: 11
-IsMatureContainer: True
+SelectedContainer: None
+Container: none
 ----- APVA DEBUG -----
 Bar: 1868 Time: 5/5/2026 8:45:00 AM
 InferredDirection: Up
@@ -67360,26 +66136,8 @@ Primary: none
 Secondary: none
 PendingSecondary: none
 PendingSecondaryConfirmBars: 0
-SelectedContainer: UnknownReference
-LTL@1901: 28213.25
-LastHigh: 28183 LastClose: 28177.25
-ContainerDirection: Up
-P1: 1891 28135
-P2: 1894 28167.75
-P3: 1898 28180.5
-HasValidP3: True
-FTT Kind: T2F_FailedContinuation
-WarningDuration: 3
-ImminentFTT: False
-ExpectedContinuationFailed: True
-DistanceToLTL: 30.25
-DistanceDelta: 9
-IneffectiveDominance: True
-BarsSinceLastFTT: 35
-P2P3Distance: 12.75
-IsWeakContainer: False
-ContainerAgeBars: 10
-IsMatureContainer: True
+SelectedContainer: None
+Container: none
 ----- APVA DEBUG -----
 Bar: 1902 Time: 5/5/2026 11:35:00 AM
 InferredDirection: Up
@@ -67789,26 +66547,8 @@ Primary: none
 Secondary: none
 PendingSecondary: none
 PendingSecondaryConfirmBars: 0
-SelectedContainer: UnknownReference
-LTL@1914: 28192.75
-LastHigh: 28170 LastClose: 28161.5
-ContainerDirection: Up
-P1: 1906 28154.25
-P2: 1910 28188.25
-P3: 1912 28161
-HasValidP3: True
-FTT Kind: T2F_FailedContinuation
-WarningDuration: 2
-ImminentFTT: False
-ExpectedContinuationFailed: True
-DistanceToLTL: 22.75
-DistanceDelta: 19.25
-IneffectiveDominance: True
-BarsSinceLastFTT: 13
-P2P3Distance: 27.25
-IsWeakContainer: False
-ContainerAgeBars: 8
-IsMatureContainer: True
+SelectedContainer: None
+Container: none
 ----- APVA DEBUG -----
 Bar: 1915 Time: 5/5/2026 12:40:00 PM
 InferredDirection: Unknown
@@ -68274,26 +67014,8 @@ Primary: none
 Secondary: none
 PendingSecondary: none
 PendingSecondaryConfirmBars: 0
-SelectedContainer: UnknownReference
-LTL@1925: 28118.2083333333
-LastHigh: 28247 LastClose: 28236
-ContainerDirection: Down
-P1: 1910 28188.25
-P2: 1912 28161
-P3: 1916 28168.5
-HasValidP3: True
-FTT Kind: T2F_FailedContinuation
-WarningDuration: 2
-ImminentFTT: False
-ExpectedContinuationFailed: True
-DistanceToLTL: 76.2916666666679
-DistanceDelta: 39.2916666666679
-IneffectiveDominance: False
-BarsSinceLastFTT: 11
-P2P3Distance: 7.5
-IsWeakContainer: False
-ContainerAgeBars: 15
-IsMatureContainer: True
+SelectedContainer: None
+Container: none
 ----- APVA DEBUG -----
 Bar: 1926 Time: 5/5/2026 1:35:00 PM
 InferredDirection: Up
@@ -69794,26 +68516,8 @@ Primary: none
 Secondary: none
 PendingSecondary: none
 PendingSecondaryConfirmBars: 0
-SelectedContainer: UnknownReference
-LTL@1975: 28319.25
-LastHigh: 28287.5 LastClose: 28284.5
-ContainerDirection: Up
-P1: 1968 28267.75
-P2: 1969 28298.75
-P3: 1971 28278
-HasValidP3: True
-FTT Kind: T2F_FailedContinuation
-WarningDuration: 6
-ImminentFTT: False
-ExpectedContinuationFailed: True
-DistanceToLTL: 31.75
-DistanceDelta: 9.66666666666788
-IneffectiveDominance: True
-BarsSinceLastFTT: 50
-P2P3Distance: 20.75
-IsWeakContainer: False
-ContainerAgeBars: 7
-IsMatureContainer: True
+SelectedContainer: None
+Container: none
 ----- APVA DEBUG -----
 Bar: 1976 Time: 5/5/2026 6:45:00 PM
 InferredDirection: Down
@@ -70880,26 +69584,8 @@ Primary: none
 Secondary: none
 PendingSecondary: none
 PendingSecondaryConfirmBars: 0
-SelectedContainer: UnknownReference
-LTL@2001: 28344
-LastHigh: 28325 LastClose: 28309.25
-ContainerDirection: Up
-P1: 1993 28282.75
-P2: 1994 28309
-P3: 1996 28297.75
-HasValidP3: True
-FTT Kind: T2F_FailedContinuation
-WarningDuration: 3
-ImminentFTT: False
-ExpectedContinuationFailed: True
-DistanceToLTL: 19
-DistanceDelta: 0
-IneffectiveDominance: False
-BarsSinceLastFTT: 26
-P2P3Distance: 11.25
-IsWeakContainer: False
-ContainerAgeBars: 8
-IsMatureContainer: True
+SelectedContainer: None
+Container: none
 ----- APVA DEBUG -----
 Bar: 2002 Time: 5/5/2026 8:55:00 PM
 InferredDirection: Up
@@ -71548,26 +70234,8 @@ Primary: none
 Secondary: none
 PendingSecondary: none
 PendingSecondaryConfirmBars: 0
-SelectedContainer: UnknownReference
-LTL@2018: 28361.25
-LastHigh: 28349 LastClose: 28342.5
-ContainerDirection: Up
-P1: 2012 28312
-P2: 2014 28344.5
-P3: 2016 28328.75
-HasValidP3: True
-FTT Kind: T2F_FailedContinuation
-WarningDuration: 2
-ImminentFTT: False
-ExpectedContinuationFailed: True
-DistanceToLTL: 12.25
-DistanceDelta: 3.1875
-IneffectiveDominance: False
-BarsSinceLastFTT: 17
-P2P3Distance: 15.75
-IsWeakContainer: False
-ContainerAgeBars: 6
-IsMatureContainer: True
+SelectedContainer: None
+Container: none
 ----- APVA DEBUG -----
 Bar: 2019 Time: 5/5/2026 10:20:00 PM
 InferredDirection: Up
@@ -74029,26 +72697,8 @@ Primary: none
 Secondary: none
 PendingSecondary: none
 PendingSecondaryConfirmBars: 0
-SelectedContainer: UnknownReference
-LTL@2084: 28611.5833333333
-LastHigh: 28590.75 LastClose: 28583.75
-ContainerDirection: Up
-P1: 2073 28481
-P2: 2076 28538.25
-P3: 2082 28563.5
-HasValidP3: True
-FTT Kind: T2F_FailedContinuation
-WarningDuration: 2
-ImminentFTT: False
-ExpectedContinuationFailed: True
-DistanceToLTL: 20.8333333333321
-DistanceDelta: -9.83333333333576
-IneffectiveDominance: True
-BarsSinceLastFTT: 66
-P2P3Distance: 25.25
-IsWeakContainer: False
-ContainerAgeBars: 11
-IsMatureContainer: True
+SelectedContainer: None
+Container: none
 ----- APVA DEBUG -----
 Bar: 2085 Time: 5/6/2026 3:50:00 AM
 InferredDirection: Up
@@ -75411,26 +74061,8 @@ Primary: none
 Secondary: none
 PendingSecondary: none
 PendingSecondaryConfirmBars: 0
-SelectedContainer: UnknownReference
-LTL@2123: 28319.5
-LastHigh: 28506 LastClose: 28469
-ContainerDirection: Down
-P1: 2111 28466.25
-P2: 2113 28392
-P3: 2115 28437.25
-HasValidP3: True
-FTT Kind: T2F_FailedContinuation
-WarningDuration: 4
-ImminentFTT: False
-ExpectedContinuationFailed: True
-DistanceToLTL: 144
-DistanceDelta: 51.25
-IneffectiveDominance: True
-BarsSinceLastFTT: 39
-P2P3Distance: 45.25
-IsWeakContainer: False
-ContainerAgeBars: 12
-IsMatureContainer: True
+SelectedContainer: None
+Container: none
 ----- APVA DEBUG -----
 Bar: 2124 Time: 5/6/2026 7:05:00 AM
 InferredDirection: Down
@@ -75985,26 +74617,8 @@ Primary: none
 Secondary: none
 PendingSecondary: none
 PendingSecondaryConfirmBars: 0
-SelectedContainer: UnknownReference
-LTL@2137: 28652.675
-LastHigh: 28558.25 LastClose: 28539
-ContainerDirection: Up
-P1: 2125 28385
-P2: 2126 28499.5
-P3: 2135 28524.25
-HasValidP3: True
-FTT Kind: T2F_FailedContinuation
-WarningDuration: 8
-ImminentFTT: False
-ExpectedContinuationFailed: True
-DistanceToLTL: 94.4249999999993
-DistanceDelta: 49.4249999999993
-IneffectiveDominance: False
-BarsSinceLastFTT: 14
-P2P3Distance: 24.75
-IsWeakContainer: False
-ContainerAgeBars: 12
-IsMatureContainer: True
+SelectedContainer: None
+Container: none
 ----- APVA DEBUG -----
 Bar: 2138 Time: 5/6/2026 8:15:00 AM
 InferredDirection: Up
@@ -77588,26 +76202,8 @@ Primary: none
 Secondary: none
 PendingSecondary: none
 PendingSecondaryConfirmBars: 0
-SelectedContainer: UnknownReference
-LTL@2181: 28668.8333333333
-LastHigh: 28657.25 LastClose: 28638.5
-ContainerDirection: Up
-P1: 2165 28575.75
-P2: 2169 28609.5
-P3: 2174 28620.25
-HasValidP3: True
-FTT Kind: T2F_FailedContinuation
-WarningDuration: 2
-ImminentFTT: False
-ExpectedContinuationFailed: True
-DistanceToLTL: 11.5833333333321
-DistanceDelta: 2.58333333333212
-IneffectiveDominance: False
-BarsSinceLastFTT: 44
-P2P3Distance: 10.75
-IsWeakContainer: False
-ContainerAgeBars: 16
-IsMatureContainer: True
+SelectedContainer: None
+Container: none
 ----- APVA DEBUG -----
 Bar: 2182 Time: 5/6/2026 11:55:00 AM
 InferredDirection: Up
@@ -77932,26 +76528,8 @@ Primary: none
 Secondary: none
 PendingSecondary: none
 PendingSecondaryConfirmBars: 0
-SelectedContainer: UnknownReference
-LTL@2189: 28721.5
-LastHigh: 28699.75 LastClose: 28694.25
-ContainerDirection: Up
-P1: 2177 28623.25
-P2: 2179 28665.75
-P3: 2187 28679
-HasValidP3: True
-FTT Kind: T2F_FailedContinuation
-WarningDuration: 2
-ImminentFTT: False
-ExpectedContinuationFailed: True
-DistanceToLTL: 21.75
-DistanceDelta: 1.07500000000073
-IneffectiveDominance: True
-BarsSinceLastFTT: 8
-P2P3Distance: 13.25
-IsWeakContainer: False
-ContainerAgeBars: 12
-IsMatureContainer: True
+SelectedContainer: None
+Container: none
 ----- APVA DEBUG -----
 Bar: 2190 Time: 5/6/2026 12:35:00 PM
 InferredDirection: Up
@@ -78608,26 +77186,8 @@ Primary: none
 Secondary: none
 PendingSecondary: none
 PendingSecondaryConfirmBars: 0
-SelectedContainer: UnknownReference
-LTL@2212: 28617
-LastHigh: 28693.25 LastClose: 28671
-ContainerDirection: Down
-P1: 2207 28714.75
-P2: 2208 28650
-P3: 2210 28690
-HasValidP3: True
-FTT Kind: T2F_FailedContinuation
-WarningDuration: 2
-ImminentFTT: False
-ExpectedContinuationFailed: True
-DistanceToLTL: 45.5
-DistanceDelta: -9.25
-IneffectiveDominance: True
-BarsSinceLastFTT: 23
-P2P3Distance: 40
-IsWeakContainer: False
-ContainerAgeBars: 5
-IsMatureContainer: True
+SelectedContainer: None
+Container: none
 ----- APVA DEBUG -----
 Bar: 2213 Time: 5/6/2026 3:30:00 PM
 InferredDirection: Unknown
@@ -79249,26 +77809,8 @@ Primary: none
 Secondary: none
 PendingSecondary: none
 PendingSecondaryConfirmBars: 0
-SelectedContainer: UnknownReference
-LTL@2231: 28641.5714285714
-LastHigh: 28676.75 LastClose: 28670.25
-ContainerDirection: Down
-P1: 2222 28694.5
-P2: 2223 28677
-P3: 2229 28663.5
-HasValidP3: True
-FTT Kind: T2F_FailedContinuation
-WarningDuration: 2
-ImminentFTT: False
-ExpectedContinuationFailed: True
-DistanceToLTL: 23.4285714285688
-DistanceDelta: 12.1785714285688
-IneffectiveDominance: True
-BarsSinceLastFTT: 19
-P2P3Distance: 13.5
-IsWeakContainer: False
-ContainerAgeBars: 9
-IsMatureContainer: True
+SelectedContainer: None
+Container: none
 ----- APVA DEBUG -----
 Bar: 2232 Time: 5/6/2026 5:05:00 PM
 InferredDirection: Up
@@ -79714,26 +78256,8 @@ Primary: none
 Secondary: none
 PendingSecondary: none
 PendingSecondaryConfirmBars: 0
-SelectedContainer: UnknownReference
-LTL@2242: 28613.4
-LastHigh: 28663.5 LastClose: 28656.25
-ContainerDirection: Down
-P1: 2234 28689.75
-P2: 2238 28640
-P3: 2239 28656.5
-HasValidP3: True
-FTT Kind: T2F_FailedContinuation
-WarningDuration: 2
-ImminentFTT: False
-ExpectedContinuationFailed: True
-DistanceToLTL: 40.3500000000022
-DistanceDelta: 11.1500000000015
-IneffectiveDominance: True
-BarsSinceLastFTT: 11
-P2P3Distance: 16.5
-IsWeakContainer: False
-ContainerAgeBars: 8
-IsMatureContainer: True
+SelectedContainer: None
+Container: none
 ----- APVA DEBUG -----
 Bar: 2243 Time: 5/6/2026 6:00:00 PM
 InferredDirection: Down
@@ -81411,4 +79935,102 @@ BarsSinceLastFTT: 40
 P2P3Distance: 20.5
 IsWeakContainer: False
 ContainerAgeBars: 20
+IsMatureContainer: True
+----- APVA DEBUG -----
+Bar: 2284 Time: 5/6/2026 9:25:00 PM
+InferredDirection: Up
+2265-2267 Black Up AvgVol=223 Rank=Elevated Phase=Unknown Dom=NonDominant
+2268-2268 Red Down AvgVol=306 Rank=Peak Phase=PP1 Dom=Dominant
+2269-2269 Black Up AvgVol=182 Rank=Normal Phase=Unknown Dom=NonDominant
+2270-2270 Red Down AvgVol=171 Rank=Normal Phase=Unknown Dom=Dominant
+2271-2271 Black Up AvgVol=330 Rank=Peak Phase=Unknown Dom=CounterDominant
+2272-2272 Red Down AvgVol=443 Rank=Climax Phase=PP1 Dom=Dominant
+2273-2274 Black Up AvgVol=217 Rank=Normal Phase=Unknown Dom=NonDominant
+2275-2275 Red Down AvgVol=214 Rank=Normal Phase=Unknown Dom=Dominant
+2276-2276 Black Up AvgVol=131 Rank=Low Phase=Unknown Dom=NonDominant
+2277-2277 Red Down AvgVol=139 Rank=Low Phase=Unknown Dom=Dominant
+2278-2278 Black Up AvgVol=176 Rank=Normal Phase=Unknown Dom=NonDominant
+2279-2280 Red Down AvgVol=260 Rank=Elevated Phase=PP2 Dom=Dominant
+2281-2283 Black Up AvgVol=219 Rank=Elevated Phase=T1 Dom=NonDominant
+2284-2284 Red Down AvgVol=146 Rank=Normal Phase=T2F Dom=Dominant
+HasDominanceSequence: False
+HasFailureSequence: False
+FTT Candidate: False
+FTT Confirmed: False
+FTT Reason: T2F detected after dominance expectation. Blocked by insufficient warning buildup.
+CurrentSegmentDominance: Dominant
+ContainerBias: NonDominant
+RecentBias: NonDominant
+Primary: Dir=Down P1=2262@28691.75 P2=2264@28670.5 P3=2267@28691 ValidP3=True Score=3.00
+Secondary: Dir=Up P1=2272@28673.75 P2=2279@28702.25 P3=2284@28708 ValidP3=True Score=6.00
+PendingSecondary: none
+PendingSecondaryConfirmBars: 0
+SelectedContainer: Secondary
+LTL@2284: 28716.5208333333
+LastHigh: 28711 LastClose: 28708
+ContainerDirection: Up
+P1: 2272 28673.75
+P2: 2279 28702.25
+P3: 2284 28708
+HasValidP3: True
+FTT Kind: None
+WarningDuration: 0
+ImminentFTT: False
+ExpectedContinuationFailed: True
+DistanceToLTL: -1.09375
+DistanceDelta: 0.53125
+IneffectiveDominance: False
+BarsSinceLastFTT: 42
+P2P3Distance: 5.75
+IsWeakContainer: False
+ContainerAgeBars: 12
+IsMatureContainer: True
+----- APVA DEBUG -----
+Bar: 2285 Time: 5/6/2026 9:30:00 PM
+InferredDirection: Up
+2266-2267 Black Up AvgVol=206 Rank=Normal Phase=Unknown Dom=Dominant
+2268-2268 Red Down AvgVol=306 Rank=Peak Phase=Unknown Dom=CounterDominant
+2269-2269 Black Up AvgVol=182 Rank=Normal Phase=Unknown Dom=Dominant
+2270-2270 Red Down AvgVol=171 Rank=Normal Phase=Unknown Dom=NonDominant
+2271-2271 Black Up AvgVol=330 Rank=Peak Phase=PP1 Dom=Dominant
+2272-2272 Red Down AvgVol=443 Rank=Climax Phase=Unknown Dom=CounterDominant
+2273-2274 Black Up AvgVol=217 Rank=Elevated Phase=PP1 Dom=Dominant
+2275-2275 Red Down AvgVol=214 Rank=Normal Phase=Unknown Dom=NonDominant
+2276-2276 Black Up AvgVol=131 Rank=Low Phase=Unknown Dom=Dominant
+2277-2277 Red Down AvgVol=139 Rank=Low Phase=Unknown Dom=NonDominant
+2278-2278 Black Up AvgVol=176 Rank=Normal Phase=Unknown Dom=Dominant
+2279-2280 Red Down AvgVol=260 Rank=Elevated Phase=Unknown Dom=NonDominant
+2281-2283 Black Up AvgVol=219 Rank=Elevated Phase=PP2 Dom=Dominant
+2284-2285 Red Down AvgVol=186 Rank=Normal Phase=T1 Dom=NonDominant
+HasDominanceSequence: False
+HasFailureSequence: False
+FTT Candidate: False
+FTT Confirmed: False
+FTT Reason: Valid P3 and failed structural continuation, but no T2F confirmation. Blocked by insufficient warning buildup.
+CurrentSegmentDominance: NonDominant
+ContainerBias: CounterDominant
+RecentBias: NonDominant
+Primary: Dir=Down P1=2262@28691.75 P2=2264@28670.5 P3=2267@28691 ValidP3=True Score=6.00
+Secondary: Dir=Up P1=2272@28673.75 P2=2279@28702.25 P3=2284@28708 ValidP3=True Score=0.00
+PendingSecondary: Dir=Up P1=2272@28673.75 P2=2279@28702.25 P3=2280@28686 ValidP3=True Score=0.00
+PendingSecondaryConfirmBars: 1
+SelectedContainer: Primary
+LTL@2285: 28667.35
+LastHigh: 28713.25 LastClose: 28707.75
+ContainerDirection: Down
+P1: 2262 28691.75
+P2: 2264 28670.5
+P3: 2267 28691
+HasValidP3: True
+FTT Kind: StructuralWarning
+WarningDuration: 1
+ImminentFTT: False
+ExpectedContinuationFailed: True
+DistanceToLTL: 36.9000000000015
+DistanceDelta: 37.9937500000015
+IneffectiveDominance: False
+BarsSinceLastFTT: 43
+P2P3Distance: 20.5
+IsWeakContainer: False
+ContainerAgeBars: 23
 IsMatureContainer: True
