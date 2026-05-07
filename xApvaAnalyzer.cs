@@ -324,7 +324,11 @@ namespace APVA.Core
 			
 			bool hasT2F =
 			    result.Ftt != null &&
-			    result.Ftt.Kind == FttKind.T2F_FailedContinuation;
+			    (
+			        result.Ftt.Kind == FttKind.T2F_FailedContinuation ||
+			        (result.Ftt.Reason != null &&
+			         result.Ftt.Reason.Contains("T2F"))
+			    );
 			
 			if (continuationFailed && (nearStructure || hasT2F))
 			{
@@ -697,6 +701,7 @@ namespace APVA.Core
 		}
     }
 }
+
 
 
 
