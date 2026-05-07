@@ -1,0 +1,341 @@
+===== part0 =====
+FTT Confirmed: True : 2
+UnknownReference : 0
+Blocked by weak/low-score container : 0
+Blocked by insufficient warning buildup : 10
+WarningDuration: 2 : 2
+WarningDuration: 3 : 1
+ImminentFTT: True : 3
+
+===== part1 =====
+FTT Confirmed: True : 3
+UnknownReference : 0
+Blocked by weak/low-score container : 6
+Blocked by insufficient warning buildup : 5
+WarningDuration: 2 : 2
+WarningDuration: 3 : 1
+ImminentFTT: True : 6
+
+===== part2 =====
+FTT Confirmed: True : 1
+UnknownReference : 0
+Blocked by weak/low-score container : 0
+Blocked by insufficient warning buildup : 6
+WarningDuration: 2 : 5
+WarningDuration: 3 : 4
+ImminentFTT: True : 9
+
+===== part3 =====
+FTT Confirmed: True : 3
+UnknownReference : 0
+Blocked by weak/low-score container : 0
+Blocked by insufficient warning buildup : 8
+WarningDuration: 2 : 5
+WarningDuration: 3 : 4
+ImminentFTT: True : 10
+
+===== part4 =====
+FTT Confirmed: True : 2
+UnknownReference : 0
+Blocked by weak/low-score container : 2
+Blocked by insufficient warning buildup : 8
+WarningDuration: 2 : 4
+WarningDuration: 3 : 4
+ImminentFTT: True : 7
+
+===== part5 =====
+FTT Confirmed: True : 3
+UnknownReference : 0
+Blocked by weak/low-score container : 0
+Blocked by insufficient warning buildup : 10
+WarningDuration: 2 : 5
+WarningDuration: 3 : 4
+ImminentFTT: True : 5
+
+===== part6 =====
+FTT Confirmed: True : 2
+UnknownReference : 0
+Blocked by weak/low-score container : 0
+Blocked by insufficient warning buildup : 9
+WarningDuration: 2 : 2
+WarningDuration: 3 : 2
+ImminentFTT: True : 9
+
+===== part7 =====
+FTT Confirmed: True : 2
+UnknownReference : 0
+Blocked by weak/low-score container : 2
+Blocked by insufficient warning buildup : 3
+WarningDuration: 2 : 3
+WarningDuration: 3 : 3
+ImminentFTT: True : 14
+
+===== part8 =====
+FTT Confirmed: True : 1
+UnknownReference : 0
+Blocked by weak/low-score container : 0
+Blocked by insufficient warning buildup : 9
+WarningDuration: 2 : 4
+WarningDuration: 3 : 3
+ImminentFTT: True : 9
+
+===== part9 =====
+FTT Confirmed: True : 4
+UnknownReference : 0
+Blocked by weak/low-score container : 1
+Blocked by insufficient warning buildup : 11
+WarningDuration: 2 : 5
+WarningDuration: 3 : 3
+ImminentFTT: True : 8
+
+===== part10 =====
+FTT Confirmed: True : 3
+UnknownReference : 0
+Blocked by weak/low-score container : 3
+Blocked by insufficient warning buildup : 8
+WarningDuration: 2 : 6
+WarningDuration: 3 : 5
+ImminentFTT: True : 7
+
+===== part11 =====
+FTT Confirmed: True : 3
+UnknownReference : 0
+Blocked by weak/low-score container : 1
+Blocked by insufficient warning buildup : 7
+WarningDuration: 2 : 4
+WarningDuration: 3 : 4
+ImminentFTT: True : 11
+
+===== part12 =====
+FTT Confirmed: True : 3
+UnknownReference : 0
+Blocked by weak/low-score container : 2
+Blocked by insufficient warning buildup : 13
+WarningDuration: 2 : 4
+WarningDuration: 3 : 3
+ImminentFTT: True : 9
+
+===== part13 =====
+FTT Confirmed: True : 2
+UnknownReference : 0
+Blocked by weak/low-score container : 0
+Blocked by insufficient warning buildup : 11
+WarningDuration: 2 : 5
+WarningDuration: 3 : 4
+ImminentFTT: True : 7
+
+===== part14 =====
+FTT Confirmed: True : 1
+UnknownReference : 0
+Blocked by weak/low-score container : 0
+Blocked by insufficient warning buildup : 10
+WarningDuration: 2 : 4
+WarningDuration: 3 : 4
+ImminentFTT: True : 3
+
+===== part15 =====
+FTT Confirmed: True : 2
+UnknownReference : 0
+Blocked by weak/low-score container : 0
+Blocked by insufficient warning buildup : 11
+WarningDuration: 2 : 5
+WarningDuration: 3 : 4
+ImminentFTT: True : 6
+
+===== part16 =====
+FTT Confirmed: True : 2
+UnknownReference : 0
+Blocked by weak/low-score container : 0
+Blocked by insufficient warning buildup : 9
+WarningDuration: 2 : 3
+WarningDuration: 3 : 2
+ImminentFTT: True : 5
+
+===== part17 =====
+FTT Confirmed: True : 2
+UnknownReference : 0
+Blocked by weak/low-score container : 3
+Blocked by insufficient warning buildup : 21
+WarningDuration: 2 : 2
+WarningDuration: 3 : 2
+ImminentFTT: True : 0
+
+===== part18 =====
+FTT Confirmed: True : 3
+UnknownReference : 0
+Blocked by weak/low-score container : 1
+Blocked by insufficient warning buildup : 9
+WarningDuration: 2 : 6
+WarningDuration: 3 : 5
+ImminentFTT: True : 8
+
+===== part19 =====
+FTT Confirmed: True : 3
+UnknownReference : 0
+Blocked by weak/low-score container : 2
+Blocked by insufficient warning buildup : 8
+WarningDuration: 2 : 5
+WarningDuration: 3 : 4
+ImminentFTT: True : 9
+
+===== part20 =====
+FTT Confirmed: True : 2
+UnknownReference : 0
+Blocked by weak/low-score container : 0
+Blocked by insufficient warning buildup : 10
+WarningDuration: 2 : 6
+WarningDuration: 3 : 6
+ImminentFTT: True : 7
+
+===== part21 =====
+FTT Confirmed: True : 1
+UnknownReference : 0
+Blocked by weak/low-score container : 2
+Blocked by insufficient warning buildup : 7
+WarningDuration: 2 : 6
+WarningDuration: 3 : 3
+ImminentFTT: True : 15
+
+===== part22 =====
+FTT Confirmed: True : 2
+UnknownReference : 0
+Blocked by weak/low-score container : 0
+Blocked by insufficient warning buildup : 7
+WarningDuration: 2 : 5
+WarningDuration: 3 : 5
+ImminentFTT: True : 10
+
+===== part23 =====
+FTT Confirmed: True : 2
+UnknownReference : 0
+Blocked by weak/low-score container : 1
+Blocked by insufficient warning buildup : 6
+WarningDuration: 2 : 4
+WarningDuration: 3 : 4
+ImminentFTT: True : 5
+
+===== part24 =====
+FTT Confirmed: True : 3
+UnknownReference : 0
+Blocked by weak/low-score container : 0
+Blocked by insufficient warning buildup : 7
+WarningDuration: 2 : 5
+WarningDuration: 3 : 5
+ImminentFTT: True : 7
+
+===== part25 =====
+FTT Confirmed: True : 2
+UnknownReference : 0
+Blocked by weak/low-score container : 4
+Blocked by insufficient warning buildup : 5
+WarningDuration: 2 : 3
+WarningDuration: 3 : 3
+ImminentFTT: True : 9
+
+===== part26 =====
+FTT Confirmed: True : 1
+UnknownReference : 0
+Blocked by weak/low-score container : 0
+Blocked by insufficient warning buildup : 10
+WarningDuration: 2 : 6
+WarningDuration: 3 : 5
+ImminentFTT: True : 7
+
+===== part27 =====
+FTT Confirmed: True : 0
+UnknownReference : 0
+Blocked by weak/low-score container : 0
+Blocked by insufficient warning buildup : 6
+WarningDuration: 2 : 5
+WarningDuration: 3 : 3
+ImminentFTT: True : 10
+
+===== part28 =====
+FTT Confirmed: True : 3
+UnknownReference : 0
+Blocked by weak/low-score container : 2
+Blocked by insufficient warning buildup : 5
+WarningDuration: 2 : 4
+WarningDuration: 3 : 3
+ImminentFTT: True : 7
+
+===== part29 =====
+FTT Confirmed: True : 2
+UnknownReference : 0
+Blocked by weak/low-score container : 3
+Blocked by insufficient warning buildup : 12
+WarningDuration: 2 : 6
+WarningDuration: 3 : 5
+ImminentFTT: True : 2
+
+===== part30 =====
+FTT Confirmed: True : 2
+UnknownReference : 0
+Blocked by weak/low-score container : 1
+Blocked by insufficient warning buildup : 7
+WarningDuration: 2 : 5
+WarningDuration: 3 : 5
+ImminentFTT: True : 18
+
+===== part31 =====
+FTT Confirmed: True : 2
+UnknownReference : 0
+Blocked by weak/low-score container : 1
+Blocked by insufficient warning buildup : 6
+WarningDuration: 2 : 4
+WarningDuration: 3 : 2
+ImminentFTT: True : 6
+
+===== part32 =====
+FTT Confirmed: True : 2
+UnknownReference : 0
+Blocked by weak/low-score container : 0
+Blocked by insufficient warning buildup : 7
+WarningDuration: 2 : 3
+WarningDuration: 3 : 3
+ImminentFTT: True : 9
+
+===== part33 =====
+FTT Confirmed: True : 3
+UnknownReference : 0
+Blocked by weak/low-score container : 0
+Blocked by insufficient warning buildup : 9
+WarningDuration: 2 : 4
+WarningDuration: 3 : 2
+ImminentFTT: True : 3
+
+===== part34 =====
+FTT Confirmed: True : 0
+UnknownReference : 0
+Blocked by weak/low-score container : 2
+Blocked by insufficient warning buildup : 13
+WarningDuration: 2 : 5
+WarningDuration: 3 : 4
+ImminentFTT: True : 15
+
+===== part35 =====
+FTT Confirmed: True : 3
+UnknownReference : 0
+Blocked by weak/low-score container : 4
+Blocked by insufficient warning buildup : 6
+WarningDuration: 2 : 6
+WarningDuration: 3 : 5
+ImminentFTT: True : 12
+
+===== part36 =====
+FTT Confirmed: True : 2
+UnknownReference : 0
+Blocked by weak/low-score container : 0
+Blocked by insufficient warning buildup : 11
+WarningDuration: 2 : 5
+WarningDuration: 3 : 5
+ImminentFTT: True : 1
+
+===== part37 =====
+FTT Confirmed: True : 3
+UnknownReference : 0
+Blocked by weak/low-score container : 0
+Blocked by insufficient warning buildup : 12
+WarningDuration: 2 : 3
+WarningDuration: 3 : 1
+ImminentFTT: True : 5
