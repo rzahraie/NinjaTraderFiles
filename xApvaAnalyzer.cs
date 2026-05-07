@@ -353,7 +353,20 @@ namespace APVA.Core
 		        result.DistanceToLtl > 0;
 		}
 
-		private static void DetectAndGateFtt(
+		private static void DetectFtt(
+		    ApvaAnalysisResult result,
+		    bool continuationFailed,
+		    bool continuationAttempted)
+		{
+		    result.Ftt =
+		        xApvaFttDetector.Detect(
+		            result.Segments,
+		            hasValidP3: result.Container != null && result.Container.HasValidP3,
+		            expectedContinuationFailed: continuationFailed,
+		            continuationAttempted: continuationAttempted);
+		}
+
+		private static void GateFtt(
 		    ApvaAnalysisResult result,
 		    ApvaAnalyzerState state,
 		    Bar currentBar,
@@ -367,13 +380,6 @@ namespace APVA.Core
 			    result.Ftt.Reason = "Blocked by post-FTT grace period.";
 			    return;
 			}
-
-		    result.Ftt =
-			    xApvaFttDetector.Detect(
-			        result.Segments,
-			        hasValidP3: result.Container != null && result.Container.HasValidP3,
-			        expectedContinuationFailed: continuationFailed,
-			        continuationAttempted: continuationAttempted);
 			
 			// NEW: require sustained failure before candidate
 			const int MinWarningBarsForCandidate = 2;
@@ -645,18 +651,23 @@ namespace APVA.Core
 		            result,
 		            state);
 		
-		    DetectAndGateFtt(
-		        result,
-		        state,
-		        currentBar,
-		        continuationFailed,
-		        continuationAttempted);
+		    DetectFtt(
+			    result,
+			    continuationFailed,
+			    continuationAttempted);
 			
 			UpdateWarningState(
 			    result,
 			    state,
 			    continuationFailed,
 			    tickTolerance);
+			
+			GateFtt(
+			    result,
+			    state,
+			    currentBar,
+			    continuationFailed,
+			    continuationAttempted);
 			
 			if (!result.Ftt.IsConfirmed && state.PostFttGraceBars > 0)
     			state.PostFttGraceBars--;
@@ -686,6 +697,7 @@ namespace APVA.Core
 		}
     }
 }
+
 
 
 
