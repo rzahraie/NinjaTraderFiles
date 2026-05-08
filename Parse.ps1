@@ -29,7 +29,7 @@ $patterns = @(
 
 "" | Out-File $out
 
-for ($i = 0; $i -le 46; $i++) {
+for ($i = 0; $i -le 5; $i++) {
     $file = Join-Path $dir "$base$i.txt"
 
     if (!(Test-Path $file)) {
@@ -51,7 +51,7 @@ for ($i = 0; $i -le 46; $i++) {
 	for ($n = 0; $n -lt $lines.Count; $n++) {
 		if ($lines[$n] -like "*FTT Confirmed: True*") {
 			$start = [Math]::Max(0, $n - 20)
-			$end   = [Math]::Min($lines.Count - 1, $n + 10)
+			$end   = [Math]::Min($lines.Count - 1, $n + 25)
 
 			">>> Context around line $($n + 1)" | Tee-Object -FilePath $out -Append
 
