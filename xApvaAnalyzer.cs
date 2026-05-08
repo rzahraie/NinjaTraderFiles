@@ -36,6 +36,9 @@ namespace APVA.Core
 		
 		public int ContainerAgeBars { get; set; }
 		public bool IsMatureContainer { get; set; }
+		
+		public bool FttDetectionAllowed { get; set; }
+		public string FttDetectionBlockReason { get; set; } = "";
     }
 	
 	public sealed class ApvaAnalyzerState
@@ -384,6 +387,20 @@ namespace APVA.Core
 			    return;
 			}
 			
+			result.FttDetectionAllowed = allowDetection;
+
+			if (!allowDetection)
+			{
+			    result.FttDetectionBlockReason =
+			        "Blocked before detection: " +
+			        "ContinuationFailed=" + continuationFailed + " " +
+			        "WarningStreak=" + state.WarningStreak + " " +
+			        "IneffectiveDominance=" + ineffectiveDominance;
+			
+			    result.Ftt = new FttResult();
+			    return;
+			}
+
 			result.Ftt =
 			    xApvaFttDetector.Detect(
 			        result.Segments,
@@ -728,6 +745,8 @@ namespace APVA.Core
 		}
     }
 }
+
+
 
 
 

@@ -119,6 +119,8 @@ namespace NinjaTrader.NinjaScript.Indicators
             Print("FTT Candidate: " + result.Ftt.IsCandidate);
             Print("FTT Confirmed: " + result.Ftt.IsConfirmed);
             Print("FTT Reason: " + result.Ftt.Reason);
+			Print("FttDetectionAllowed: " + result.FttDetectionAllowed);
+			Print("FttDetectionBlockReason: " + result.FttDetectionBlockReason);
 			Print("CurrentSegmentDominance: " + result.CurrentSegmentDominance);
 			Print("ContainerBias: " + result.ContainerBias);
 			Print("RecentBias: " + result.RecentBias);
