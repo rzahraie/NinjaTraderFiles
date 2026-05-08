@@ -4,6 +4,9 @@ $out  = Join-Path $dir "APVA_LogScan_Summary.txt"
 
 $patterns = @(
     "FTT Confirmed: True",
+	"FttDetectionAllowed: True",
+	"FttDetectionAllowed: False",
+	"FttDetectionBlockReason:",
     "UnknownReference",
     "Blocked by weak/low-score container",
     "Blocked by insufficient warning buildup",
