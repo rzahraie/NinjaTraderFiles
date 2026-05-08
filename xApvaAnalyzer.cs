@@ -37,7 +37,7 @@ namespace APVA.Core
 		public int ContainerAgeBars { get; set; }
 		public bool IsMatureContainer { get; set; }
 		
-		public bool FttDetectionAllowed { get; set; }
+		public bool FttDetectionAllowed { get; set; } = true;
 		public string FttDetectionBlockReason { get; set; } = "";
     }
 	
@@ -714,6 +714,7 @@ namespace APVA.Core
 		}
     }
 }
+
 
 
 

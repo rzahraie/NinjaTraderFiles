@@ -351,7 +351,7 @@ HasFailureSequence: False
 FTT Candidate: False
 FTT Confirmed: False
 FTT Reason: 
-FttDetectionAllowed: False
+FttDetectionAllowed: True
 FttDetectionBlockReason: 
 CurrentSegmentDominance: Dominant
 ContainerBias: CounterDominant
@@ -711,7 +711,7 @@ HasFailureSequence: False
 FTT Candidate: False
 FTT Confirmed: False
 FTT Reason: 
-FttDetectionAllowed: False
+FttDetectionAllowed: True
 FttDetectionBlockReason: 
 CurrentSegmentDominance: Dominant
 ContainerBias: CounterDominant
@@ -932,7 +932,7 @@ HasFailureSequence: False
 FTT Candidate: False
 FTT Confirmed: False
 FTT Reason: 
-FttDetectionAllowed: False
+FttDetectionAllowed: True
 FttDetectionBlockReason: 
 CurrentSegmentDominance: Dominant
 ContainerBias: CounterDominant
@@ -2604,7 +2604,7 @@ HasFailureSequence: False
 FTT Candidate: False
 FTT Confirmed: False
 FTT Reason: 
-FttDetectionAllowed: False
+FttDetectionAllowed: True
 FttDetectionBlockReason: 
 CurrentSegmentDominance: NonDominant
 ContainerBias: CounterDominant
@@ -3422,7 +3422,7 @@ HasFailureSequence: False
 FTT Candidate: False
 FTT Confirmed: False
 FTT Reason: 
-FttDetectionAllowed: False
+FttDetectionAllowed: True
 FttDetectionBlockReason: 
 CurrentSegmentDominance: Dominant
 ContainerBias: CounterDominant
@@ -3656,7 +3656,7 @@ HasFailureSequence: False
 FTT Candidate: False
 FTT Confirmed: False
 FTT Reason: 
-FttDetectionAllowed: False
+FttDetectionAllowed: True
 FttDetectionBlockReason: 
 CurrentSegmentDominance: NonDominant
 ContainerBias: CounterDominant
@@ -5215,7 +5215,7 @@ HasFailureSequence: False
 FTT Candidate: False
 FTT Confirmed: False
 FTT Reason: 
-FttDetectionAllowed: False
+FttDetectionAllowed: True
 FttDetectionBlockReason: 
 CurrentSegmentDominance: Dominant
 ContainerBias: CounterDominant
@@ -5585,7 +5585,7 @@ HasFailureSequence: False
 FTT Candidate: False
 FTT Confirmed: False
 FTT Reason: 
-FttDetectionAllowed: False
+FttDetectionAllowed: True
 FttDetectionBlockReason: 
 CurrentSegmentDominance: NonDominant
 ContainerBias: CounterDominant
@@ -5807,7 +5807,7 @@ HasFailureSequence: False
 FTT Candidate: False
 FTT Confirmed: False
 FTT Reason: 
-FttDetectionAllowed: False
+FttDetectionAllowed: True
 FttDetectionBlockReason: 
 CurrentSegmentDominance: CounterDominant
 ContainerBias: NonDominant
@@ -6018,7 +6018,7 @@ HasFailureSequence: False
 FTT Candidate: False
 FTT Confirmed: False
 FTT Reason: 
-FttDetectionAllowed: False
+FttDetectionAllowed: True
 FttDetectionBlockReason: 
 CurrentSegmentDominance: CounterDominant
 ContainerBias: Dominant
@@ -6540,7 +6540,7 @@ HasFailureSequence: False
 FTT Candidate: False
 FTT Confirmed: False
 FTT Reason: 
-FttDetectionAllowed: False
+FttDetectionAllowed: True
 FttDetectionBlockReason: 
 CurrentSegmentDominance: CounterDominant
 ContainerBias: Dominant
@@ -6756,7 +6756,7 @@ HasFailureSequence: False
 FTT Candidate: False
 FTT Confirmed: False
 FTT Reason: 
-FttDetectionAllowed: False
+FttDetectionAllowed: True
 FttDetectionBlockReason: 
 CurrentSegmentDominance: NonDominant
 ContainerBias: CounterDominant
@@ -6982,7 +6982,7 @@ HasFailureSequence: False
 FTT Candidate: False
 FTT Confirmed: False
 FTT Reason: 
-FttDetectionAllowed: False
+FttDetectionAllowed: True
 FttDetectionBlockReason: 
 CurrentSegmentDominance: Dominant
 ContainerBias: CounterDominant
@@ -7517,7 +7517,7 @@ HasFailureSequence: False
 FTT Candidate: False
 FTT Confirmed: False
 FTT Reason: 
-FttDetectionAllowed: False
+FttDetectionAllowed: True
 FttDetectionBlockReason: 
 CurrentSegmentDominance: Dominant
 ContainerBias: CounterDominant
@@ -7931,7 +7931,7 @@ HasFailureSequence: False
 FTT Candidate: False
 FTT Confirmed: False
 FTT Reason: 
-FttDetectionAllowed: False
+FttDetectionAllowed: True
 FttDetectionBlockReason: 
 CurrentSegmentDominance: NonDominant
 ContainerBias: CounterDominant
@@ -8380,7 +8380,7 @@ HasFailureSequence: False
 FTT Candidate: False
 FTT Confirmed: False
 FTT Reason: 
-FttDetectionAllowed: False
+FttDetectionAllowed: True
 FttDetectionBlockReason: 
 CurrentSegmentDominance: NonDominant
 ContainerBias: CounterDominant
@@ -8605,7 +8605,7 @@ HasFailureSequence: False
 FTT Candidate: False
 FTT Confirmed: False
 FTT Reason: 
-FttDetectionAllowed: False
+FttDetectionAllowed: True
 FttDetectionBlockReason: 
 CurrentSegmentDominance: NonDominant
 ContainerBias: CounterDominant
@@ -9214,7 +9214,7 @@ HasFailureSequence: False
 FTT Candidate: False
 FTT Confirmed: False
 FTT Reason: 
-FttDetectionAllowed: False
+FttDetectionAllowed: True
 FttDetectionBlockReason: 
 CurrentSegmentDominance: CounterDominant
 ContainerBias: Dominant
@@ -9645,7 +9645,7 @@ HasFailureSequence: False
 FTT Candidate: False
 FTT Confirmed: False
 FTT Reason: 
-FttDetectionAllowed: False
+FttDetectionAllowed: True
 FttDetectionBlockReason: 
 CurrentSegmentDominance: Dominant
 ContainerBias: CounterDominant
@@ -9873,7 +9873,7 @@ HasFailureSequence: False
 FTT Candidate: False
 FTT Confirmed: False
 FTT Reason: 
-FttDetectionAllowed: False
+FttDetectionAllowed: True
 FttDetectionBlockReason: 
 CurrentSegmentDominance: Dominant
 ContainerBias: CounterDominant
@@ -10065,7 +10065,7 @@ HasFailureSequence: True
 FTT Candidate: False
 FTT Confirmed: False
 FTT Reason: 
-FttDetectionAllowed: False
+FttDetectionAllowed: True
 FttDetectionBlockReason: 
 CurrentSegmentDominance: NonDominant
 ContainerBias: Dominant
@@ -10425,7 +10425,7 @@ HasFailureSequence: False
 FTT Candidate: False
 FTT Confirmed: False
 FTT Reason: 
-FttDetectionAllowed: False
+FttDetectionAllowed: True
 FttDetectionBlockReason: 
 CurrentSegmentDominance: NonDominant
 ContainerBias: CounterDominant
@@ -10968,7 +10968,7 @@ HasFailureSequence: True
 FTT Candidate: False
 FTT Confirmed: False
 FTT Reason: 
-FttDetectionAllowed: False
+FttDetectionAllowed: True
 FttDetectionBlockReason: 
 CurrentSegmentDominance: NonDominant
 ContainerBias: Dominant
@@ -11375,7 +11375,7 @@ HasFailureSequence: False
 FTT Candidate: False
 FTT Confirmed: False
 FTT Reason: 
-FttDetectionAllowed: False
+FttDetectionAllowed: True
 FttDetectionBlockReason: 
 CurrentSegmentDominance: CounterDominant
 ContainerBias: Dominant
@@ -11656,7 +11656,7 @@ HasFailureSequence: False
 FTT Candidate: False
 FTT Confirmed: False
 FTT Reason: 
-FttDetectionAllowed: False
+FttDetectionAllowed: True
 FttDetectionBlockReason: 
 CurrentSegmentDominance: Dominant
 ContainerBias: CounterDominant
@@ -12807,7 +12807,7 @@ HasFailureSequence: True
 FTT Candidate: False
 FTT Confirmed: False
 FTT Reason: 
-FttDetectionAllowed: False
+FttDetectionAllowed: True
 FttDetectionBlockReason: 
 CurrentSegmentDominance: Dominant
 ContainerBias: Dominant
@@ -13873,7 +13873,7 @@ HasFailureSequence: False
 FTT Candidate: False
 FTT Confirmed: False
 FTT Reason: 
-FttDetectionAllowed: False
+FttDetectionAllowed: True
 FttDetectionBlockReason: 
 CurrentSegmentDominance: Dominant
 ContainerBias: CounterDominant
@@ -14378,7 +14378,7 @@ HasFailureSequence: False
 FTT Candidate: False
 FTT Confirmed: False
 FTT Reason: 
-FttDetectionAllowed: False
+FttDetectionAllowed: True
 FttDetectionBlockReason: 
 CurrentSegmentDominance: Dominant
 ContainerBias: Unknown
@@ -14790,7 +14790,7 @@ HasFailureSequence: False
 FTT Candidate: False
 FTT Confirmed: False
 FTT Reason: 
-FttDetectionAllowed: False
+FttDetectionAllowed: True
 FttDetectionBlockReason: 
 CurrentSegmentDominance: Dominant
 ContainerBias: CounterDominant
@@ -15008,7 +15008,7 @@ HasFailureSequence: False
 FTT Candidate: False
 FTT Confirmed: False
 FTT Reason: 
-FttDetectionAllowed: False
+FttDetectionAllowed: True
 FttDetectionBlockReason: 
 CurrentSegmentDominance: NonDominant
 ContainerBias: CounterDominant
@@ -15321,7 +15321,7 @@ HasFailureSequence: False
 FTT Candidate: False
 FTT Confirmed: False
 FTT Reason: 
-FttDetectionAllowed: False
+FttDetectionAllowed: True
 FttDetectionBlockReason: 
 CurrentSegmentDominance: CounterDominant
 ContainerBias: Dominant
@@ -15480,7 +15480,7 @@ HasFailureSequence: False
 FTT Candidate: False
 FTT Confirmed: False
 FTT Reason: 
-FttDetectionAllowed: False
+FttDetectionAllowed: True
 FttDetectionBlockReason: 
 CurrentSegmentDominance: Dominant
 ContainerBias: CounterDominant
@@ -15869,7 +15869,7 @@ HasFailureSequence: False
 FTT Candidate: False
 FTT Confirmed: False
 FTT Reason: 
-FttDetectionAllowed: False
+FttDetectionAllowed: True
 FttDetectionBlockReason: 
 CurrentSegmentDominance: NonDominant
 ContainerBias: CounterDominant
@@ -16079,7 +16079,7 @@ HasFailureSequence: False
 FTT Candidate: False
 FTT Confirmed: False
 FTT Reason: 
-FttDetectionAllowed: False
+FttDetectionAllowed: True
 FttDetectionBlockReason: 
 CurrentSegmentDominance: NonDominant
 ContainerBias: CounterDominant
@@ -16287,7 +16287,7 @@ HasFailureSequence: False
 FTT Candidate: False
 FTT Confirmed: False
 FTT Reason: 
-FttDetectionAllowed: False
+FttDetectionAllowed: True
 FttDetectionBlockReason: 
 CurrentSegmentDominance: Dominant
 ContainerBias: CounterDominant
@@ -16537,7 +16537,7 @@ HasFailureSequence: False
 FTT Candidate: False
 FTT Confirmed: False
 FTT Reason: 
-FttDetectionAllowed: False
+FttDetectionAllowed: True
 FttDetectionBlockReason: 
 CurrentSegmentDominance: Dominant
 ContainerBias: CounterDominant
@@ -16764,7 +16764,7 @@ HasFailureSequence: False
 FTT Candidate: False
 FTT Confirmed: False
 FTT Reason: 
-FttDetectionAllowed: False
+FttDetectionAllowed: True
 FttDetectionBlockReason: 
 CurrentSegmentDominance: Dominant
 ContainerBias: CounterDominant
@@ -17925,7 +17925,7 @@ HasFailureSequence: True
 FTT Candidate: False
 FTT Confirmed: False
 FTT Reason: 
-FttDetectionAllowed: False
+FttDetectionAllowed: True
 FttDetectionBlockReason: 
 CurrentSegmentDominance: Dominant
 ContainerBias: Dominant
@@ -18776,7 +18776,7 @@ HasFailureSequence: False
 FTT Candidate: False
 FTT Confirmed: False
 FTT Reason: 
-FttDetectionAllowed: False
+FttDetectionAllowed: True
 FttDetectionBlockReason: 
 CurrentSegmentDominance: Dominant
 ContainerBias: CounterDominant
@@ -19482,7 +19482,7 @@ HasFailureSequence: False
 FTT Candidate: False
 FTT Confirmed: False
 FTT Reason: 
-FttDetectionAllowed: False
+FttDetectionAllowed: True
 FttDetectionBlockReason: 
 CurrentSegmentDominance: NonDominant
 ContainerBias: Dominant
@@ -20576,7 +20576,7 @@ HasFailureSequence: False
 FTT Candidate: False
 FTT Confirmed: False
 FTT Reason: 
-FttDetectionAllowed: False
+FttDetectionAllowed: True
 FttDetectionBlockReason: 
 CurrentSegmentDominance: NonDominant
 ContainerBias: CounterDominant
@@ -20981,7 +20981,7 @@ HasFailureSequence: False
 FTT Candidate: False
 FTT Confirmed: False
 FTT Reason: 
-FttDetectionAllowed: False
+FttDetectionAllowed: True
 FttDetectionBlockReason: 
 CurrentSegmentDominance: NonDominant
 ContainerBias: CounterDominant
@@ -21191,7 +21191,7 @@ HasFailureSequence: False
 FTT Candidate: False
 FTT Confirmed: False
 FTT Reason: 
-FttDetectionAllowed: False
+FttDetectionAllowed: True
 FttDetectionBlockReason: 
 CurrentSegmentDominance: Dominant
 ContainerBias: Dominant
@@ -21568,7 +21568,7 @@ HasFailureSequence: True
 FTT Candidate: False
 FTT Confirmed: False
 FTT Reason: 
-FttDetectionAllowed: False
+FttDetectionAllowed: True
 FttDetectionBlockReason: 
 CurrentSegmentDominance: Dominant
 ContainerBias: Unknown
@@ -22452,7 +22452,7 @@ HasFailureSequence: True
 FTT Candidate: False
 FTT Confirmed: False
 FTT Reason: 
-FttDetectionAllowed: False
+FttDetectionAllowed: True
 FttDetectionBlockReason: 
 CurrentSegmentDominance: NonDominant
 ContainerBias: Dominant
@@ -22882,7 +22882,7 @@ HasFailureSequence: True
 FTT Candidate: False
 FTT Confirmed: False
 FTT Reason: 
-FttDetectionAllowed: False
+FttDetectionAllowed: True
 FttDetectionBlockReason: 
 CurrentSegmentDominance: NonDominant
 ContainerBias: Dominant
@@ -23295,7 +23295,7 @@ HasFailureSequence: False
 FTT Candidate: False
 FTT Confirmed: False
 FTT Reason: 
-FttDetectionAllowed: False
+FttDetectionAllowed: True
 FttDetectionBlockReason: 
 CurrentSegmentDominance: Dominant
 ContainerBias: Dominant
@@ -23741,7 +23741,7 @@ HasFailureSequence: False
 FTT Candidate: False
 FTT Confirmed: False
 FTT Reason: 
-FttDetectionAllowed: False
+FttDetectionAllowed: True
 FttDetectionBlockReason: 
 CurrentSegmentDominance: NonDominant
 ContainerBias: CounterDominant
@@ -24309,7 +24309,7 @@ HasFailureSequence: False
 FTT Candidate: False
 FTT Confirmed: False
 FTT Reason: 
-FttDetectionAllowed: False
+FttDetectionAllowed: True
 FttDetectionBlockReason: 
 CurrentSegmentDominance: Dominant
 ContainerBias: CounterDominant
@@ -25178,7 +25178,7 @@ HasFailureSequence: False
 FTT Candidate: False
 FTT Confirmed: False
 FTT Reason: 
-FttDetectionAllowed: False
+FttDetectionAllowed: True
 FttDetectionBlockReason: 
 CurrentSegmentDominance: CounterDominant
 ContainerBias: Dominant
@@ -25390,7 +25390,7 @@ HasFailureSequence: False
 FTT Candidate: False
 FTT Confirmed: False
 FTT Reason: 
-FttDetectionAllowed: False
+FttDetectionAllowed: True
 FttDetectionBlockReason: 
 CurrentSegmentDominance: NonDominant
 ContainerBias: CounterDominant
@@ -25777,7 +25777,7 @@ HasFailureSequence: False
 FTT Candidate: False
 FTT Confirmed: False
 FTT Reason: 
-FttDetectionAllowed: False
+FttDetectionAllowed: True
 FttDetectionBlockReason: 
 CurrentSegmentDominance: CounterDominant
 ContainerBias: Dominant
@@ -26187,7 +26187,7 @@ HasFailureSequence: True
 FTT Candidate: False
 FTT Confirmed: False
 FTT Reason: 
-FttDetectionAllowed: False
+FttDetectionAllowed: True
 FttDetectionBlockReason: 
 CurrentSegmentDominance: Dominant
 ContainerBias: Dominant
@@ -26401,7 +26401,7 @@ HasFailureSequence: False
 FTT Candidate: False
 FTT Confirmed: False
 FTT Reason: 
-FttDetectionAllowed: False
+FttDetectionAllowed: True
 FttDetectionBlockReason: 
 CurrentSegmentDominance: Dominant
 ContainerBias: CounterDominant
@@ -26629,7 +26629,7 @@ HasFailureSequence: False
 FTT Candidate: False
 FTT Confirmed: False
 FTT Reason: 
-FttDetectionAllowed: False
+FttDetectionAllowed: True
 FttDetectionBlockReason: 
 CurrentSegmentDominance: Dominant
 ContainerBias: CounterDominant
@@ -26849,7 +26849,7 @@ HasFailureSequence: False
 FTT Candidate: False
 FTT Confirmed: False
 FTT Reason: 
-FttDetectionAllowed: False
+FttDetectionAllowed: True
 FttDetectionBlockReason: 
 CurrentSegmentDominance: CounterDominant
 ContainerBias: Dominant
@@ -27067,7 +27067,7 @@ HasFailureSequence: False
 FTT Candidate: False
 FTT Confirmed: False
 FTT Reason: 
-FttDetectionAllowed: False
+FttDetectionAllowed: True
 FttDetectionBlockReason: 
 CurrentSegmentDominance: Dominant
 ContainerBias: CounterDominant
@@ -27446,7 +27446,7 @@ HasFailureSequence: True
 FTT Candidate: False
 FTT Confirmed: False
 FTT Reason: 
-FttDetectionAllowed: False
+FttDetectionAllowed: True
 FttDetectionBlockReason: 
 CurrentSegmentDominance: NonDominant
 ContainerBias: Dominant
@@ -28518,7 +28518,7 @@ HasFailureSequence: False
 FTT Candidate: False
 FTT Confirmed: False
 FTT Reason: 
-FttDetectionAllowed: False
+FttDetectionAllowed: True
 FttDetectionBlockReason: 
 CurrentSegmentDominance: Dominant
 ContainerBias: CounterDominant
@@ -29264,7 +29264,7 @@ HasFailureSequence: False
 FTT Candidate: False
 FTT Confirmed: False
 FTT Reason: 
-FttDetectionAllowed: False
+FttDetectionAllowed: True
 FttDetectionBlockReason: 
 CurrentSegmentDominance: CounterDominant
 ContainerBias: Dominant
@@ -29489,7 +29489,7 @@ HasFailureSequence: False
 FTT Candidate: False
 FTT Confirmed: False
 FTT Reason: 
-FttDetectionAllowed: False
+FttDetectionAllowed: True
 FttDetectionBlockReason: 
 CurrentSegmentDominance: NonDominant
 ContainerBias: CounterDominant
@@ -29663,7 +29663,7 @@ HasFailureSequence: False
 FTT Candidate: False
 FTT Confirmed: False
 FTT Reason: 
-FttDetectionAllowed: False
+FttDetectionAllowed: True
 FttDetectionBlockReason: 
 CurrentSegmentDominance: CounterDominant
 ContainerBias: Dominant
@@ -29880,7 +29880,7 @@ HasFailureSequence: False
 FTT Candidate: False
 FTT Confirmed: False
 FTT Reason: 
-FttDetectionAllowed: False
+FttDetectionAllowed: True
 FttDetectionBlockReason: 
 CurrentSegmentDominance: NonDominant
 ContainerBias: CounterDominant
@@ -30097,7 +30097,7 @@ HasFailureSequence: False
 FTT Candidate: False
 FTT Confirmed: False
 FTT Reason: 
-FttDetectionAllowed: False
+FttDetectionAllowed: True
 FttDetectionBlockReason: 
 CurrentSegmentDominance: Dominant
 ContainerBias: CounterDominant
@@ -30887,7 +30887,7 @@ HasFailureSequence: False
 FTT Candidate: False
 FTT Confirmed: False
 FTT Reason: 
-FttDetectionAllowed: False
+FttDetectionAllowed: True
 FttDetectionBlockReason: 
 CurrentSegmentDominance: CounterDominant
 ContainerBias: Dominant
@@ -31676,7 +31676,7 @@ HasFailureSequence: True
 FTT Candidate: False
 FTT Confirmed: False
 FTT Reason: 
-FttDetectionAllowed: False
+FttDetectionAllowed: True
 FttDetectionBlockReason: 
 CurrentSegmentDominance: NonDominant
 ContainerBias: NonDominant
@@ -31848,7 +31848,7 @@ HasFailureSequence: False
 FTT Candidate: False
 FTT Confirmed: False
 FTT Reason: 
-FttDetectionAllowed: False
+FttDetectionAllowed: True
 FttDetectionBlockReason: 
 CurrentSegmentDominance: CounterDominant
 ContainerBias: Dominant
@@ -32214,7 +32214,7 @@ HasFailureSequence: False
 FTT Candidate: False
 FTT Confirmed: False
 FTT Reason: 
-FttDetectionAllowed: False
+FttDetectionAllowed: True
 FttDetectionBlockReason: 
 CurrentSegmentDominance: Dominant
 ContainerBias: CounterDominant
@@ -33863,7 +33863,7 @@ HasFailureSequence: False
 FTT Candidate: False
 FTT Confirmed: False
 FTT Reason: 
-FttDetectionAllowed: False
+FttDetectionAllowed: True
 FttDetectionBlockReason: 
 CurrentSegmentDominance: CounterDominant
 ContainerBias: Unknown
@@ -34250,7 +34250,7 @@ HasFailureSequence: False
 FTT Candidate: False
 FTT Confirmed: False
 FTT Reason: 
-FttDetectionAllowed: False
+FttDetectionAllowed: True
 FttDetectionBlockReason: 
 CurrentSegmentDominance: Dominant
 ContainerBias: CounterDominant
@@ -34581,7 +34581,7 @@ HasFailureSequence: False
 FTT Candidate: False
 FTT Confirmed: False
 FTT Reason: 
-FttDetectionAllowed: False
+FttDetectionAllowed: True
 FttDetectionBlockReason: 
 CurrentSegmentDominance: NonDominant
 ContainerBias: CounterDominant
@@ -34801,7 +34801,7 @@ HasFailureSequence: False
 FTT Candidate: False
 FTT Confirmed: False
 FTT Reason: 
-FttDetectionAllowed: False
+FttDetectionAllowed: True
 FttDetectionBlockReason: 
 CurrentSegmentDominance: Dominant
 ContainerBias: CounterDominant
@@ -35025,7 +35025,7 @@ HasFailureSequence: False
 FTT Candidate: False
 FTT Confirmed: False
 FTT Reason: 
-FttDetectionAllowed: False
+FttDetectionAllowed: True
 FttDetectionBlockReason: 
 CurrentSegmentDominance: CounterDominant
 ContainerBias: Dominant
@@ -35289,7 +35289,7 @@ HasFailureSequence: True
 FTT Candidate: False
 FTT Confirmed: False
 FTT Reason: 
-FttDetectionAllowed: False
+FttDetectionAllowed: True
 FttDetectionBlockReason: 
 CurrentSegmentDominance: Dominant
 ContainerBias: NonDominant
@@ -35512,7 +35512,7 @@ HasFailureSequence: False
 FTT Candidate: False
 FTT Confirmed: False
 FTT Reason: 
-FttDetectionAllowed: False
+FttDetectionAllowed: True
 FttDetectionBlockReason: 
 CurrentSegmentDominance: CounterDominant
 ContainerBias: Dominant
@@ -36439,7 +36439,7 @@ HasFailureSequence: False
 FTT Candidate: False
 FTT Confirmed: False
 FTT Reason: 
-FttDetectionAllowed: False
+FttDetectionAllowed: True
 FttDetectionBlockReason: 
 CurrentSegmentDominance: CounterDominant
 ContainerBias: Dominant
@@ -36651,7 +36651,7 @@ HasFailureSequence: False
 FTT Candidate: False
 FTT Confirmed: False
 FTT Reason: 
-FttDetectionAllowed: False
+FttDetectionAllowed: True
 FttDetectionBlockReason: 
 CurrentSegmentDominance: NonDominant
 ContainerBias: CounterDominant
@@ -36865,7 +36865,7 @@ HasFailureSequence: True
 FTT Candidate: False
 FTT Confirmed: False
 FTT Reason: 
-FttDetectionAllowed: False
+FttDetectionAllowed: True
 FttDetectionBlockReason: 
 CurrentSegmentDominance: Dominant
 ContainerBias: Dominant
@@ -37177,7 +37177,7 @@ HasFailureSequence: False
 FTT Candidate: False
 FTT Confirmed: False
 FTT Reason: 
-FttDetectionAllowed: False
+FttDetectionAllowed: True
 FttDetectionBlockReason: 
 CurrentSegmentDominance: NonDominant
 ContainerBias: CounterDominant
@@ -37402,7 +37402,7 @@ HasFailureSequence: True
 FTT Candidate: False
 FTT Confirmed: False
 FTT Reason: 
-FttDetectionAllowed: False
+FttDetectionAllowed: True
 FttDetectionBlockReason: 
 CurrentSegmentDominance: Dominant
 ContainerBias: Unknown
@@ -38112,7 +38112,7 @@ HasFailureSequence: True
 FTT Candidate: False
 FTT Confirmed: False
 FTT Reason: 
-FttDetectionAllowed: False
+FttDetectionAllowed: True
 FttDetectionBlockReason: 
 CurrentSegmentDominance: NonDominant
 ContainerBias: Unknown
@@ -39232,7 +39232,7 @@ HasFailureSequence: False
 FTT Candidate: False
 FTT Confirmed: False
 FTT Reason: 
-FttDetectionAllowed: False
+FttDetectionAllowed: True
 FttDetectionBlockReason: 
 CurrentSegmentDominance: Dominant
 ContainerBias: CounterDominant
@@ -40966,7 +40966,7 @@ HasFailureSequence: False
 FTT Candidate: False
 FTT Confirmed: False
 FTT Reason: 
-FttDetectionAllowed: False
+FttDetectionAllowed: True
 FttDetectionBlockReason: 
 CurrentSegmentDominance: CounterDominant
 ContainerBias: NonDominant
@@ -41182,7 +41182,7 @@ HasFailureSequence: False
 FTT Candidate: False
 FTT Confirmed: False
 FTT Reason: 
-FttDetectionAllowed: False
+FttDetectionAllowed: True
 FttDetectionBlockReason: 
 CurrentSegmentDominance: NonDominant
 ContainerBias: CounterDominant
@@ -41728,7 +41728,7 @@ HasFailureSequence: True
 FTT Candidate: False
 FTT Confirmed: False
 FTT Reason: 
-FttDetectionAllowed: False
+FttDetectionAllowed: True
 FttDetectionBlockReason: 
 CurrentSegmentDominance: Dominant
 ContainerBias: NonDominant
@@ -41958,7 +41958,7 @@ HasFailureSequence: False
 FTT Candidate: False
 FTT Confirmed: False
 FTT Reason: 
-FttDetectionAllowed: False
+FttDetectionAllowed: True
 FttDetectionBlockReason: 
 CurrentSegmentDominance: Dominant
 ContainerBias: CounterDominant
@@ -42186,7 +42186,7 @@ HasFailureSequence: True
 FTT Candidate: False
 FTT Confirmed: False
 FTT Reason: 
-FttDetectionAllowed: False
+FttDetectionAllowed: True
 FttDetectionBlockReason: 
 CurrentSegmentDominance: Dominant
 ContainerBias: Dominant
@@ -42584,7 +42584,7 @@ HasFailureSequence: False
 FTT Candidate: False
 FTT Confirmed: False
 FTT Reason: 
-FttDetectionAllowed: False
+FttDetectionAllowed: True
 FttDetectionBlockReason: 
 CurrentSegmentDominance: Dominant
 ContainerBias: CounterDominant
@@ -43160,7 +43160,7 @@ HasFailureSequence: False
 FTT Candidate: False
 FTT Confirmed: False
 FTT Reason: 
-FttDetectionAllowed: False
+FttDetectionAllowed: True
 FttDetectionBlockReason: 
 CurrentSegmentDominance: NonDominant
 ContainerBias: CounterDominant
@@ -43393,7 +43393,7 @@ HasFailureSequence: False
 FTT Candidate: False
 FTT Confirmed: False
 FTT Reason: 
-FttDetectionAllowed: False
+FttDetectionAllowed: True
 FttDetectionBlockReason: 
 CurrentSegmentDominance: Dominant
 ContainerBias: CounterDominant
@@ -45216,7 +45216,7 @@ HasFailureSequence: True
 FTT Candidate: False
 FTT Confirmed: False
 FTT Reason: 
-FttDetectionAllowed: False
+FttDetectionAllowed: True
 FttDetectionBlockReason: 
 CurrentSegmentDominance: NonDominant
 ContainerBias: Dominant
@@ -45698,7 +45698,7 @@ HasFailureSequence: False
 FTT Candidate: False
 FTT Confirmed: False
 FTT Reason: 
-FttDetectionAllowed: False
+FttDetectionAllowed: True
 FttDetectionBlockReason: 
 CurrentSegmentDominance: Dominant
 ContainerBias: CounterDominant
@@ -45904,7 +45904,7 @@ HasFailureSequence: False
 FTT Candidate: False
 FTT Confirmed: False
 FTT Reason: 
-FttDetectionAllowed: False
+FttDetectionAllowed: True
 FttDetectionBlockReason: 
 CurrentSegmentDominance: Dominant
 ContainerBias: CounterDominant
@@ -46110,7 +46110,7 @@ HasFailureSequence: False
 FTT Candidate: False
 FTT Confirmed: False
 FTT Reason: 
-FttDetectionAllowed: False
+FttDetectionAllowed: True
 FttDetectionBlockReason: 
 CurrentSegmentDominance: CounterDominant
 ContainerBias: Dominant
@@ -46510,7 +46510,7 @@ HasFailureSequence: False
 FTT Candidate: False
 FTT Confirmed: False
 FTT Reason: 
-FttDetectionAllowed: False
+FttDetectionAllowed: True
 FttDetectionBlockReason: 
 CurrentSegmentDominance: Dominant
 ContainerBias: Dominant
@@ -47003,7 +47003,7 @@ HasFailureSequence: False
 FTT Candidate: False
 FTT Confirmed: False
 FTT Reason: 
-FttDetectionAllowed: False
+FttDetectionAllowed: True
 FttDetectionBlockReason: 
 CurrentSegmentDominance: NonDominant
 ContainerBias: CounterDominant
@@ -47630,7 +47630,7 @@ HasFailureSequence: False
 FTT Candidate: False
 FTT Confirmed: False
 FTT Reason: 
-FttDetectionAllowed: False
+FttDetectionAllowed: True
 FttDetectionBlockReason: 
 CurrentSegmentDominance: CounterDominant
 ContainerBias: Dominant
@@ -48721,7 +48721,7 @@ HasFailureSequence: False
 FTT Candidate: False
 FTT Confirmed: False
 FTT Reason: 
-FttDetectionAllowed: False
+FttDetectionAllowed: True
 FttDetectionBlockReason: 
 CurrentSegmentDominance: CounterDominant
 ContainerBias: Dominant
@@ -48930,7 +48930,7 @@ HasFailureSequence: False
 FTT Candidate: False
 FTT Confirmed: False
 FTT Reason: 
-FttDetectionAllowed: False
+FttDetectionAllowed: True
 FttDetectionBlockReason: 
 CurrentSegmentDominance: NonDominant
 ContainerBias: CounterDominant
@@ -49300,7 +49300,7 @@ HasFailureSequence: False
 FTT Candidate: False
 FTT Confirmed: False
 FTT Reason: 
-FttDetectionAllowed: False
+FttDetectionAllowed: True
 FttDetectionBlockReason: 
 CurrentSegmentDominance: NonDominant
 ContainerBias: CounterDominant
@@ -50012,7 +50012,7 @@ HasFailureSequence: True
 FTT Candidate: False
 FTT Confirmed: False
 FTT Reason: 
-FttDetectionAllowed: False
+FttDetectionAllowed: True
 FttDetectionBlockReason: 
 CurrentSegmentDominance: Dominant
 ContainerBias: Dominant
@@ -50804,7 +50804,7 @@ HasFailureSequence: False
 FTT Candidate: False
 FTT Confirmed: False
 FTT Reason: 
-FttDetectionAllowed: False
+FttDetectionAllowed: True
 FttDetectionBlockReason: 
 CurrentSegmentDominance: CounterDominant
 ContainerBias: NonDominant
@@ -51032,7 +51032,7 @@ HasFailureSequence: True
 FTT Candidate: False
 FTT Confirmed: False
 FTT Reason: 
-FttDetectionAllowed: False
+FttDetectionAllowed: True
 FttDetectionBlockReason: 
 CurrentSegmentDominance: Dominant
 ContainerBias: Dominant
@@ -51975,7 +51975,7 @@ HasFailureSequence: False
 FTT Candidate: False
 FTT Confirmed: False
 FTT Reason: 
-FttDetectionAllowed: False
+FttDetectionAllowed: True
 FttDetectionBlockReason: 
 CurrentSegmentDominance: NonDominant
 ContainerBias: CounterDominant
@@ -52179,7 +52179,7 @@ HasFailureSequence: False
 FTT Candidate: False
 FTT Confirmed: False
 FTT Reason: 
-FttDetectionAllowed: False
+FttDetectionAllowed: True
 FttDetectionBlockReason: 
 CurrentSegmentDominance: NonDominant
 ContainerBias: CounterDominant
@@ -53084,7 +53084,7 @@ HasFailureSequence: False
 FTT Candidate: False
 FTT Confirmed: False
 FTT Reason: 
-FttDetectionAllowed: False
+FttDetectionAllowed: True
 FttDetectionBlockReason: 
 CurrentSegmentDominance: NonDominant
 ContainerBias: CounterDominant
@@ -53815,7 +53815,7 @@ HasFailureSequence: False
 FTT Candidate: False
 FTT Confirmed: False
 FTT Reason: 
-FttDetectionAllowed: False
+FttDetectionAllowed: True
 FttDetectionBlockReason: 
 CurrentSegmentDominance: CounterDominant
 ContainerBias: Dominant
@@ -54148,7 +54148,7 @@ HasFailureSequence: False
 FTT Candidate: False
 FTT Confirmed: False
 FTT Reason: 
-FttDetectionAllowed: False
+FttDetectionAllowed: True
 FttDetectionBlockReason: 
 CurrentSegmentDominance: CounterDominant
 ContainerBias: Unknown
@@ -55004,7 +55004,7 @@ HasFailureSequence: True
 FTT Candidate: False
 FTT Confirmed: False
 FTT Reason: 
-FttDetectionAllowed: False
+FttDetectionAllowed: True
 FttDetectionBlockReason: 
 CurrentSegmentDominance: Dominant
 ContainerBias: CounterDominant
@@ -55235,7 +55235,7 @@ HasFailureSequence: False
 FTT Candidate: False
 FTT Confirmed: False
 FTT Reason: 
-FttDetectionAllowed: False
+FttDetectionAllowed: True
 FttDetectionBlockReason: 
 CurrentSegmentDominance: CounterDominant
 ContainerBias: Dominant
@@ -55536,7 +55536,7 @@ HasFailureSequence: False
 FTT Candidate: False
 FTT Confirmed: False
 FTT Reason: 
-FttDetectionAllowed: False
+FttDetectionAllowed: True
 FttDetectionBlockReason: 
 CurrentSegmentDominance: Dominant
 ContainerBias: CounterDominant
@@ -55924,7 +55924,7 @@ HasFailureSequence: False
 FTT Candidate: False
 FTT Confirmed: False
 FTT Reason: 
-FttDetectionAllowed: False
+FttDetectionAllowed: True
 FttDetectionBlockReason: 
 CurrentSegmentDominance: Dominant
 ContainerBias: CounterDominant
@@ -56346,7 +56346,7 @@ HasFailureSequence: True
 FTT Candidate: False
 FTT Confirmed: False
 FTT Reason: 
-FttDetectionAllowed: False
+FttDetectionAllowed: True
 FttDetectionBlockReason: 
 CurrentSegmentDominance: NonDominant
 ContainerBias: Dominant
@@ -56571,7 +56571,7 @@ HasFailureSequence: False
 FTT Candidate: False
 FTT Confirmed: False
 FTT Reason: 
-FttDetectionAllowed: False
+FttDetectionAllowed: True
 FttDetectionBlockReason: 
 CurrentSegmentDominance: CounterDominant
 ContainerBias: Dominant
@@ -56797,7 +56797,7 @@ HasFailureSequence: False
 FTT Candidate: False
 FTT Confirmed: False
 FTT Reason: 
-FttDetectionAllowed: False
+FttDetectionAllowed: True
 FttDetectionBlockReason: 
 CurrentSegmentDominance: Dominant
 ContainerBias: Dominant
@@ -57018,7 +57018,7 @@ HasFailureSequence: False
 FTT Candidate: False
 FTT Confirmed: False
 FTT Reason: 
-FttDetectionAllowed: False
+FttDetectionAllowed: True
 FttDetectionBlockReason: 
 CurrentSegmentDominance: CounterDominant
 ContainerBias: Dominant
@@ -57869,7 +57869,7 @@ HasFailureSequence: False
 FTT Candidate: False
 FTT Confirmed: False
 FTT Reason: 
-FttDetectionAllowed: False
+FttDetectionAllowed: True
 FttDetectionBlockReason: 
 CurrentSegmentDominance: NonDominant
 ContainerBias: CounterDominant
@@ -58465,7 +58465,7 @@ HasFailureSequence: True
 FTT Candidate: False
 FTT Confirmed: False
 FTT Reason: 
-FttDetectionAllowed: False
+FttDetectionAllowed: True
 FttDetectionBlockReason: 
 CurrentSegmentDominance: Dominant
 ContainerBias: Dominant
@@ -59084,7 +59084,7 @@ HasFailureSequence: False
 FTT Candidate: False
 FTT Confirmed: False
 FTT Reason: 
-FttDetectionAllowed: False
+FttDetectionAllowed: True
 FttDetectionBlockReason: 
 CurrentSegmentDominance: Dominant
 ContainerBias: CounterDominant
@@ -59301,7 +59301,7 @@ HasFailureSequence: True
 FTT Candidate: False
 FTT Confirmed: False
 FTT Reason: 
-FttDetectionAllowed: False
+FttDetectionAllowed: True
 FttDetectionBlockReason: 
 CurrentSegmentDominance: NonDominant
 ContainerBias: Dominant
@@ -59522,7 +59522,7 @@ HasFailureSequence: False
 FTT Candidate: False
 FTT Confirmed: False
 FTT Reason: 
-FttDetectionAllowed: False
+FttDetectionAllowed: True
 FttDetectionBlockReason: 
 CurrentSegmentDominance: CounterDominant
 ContainerBias: CounterDominant
@@ -59748,7 +59748,7 @@ HasFailureSequence: False
 FTT Candidate: False
 FTT Confirmed: False
 FTT Reason: 
-FttDetectionAllowed: False
+FttDetectionAllowed: True
 FttDetectionBlockReason: 
 CurrentSegmentDominance: CounterDominant
 ContainerBias: Dominant
@@ -59985,7 +59985,7 @@ HasFailureSequence: True
 FTT Candidate: False
 FTT Confirmed: False
 FTT Reason: 
-FttDetectionAllowed: False
+FttDetectionAllowed: True
 FttDetectionBlockReason: 
 CurrentSegmentDominance: NonDominant
 ContainerBias: Dominant
@@ -60917,7 +60917,7 @@ HasFailureSequence: False
 FTT Candidate: False
 FTT Confirmed: False
 FTT Reason: 
-FttDetectionAllowed: False
+FttDetectionAllowed: True
 FttDetectionBlockReason: 
 CurrentSegmentDominance: CounterDominant
 ContainerBias: CounterDominant
@@ -61131,7 +61131,7 @@ HasFailureSequence: False
 FTT Candidate: False
 FTT Confirmed: False
 FTT Reason: 
-FttDetectionAllowed: False
+FttDetectionAllowed: True
 FttDetectionBlockReason: 
 CurrentSegmentDominance: NonDominant
 ContainerBias: CounterDominant
@@ -61924,7 +61924,7 @@ HasFailureSequence: False
 FTT Candidate: False
 FTT Confirmed: False
 FTT Reason: 
-FttDetectionAllowed: False
+FttDetectionAllowed: True
 FttDetectionBlockReason: 
 CurrentSegmentDominance: Dominant
 ContainerBias: Dominant
@@ -62127,7 +62127,7 @@ HasFailureSequence: True
 FTT Candidate: False
 FTT Confirmed: False
 FTT Reason: 
-FttDetectionAllowed: False
+FttDetectionAllowed: True
 FttDetectionBlockReason: 
 CurrentSegmentDominance: Dominant
 ContainerBias: NonDominant
@@ -62352,7 +62352,7 @@ HasFailureSequence: True
 FTT Candidate: False
 FTT Confirmed: False
 FTT Reason: 
-FttDetectionAllowed: False
+FttDetectionAllowed: True
 FttDetectionBlockReason: 
 CurrentSegmentDominance: Dominant
 ContainerBias: NonDominant
@@ -62893,7 +62893,7 @@ HasFailureSequence: True
 FTT Candidate: False
 FTT Confirmed: False
 FTT Reason: 
-FttDetectionAllowed: False
+FttDetectionAllowed: True
 FttDetectionBlockReason: 
 CurrentSegmentDominance: NonDominant
 ContainerBias: Dominant
@@ -63092,7 +63092,7 @@ HasFailureSequence: True
 FTT Candidate: False
 FTT Confirmed: False
 FTT Reason: 
-FttDetectionAllowed: False
+FttDetectionAllowed: True
 FttDetectionBlockReason: 
 CurrentSegmentDominance: NonDominant
 ContainerBias: NonDominant
@@ -66039,7 +66039,7 @@ HasFailureSequence: False
 FTT Candidate: False
 FTT Confirmed: False
 FTT Reason: 
-FttDetectionAllowed: False
+FttDetectionAllowed: True
 FttDetectionBlockReason: 
 CurrentSegmentDominance: CounterDominant
 ContainerBias: Dominant
@@ -66427,7 +66427,7 @@ HasFailureSequence: False
 FTT Candidate: False
 FTT Confirmed: False
 FTT Reason: 
-FttDetectionAllowed: False
+FttDetectionAllowed: True
 FttDetectionBlockReason: 
 CurrentSegmentDominance: NonDominant
 ContainerBias: CounterDominant
@@ -66652,7 +66652,7 @@ HasFailureSequence: False
 FTT Candidate: False
 FTT Confirmed: False
 FTT Reason: 
-FttDetectionAllowed: False
+FttDetectionAllowed: True
 FttDetectionBlockReason: 
 CurrentSegmentDominance: CounterDominant
 ContainerBias: Dominant
@@ -66869,7 +66869,7 @@ HasFailureSequence: False
 FTT Candidate: False
 FTT Confirmed: False
 FTT Reason: 
-FttDetectionAllowed: False
+FttDetectionAllowed: True
 FttDetectionBlockReason: 
 CurrentSegmentDominance: NonDominant
 ContainerBias: CounterDominant
@@ -67094,7 +67094,7 @@ HasFailureSequence: False
 FTT Candidate: False
 FTT Confirmed: False
 FTT Reason: 
-FttDetectionAllowed: False
+FttDetectionAllowed: True
 FttDetectionBlockReason: 
 CurrentSegmentDominance: NonDominant
 ContainerBias: CounterDominant
@@ -67929,7 +67929,7 @@ HasFailureSequence: False
 FTT Candidate: False
 FTT Confirmed: False
 FTT Reason: 
-FttDetectionAllowed: False
+FttDetectionAllowed: True
 FttDetectionBlockReason: 
 CurrentSegmentDominance: Dominant
 ContainerBias: CounterDominant
@@ -68550,7 +68550,7 @@ HasFailureSequence: False
 FTT Candidate: False
 FTT Confirmed: False
 FTT Reason: 
-FttDetectionAllowed: False
+FttDetectionAllowed: True
 FttDetectionBlockReason: 
 CurrentSegmentDominance: NonDominant
 ContainerBias: CounterDominant
@@ -69275,7 +69275,7 @@ HasFailureSequence: False
 FTT Candidate: False
 FTT Confirmed: False
 FTT Reason: 
-FttDetectionAllowed: False
+FttDetectionAllowed: True
 FttDetectionBlockReason: 
 CurrentSegmentDominance: Dominant
 ContainerBias: CounterDominant
@@ -70023,7 +70023,7 @@ HasFailureSequence: False
 FTT Candidate: False
 FTT Confirmed: False
 FTT Reason: 
-FttDetectionAllowed: False
+FttDetectionAllowed: True
 FttDetectionBlockReason: 
 CurrentSegmentDominance: NonDominant
 ContainerBias: CounterDominant
@@ -70287,7 +70287,7 @@ HasFailureSequence: False
 FTT Candidate: False
 FTT Confirmed: False
 FTT Reason: 
-FttDetectionAllowed: False
+FttDetectionAllowed: True
 FttDetectionBlockReason: 
 CurrentSegmentDominance: CounterDominant
 ContainerBias: Dominant
@@ -71336,7 +71336,7 @@ HasFailureSequence: False
 FTT Candidate: False
 FTT Confirmed: False
 FTT Reason: 
-FttDetectionAllowed: False
+FttDetectionAllowed: True
 FttDetectionBlockReason: 
 CurrentSegmentDominance: NonDominant
 ContainerBias: CounterDominant
@@ -71643,7 +71643,7 @@ HasFailureSequence: False
 FTT Candidate: False
 FTT Confirmed: False
 FTT Reason: 
-FttDetectionAllowed: False
+FttDetectionAllowed: True
 FttDetectionBlockReason: 
 CurrentSegmentDominance: Dominant
 ContainerBias: Dominant
@@ -71858,7 +71858,7 @@ HasFailureSequence: False
 FTT Candidate: False
 FTT Confirmed: False
 FTT Reason: 
-FttDetectionAllowed: False
+FttDetectionAllowed: True
 FttDetectionBlockReason: 
 CurrentSegmentDominance: NonDominant
 ContainerBias: CounterDominant
@@ -72370,7 +72370,7 @@ HasFailureSequence: True
 FTT Candidate: False
 FTT Confirmed: False
 FTT Reason: 
-FttDetectionAllowed: False
+FttDetectionAllowed: True
 FttDetectionBlockReason: 
 CurrentSegmentDominance: Dominant
 ContainerBias: Dominant
@@ -72608,7 +72608,7 @@ HasFailureSequence: True
 FTT Candidate: False
 FTT Confirmed: False
 FTT Reason: 
-FttDetectionAllowed: False
+FttDetectionAllowed: True
 FttDetectionBlockReason: 
 CurrentSegmentDominance: Dominant
 ContainerBias: Dominant
@@ -73266,7 +73266,7 @@ HasFailureSequence: True
 FTT Candidate: False
 FTT Confirmed: False
 FTT Reason: 
-FttDetectionAllowed: False
+FttDetectionAllowed: True
 FttDetectionBlockReason: 
 CurrentSegmentDominance: Dominant
 ContainerBias: Dominant
@@ -75351,7 +75351,7 @@ HasFailureSequence: False
 FTT Candidate: False
 FTT Confirmed: False
 FTT Reason: 
-FttDetectionAllowed: False
+FttDetectionAllowed: True
 FttDetectionBlockReason: 
 CurrentSegmentDominance: Dominant
 ContainerBias: CounterDominant
@@ -75772,7 +75772,7 @@ HasFailureSequence: False
 FTT Candidate: False
 FTT Confirmed: False
 FTT Reason: 
-FttDetectionAllowed: False
+FttDetectionAllowed: True
 FttDetectionBlockReason: 
 CurrentSegmentDominance: Dominant
 ContainerBias: CounterDominant
@@ -75977,7 +75977,7 @@ HasFailureSequence: False
 FTT Candidate: False
 FTT Confirmed: False
 FTT Reason: 
-FttDetectionAllowed: False
+FttDetectionAllowed: True
 FttDetectionBlockReason: 
 CurrentSegmentDominance: NonDominant
 ContainerBias: CounterDominant
@@ -76186,7 +76186,7 @@ HasFailureSequence: True
 FTT Candidate: False
 FTT Confirmed: False
 FTT Reason: 
-FttDetectionAllowed: False
+FttDetectionAllowed: True
 FttDetectionBlockReason: 
 CurrentSegmentDominance: NonDominant
 ContainerBias: NonDominant
@@ -76483,7 +76483,7 @@ HasFailureSequence: False
 FTT Candidate: False
 FTT Confirmed: False
 FTT Reason: 
-FttDetectionAllowed: False
+FttDetectionAllowed: True
 FttDetectionBlockReason: 
 CurrentSegmentDominance: NonDominant
 ContainerBias: CounterDominant
@@ -76706,7 +76706,7 @@ HasFailureSequence: False
 FTT Candidate: False
 FTT Confirmed: False
 FTT Reason: 
-FttDetectionAllowed: False
+FttDetectionAllowed: True
 FttDetectionBlockReason: 
 CurrentSegmentDominance: NonDominant
 ContainerBias: CounterDominant
@@ -77272,7 +77272,7 @@ HasFailureSequence: False
 FTT Candidate: False
 FTT Confirmed: False
 FTT Reason: 
-FttDetectionAllowed: False
+FttDetectionAllowed: True
 FttDetectionBlockReason: 
 CurrentSegmentDominance: Dominant
 ContainerBias: CounterDominant
@@ -77484,7 +77484,7 @@ HasFailureSequence: False
 FTT Candidate: False
 FTT Confirmed: False
 FTT Reason: 
-FttDetectionAllowed: False
+FttDetectionAllowed: True
 FttDetectionBlockReason: 
 CurrentSegmentDominance: CounterDominant
 ContainerBias: Dominant
@@ -77898,7 +77898,7 @@ HasFailureSequence: True
 FTT Candidate: False
 FTT Confirmed: False
 FTT Reason: 
-FttDetectionAllowed: False
+FttDetectionAllowed: True
 FttDetectionBlockReason: 
 CurrentSegmentDominance: NonDominant
 ContainerBias: CounterDominant
@@ -78318,7 +78318,7 @@ HasFailureSequence: True
 FTT Candidate: False
 FTT Confirmed: False
 FTT Reason: 
-FttDetectionAllowed: False
+FttDetectionAllowed: True
 FttDetectionBlockReason: 
 CurrentSegmentDominance: NonDominant
 ContainerBias: NonDominant
@@ -78545,7 +78545,7 @@ HasFailureSequence: False
 FTT Candidate: False
 FTT Confirmed: False
 FTT Reason: 
-FttDetectionAllowed: False
+FttDetectionAllowed: True
 FttDetectionBlockReason: 
 CurrentSegmentDominance: NonDominant
 ContainerBias: CounterDominant
@@ -80120,7 +80120,7 @@ HasFailureSequence: True
 FTT Candidate: False
 FTT Confirmed: False
 FTT Reason: 
-FttDetectionAllowed: False
+FttDetectionAllowed: True
 FttDetectionBlockReason: 
 CurrentSegmentDominance: Dominant
 ContainerBias: Dominant
@@ -80433,7 +80433,7 @@ HasFailureSequence: True
 FTT Candidate: False
 FTT Confirmed: False
 FTT Reason: 
-FttDetectionAllowed: False
+FttDetectionAllowed: True
 FttDetectionBlockReason: 
 CurrentSegmentDominance: Dominant
 ContainerBias: Dominant
@@ -80633,7 +80633,7 @@ HasFailureSequence: False
 FTT Candidate: False
 FTT Confirmed: False
 FTT Reason: 
-FttDetectionAllowed: False
+FttDetectionAllowed: True
 FttDetectionBlockReason: 
 CurrentSegmentDominance: CounterDominant
 ContainerBias: NonDominant
@@ -82011,7 +82011,7 @@ HasFailureSequence: False
 FTT Candidate: False
 FTT Confirmed: False
 FTT Reason: 
-FttDetectionAllowed: False
+FttDetectionAllowed: True
 FttDetectionBlockReason: 
 CurrentSegmentDominance: NonDominant
 ContainerBias: CounterDominant
@@ -82243,7 +82243,7 @@ HasFailureSequence: True
 FTT Candidate: False
 FTT Confirmed: False
 FTT Reason: 
-FttDetectionAllowed: False
+FttDetectionAllowed: True
 FttDetectionBlockReason: 
 CurrentSegmentDominance: NonDominant
 ContainerBias: Unknown
@@ -82621,7 +82621,7 @@ HasFailureSequence: False
 FTT Candidate: False
 FTT Confirmed: False
 FTT Reason: 
-FttDetectionAllowed: False
+FttDetectionAllowed: True
 FttDetectionBlockReason: 
 CurrentSegmentDominance: Dominant
 ContainerBias: CounterDominant
@@ -82903,7 +82903,7 @@ HasFailureSequence: False
 FTT Candidate: False
 FTT Confirmed: False
 FTT Reason: 
-FttDetectionAllowed: False
+FttDetectionAllowed: True
 FttDetectionBlockReason: 
 CurrentSegmentDominance: NonDominant
 ContainerBias: CounterDominant
@@ -83125,7 +83125,7 @@ HasFailureSequence: False
 FTT Candidate: False
 FTT Confirmed: False
 FTT Reason: 
-FttDetectionAllowed: False
+FttDetectionAllowed: True
 FttDetectionBlockReason: 
 CurrentSegmentDominance: NonDominant
 ContainerBias: CounterDominant
@@ -83335,7 +83335,7 @@ HasFailureSequence: False
 FTT Candidate: False
 FTT Confirmed: False
 FTT Reason: 
-FttDetectionAllowed: False
+FttDetectionAllowed: True
 FttDetectionBlockReason: 
 CurrentSegmentDominance: Dominant
 ContainerBias: CounterDominant
@@ -85780,7 +85780,7 @@ HasFailureSequence: False
 FTT Candidate: False
 FTT Confirmed: False
 FTT Reason: 
-FttDetectionAllowed: False
+FttDetectionAllowed: True
 FttDetectionBlockReason: 
 CurrentSegmentDominance: Dominant
 ContainerBias: CounterDominant
@@ -85987,7 +85987,7 @@ HasFailureSequence: False
 FTT Candidate: False
 FTT Confirmed: False
 FTT Reason: 
-FttDetectionAllowed: False
+FttDetectionAllowed: True
 FttDetectionBlockReason: 
 CurrentSegmentDominance: NonDominant
 ContainerBias: CounterDominant
@@ -87067,7 +87067,7 @@ HasFailureSequence: False
 FTT Candidate: False
 FTT Confirmed: False
 FTT Reason: 
-FttDetectionAllowed: False
+FttDetectionAllowed: True
 FttDetectionBlockReason: 
 CurrentSegmentDominance: Dominant
 ContainerBias: CounterDominant
@@ -87383,7 +87383,7 @@ HasFailureSequence: True
 FTT Candidate: False
 FTT Confirmed: False
 FTT Reason: 
-FttDetectionAllowed: False
+FttDetectionAllowed: True
 FttDetectionBlockReason: 
 CurrentSegmentDominance: NonDominant
 ContainerBias: Dominant
@@ -88159,7 +88159,7 @@ HasFailureSequence: False
 FTT Candidate: False
 FTT Confirmed: False
 FTT Reason: 
-FttDetectionAllowed: False
+FttDetectionAllowed: True
 FttDetectionBlockReason: 
 CurrentSegmentDominance: CounterDominant
 ContainerBias: NonDominant
@@ -88586,7 +88586,7 @@ HasFailureSequence: False
 FTT Candidate: False
 FTT Confirmed: False
 FTT Reason: 
-FttDetectionAllowed: False
+FttDetectionAllowed: True
 FttDetectionBlockReason: 
 CurrentSegmentDominance: NonDominant
 ContainerBias: CounterDominant
@@ -88932,7 +88932,7 @@ HasFailureSequence: False
 FTT Candidate: False
 FTT Confirmed: False
 FTT Reason: 
-FttDetectionAllowed: False
+FttDetectionAllowed: True
 FttDetectionBlockReason: 
 CurrentSegmentDominance: NonDominant
 ContainerBias: CounterDominant
@@ -89496,7 +89496,7 @@ HasFailureSequence: False
 FTT Candidate: False
 FTT Confirmed: False
 FTT Reason: 
-FttDetectionAllowed: False
+FttDetectionAllowed: True
 FttDetectionBlockReason: 
 CurrentSegmentDominance: Dominant
 ContainerBias: Dominant
@@ -89702,7 +89702,7 @@ HasFailureSequence: False
 FTT Candidate: False
 FTT Confirmed: False
 FTT Reason: 
-FttDetectionAllowed: False
+FttDetectionAllowed: True
 FttDetectionBlockReason: 
 CurrentSegmentDominance: CounterDominant
 ContainerBias: Dominant
@@ -89937,7 +89937,7 @@ HasFailureSequence: False
 FTT Candidate: False
 FTT Confirmed: False
 FTT Reason: 
-FttDetectionAllowed: False
+FttDetectionAllowed: True
 FttDetectionBlockReason: 
 CurrentSegmentDominance: Dominant
 ContainerBias: CounterDominant
@@ -90143,7 +90143,7 @@ HasFailureSequence: False
 FTT Candidate: False
 FTT Confirmed: False
 FTT Reason: 
-FttDetectionAllowed: False
+FttDetectionAllowed: True
 FttDetectionBlockReason: 
 CurrentSegmentDominance: NonDominant
 ContainerBias: CounterDominant
@@ -90493,7 +90493,7 @@ HasFailureSequence: False
 FTT Candidate: False
 FTT Confirmed: False
 FTT Reason: 
-FttDetectionAllowed: False
+FttDetectionAllowed: True
 FttDetectionBlockReason: 
 CurrentSegmentDominance: NonDominant
 ContainerBias: CounterDominant
@@ -91570,7 +91570,7 @@ HasFailureSequence: False
 FTT Candidate: False
 FTT Confirmed: False
 FTT Reason: 
-FttDetectionAllowed: False
+FttDetectionAllowed: True
 FttDetectionBlockReason: 
 CurrentSegmentDominance: Dominant
 ContainerBias: CounterDominant
@@ -91927,7 +91927,7 @@ HasFailureSequence: True
 FTT Candidate: False
 FTT Confirmed: False
 FTT Reason: 
-FttDetectionAllowed: False
+FttDetectionAllowed: True
 FttDetectionBlockReason: 
 CurrentSegmentDominance: NonDominant
 ContainerBias: CounterDominant
@@ -92151,7 +92151,7 @@ HasFailureSequence: True
 FTT Candidate: False
 FTT Confirmed: False
 FTT Reason: 
-FttDetectionAllowed: False
+FttDetectionAllowed: True
 FttDetectionBlockReason: 
 CurrentSegmentDominance: Dominant
 ContainerBias: Dominant
@@ -92967,7 +92967,7 @@ HasFailureSequence: False
 FTT Candidate: False
 FTT Confirmed: False
 FTT Reason: 
-FttDetectionAllowed: False
+FttDetectionAllowed: True
 FttDetectionBlockReason: 
 CurrentSegmentDominance: Dominant
 ContainerBias: CounterDominant
@@ -93174,7 +93174,7 @@ HasFailureSequence: False
 FTT Candidate: False
 FTT Confirmed: False
 FTT Reason: 
-FttDetectionAllowed: False
+FttDetectionAllowed: True
 FttDetectionBlockReason: 
 CurrentSegmentDominance: Dominant
 ContainerBias: CounterDominant
@@ -93559,7 +93559,7 @@ HasFailureSequence: False
 FTT Candidate: False
 FTT Confirmed: False
 FTT Reason: 
-FttDetectionAllowed: False
+FttDetectionAllowed: True
 FttDetectionBlockReason: 
 CurrentSegmentDominance: Dominant
 ContainerBias: CounterDominant
@@ -93717,3 +93717,657 @@ P2P3Distance: 14.25
 IsWeakContainer: False
 ContainerAgeBars: 7
 IsMatureContainer: True
+----- APVA DEBUG -----
+Bar: 2537 Time: 5/7/2026 7:30:00 PM
+InferredDirection: Up
+2518-2524 Black Up AvgVol=606 Rank=Climax Phase=Unknown Dom=CounterDominant
+2525-2525 Red Down AvgVol=335 Rank=Normal Phase=Unknown Dom=Dominant
+2526-2526 Black Up AvgVol=465 Rank=Elevated Phase=Unknown Dom=NonDominant
+2527-2528 Red Down AvgVol=233 Rank=Low Phase=Unknown Dom=Dominant
+2529-2529 Black Up AvgVol=238 Rank=Low Phase=Unknown Dom=NonDominant
+2530-2530 Red Down AvgVol=358 Rank=Normal Phase=Unknown Dom=Dominant
+2531-2531 Black Up AvgVol=248 Rank=Normal Phase=Unknown Dom=NonDominant
+2532-2532 Red Down AvgVol=455 Rank=Elevated Phase=PP1 Dom=Dominant
+2533-2533 Black Up AvgVol=259 Rank=Normal Phase=Unknown Dom=NonDominant
+2534-2535 Red Down AvgVol=475 Rank=Peak Phase=PP2 Dom=Dominant
+2536-2537 Black Up AvgVol=464 Rank=Elevated Phase=T1 Dom=NonDominant
+HasDominanceSequence: False
+HasFailureSequence: False
+FTT Candidate: False
+FTT Confirmed: False
+FTT Reason: Valid P3 and failed structural continuation, but no T2F confirmation. Blocked by insufficient warning buildup.
+FttDetectionAllowed: True
+FttDetectionBlockReason: 
+CurrentSegmentDominance: NonDominant
+ContainerBias: NonDominant
+RecentBias: NonDominant
+Primary: Dir=Down P1=2529@28780 P2=2532@28749.75 P3=2533@28764 ValidP3=True Score=3.00
+Secondary: none
+PendingSecondary: none
+PendingSecondaryConfirmBars: 0
+SelectedContainer: Primary
+LTL@2537: 28729.75
+LastHigh: 28749.25 LastClose: 28744.5
+ContainerDirection: Down
+P1: 2529 28780
+P2: 2532 28749.75
+P3: 2533 28764
+HasValidP3: True
+FTT Kind: StructuralWarning
+WarningDuration: 1
+ImminentFTT: False
+ExpectedContinuationFailed: True
+DistanceToLTL: 7.75
+DistanceDelta: 13.75
+IneffectiveDominance: False
+BarsSinceLastFTT: 10
+P2P3Distance: 14.25
+IsWeakContainer: False
+ContainerAgeBars: 8
+IsMatureContainer: True
+----- APVA DEBUG -----
+Bar: 2538 Time: 5/7/2026 7:35:00 PM
+InferredDirection: Up
+2519-2524 Black Up AvgVol=663 Rank=Climax Phase=Unknown Dom=CounterDominant
+2525-2525 Red Down AvgVol=335 Rank=Normal Phase=Unknown Dom=Dominant
+2526-2526 Black Up AvgVol=465 Rank=Elevated Phase=Unknown Dom=NonDominant
+2527-2528 Red Down AvgVol=233 Rank=Low Phase=Unknown Dom=Dominant
+2529-2529 Black Up AvgVol=238 Rank=Low Phase=Unknown Dom=NonDominant
+2530-2530 Red Down AvgVol=358 Rank=Normal Phase=Unknown Dom=Dominant
+2531-2531 Black Up AvgVol=248 Rank=Normal Phase=Unknown Dom=NonDominant
+2532-2532 Red Down AvgVol=455 Rank=Elevated Phase=PP1 Dom=Dominant
+2533-2533 Black Up AvgVol=259 Rank=Normal Phase=Unknown Dom=NonDominant
+2534-2535 Red Down AvgVol=475 Rank=Peak Phase=PP2 Dom=Dominant
+2536-2538 Black Up AvgVol=427 Rank=Elevated Phase=T1 Dom=NonDominant
+HasDominanceSequence: False
+HasFailureSequence: False
+FTT Candidate: False
+FTT Confirmed: False
+FTT Reason: Valid P3 and failed structural continuation, but no T2F confirmation. Blocked by insufficient warning buildup.
+FttDetectionAllowed: True
+FttDetectionBlockReason: 
+CurrentSegmentDominance: NonDominant
+ContainerBias: NonDominant
+RecentBias: NonDominant
+Primary: Dir=Down P1=2529@28780 P2=2532@28749.75 P3=2533@28764 ValidP3=True Score=3.00
+Secondary: none
+PendingSecondary: none
+PendingSecondaryConfirmBars: 0
+SelectedContainer: Primary
+LTL@2538: 28725.75
+LastHigh: 28754 LastClose: 28754
+ContainerDirection: Down
+P1: 2529 28780
+P2: 2532 28749.75
+P3: 2533 28764
+HasValidP3: True
+FTT Kind: StructuralWarning
+WarningDuration: 2
+ImminentFTT: False
+ExpectedContinuationFailed: True
+DistanceToLTL: 13
+DistanceDelta: 5.25
+IneffectiveDominance: False
+BarsSinceLastFTT: 11
+P2P3Distance: 14.25
+IsWeakContainer: False
+ContainerAgeBars: 9
+IsMatureContainer: True
+----- APVA DEBUG -----
+Bar: 2539 Time: 5/7/2026 7:40:00 PM
+InferredDirection: Down
+2520-2524 Black Up AvgVol=693 Rank=Peak Phase=Unknown Dom=CounterDominant
+2525-2525 Red Down AvgVol=335 Rank=Normal Phase=Unknown Dom=Dominant
+2526-2526 Black Up AvgVol=465 Rank=Elevated Phase=Unknown Dom=NonDominant
+2527-2528 Red Down AvgVol=233 Rank=Low Phase=Unknown Dom=Dominant
+2529-2529 Black Up AvgVol=238 Rank=Low Phase=Unknown Dom=NonDominant
+2530-2530 Red Down AvgVol=358 Rank=Normal Phase=Unknown Dom=Dominant
+2531-2531 Black Up AvgVol=248 Rank=Normal Phase=Unknown Dom=NonDominant
+2532-2532 Red Down AvgVol=455 Rank=Elevated Phase=PP1 Dom=Dominant
+2533-2533 Black Up AvgVol=259 Rank=Normal Phase=Unknown Dom=NonDominant
+2534-2535 Red Down AvgVol=475 Rank=Elevated Phase=PP2 Dom=Dominant
+2536-2538 Black Up AvgVol=427 Rank=Normal Phase=T1 Dom=NonDominant
+2539-2539 Red Down AvgVol=1439 Rank=Climax Phase=T2P Dom=Dominant
+HasDominanceSequence: True
+HasFailureSequence: False
+FTT Candidate: False
+FTT Confirmed: False
+FTT Reason: 
+FttDetectionAllowed: True
+FttDetectionBlockReason: 
+CurrentSegmentDominance: Dominant
+ContainerBias: NonDominant
+RecentBias: NonDominant
+Primary: Dir=Down P1=2529@28780 P2=2532@28749.75 P3=2539@28724.25 ValidP3=True Score=3.00
+Secondary: none
+PendingSecondary: none
+PendingSecondaryConfirmBars: 0
+SelectedContainer: Primary
+LTL@2539: 28710.725
+LastHigh: 28755 LastClose: 28724.25
+ContainerDirection: Down
+P1: 2529 28780
+P2: 2532 28749.75
+P3: 2539 28724.25
+HasValidP3: True
+FTT Kind: None
+WarningDuration: 0
+ImminentFTT: False
+ExpectedContinuationFailed: False
+DistanceToLTL: -12.25
+DistanceDelta: -25.25
+IneffectiveDominance: False
+BarsSinceLastFTT: 12
+P2P3Distance: 25.5
+IsWeakContainer: False
+ContainerAgeBars: 10
+IsMatureContainer: True
+----- APVA DEBUG -----
+Bar: 2540 Time: 5/7/2026 7:45:00 PM
+InferredDirection: Down
+2521-2524 Black Up AvgVol=635 Rank=Peak Phase=Unknown Dom=CounterDominant
+2525-2525 Red Down AvgVol=335 Rank=Normal Phase=Unknown Dom=Dominant
+2526-2526 Black Up AvgVol=465 Rank=Elevated Phase=Unknown Dom=NonDominant
+2527-2528 Red Down AvgVol=233 Rank=Low Phase=Unknown Dom=Dominant
+2529-2529 Black Up AvgVol=238 Rank=Low Phase=Unknown Dom=NonDominant
+2530-2530 Red Down AvgVol=358 Rank=Normal Phase=Unknown Dom=Dominant
+2531-2531 Black Up AvgVol=248 Rank=Normal Phase=Unknown Dom=NonDominant
+2532-2532 Red Down AvgVol=455 Rank=Elevated Phase=PP1 Dom=Dominant
+2533-2533 Black Up AvgVol=259 Rank=Normal Phase=Unknown Dom=NonDominant
+2534-2535 Red Down AvgVol=475 Rank=Elevated Phase=PP2 Dom=Dominant
+2536-2538 Black Up AvgVol=427 Rank=Normal Phase=T1 Dom=NonDominant
+2539-2539 Red Down AvgVol=1439 Rank=Climax Phase=T2P Dom=Dominant
+2540-2540 Black Up AvgVol=432 Rank=Elevated Phase=T2F Dom=NonDominant
+HasDominanceSequence: True
+HasFailureSequence: True
+FTT Candidate: False
+FTT Confirmed: False
+FTT Reason: 
+FttDetectionAllowed: True
+FttDetectionBlockReason: 
+CurrentSegmentDominance: NonDominant
+ContainerBias: Dominant
+RecentBias: Unknown
+Primary: none
+Secondary: none
+PendingSecondary: none
+PendingSecondaryConfirmBars: 0
+SelectedContainer: None
+Container: none
+----- APVA DEBUG -----
+Bar: 2541 Time: 5/7/2026 7:50:00 PM
+InferredDirection: Unknown
+2522-2524 Black Up AvgVol=623 Rank=Peak Phase=Unknown Dom=CounterDominant
+2525-2525 Red Down AvgVol=335 Rank=Normal Phase=Unknown Dom=Dominant
+2526-2526 Black Up AvgVol=465 Rank=Elevated Phase=Unknown Dom=NonDominant
+2527-2528 Red Down AvgVol=233 Rank=Low Phase=Unknown Dom=Dominant
+2529-2529 Black Up AvgVol=238 Rank=Low Phase=Unknown Dom=NonDominant
+2530-2530 Red Down AvgVol=358 Rank=Normal Phase=Unknown Dom=Dominant
+2531-2531 Black Up AvgVol=248 Rank=Normal Phase=Unknown Dom=NonDominant
+2532-2532 Red Down AvgVol=455 Rank=Elevated Phase=PP1 Dom=Dominant
+2533-2533 Black Up AvgVol=259 Rank=Normal Phase=Unknown Dom=NonDominant
+2534-2535 Red Down AvgVol=475 Rank=Elevated Phase=PP2 Dom=Dominant
+2536-2538 Black Up AvgVol=427 Rank=Normal Phase=T1 Dom=NonDominant
+2539-2539 Red Down AvgVol=1439 Rank=Climax Phase=T2P Dom=Dominant
+2540-2541 Black Up AvgVol=532 Rank=Elevated Phase=T2F Dom=NonDominant
+HasDominanceSequence: True
+HasFailureSequence: True
+FTT Candidate: False
+FTT Confirmed: False
+FTT Reason: T2F plus valid P3 and failed structural continuation. Blocked by insufficient warning buildup.
+FttDetectionAllowed: True
+FttDetectionBlockReason: 
+CurrentSegmentDominance: NonDominant
+ContainerBias: NonDominant
+RecentBias: NonDominant
+Primary: Dir=Down P1=2533@28764 P2=2536@28727.75 P3=2539@28755 ValidP3=True Score=4.00
+Secondary: none
+PendingSecondary: none
+PendingSecondaryConfirmBars: 0
+SelectedContainer: Primary
+LTL@2541: 28720.25
+LastHigh: 28773.25 LastClose: 28769.25
+ContainerDirection: Down
+P1: 2533 28764
+P2: 2536 28727.75
+P3: 2539 28755
+HasValidP3: True
+FTT Kind: T2F_FailedContinuation
+WarningDuration: 1
+ImminentFTT: False
+ExpectedContinuationFailed: True
+DistanceToLTL: 18.25
+DistanceDelta: 1.89999999999782
+IneffectiveDominance: False
+BarsSinceLastFTT: 14
+P2P3Distance: 27.25
+IsWeakContainer: False
+ContainerAgeBars: 8
+IsMatureContainer: True
+----- APVA DEBUG -----
+Bar: 2542 Time: 5/7/2026 7:55:00 PM
+InferredDirection: Unknown
+2523-2524 Black Up AvgVol=722 Rank=Peak Phase=Unknown Dom=CounterDominant
+2525-2525 Red Down AvgVol=335 Rank=Normal Phase=Unknown Dom=Dominant
+2526-2526 Black Up AvgVol=465 Rank=Elevated Phase=Unknown Dom=NonDominant
+2527-2528 Red Down AvgVol=233 Rank=Low Phase=Unknown Dom=Dominant
+2529-2529 Black Up AvgVol=238 Rank=Low Phase=Unknown Dom=NonDominant
+2530-2530 Red Down AvgVol=358 Rank=Normal Phase=Unknown Dom=Dominant
+2531-2531 Black Up AvgVol=248 Rank=Normal Phase=Unknown Dom=NonDominant
+2532-2532 Red Down AvgVol=455 Rank=Elevated Phase=PP1 Dom=Dominant
+2533-2533 Black Up AvgVol=259 Rank=Normal Phase=Unknown Dom=NonDominant
+2534-2535 Red Down AvgVol=475 Rank=Elevated Phase=PP2 Dom=Dominant
+2536-2538 Black Up AvgVol=427 Rank=Normal Phase=T1 Dom=NonDominant
+2539-2539 Red Down AvgVol=1439 Rank=Climax Phase=T2P Dom=Dominant
+2540-2541 Black Up AvgVol=532 Rank=Peak Phase=Unknown Dom=CounterDominant
+2542-2542 Red Down AvgVol=343 Rank=Normal Phase=Unknown Dom=Dominant
+HasDominanceSequence: True
+HasFailureSequence: False
+FTT Candidate: False
+FTT Confirmed: False
+FTT Reason: Valid P3 and failed structural continuation, but no T2F confirmation. Blocked by insufficient warning buildup.
+FttDetectionAllowed: True
+FttDetectionBlockReason: 
+CurrentSegmentDominance: Dominant
+ContainerBias: NonDominant
+RecentBias: NonDominant
+Primary: Dir=Down P1=2533@28764 P2=2536@28727.75 P3=2539@28755 ValidP3=True Score=4.00
+Secondary: none
+PendingSecondary: none
+PendingSecondaryConfirmBars: 0
+SelectedContainer: Primary
+LTL@2542: 28718.75
+LastHigh: 28772.75 LastClose: 28755.75
+ContainerDirection: Down
+P1: 2533 28764
+P2: 2536 28727.75
+P3: 2539 28755
+HasValidP3: True
+FTT Kind: StructuralWarning
+WarningDuration: 2
+ImminentFTT: False
+ExpectedContinuationFailed: True
+DistanceToLTL: 35.75
+DistanceDelta: 17.5
+IneffectiveDominance: True
+BarsSinceLastFTT: 15
+P2P3Distance: 27.25
+IsWeakContainer: False
+ContainerAgeBars: 9
+IsMatureContainer: True
+----- APVA DEBUG -----
+Bar: 2543 Time: 5/7/2026 8:00:00 PM
+InferredDirection: Down
+2524-2524 Black Up AvgVol=1116 Rank=Peak Phase=Unknown Dom=CounterDominant
+2525-2525 Red Down AvgVol=335 Rank=Normal Phase=Unknown Dom=Dominant
+2526-2526 Black Up AvgVol=465 Rank=Elevated Phase=Unknown Dom=NonDominant
+2527-2528 Red Down AvgVol=233 Rank=Low Phase=Unknown Dom=Dominant
+2529-2529 Black Up AvgVol=238 Rank=Low Phase=Unknown Dom=NonDominant
+2530-2530 Red Down AvgVol=358 Rank=Normal Phase=Unknown Dom=Dominant
+2531-2531 Black Up AvgVol=248 Rank=Normal Phase=Unknown Dom=NonDominant
+2532-2532 Red Down AvgVol=455 Rank=Elevated Phase=PP1 Dom=Dominant
+2533-2533 Black Up AvgVol=259 Rank=Normal Phase=Unknown Dom=NonDominant
+2534-2535 Red Down AvgVol=475 Rank=Elevated Phase=PP2 Dom=Dominant
+2536-2538 Black Up AvgVol=427 Rank=Normal Phase=T1 Dom=NonDominant
+2539-2539 Red Down AvgVol=1439 Rank=Climax Phase=T2P Dom=Dominant
+2540-2541 Black Up AvgVol=532 Rank=Peak Phase=Unknown Dom=CounterDominant
+2542-2543 Red Down AvgVol=330 Rank=Normal Phase=Unknown Dom=Dominant
+HasDominanceSequence: True
+HasFailureSequence: False
+FTT Candidate: True
+FTT Confirmed: False
+FTT Reason: Valid P3 and failed structural continuation, but no T2F confirmation.
+FttDetectionAllowed: True
+FttDetectionBlockReason: 
+CurrentSegmentDominance: Dominant
+ContainerBias: NonDominant
+RecentBias: NonDominant
+Primary: Dir=Down P1=2533@28764 P2=2536@28727.75 P3=2539@28755 ValidP3=True Score=2.00
+Secondary: none
+PendingSecondary: none
+PendingSecondaryConfirmBars: 0
+SelectedContainer: Primary
+LTL@2543: 28717.25
+LastHigh: 28761.75 LastClose: 28747.5
+ContainerDirection: Down
+P1: 2533 28764
+P2: 2536 28727.75
+P3: 2539 28755
+HasValidP3: True
+FTT Kind: StructuralWarning
+WarningDuration: 3
+ImminentFTT: False
+ExpectedContinuationFailed: True
+DistanceToLTL: 29.25
+DistanceDelta: -6.5
+IneffectiveDominance: True
+BarsSinceLastFTT: 16
+P2P3Distance: 27.25
+IsWeakContainer: False
+ContainerAgeBars: 10
+IsMatureContainer: True
+----- APVA DEBUG -----
+Bar: 2544 Time: 5/7/2026 8:05:00 PM
+InferredDirection: Down
+2525-2525 Red Down AvgVol=335 Rank=Normal Phase=Unknown Dom=Dominant
+2526-2526 Black Up AvgVol=465 Rank=Elevated Phase=Unknown Dom=NonDominant
+2527-2528 Red Down AvgVol=233 Rank=Low Phase=Unknown Dom=Dominant
+2529-2529 Black Up AvgVol=238 Rank=Low Phase=Unknown Dom=NonDominant
+2530-2530 Red Down AvgVol=358 Rank=Normal Phase=Unknown Dom=Dominant
+2531-2531 Black Up AvgVol=248 Rank=Normal Phase=Unknown Dom=NonDominant
+2532-2532 Red Down AvgVol=455 Rank=Elevated Phase=PP1 Dom=Dominant
+2533-2533 Black Up AvgVol=259 Rank=Normal Phase=Unknown Dom=NonDominant
+2534-2535 Red Down AvgVol=475 Rank=Peak Phase=PP2 Dom=Dominant
+2536-2538 Black Up AvgVol=427 Rank=Elevated Phase=T1 Dom=NonDominant
+2539-2539 Red Down AvgVol=1439 Rank=Climax Phase=T2P Dom=Dominant
+2540-2541 Black Up AvgVol=532 Rank=Peak Phase=Unknown Dom=CounterDominant
+2542-2543 Red Down AvgVol=330 Rank=Normal Phase=Unknown Dom=Dominant
+2544-2544 Black Up AvgVol=241 Rank=Normal Phase=Unknown Dom=NonDominant
+HasDominanceSequence: True
+HasFailureSequence: False
+FTT Candidate: True
+FTT Confirmed: False
+FTT Reason: Valid P3 and failed structural continuation, but no T2F confirmation.
+FttDetectionAllowed: True
+FttDetectionBlockReason: 
+CurrentSegmentDominance: NonDominant
+ContainerBias: NonDominant
+RecentBias: NonDominant
+Primary: Dir=Down P1=2533@28764 P2=2536@28727.75 P3=2539@28755 ValidP3=True Score=2.00
+Secondary: none
+PendingSecondary: none
+PendingSecondaryConfirmBars: 0
+SelectedContainer: Primary
+LTL@2544: 28715.75
+LastHigh: 28754 LastClose: 28750.5
+ContainerDirection: Down
+P1: 2533 28764
+P2: 2536 28727.75
+P3: 2539 28755
+HasValidP3: True
+FTT Kind: StructuralWarning
+WarningDuration: 4
+ImminentFTT: False
+ExpectedContinuationFailed: True
+DistanceToLTL: 28.25
+DistanceDelta: -1
+IneffectiveDominance: False
+BarsSinceLastFTT: 17
+P2P3Distance: 27.25
+IsWeakContainer: False
+ContainerAgeBars: 11
+IsMatureContainer: True
+----- APVA DEBUG -----
+Bar: 2545 Time: 5/7/2026 8:10:00 PM
+InferredDirection: Down
+2526-2526 Black Up AvgVol=465 Rank=Elevated Phase=Unknown Dom=NonDominant
+2527-2528 Red Down AvgVol=233 Rank=Low Phase=Unknown Dom=Dominant
+2529-2529 Black Up AvgVol=238 Rank=Normal Phase=Unknown Dom=NonDominant
+2530-2530 Red Down AvgVol=358 Rank=Normal Phase=Unknown Dom=Dominant
+2531-2531 Black Up AvgVol=248 Rank=Normal Phase=Unknown Dom=NonDominant
+2532-2532 Red Down AvgVol=455 Rank=Elevated Phase=PP1 Dom=Dominant
+2533-2533 Black Up AvgVol=259 Rank=Normal Phase=Unknown Dom=NonDominant
+2534-2535 Red Down AvgVol=475 Rank=Peak Phase=PP2 Dom=Dominant
+2536-2538 Black Up AvgVol=427 Rank=Elevated Phase=T1 Dom=NonDominant
+2539-2539 Red Down AvgVol=1439 Rank=Climax Phase=T2P Dom=Dominant
+2540-2541 Black Up AvgVol=532 Rank=Peak Phase=Unknown Dom=CounterDominant
+2542-2543 Red Down AvgVol=330 Rank=Normal Phase=Unknown Dom=Dominant
+2544-2544 Black Up AvgVol=241 Rank=Normal Phase=Unknown Dom=NonDominant
+2545-2545 Red Down AvgVol=134 Rank=Low Phase=Unknown Dom=Dominant
+HasDominanceSequence: True
+HasFailureSequence: False
+FTT Candidate: False
+FTT Confirmed: False
+FTT Reason: 
+FttDetectionAllowed: True
+FttDetectionBlockReason: 
+CurrentSegmentDominance: Dominant
+ContainerBias: NonDominant
+RecentBias: NonDominant
+Primary: none
+Secondary: none
+PendingSecondary: none
+PendingSecondaryConfirmBars: 0
+SelectedContainer: None
+Container: none
+----- APVA DEBUG -----
+Bar: 2546 Time: 5/7/2026 8:15:00 PM
+InferredDirection: Down
+2527-2528 Red Down AvgVol=233 Rank=Normal Phase=Unknown Dom=NonDominant
+2529-2529 Black Up AvgVol=238 Rank=Normal Phase=Unknown Dom=Dominant
+2530-2530 Red Down AvgVol=358 Rank=Elevated Phase=Unknown Dom=NonDominant
+2531-2531 Black Up AvgVol=248 Rank=Normal Phase=Unknown Dom=Dominant
+2532-2532 Red Down AvgVol=455 Rank=Elevated Phase=Unknown Dom=NonDominant
+2533-2533 Black Up AvgVol=259 Rank=Normal Phase=Unknown Dom=Dominant
+2534-2535 Red Down AvgVol=475 Rank=Peak Phase=Unknown Dom=CounterDominant
+2536-2538 Black Up AvgVol=427 Rank=Elevated Phase=PP1 Dom=Dominant
+2539-2539 Red Down AvgVol=1439 Rank=Climax Phase=Unknown Dom=CounterDominant
+2540-2541 Black Up AvgVol=532 Rank=Peak Phase=PP1 Dom=Dominant
+2542-2543 Red Down AvgVol=330 Rank=Normal Phase=Unknown Dom=NonDominant
+2544-2544 Black Up AvgVol=241 Rank=Normal Phase=Unknown Dom=Dominant
+2545-2545 Red Down AvgVol=134 Rank=Low Phase=Unknown Dom=NonDominant
+2546-2546 Black Up AvgVol=171 Rank=Low Phase=Unknown Dom=Dominant
+HasDominanceSequence: False
+HasFailureSequence: False
+FTT Candidate: True
+FTT Confirmed: False
+FTT Reason: Valid P3 and failed structural continuation, but no T2F confirmation.
+FttDetectionAllowed: True
+FttDetectionBlockReason: 
+CurrentSegmentDominance: Dominant
+ContainerBias: CounterDominant
+RecentBias: Unknown
+Primary: Dir=Up P1=2539@28709.5 P2=2541@28773.25 P3=2545@28744 ValidP3=True Score=2.00
+Secondary: none
+PendingSecondary: none
+PendingSecondaryConfirmBars: 0
+SelectedContainer: Primary
+LTL@2546: 28802
+LastHigh: 28760.5 LastClose: 28751.5
+ContainerDirection: Up
+P1: 2539 28709.5
+P2: 2541 28773.25
+P3: 2545 28744
+HasValidP3: True
+FTT Kind: StructuralWarning
+WarningDuration: 5
+ImminentFTT: True
+ExpectedContinuationFailed: True
+DistanceToLTL: 41.5
+DistanceDelta: 11.75
+IneffectiveDominance: True
+BarsSinceLastFTT: 19
+P2P3Distance: 29.25
+IsWeakContainer: False
+ContainerAgeBars: 7
+IsMatureContainer: True
+----- APVA DEBUG -----
+Bar: 2547 Time: 5/7/2026 8:20:00 PM
+InferredDirection: Down
+2528-2528 Red Down AvgVol=196 Rank=Normal Phase=Unknown Dom=NonDominant
+2529-2529 Black Up AvgVol=238 Rank=Normal Phase=Unknown Dom=Dominant
+2530-2530 Red Down AvgVol=358 Rank=Elevated Phase=Unknown Dom=NonDominant
+2531-2531 Black Up AvgVol=248 Rank=Normal Phase=Unknown Dom=Dominant
+2532-2532 Red Down AvgVol=455 Rank=Elevated Phase=Unknown Dom=NonDominant
+2533-2533 Black Up AvgVol=259 Rank=Normal Phase=Unknown Dom=Dominant
+2534-2535 Red Down AvgVol=475 Rank=Peak Phase=Unknown Dom=CounterDominant
+2536-2538 Black Up AvgVol=427 Rank=Elevated Phase=PP1 Dom=Dominant
+2539-2539 Red Down AvgVol=1439 Rank=Climax Phase=Unknown Dom=CounterDominant
+2540-2541 Black Up AvgVol=532 Rank=Peak Phase=PP1 Dom=Dominant
+2542-2543 Red Down AvgVol=330 Rank=Elevated Phase=Unknown Dom=NonDominant
+2544-2544 Black Up AvgVol=241 Rank=Normal Phase=Unknown Dom=Dominant
+2545-2545 Red Down AvgVol=134 Rank=Low Phase=Unknown Dom=NonDominant
+2546-2546 Black Up AvgVol=171 Rank=Normal Phase=Unknown Dom=Dominant
+2547-2547 Red Down AvgVol=78 Rank=Low Phase=Unknown Dom=NonDominant
+HasDominanceSequence: False
+HasFailureSequence: False
+FTT Candidate: True
+FTT Confirmed: False
+FTT Reason: Valid P3 and failed structural continuation, but no T2F confirmation.
+FttDetectionAllowed: True
+FttDetectionBlockReason: 
+CurrentSegmentDominance: NonDominant
+ContainerBias: CounterDominant
+RecentBias: Unknown
+Primary: Dir=Up P1=2539@28709.5 P2=2541@28773.25 P3=2545@28744 ValidP3=True Score=2.00
+Secondary: none
+PendingSecondary: Dir=Down P1=2541@28773.25 P2=2545@28744 P3=2546@28760.5 ValidP3=True Score=0.00
+PendingSecondaryConfirmBars: 1
+SelectedContainer: Primary
+LTL@2547: 28807.75
+LastHigh: 28756 LastClose: 28747.75
+ContainerDirection: Up
+P1: 2539 28709.5
+P2: 2541 28773.25
+P3: 2545 28744
+HasValidP3: True
+FTT Kind: StructuralWarning
+WarningDuration: 6
+ImminentFTT: False
+ExpectedContinuationFailed: True
+DistanceToLTL: 51.75
+DistanceDelta: 10.25
+IneffectiveDominance: False
+BarsSinceLastFTT: 20
+P2P3Distance: 29.25
+IsWeakContainer: False
+ContainerAgeBars: 8
+IsMatureContainer: True
+----- APVA DEBUG -----
+Bar: 2548 Time: 5/7/2026 8:25:00 PM
+InferredDirection: Down
+2529-2529 Black Up AvgVol=238 Rank=Normal Phase=Unknown Dom=Dominant
+2530-2530 Red Down AvgVol=358 Rank=Elevated Phase=Unknown Dom=NonDominant
+2531-2531 Black Up AvgVol=248 Rank=Normal Phase=Unknown Dom=Dominant
+2532-2532 Red Down AvgVol=455 Rank=Elevated Phase=Unknown Dom=NonDominant
+2533-2533 Black Up AvgVol=259 Rank=Normal Phase=Unknown Dom=Dominant
+2534-2535 Red Down AvgVol=475 Rank=Peak Phase=Unknown Dom=CounterDominant
+2536-2538 Black Up AvgVol=427 Rank=Elevated Phase=PP1 Dom=Dominant
+2539-2539 Red Down AvgVol=1439 Rank=Climax Phase=Unknown Dom=CounterDominant
+2540-2541 Black Up AvgVol=532 Rank=Peak Phase=PP1 Dom=Dominant
+2542-2543 Red Down AvgVol=330 Rank=Elevated Phase=Unknown Dom=NonDominant
+2544-2544 Black Up AvgVol=241 Rank=Normal Phase=Unknown Dom=Dominant
+2545-2545 Red Down AvgVol=134 Rank=Low Phase=Unknown Dom=NonDominant
+2546-2546 Black Up AvgVol=171 Rank=Normal Phase=Unknown Dom=Dominant
+2547-2547 Red Down AvgVol=78 Rank=Low Phase=Unknown Dom=NonDominant
+2548-2548 Black Up AvgVol=232 Rank=Normal Phase=Unknown Dom=Dominant
+HasDominanceSequence: False
+HasFailureSequence: False
+FTT Candidate: True
+FTT Confirmed: False
+FTT Reason: Valid P3 and failed structural continuation, but no T2F confirmation.
+FttDetectionAllowed: True
+FttDetectionBlockReason: 
+CurrentSegmentDominance: Dominant
+ContainerBias: CounterDominant
+RecentBias: Unknown
+Primary: Dir=Up P1=2539@28709.5 P2=2541@28773.25 P3=2545@28744 ValidP3=True Score=2.00
+Secondary: Dir=Down P1=2541@28773.25 P2=2545@28744 P3=2546@28760.5 ValidP3=True Score=8.00
+PendingSecondary: none
+PendingSecondaryConfirmBars: 0
+SelectedContainer: Secondary
+LTL@2548: 28736.35
+LastHigh: 28754.75 LastClose: 28754.75
+ContainerDirection: Down
+P1: 2541 28773.25
+P2: 2545 28744
+P3: 2546 28760.5
+HasValidP3: True
+FTT Kind: StructuralWarning
+WarningDuration: 7
+ImminentFTT: True
+ExpectedContinuationFailed: True
+DistanceToLTL: 7.39999999999782
+DistanceDelta: -44.3500000000022
+IneffectiveDominance: True
+BarsSinceLastFTT: 21
+P2P3Distance: 16.5
+IsWeakContainer: False
+ContainerAgeBars: 7
+IsMatureContainer: True
+----- APVA DEBUG -----
+Bar: 2549 Time: 5/7/2026 8:30:00 PM
+InferredDirection: Down
+2530-2530 Red Down AvgVol=358 Rank=Elevated Phase=PP1 Dom=Dominant
+2531-2531 Black Up AvgVol=248 Rank=Normal Phase=Unknown Dom=NonDominant
+2532-2532 Red Down AvgVol=455 Rank=Elevated Phase=PP2 Dom=Dominant
+2533-2533 Black Up AvgVol=259 Rank=Normal Phase=T1 Dom=NonDominant
+2534-2535 Red Down AvgVol=475 Rank=Peak Phase=T2P Dom=Dominant
+2536-2538 Black Up AvgVol=427 Rank=Elevated Phase=T2F Dom=NonDominant
+2539-2539 Red Down AvgVol=1439 Rank=Climax Phase=PP1 Dom=Dominant
+2540-2541 Black Up AvgVol=532 Rank=Peak Phase=Unknown Dom=CounterDominant
+2542-2543 Red Down AvgVol=330 Rank=Elevated Phase=PP1 Dom=Dominant
+2544-2544 Black Up AvgVol=241 Rank=Normal Phase=Unknown Dom=NonDominant
+2545-2545 Red Down AvgVol=134 Rank=Low Phase=Unknown Dom=Dominant
+2546-2546 Black Up AvgVol=171 Rank=Normal Phase=Unknown Dom=NonDominant
+2547-2547 Red Down AvgVol=78 Rank=Low Phase=Unknown Dom=Dominant
+2548-2548 Black Up AvgVol=232 Rank=Normal Phase=Unknown Dom=NonDominant
+2549-2549 Red Down AvgVol=154 Rank=Normal Phase=Unknown Dom=Dominant
+HasDominanceSequence: True
+HasFailureSequence: True
+FTT Candidate: True
+FTT Confirmed: False
+FTT Reason: T2F plus valid P3 and failed structural continuation. Blocked by weak/low-score container.
+FttDetectionAllowed: True
+FttDetectionBlockReason: 
+CurrentSegmentDominance: Dominant
+ContainerBias: CounterDominant
+RecentBias: Unknown
+Primary: Dir=Up P1=2539@28709.5 P2=2541@28773.25 P3=2545@28744 ValidP3=True Score=0.00
+Secondary: Dir=Down P1=2541@28773.25 P2=2545@28744 P3=2546@28760.5 ValidP3=True Score=2.00
+PendingSecondary: Dir=Down P1=2541@28773.25 P2=2545@28744 P3=2546@28760.5 ValidP3=True Score=0.00
+PendingSecondaryConfirmBars: 1
+SelectedContainer: Secondary
+LTL@2549: 28733.8
+LastHigh: 28759.25 LastClose: 28753
+ContainerDirection: Down
+P1: 2541 28773.25
+P2: 2545 28744
+P3: 2546 28760.5
+HasValidP3: True
+FTT Kind: T2F_FailedContinuation
+WarningDuration: 8
+ImminentFTT: True
+ExpectedContinuationFailed: True
+DistanceToLTL: 18.2000000000007
+DistanceDelta: 10.8000000000029
+IneffectiveDominance: True
+BarsSinceLastFTT: 22
+P2P3Distance: 16.5
+IsWeakContainer: False
+ContainerAgeBars: 8
+IsMatureContainer: True
+----- APVA DEBUG -----
+Bar: 2550 Time: 5/7/2026 8:35:00 PM
+InferredDirection: Unknown
+2531-2531 Black Up AvgVol=248 Rank=Normal Phase=Unknown Dom=Dominant
+2532-2532 Red Down AvgVol=455 Rank=Elevated Phase=Unknown Dom=NonDominant
+2533-2533 Black Up AvgVol=259 Rank=Normal Phase=Unknown Dom=Dominant
+2534-2535 Red Down AvgVol=475 Rank=Peak Phase=Unknown Dom=CounterDominant
+2536-2538 Black Up AvgVol=427 Rank=Elevated Phase=PP1 Dom=Dominant
+2539-2539 Red Down AvgVol=1439 Rank=Climax Phase=Unknown Dom=CounterDominant
+2540-2541 Black Up AvgVol=532 Rank=Peak Phase=PP1 Dom=Dominant
+2542-2543 Red Down AvgVol=330 Rank=Elevated Phase=Unknown Dom=NonDominant
+2544-2544 Black Up AvgVol=241 Rank=Normal Phase=Unknown Dom=Dominant
+2545-2545 Red Down AvgVol=134 Rank=Low Phase=Unknown Dom=NonDominant
+2546-2546 Black Up AvgVol=171 Rank=Normal Phase=Unknown Dom=Dominant
+2547-2547 Red Down AvgVol=78 Rank=Low Phase=Unknown Dom=NonDominant
+2548-2548 Black Up AvgVol=232 Rank=Normal Phase=Unknown Dom=Dominant
+2549-2549 Red Down AvgVol=154 Rank=Normal Phase=Unknown Dom=NonDominant
+2550-2550 Black Up AvgVol=321 Rank=Elevated Phase=PP2 Dom=Dominant
+HasDominanceSequence: False
+HasFailureSequence: False
+FTT Candidate: False
+FTT Confirmed: False
+FTT Reason: 
+FttDetectionAllowed: True
+FttDetectionBlockReason: 
+CurrentSegmentDominance: Dominant
+ContainerBias: CounterDominant
+RecentBias: Unknown
+Primary: none
+Secondary: none
+PendingSecondary: none
+PendingSecondaryConfirmBars: 0
+SelectedContainer: None
+Container: none
