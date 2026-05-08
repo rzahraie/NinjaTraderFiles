@@ -26,7 +26,7 @@ $patterns = @(
 
 "" | Out-File $out
 
-foreach ($i in 27, 37) {
+for ($i = 0; $i -le 46; $i++) {
     $file = Join-Path $dir "$base$i.txt"
 
     if (!(Test-Path $file)) {
