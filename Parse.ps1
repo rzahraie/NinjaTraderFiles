@@ -12,12 +12,18 @@ $patterns = @(
     "Blocked by insufficient warning buildup",
     "WarningDuration: 2",
     "WarningDuration: 3",
-    "ImminentFTT: True"
+    "ImminentFTT: True",
+	"FTT Kind:"
+	"FTT Reason:"
+	"BarsSinceLastFtt:"
+	"DistanceToLTL:"
+	"ContainerScore:"
+	"SelectedContainer:"
 )
 
 "" | Out-File $out
 
-for ($i = 0; $i -le 37; $i++) {
+foreach ($i in 27, 37) {
     $file = Join-Path $dir "$base$i.txt"
 
     if (!(Test-Path $file)) {
