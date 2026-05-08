@@ -394,8 +394,7 @@ namespace APVA.Core
 			}
 			
 			// NEW: require sustained failure before candidate
-			int minWarningBars =
-    				result.IsMatureContainer ? 3 : 2;
+			int minWarningBars = 3;
 			
 			if (result.Ftt.IsCandidate && state.WarningStreak < minWarningBars)
 			{
@@ -715,6 +714,7 @@ namespace APVA.Core
 		}
     }
 }
+
 
 
 
