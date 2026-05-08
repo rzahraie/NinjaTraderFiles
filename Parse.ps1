@@ -40,28 +40,30 @@ foreach ($i in 27, 37) {
         "$p : $($matches.Count)" | Tee-Object -FilePath $out -Append
     }
 
+	"`n--- Confirmed FTT Context ---" | Tee-Object -FilePath $out -Append
+
+	$lines = Get-Content $file
+
+	for ($n = 0; $n -lt $lines.Count; $n++) {
+		if ($lines[$n] -like "*FTT Confirmed: True*") {
+			$start = [Math]::Max(0, $n - 20)
+			$end   = [Math]::Min($lines.Count - 1, $n + 10)
+
+			">>> Context around line $($n + 1)" | Tee-Object -FilePath $out -Append
+
+			for ($k = $start; $k -le $end; $k++) {
+				$lineNo = $k + 1
+				"$lineNo`t$($lines[$k])" | Tee-Object -FilePath $out -Append
+			}
+
+			"" | Tee-Object -FilePath $out -Append
+		}
+	}
+
     "" | Tee-Object -FilePath $out -Append
 }
 
-"`n--- Confirmed FTT Context ---" | Tee-Object -FilePath $out -Append
 
-$lines = Get-Content $file
-
-for ($n = 0; $n -lt $lines.Count; $n++) {
-    if ($lines[$n] -like "*FTT Confirmed: True*") {
-        $start = [Math]::Max(0, $n - 20)
-        $end   = [Math]::Min($lines.Count - 1, $n + 10)
-
-        ">>> Context around line $($n + 1)" | Tee-Object -FilePath $out -Append
-
-        for ($k = $start; $k -le $end; $k++) {
-            $lineNo = $k + 1
-            "$lineNo`t$($lines[$k])" | Tee-Object -FilePath $out -Append
-        }
-
-        "" | Tee-Object -FilePath $out -Append
-    }
-}
 
 Write-Host "Done. Summary written to:"
 Write-Host $out
