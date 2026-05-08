@@ -23417,9 +23417,9 @@ InferredDirection: Unknown
 656-657 Red Down AvgVol=442 Rank=Elevated Phase=PP1 Dom=Dominant
 HasDominanceSequence: False
 HasFailureSequence: False
-FTT Candidate: False
+FTT Candidate: True
 FTT Confirmed: False
-FTT Reason: Valid P3 and failed structural continuation, but no T2F confirmation. Blocked by insufficient warning buildup.
+FTT Reason: Valid P3 and failed structural continuation, but no T2F confirmation.
 FttDetectionAllowed: True
 FttDetectionBlockReason: 
 CurrentSegmentDominance: Dominant
@@ -42260,9 +42260,9 @@ InferredDirection: Unknown
 1160-1163 Black Up AvgVol=269 Rank=Normal Phase=T1 Dom=NonDominant
 HasDominanceSequence: False
 HasFailureSequence: False
-FTT Candidate: False
+FTT Candidate: True
 FTT Confirmed: False
-FTT Reason: Valid P3 and failed structural continuation, but no T2F confirmation. Blocked by insufficient warning buildup.
+FTT Reason: Valid P3 and failed structural continuation, but no T2F confirmation.
 FttDetectionAllowed: True
 FttDetectionBlockReason: 
 CurrentSegmentDominance: NonDominant
@@ -71761,9 +71761,9 @@ InferredDirection: Down
 1970-1970 Red Down AvgVol=381 Rank=Low Phase=Unknown Dom=NonDominant
 HasDominanceSequence: False
 HasFailureSequence: False
-FTT Candidate: False
+FTT Candidate: True
 FTT Confirmed: False
-FTT Reason: Valid P3 and failed structural continuation, but no T2F confirmation. Blocked by insufficient warning buildup.
+FTT Reason: Valid P3 and failed structural continuation, but no T2F confirmation.
 FttDetectionAllowed: True
 FttDetectionBlockReason: 
 CurrentSegmentDominance: NonDominant
@@ -87230,9 +87230,9 @@ InferredDirection: Down
 2365-2366 Red Down AvgVol=591 Rank=Elevated Phase=T1 Dom=NonDominant
 HasDominanceSequence: False
 HasFailureSequence: False
-FTT Candidate: False
+FTT Candidate: True
 FTT Confirmed: False
-FTT Reason: Valid P3 and failed structural continuation, but no T2F confirmation. Blocked by insufficient warning buildup.
+FTT Reason: Valid P3 and failed structural continuation, but no T2F confirmation.
 FttDetectionAllowed: True
 FttDetectionBlockReason: 
 CurrentSegmentDominance: NonDominant
@@ -94371,3 +94371,54 @@ PendingSecondary: none
 PendingSecondaryConfirmBars: 0
 SelectedContainer: None
 Container: none
+----- APVA DEBUG -----
+Bar: 2553 Time: 5/7/2026 8:50:00 PM
+InferredDirection: Unknown
+2534-2535 Red Down AvgVol=475 Rank=Peak Phase=Unknown Dom=CounterDominant
+2536-2538 Black Up AvgVol=427 Rank=Elevated Phase=PP1 Dom=Dominant
+2539-2539 Red Down AvgVol=1439 Rank=Climax Phase=Unknown Dom=CounterDominant
+2540-2541 Black Up AvgVol=532 Rank=Peak Phase=PP1 Dom=Dominant
+2542-2543 Red Down AvgVol=330 Rank=Elevated Phase=Unknown Dom=NonDominant
+2544-2544 Black Up AvgVol=241 Rank=Normal Phase=Unknown Dom=Dominant
+2545-2545 Red Down AvgVol=134 Rank=Low Phase=Unknown Dom=NonDominant
+2546-2546 Black Up AvgVol=171 Rank=Normal Phase=Unknown Dom=Dominant
+2547-2547 Red Down AvgVol=78 Rank=Low Phase=Unknown Dom=NonDominant
+2548-2548 Black Up AvgVol=232 Rank=Normal Phase=Unknown Dom=Dominant
+2549-2549 Red Down AvgVol=154 Rank=Normal Phase=Unknown Dom=NonDominant
+2550-2550 Black Up AvgVol=321 Rank=Elevated Phase=PP2 Dom=Dominant
+2551-2551 Red Down AvgVol=255 Rank=Normal Phase=T1 Dom=NonDominant
+2552-2553 Black Up AvgVol=160 Rank=Normal Phase=T2F Dom=Dominant
+HasDominanceSequence: False
+HasFailureSequence: False
+FTT Candidate: False
+FTT Confirmed: False
+FTT Reason: T2F plus valid P3 and failed structural continuation. Blocked by insufficient warning buildup.
+FttDetectionAllowed: True
+FttDetectionBlockReason: 
+CurrentSegmentDominance: Dominant
+ContainerBias: Dominant
+RecentBias: Dominant
+Primary: Dir=Up P1=2548@28743.75 P2=2550@28770.75 P3=2552@28748.25 ValidP3=True Score=8.00
+Secondary: none
+PendingSecondary: none
+PendingSecondaryConfirmBars: 0
+SelectedContainer: Primary
+LTL@2553: 28774.125
+LastHigh: 28761.5 LastClose: 28759
+ContainerDirection: Up
+P1: 2548 28743.75
+P2: 2550 28770.75
+P3: 2552 28748.25
+HasValidP3: True
+FTT Kind: T2F_FailedContinuation
+WarningDuration: 1
+ImminentFTT: False
+ExpectedContinuationFailed: True
+DistanceToLTL: 12.625
+DistanceDelta: 12.625
+IneffectiveDominance: True
+BarsSinceLastFTT: 26
+P2P3Distance: 22.5
+IsWeakContainer: False
+ContainerAgeBars: 5
+IsMatureContainer: True
