@@ -20,7 +20,8 @@ $patterns = @(
     "Score:",
     "Primary Score:",
     "Secondary Score:",
-    "SelectedContainer:"
+    "SelectedContainer:",
+	"Blocked by non-dominant current segment"
 )
 
 "" | Out-File $out
