@@ -420,6 +420,13 @@ namespace APVA.Core
 		    }
 		   	else if (result.Ftt.IsConfirmed)
 			{
+			    if (result.CurrentSegmentDominance != DominanceState.Dominant)
+			    {
+			        result.Ftt.IsConfirmed = false;
+			        result.Ftt.Reason += " Blocked by non-dominant current segment.";
+			        return;
+			    }
+			
 			    const double MinContainerScoreForFtt = 4.0;
 			
 			    if (!result.IsMatureContainer ||
@@ -714,6 +721,7 @@ namespace APVA.Core
 		}
     }
 }
+
 
 
 
