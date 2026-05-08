@@ -345,8 +345,8 @@ namespace APVA.Core
 			}
 			else if (!continuationFailed)
 			{
-			    // Only reset if continuation actually succeeds.
-			    state.WarningStreak = 0;
+			    if (state.WarningStreak > 0)
+			        state.WarningStreak--;   // decay instead of reset
 			}
 
 		    result.WarningDuration = state.WarningStreak;
@@ -714,6 +714,7 @@ namespace APVA.Core
 		}
     }
 }
+
 
 
 
