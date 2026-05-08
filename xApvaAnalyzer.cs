@@ -367,11 +367,15 @@ namespace APVA.Core
 		   	// Pre-filter: do not even attempt FTT detection
 			// unless warning has started or structure supports it.
 			
+			bool ineffectiveDominance =
+			    result.CurrentSegmentDominance == DominanceState.Dominant &&
+			    result.DistanceToLtl > 0;
+			
 			bool allowDetection =
 			    continuationFailed &&
 			    (
 			        state.WarningStreak > 0 ||
-			        result.IneffectiveDominance
+			        ineffectiveDominance
 			    );
 			
 			if (!allowDetection)
@@ -724,6 +728,7 @@ namespace APVA.Core
 		}
     }
 }
+
 
 
 
