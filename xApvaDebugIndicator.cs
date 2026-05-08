@@ -144,6 +144,14 @@ namespace NinjaTrader.NinjaScript.Indicators
 			}
 			
 			Print("SelectedContainer: " + selected);
+			Print("SelectedContainerScore: " +
+			    (result.Container != null ? result.Container.Score.ToString("F2") : "none"));
+			
+			Print("PrimaryContainerScore: " +
+			    (_state.PrimaryContainer != null ? _state.PrimaryContainer.Score.ToString("F2") : "none"));
+			
+			Print("SecondaryContainerScore: " +
+			    (_state.SecondaryContainer != null ? _state.SecondaryContainer.Score.ToString("F2") : "none"));
 			
 			if (result.Container != null)
 			{
