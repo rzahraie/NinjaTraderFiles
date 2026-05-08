@@ -367,46 +367,39 @@ namespace APVA.Core
 		    bool continuationFailed,
 		    bool continuationAttempted)
 		{
-		   	// Pre-filter: do not even attempt FTT detection
-			// unless warning has started or structure supports it.
-			
-			bool ineffectiveDominance =
-			    result.CurrentSegmentDominance == DominanceState.Dominant &&
-			    result.DistanceToLtl > 0;
-			
-			bool allowDetection =
-			    continuationFailed &&
-			    (
-			        state.WarningStreak > 0 ||
-			        ineffectiveDominance
-			    );
-			
-			if (!allowDetection)
-			{
-			    result.Ftt = new FttResult();
-			    return;
-			}
-			
-			result.FttDetectionAllowed = allowDetection;
-
-			if (!allowDetection)
-			{
-			    result.FttDetectionBlockReason =
-			        "Blocked before detection: " +
-			        "ContinuationFailed=" + continuationFailed + " " +
-			        "WarningStreak=" + state.WarningStreak + " " +
-			        "IneffectiveDominance=" + ineffectiveDominance;
-			
-			    result.Ftt = new FttResult();
-			    return;
-			}
-
-			result.Ftt =
-			    xApvaFttDetector.Detect(
-			        result.Segments,
-			        hasValidP3: result.Container != null && result.Container.HasValidP3,
-			        expectedContinuationFailed: continuationFailed,
-			        continuationAttempted: continuationAttempted);
+		    bool ineffectiveDominance =
+		        result.CurrentSegmentDominance == DominanceState.Dominant &&
+		        result.DistanceToLtl > 0;
+		
+		    bool allowDetection =
+		        continuationFailed &&
+		        (
+		            state.WarningStreak > 0 ||
+		            ineffectiveDominance
+		        );
+		
+		    result.FttDetectionAllowed = allowDetection;
+		
+		    if (!allowDetection)
+		    {
+		        result.FttDetectionBlockReason =
+		            "Blocked before detection: " +
+		            "ContinuationFailed=" + continuationFailed + " " +
+		            "WarningStreak=" + state.WarningStreak + " " +
+		            "IneffectiveDominance=" + ineffectiveDominance;
+		
+		        result.Ftt = new FttResult();
+		        return;
+		    }
+		
+		    result.FttDetectionBlockReason = "";
+		
+		    result.Ftt =
+		        xApvaFttDetector.Detect(
+		            result.Segments,
+		            hasValidP3: result.Container != null && result.Container.HasValidP3,
+		            expectedContinuationFailed: continuationFailed,
+		            continuationAttempted: continuationAttempted);
 		}
 
 		private static void GateFtt(
@@ -745,6 +738,7 @@ namespace APVA.Core
 		}
     }
 }
+
 
 
 
