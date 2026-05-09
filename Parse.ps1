@@ -27,7 +27,8 @@ $patterns = @(
 	"SecondaryContainerScore:",
 	"SelectedContainerScoreSnapshot:",
 	"PrimaryContainerScoreSnapshot:",
-	"SecondaryContainerScoreSnapshot:"
+	"SecondaryContainerScoreSnapshot:",
+	"FTT_OUTCOME"
 )
 
 "" | Out-File $out
@@ -47,9 +48,17 @@ for ($i = 0; $i -le 5; $i++) {
         "$p : $($matches.Count)" | Tee-Object -FilePath $out -Append
     }
 
-	"`n--- Confirmed FTT Context ---" | Tee-Object -FilePath $out -Append
+	"`n--- FTT Outcomes ---" | Tee-Object -FilePath $out -Append
 
-	$lines = Get-Content $file
+	foreach ($file in $files) {
+		$lines = Get-Content $file
+
+		foreach ($line in $lines) {
+			if ($line -like "*FTT_OUTCOME*") {
+				$line | Tee-Object -FilePath $out -Append
+			}
+		}
+	}
 
 	for ($n = 0; $n -lt $lines.Count; $n++) {
 		if ($lines[$n] -like "*FTT Confirmed: True*") {

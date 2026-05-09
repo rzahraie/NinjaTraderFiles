@@ -468,7 +468,15 @@ namespace APVA.Core
 			}
 		
 		   if (result.Ftt.IsConfirmed)
-			{
+		   {
+			    state.PendingFttEvents.Add(new FttEvent
+			    {
+			        EntryBarIndex = currentBar.Index,
+			        EntryPrice = currentBar.Close,
+			        Direction = result.Container != null ? result.Container.Direction : ContainerDirection.Unknown,
+			        BarsTracked = 0
+			    });
+			   
 			    state.WarningStreak = 0;
 			    state.HasPrevDistance = false;
 			    state.ContinuationAttempted = false;
@@ -482,14 +490,6 @@ namespace APVA.Core
 			
 			    state.PostFttGraceBars = 3;
 			}
-			
-			state.PendingFttEvents.Add(new FttEvent
-			{
-			    EntryBarIndex = currentBar.Index,
-			    EntryPrice = currentBar.Close,
-			    Direction = result.Container?.Direction ?? ContainerDirection.Unknown,
-			    BarsTracked = 0
-			});
 		}
 		
 		private static xApvaContainerCandidate SelectBestContainer(
@@ -810,6 +810,7 @@ namespace APVA.Core
 		}
     }
 }
+
 
 
 
