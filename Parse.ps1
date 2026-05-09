@@ -50,13 +50,11 @@ for ($i = 0; $i -le 5; $i++) {
 
 	"`n--- FTT Outcomes ---" | Tee-Object -FilePath $out -Append
 
-	foreach ($file in $files) {
-		$lines = Get-Content $file
+	$lines = Get-Content $file
 
-		foreach ($line in $lines) {
-			if ($line -like "*FTT_OUTCOME*") {
-				$line | Tee-Object -FilePath $out -Append
-			}
+	foreach ($line in $lines) {
+		if ($line -like "*FTT_OUTCOME*") {
+			$line | Tee-Object -FilePath $out -Append
 		}
 	}
 
