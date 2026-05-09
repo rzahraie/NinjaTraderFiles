@@ -43,6 +43,8 @@ namespace APVA.Core
 		public double SelectedContainerScoreSnapshot { get; set; } = double.NaN;
 		public double PrimaryContainerScoreSnapshot { get; set; } = double.NaN;
 		public double SecondaryContainerScoreSnapshot { get; set; } = double.NaN;
+		
+		public List<FttEvent> CompletedFttEvents { get; set; } = new List<FttEvent>();
     }
 	
 	public sealed class ApvaAnalyzerState
@@ -58,6 +60,25 @@ namespace APVA.Core
 		public int BarsFarFromStructure = 0;
 		public xApvaContainerCandidate PendingSecondaryContainer = null;
 		public int PendingSecondaryConfirmBars = 0;
+		public List<FttEvent> PendingFttEvents = new List<FttEvent>();
+	}
+	
+	public class FttEvent
+	{
+	    public int EntryBarIndex;
+	    public double EntryPrice;
+	    public ContainerDirection Direction;
+	
+	    public double MaxFavorableExcursion5;
+	    public double MaxAdverseExcursion5;
+	
+	    public double MaxFavorableExcursion10;
+	    public double MaxAdverseExcursion10;
+	
+	    public double MaxFavorableExcursion20;
+	    public double MaxAdverseExcursion20;
+	
+	    public int BarsTracked;
 	}
 
     public static class xApvaAnalyzer
@@ -461,6 +482,14 @@ namespace APVA.Core
 			
 			    state.PostFttGraceBars = 3;
 			}
+			
+			state.PendingFttEvents.Add(new FttEvent
+			{
+			    EntryBarIndex = currentBar.Index,
+			    EntryPrice = currentBar.Close,
+			    Direction = result.Container?.Direction ?? ContainerDirection.Unknown,
+			    BarsTracked = 0
+			});
 		}
 		
 		private static xApvaContainerCandidate SelectBestContainer(
@@ -599,6 +628,53 @@ namespace APVA.Core
 		{
 		    var result = new ApvaAnalysisResult();
 		    Bar currentBar = bars[bars.Count - 1];
+			
+			var toRemove = new List<FttEvent>();
+			
+			foreach (var evt in state.PendingFttEvents)
+			{
+			    int barsSince = currentBar.Index - evt.EntryBarIndex;
+			    if (barsSince <= 0) continue;
+			
+			    double move = currentBar.Close - evt.EntryPrice;
+			
+			    double favorable =
+			        evt.Direction == ContainerDirection.Down ? move :
+			        evt.Direction == ContainerDirection.Up ? -move : 0;
+			
+			    double adverse = -favorable;
+			
+			    if (barsSince <= 5)
+			    {
+			        evt.MaxFavorableExcursion5 = Math.Max(evt.MaxFavorableExcursion5, favorable);
+			        evt.MaxAdverseExcursion5 = Math.Min(evt.MaxAdverseExcursion5, adverse);
+			    }
+			
+			    if (barsSince <= 10)
+			    {
+			        evt.MaxFavorableExcursion10 = Math.Max(evt.MaxFavorableExcursion10, favorable);
+			        evt.MaxAdverseExcursion10 = Math.Min(evt.MaxAdverseExcursion10, adverse);
+			    }
+			
+			    if (barsSince <= 20)
+			    {
+			        evt.MaxFavorableExcursion20 = Math.Max(evt.MaxFavorableExcursion20, favorable);
+			        evt.MaxAdverseExcursion20 = Math.Min(evt.MaxAdverseExcursion20, adverse);
+			    }
+			
+			    evt.BarsTracked = barsSince;
+			
+			    if (evt.BarsTracked >= 20)
+			    {
+			        result.CompletedFttEvents.Add(evt);
+			        toRemove.Add(evt);
+			    }
+			}
+			
+			foreach (var evt in toRemove)
+			{
+			    state.PendingFttEvents.Remove(evt);
+			}
 		
 		    BuildAndExtendContainer(
 					    result,
@@ -734,6 +810,13 @@ namespace APVA.Core
 		}
     }
 }
+
+
+
+
+
+
+
 
 
 

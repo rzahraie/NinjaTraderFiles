@@ -79,6 +79,14 @@ namespace NinjaTrader.NinjaScript.Indicators
 				    TickSize,
 					_state);
 			
+			foreach (var evt in result.CompletedFttEvents)
+			{
+			    Print($"FTT_OUTCOME | Entry={evt.EntryBarIndex} | Dir={evt.Direction} | " +
+			          $"MFE5={evt.MaxFavorableExcursion5:F2} MAE5={evt.MaxAdverseExcursion5:F2} | " +
+			          $"MFE10={evt.MaxFavorableExcursion10:F2} MAE10={evt.MaxAdverseExcursion10:F2} | " +
+			          $"MFE20={evt.MaxFavorableExcursion20:F2} MAE20={evt.MaxAdverseExcursion20:F2}");
+			}
+
 			bool continuationFailed =
 			    result.Container != null &&
 			    result.Container.ExpectedContinuationFailed(
@@ -197,6 +205,8 @@ namespace NinjaTrader.NinjaScript.Indicators
 			{
 			    Print("Container: none");
 			}
+			
+		 	
         }
     }
 }
