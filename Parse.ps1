@@ -77,7 +77,44 @@ for ($i = 0; $i -le 37; $i++) {
     "" | Tee-Object -FilePath $out -Append
 }
 
+$results = @()
 
+foreach ($line in $lines) {
+    if ($line -like "*FTT_OUTCOME*") {
+
+        $entry  = [regex]::Match($line, "Entry=(\d+)").Groups[1].Value
+        $dir    = [regex]::Match($line, "Dir=(\w+)").Groups[1].Value
+        $score  = [regex]::Match($line, "Score=([\d\.]+)").Groups[1].Value
+        $domSeq = [regex]::Match($line, "DomSeq=(\w+)").Groups[1].Value
+        $failSeq= [regex]::Match($line, "FailSeq=(\w+)").Groups[1].Value
+
+        $mfe20  = [regex]::Match($line, "MFE20=([-\d\.]+)").Groups[1].Value
+        $mae20  = [regex]::Match($line, "MAE20=([-\d\.]+)").Groups[1].Value
+
+        $results += [pscustomobject]@{
+            Entry  = [int]$entry
+            Dir    = $dir
+            Score  = [double]$score
+            DomSeq = $domSeq
+            FailSeq= $failSeq
+            MFE20  = [double]$mfe20
+            MAE20  = [double]$mae20
+        }
+    }
+}
+
+$groups = $results | Group-Object {
+    if ($_.Score -ge 8) { "Score8+" }
+    elseif ($_.Score -ge 6) { "Score6-7" }
+    else { "Score4-5" }
+}
+
+foreach ($g in $groups) {
+    $avgMFE = ($g.Group | Measure-Object MFE20 -Average).Average
+    $avgMAE = ($g.Group | Measure-Object MAE20 -Average).Average
+
+    "Group: $($g.Name) Count=$($g.Count) AvgMFE=$avgMFE AvgMAE=$avgMAE"
+}
 
 Write-Host "Done. Summary written to:"
 Write-Host $out

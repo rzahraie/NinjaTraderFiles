@@ -82,9 +82,12 @@ namespace NinjaTrader.NinjaScript.Indicators
 			foreach (var evt in result.CompletedFttEvents)
 			{
 			    Print($"FTT_OUTCOME | Entry={evt.EntryBarIndex} | Dir={evt.Direction} | " +
-			          $"MFE5={evt.MaxFavorableExcursion5:F2} MAE5={evt.MaxAdverseExcursion5:F2} | " +
-			          $"MFE10={evt.MaxFavorableExcursion10:F2} MAE10={evt.MaxAdverseExcursion10:F2} | " +
-			          $"MFE20={evt.MaxFavorableExcursion20:F2} MAE20={evt.MaxAdverseExcursion20:F2}");
+				      $"Score={result.SelectedContainerScoreSnapshot:F2} | " +
+				      $"DomSeq={result.HasDominanceSequence} | FailSeq={result.HasFailureSequence} | " +
+				      $"SegDom={result.CurrentSegmentDominance} | " +
+				      $"MFE5={evt.MaxFavorableExcursion5:F2} MAE5={evt.MaxAdverseExcursion5:F2} | " +
+				      $"MFE10={evt.MaxFavorableExcursion10:F2} MAE10={evt.MaxAdverseExcursion10:F2} | " +
+				      $"MFE20={evt.MaxFavorableExcursion20:F2} MAE20={evt.MaxAdverseExcursion20:F2}");
 			}
 
 			bool continuationFailed =
