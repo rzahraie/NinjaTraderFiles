@@ -101,8 +101,6 @@ for ($i = 0; $i -le 37; $i++) {
     "" | Tee-Object -FilePath $out -Append
 }
 
-$results = @()
-
 foreach ($line in $lines) {
     if ($line -like "*FTT_OUTCOME*") {
 
