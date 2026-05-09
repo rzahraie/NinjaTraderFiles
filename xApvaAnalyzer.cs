@@ -39,6 +39,10 @@ namespace APVA.Core
 		
 		public bool FttDetectionAllowed { get; set; } = true;
 		public string FttDetectionBlockReason { get; set; } = "";
+		
+		public double SelectedContainerScoreSnapshot { get; set; } = double.NaN;
+		public double PrimaryContainerScoreSnapshot { get; set; } = double.NaN;
+		public double SecondaryContainerScoreSnapshot { get; set; } = double.NaN;
     }
 	
 	public sealed class ApvaAnalyzerState
@@ -686,6 +690,15 @@ namespace APVA.Core
 			    continuationFailed,
 			    tickTolerance);
 			
+			result.SelectedContainerScoreSnapshot =
+			    result.Container != null ? result.Container.Score : double.NaN;
+			
+			result.PrimaryContainerScoreSnapshot =
+			    state.PrimaryContainer != null ? state.PrimaryContainer.Score : double.NaN;
+			
+			result.SecondaryContainerScoreSnapshot =
+			    state.SecondaryContainer != null ? state.SecondaryContainer.Score : double.NaN;
+			
 			GateFtt(
 			    result,
 			    state,
@@ -721,6 +734,8 @@ namespace APVA.Core
 		}
     }
 }
+
+
 
 
 

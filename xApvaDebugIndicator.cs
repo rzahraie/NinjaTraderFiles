@@ -153,6 +153,21 @@ namespace NinjaTrader.NinjaScript.Indicators
 			Print("SecondaryContainerScore: " +
 			    (_state.SecondaryContainer != null ? _state.SecondaryContainer.Score.ToString("F2") : "none"));
 			
+			Print("SelectedContainerScoreSnapshot: " +
+			    (!double.IsNaN(result.SelectedContainerScoreSnapshot)
+			        ? result.SelectedContainerScoreSnapshot.ToString("F2")
+			        : "none"));
+			
+			Print("PrimaryContainerScoreSnapshot: " +
+			    (!double.IsNaN(result.PrimaryContainerScoreSnapshot)
+			        ? result.PrimaryContainerScoreSnapshot.ToString("F2")
+			        : "none"));
+			
+			Print("SecondaryContainerScoreSnapshot: " +
+			    (!double.IsNaN(result.SecondaryContainerScoreSnapshot)
+			        ? result.SecondaryContainerScoreSnapshot.ToString("F2")
+			        : "none"));
+			
 			if (result.Container != null)
 			{
 				double ltlValue = result.Container.LTL.ValueAt(bars[bars.Count - 1].Index);
