@@ -31,6 +31,8 @@ $patterns = @(
 	"FTT_OUTCOME"
 )
 
+$results = @()
+
 "" | Out-File $out
 
 for ($i = 0; $i -le 37; $i++) {
@@ -55,6 +57,28 @@ for ($i = 0; $i -le 37; $i++) {
 	foreach ($line in $lines) {
 		if ($line -like "*FTT_OUTCOME*") {
 			$line | Tee-Object -FilePath $out -Append
+			
+		$entry   = [regex]::Match($line, "Entry=(\d+)").Groups[1].Value
+		$dir     = [regex]::Match($line, "Dir=(\w+)").Groups[1].Value
+		$score   = [regex]::Match($line, "Score=([-\d\.NaN]+)").Groups[1].Value
+		$domSeq  = [regex]::Match($line, "DomSeq=(\w+)").Groups[1].Value
+		$failSeq = [regex]::Match($line, "FailSeq=(\w+)").Groups[1].Value
+		$segDom  = [regex]::Match($line, "SegDom=(\w+)").Groups[1].Value
+		$mfe20   = [regex]::Match($line, "MFE20=([-\d\.]+)").Groups[1].Value
+		$mae20   = [regex]::Match($line, "MAE20=([-\d\.]+)").Groups[1].Value
+
+			if ($score -ne "NaN" -and $score -ne "") {
+				$results += [pscustomobject]@{
+					Entry   = [int]$entry
+					Dir     = $dir
+					Score   = [double]$score
+					DomSeq  = $domSeq
+					FailSeq = $failSeq
+					SegDom  = $segDom
+					MFE20   = [double]$mfe20
+					MAE20   = [double]$mae20
+				}
+			}
 		}
 	}
 
@@ -103,17 +127,44 @@ foreach ($line in $lines) {
     }
 }
 
-$groups = $results | Group-Object {
+"`n===== STRATIFIED OUTCOME STATS =====" | Tee-Object -FilePath $out -Append
+
+$scoreGroups = $results | Group-Object {
     if ($_.Score -ge 8) { "Score8+" }
     elseif ($_.Score -ge 6) { "Score6-7" }
     else { "Score4-5" }
 }
 
-foreach ($g in $groups) {
+foreach ($g in $scoreGroups) {
     $avgMFE = ($g.Group | Measure-Object MFE20 -Average).Average
     $avgMAE = ($g.Group | Measure-Object MAE20 -Average).Average
 
-    "Group: $($g.Name) Count=$($g.Count) AvgMFE=$avgMFE AvgMAE=$avgMAE"
+    "ScoreGroup=$($g.Name) Count=$($g.Count) AvgMFE20=$('{0:F2}' -f $avgMFE) AvgMAE20=$('{0:F2}' -f $avgMAE)" |
+        Tee-Object -FilePath $out -Append
+}
+
+"`n===== DOMINANCE SEQUENCE GROUPS =====" | Tee-Object -FilePath $out -Append
+
+$seqGroups = $results | Group-Object DomSeq, FailSeq
+
+foreach ($g in $seqGroups) {
+    $avgMFE = ($g.Group | Measure-Object MFE20 -Average).Average
+    $avgMAE = ($g.Group | Measure-Object MAE20 -Average).Average
+
+    "SeqGroup=$($g.Name) Count=$($g.Count) AvgMFE20=$('{0:F2}' -f $avgMFE) AvgMAE20=$('{0:F2}' -f $avgMAE)" |
+        Tee-Object -FilePath $out -Append
+}
+
+"`n===== SEGMENT DOMINANCE GROUPS =====" | Tee-Object -FilePath $out -Append
+
+$segGroups = $results | Group-Object SegDom
+
+foreach ($g in $segGroups) {
+    $avgMFE = ($g.Group | Measure-Object MFE20 -Average).Average
+    $avgMAE = ($g.Group | Measure-Object MAE20 -Average).Average
+
+    "SegDom=$($g.Name) Count=$($g.Count) AvgMFE20=$('{0:F2}' -f $avgMFE) AvgMAE20=$('{0:F2}' -f $avgMAE)" |
+        Tee-Object -FilePath $out -Append
 }
 
 Write-Host "Done. Summary written to:"
