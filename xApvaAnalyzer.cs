@@ -79,6 +79,11 @@ namespace APVA.Core
 	    public double MaxAdverseExcursion20;
 	
 	    public int BarsTracked;
+		
+		public double Score;
+		public bool HasDominanceSequence;
+		public bool HasFailureSequence;
+		public DominanceState SegmentDominance;
 	}
 
     public static class xApvaAnalyzer
@@ -470,12 +475,18 @@ namespace APVA.Core
 		   if (result.Ftt.IsConfirmed)
 		   {
 			    state.PendingFttEvents.Add(new FttEvent
-			    {
-			        EntryBarIndex = currentBar.Index,
-			        EntryPrice = currentBar.Close,
-			        Direction = result.Container != null ? result.Container.Direction : ContainerDirection.Unknown,
-			        BarsTracked = 0
-			    });
+				{
+				    EntryBarIndex = currentBar.Index,
+				    EntryPrice = currentBar.Close,
+				    Direction = result.Container != null ? result.Container.Direction : ContainerDirection.Unknown,
+				
+				    Score = result.SelectedContainerScoreSnapshot,
+				    HasDominanceSequence = result.HasDominanceSequence,
+				    HasFailureSequence = result.HasFailureSequence,
+				    SegmentDominance = result.CurrentSegmentDominance,
+				
+				    BarsTracked = 0
+				});
 			   
 			    state.WarningStreak = 0;
 			    state.HasPrevDistance = false;
@@ -818,6 +829,8 @@ namespace APVA.Core
 		}
     }
 }
+
+
 
 
 
