@@ -636,13 +636,21 @@ namespace APVA.Core
 			    int barsSince = currentBar.Index - evt.EntryBarIndex;
 			    if (barsSince <= 0) continue;
 			
-			    double move = currentBar.Close - evt.EntryPrice;
-			
-			    double favorable =
-			        evt.Direction == ContainerDirection.Down ? move :
-			        evt.Direction == ContainerDirection.Up ? -move : 0;
-			
-			    double adverse = -favorable;
+			    double favorable = 0.0;
+				double adverse = 0.0;
+				
+				if (evt.Direction == ContainerDirection.Down)
+				{
+				    // FTT of down container expects upside movement.
+				    favorable = currentBar.High - evt.EntryPrice;
+				    adverse   = currentBar.Low  - evt.EntryPrice;
+				}
+				else if (evt.Direction == ContainerDirection.Up)
+				{
+				    // FTT of up container expects downside movement.
+				    favorable = evt.EntryPrice - currentBar.Low;
+				    adverse   = evt.EntryPrice - currentBar.High;
+				}
 			
 			    if (barsSince <= 5)
 			    {
@@ -810,6 +818,7 @@ namespace APVA.Core
 		}
     }
 }
+
 
 
 
