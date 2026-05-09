@@ -33,7 +33,7 @@ $patterns = @(
 
 "" | Out-File $out
 
-for ($i = 0; $i -le 5; $i++) {
+for ($i = 0; $i -le 37; $i++) {
     $file = Join-Path $dir "$base$i.txt"
 
     if (!(Test-Path $file)) {
