@@ -72,8 +72,31 @@ namespace NinjaTrader.NinjaScript.APVA.V01
         SFCandidate,
         DominanceReassertion,
         SponsorshipTransfer,
-        FailedTransition
+        FailedTransition,
+		ContinuationAttempt,
+		AcceptedContinuation,
+		RejectedContinuation,
+		ReclaimAttempt,
+		AcceptedReclaim,
+		RejectedReclaim
     }
+	
+	public enum ApvaSponsorState
+	{
+	    Unknown,
+	
+	    Dominant,
+	    Pressured,
+	    Challenged,
+	    Failing,
+	
+		ReclaimAttempt,
+	    Reasserting,
+	    Transferred,
+	
+	    Balance,
+	    Unresolved
+	}
 
     public sealed class ApvaBarFeatures
     {
@@ -205,6 +228,11 @@ namespace NinjaTrader.NinjaScript.APVA.V01
         public string SFCStatus { get; set; } = "None";
         public string ExpectedNextBehavior { get; set; } = string.Empty;
         public string InvalidationCondition { get; set; } = string.Empty;
+		
+		public ApvaSponsorState SponsorState { get; set; }
+		public double SponsorConfidence { get; set; }
+		
+		public List<ApvaEvent> Events { get; set; } = new List<ApvaEvent>();
     }
 
     public sealed class ApvaContext
@@ -220,6 +248,13 @@ namespace NinjaTrader.NinjaScript.APVA.V01
         public ApvaStateSnapshot PriorState { get; set; }
 
         public string Regime { get; set; } = "Unknown";
+		
+		public ApvaSponsorState PriorSponsorState { get; set; }
     }
 }
+
+
+
+
+
 

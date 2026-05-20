@@ -9,6 +9,8 @@ namespace NinjaTrader.NinjaScript.APVA.V01
         private const double HvcRangeCompressionRatio = 0.60;
         private const double WeakCloseEfficiencyThreshold = 0.45;
         private const double HighOverlapThreshold = 0.70;
+		private int balancePressureRun;
+		private int lastLateralSeedBar = -1;
 
         public List<ApvaEvent> GenerateEvents(
             ApvaBarFeatures current,
@@ -30,6 +32,7 @@ namespace NinjaTrader.NinjaScript.APVA.V01
             TryCreateFailedContinuationEvent(current, prior, sequence, priorState, events);
             TryCreateLateralSeedEvent(current, prior, events);
             TryCreateSfcCandidateEvent(current, sequence, priorState, events);
+			TryCreateReclaimEvents(current,prior,sequence,priorState,events);
 
             return events;
         }
@@ -199,35 +202,53 @@ namespace NinjaTrader.NinjaScript.APVA.V01
             });
         }
 
-        private static void TryCreateLateralSeedEvent(
-            ApvaBarFeatures current,
-            ApvaBarFeatures prior,
-            List<ApvaEvent> events)
-        {
-            if (prior == null)
-                return;
-
-            bool compressionOrInside =
-                current.IsIB ||
-                current.OverlapRatio >= HighOverlapThreshold;
-
-            if (!compressionOrInside)
-                return;
-
-            events.Add(new ApvaEvent
-            {
-                EventType = ApvaEventType.LateralSeed,
-                BarIndex = current.BarIndex,
-                Direction = ApvaDirection.Mixed,
-                Strength = 0.40,
-                Confidence = 0.40,
-                EffectOnDominance = -0.03,
-                EffectOnDegradation = 0.05,
-                EffectOnBalance = 0.15,
-                EffectOnTransition = 0.00,
-                EffectOnAmbiguity = 0.10
-            });
-        }
+        private void TryCreateLateralSeedEvent(
+		    ApvaBarFeatures current,
+		    ApvaBarFeatures prior,
+		    List<ApvaEvent> events)
+		{
+		    if (prior == null)
+		        return;
+		
+		    bool overlapPressure =
+		        current.IsIB ||
+		        current.OverlapRatio >= HighOverlapThreshold;
+		
+		    bool compressionPressure =
+		        current.BodyToRangeRatio <= 0.35 &&
+		        current.OverlapRatio >= 0.50;
+		
+		    bool balancePressure =
+		        overlapPressure || compressionPressure;
+		
+		    if (balancePressure)
+		        balancePressureRun++;
+		    else
+		        balancePressureRun = 0;
+		
+		    if (balancePressureRun < 2)
+		        return;
+		
+		    if (lastLateralSeedBar >= 0 &&
+		        current.BarIndex - lastLateralSeedBar < 4)
+		        return;
+		
+		    lastLateralSeedBar = current.BarIndex;
+		
+		    events.Add(new ApvaEvent
+		    {
+		        EventType = ApvaEventType.LateralSeed,
+		        BarIndex = current.BarIndex,
+		        Direction = ApvaDirection.Mixed,
+		        Strength = 0.45,
+		        Confidence = 0.50,
+		        EffectOnDominance = -0.04,
+		        EffectOnDegradation = 0.04,
+		        EffectOnBalance = 0.16,
+		        EffectOnTransition = 0.00,
+		        EffectOnAmbiguity = 0.08
+		    });
+		}
 
         private static void TryCreateSfcCandidateEvent(
             ApvaBarFeatures current,
@@ -248,8 +269,8 @@ namespace NinjaTrader.NinjaScript.APVA.V01
                 return;
 
             bool degradationContext =
-                priorState.MacroState == ApvaMacroState.Directional ||
-                priorState.MacroState == ApvaMacroState.Degrading;
+                priorState.MacroState == ApvaMacroState.Degrading ||
+                priorState.SFCStatus == "Candidate";
 
             if (!degradationContext)
                 return;
@@ -260,7 +281,23 @@ namespace NinjaTrader.NinjaScript.APVA.V01
             bool highOverlap =
                 current.OverlapRatio >= HighOverlapThreshold;
 
-            if (!(weakClose || highOverlap))
+            bool poorDirectionalResult =
+                sequence.Direction == ApvaDirection.Up
+                    ? current.DirectionalResultUp <= 0.0
+                    : current.DirectionalResultDown <= 0.0;
+
+            int evidenceCount = 0;
+
+            if (weakClose)
+                evidenceCount++;
+
+            if (highOverlap)
+                evidenceCount++;
+
+            if (poorDirectionalResult)
+                evidenceCount++;
+
+            if (evidenceCount < 2)
                 return;
 
             events.Add(new ApvaEvent
@@ -268,13 +305,13 @@ namespace NinjaTrader.NinjaScript.APVA.V01
                 EventType = ApvaEventType.SFCandidate,
                 BarIndex = current.BarIndex,
                 Direction = sequence.Direction,
-                Strength = 0.50,
-                Confidence = 0.45,
-                EffectOnDominance = -0.08,
-                EffectOnDegradation = 0.15,
-                EffectOnBalance = 0.05,
-                EffectOnTransition = 0.05,
-                EffectOnAmbiguity = 0.10
+                Strength = 0.45,
+                Confidence = 0.40,
+                EffectOnDominance = -0.05,
+                EffectOnDegradation = 0.10,
+                EffectOnBalance = 0.04,
+                EffectOnTransition = 0.03,
+                EffectOnAmbiguity = 0.06
             });
         }
 
@@ -312,5 +349,111 @@ namespace NinjaTrader.NinjaScript.APVA.V01
 
             return value;
         }
+		
+		private static void TryCreateReclaimEvents(
+		    ApvaBarFeatures current,
+		    ApvaBarFeatures prior,
+		    ApvaSequenceState sequence,
+		    ApvaStateSnapshot priorState,
+		    List<ApvaEvent> events)
+		{
+		    if (current == null ||
+		        prior == null ||
+		        sequence == null ||
+		        priorState == null)
+		        return;
+		
+		    bool priorWeak =
+		        priorState.SponsorState == ApvaSponsorState.Pressured ||
+		        priorState.SponsorState == ApvaSponsorState.Challenged ||
+		        priorState.SponsorState == ApvaSponsorState.Failing ||
+		        priorState.SponsorState == ApvaSponsorState.Balance ||
+		        priorState.SponsorState == ApvaSponsorState.Unresolved;
+		
+		    if (!priorWeak)
+		        return;
+		
+		    bool continuationDirection =
+		        sequence.Direction == ApvaDirection.Up
+		            ? current.DirectionalResultUp > 0.0
+		            : current.DirectionalResultDown > 0.0;
+		
+		    bool overlapLow =
+		        current.OverlapRatio < 0.40;
+		
+		    bool strongClose =
+		        GetCloseEfficiencyForDirection(current, sequence.Direction) > 0.60;
+		
+		    bool reclaimAttempt =
+		        continuationDirection || strongClose;
+		
+		    if (!reclaimAttempt)
+		        return;
+		
+		    events.Add(new ApvaEvent
+		    {
+		        EventType = ApvaEventType.ReclaimAttempt,
+		        BarIndex = current.BarIndex,
+		        Direction = sequence.Direction,
+		        Strength = 0.40,
+		        Confidence = 0.40,
+		        EffectOnDominance = 0.04,
+		        EffectOnDegradation = -0.02,
+		        EffectOnBalance = -0.01,
+		        EffectOnTransition = -0.01,
+		        EffectOnAmbiguity = -0.02
+		    });
+		
+		    bool accepted =
+		        continuationDirection &&
+		        overlapLow &&
+		        strongClose;
+		
+		    /*if (accepted)
+		    {
+		        events.Add(new ApvaEvent
+		        {
+		            EventType = ApvaEventType.AcceptedReclaim,
+		            BarIndex = current.BarIndex,
+		            Direction = sequence.Direction,
+		            Strength = 0.75,
+		            Confidence = 0.70,
+		            EffectOnDominance = 0.15,
+		            EffectOnDegradation = -0.10,
+		            EffectOnBalance = -0.08,
+		            EffectOnTransition = -0.06,
+		            EffectOnAmbiguity = -0.10
+		        });
+		
+		        return;
+		    }*/
+		
+		    bool rejected =
+		        current.OverlapRatio >= 0.70 ||
+		        (sequence.Direction == ApvaDirection.Up
+		            ? current.DirectionalResultUp <= 0.0
+		            : current.DirectionalResultDown <= 0.0);
+		
+		    if (rejected)
+		    {
+		        events.Add(new ApvaEvent
+		        {
+		            EventType = ApvaEventType.RejectedReclaim,
+		            BarIndex = current.BarIndex,
+		            Direction = sequence.Direction,
+		            Strength = 0.60,
+		            Confidence = 0.60,
+		            EffectOnDominance = -0.08,
+		            EffectOnDegradation = 0.10,
+		            EffectOnBalance = 0.06,
+		            EffectOnTransition = 0.06,
+		            EffectOnAmbiguity = 0.08
+		        });
+		    }
+		}
     }
 }
+
+
+
+

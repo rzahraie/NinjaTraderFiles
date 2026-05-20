@@ -65,6 +65,11 @@ namespace NinjaTrader.NinjaScript.APVA.V01
                 prior.MacroState == ApvaMacroState.Directional &&
                 s.DominanceScore >= 0.35)
                 return ApvaMacroState.Directional;
+			
+			if (s.DegradationScore >= 0.45 ||
+			    s.BalanceScore >= 0.40 ||
+			    s.AmbiguityScore >= 0.40)
+			    return ApvaMacroState.Unresolved;
 
             return ApvaMacroState.Unknown;
         }

@@ -5,38 +5,52 @@ namespace NinjaTrader.NinjaScript.APVA.V01
     public sealed class ApvaV01SequenceEngine
     {
         private int nextSequenceId = 1;
+        private int sameDirectionRun;
+        private int oppositeDirectionRun;
 
-        public ApvaSequenceState Update(
-            ApvaBarFeatures current,
-            ApvaSequenceState priorSequence)
+        public ApvaSequenceState Update(ApvaBarFeatures current, ApvaSequenceState priorSequence)
         {
             if (current == null)
                 throw new ArgumentNullException(nameof(current));
 
-            var direction = DirectionFromPolarity(current.VolumePolarity);
+            var barDirection = DirectionFromPolarity(current.VolumePolarity);
 
-            if (priorSequence == null || priorSequence.Phase == ApvaSequencePhase.Unknown)
-                return StartNewSequence(current, direction);
+            if (priorSequence == null || priorSequence.Direction == ApvaDirection.Unknown)
+                return StartNewSequence(current, barDirection);
 
             var s = Clone(priorSequence);
             s.CurrentBar = current.BarIndex;
 
-            if (direction == ApvaDirection.Unknown || direction == ApvaDirection.Mixed)
+            if (barDirection == ApvaDirection.Unknown)
             {
                 UpdateMaturity(s);
                 UpdateAuthority(s);
                 return s;
             }
 
-            bool sameDirection = direction == s.Direction;
-
-            if (sameDirection)
+            if (barDirection == s.Direction)
             {
-                UpdateDominantSide(s, current);
+                sameDirectionRun++;
+                oppositeDirectionRun = 0;
+
+                if (s.Phase == ApvaSequencePhase.TwoB || s.Phase == ApvaSequencePhase.TwoR)
+                    s.Phase = PhaseFromDirection(s.Direction);
+
+                UpdateDominantPeak(s, current);
             }
             else
             {
-                UpdateOpposingSide(s, current, direction);
+                oppositeDirectionRun++;
+                sameDirectionRun = 0;
+
+                if (oppositeDirectionRun >= 2)
+                {
+                    return StartNewSequence(current, barDirection);
+                }
+
+                s.Phase = s.Direction == ApvaDirection.Up
+                    ? ApvaSequencePhase.TwoR
+                    : ApvaSequencePhase.TwoB;
             }
 
             UpdatePeakRatio(s);
@@ -46,17 +60,16 @@ namespace NinjaTrader.NinjaScript.APVA.V01
             return s;
         }
 
-        private ApvaSequenceState StartNewSequence(
-            ApvaBarFeatures current,
-            ApvaDirection direction)
+        private ApvaSequenceState StartNewSequence(ApvaBarFeatures current, ApvaDirection direction)
         {
-            var phase = PhaseFromDirection(direction);
+            sameDirectionRun = direction == ApvaDirection.Unknown ? 0 : 1;
+            oppositeDirectionRun = 0;
 
-            var s = new ApvaSequenceState
+            return new ApvaSequenceState
             {
                 SequenceId = nextSequenceId++,
                 Direction = direction,
-                Phase = phase,
+                Phase = PhaseFromDirection(direction),
                 StartBar = current.BarIndex,
                 CurrentBar = current.BarIndex,
                 P1Bar = current.BarIndex,
@@ -65,19 +78,10 @@ namespace NinjaTrader.NinjaScript.APVA.V01
                 Maturity = ApvaMaturityLevel.Early,
                 AuthorityScore = 0.20
             };
-
-            return s;
         }
 
-        private static void UpdateDominantSide(
-            ApvaSequenceState s,
-            ApvaBarFeatures current)
+        private static void UpdateDominantPeak(ApvaSequenceState s, ApvaBarFeatures current)
         {
-            if (s.Phase == ApvaSequencePhase.TwoB || s.Phase == ApvaSequencePhase.TwoR)
-            {
-                s.IsComplete = true;
-            }
-
             if (!s.P1Bar.HasValue)
             {
                 s.P1Bar = current.BarIndex;
@@ -86,7 +90,7 @@ namespace NinjaTrader.NinjaScript.APVA.V01
                 return;
             }
 
-            if (!s.P2Bar.HasValue && current.Volume > 0)
+            if (!s.P2Bar.HasValue && current.BarIndex > s.P1Bar.Value)
             {
                 s.P2Bar = current.BarIndex;
                 s.P2Volume = current.Volume;
@@ -102,39 +106,16 @@ namespace NinjaTrader.NinjaScript.APVA.V01
             }
         }
 
-        private static void UpdateOpposingSide(
-            ApvaSequenceState s,
-            ApvaBarFeatures current,
-            ApvaDirection opposingDirection)
-        {
-            if (s.Direction == ApvaDirection.Up)
-                s.Phase = ApvaSequencePhase.TwoR;
-            else if (s.Direction == ApvaDirection.Down)
-                s.Phase = ApvaSequencePhase.TwoB;
-            else
-            {
-                s.Direction = opposingDirection;
-                s.Phase = PhaseFromDirection(opposingDirection);
-            }
-        }
-
         private static void UpdatePeakRatio(ApvaSequenceState s)
         {
-            if (s.P1Volume > 0.0 && s.P2Volume > 0.0)
-                s.PeakRatio = s.P2Volume / s.P1Volume;
-            else
-                s.PeakRatio = 0.0;
+            s.PeakRatio = s.P1Volume > 0.0 && s.P2Volume > 0.0
+                ? s.P2Volume / s.P1Volume
+                : 0.0;
         }
 
         private static void UpdateMaturity(ApvaSequenceState s)
         {
             int bars = Math.Max(0, s.CurrentBar - s.StartBar + 1);
-
-            if (s.IsComplete)
-            {
-                s.Maturity = ApvaMaturityLevel.Resolved;
-                return;
-            }
 
             if (bars <= 2)
                 s.Maturity = ApvaMaturityLevel.Early;
@@ -158,18 +139,19 @@ namespace NinjaTrader.NinjaScript.APVA.V01
             if (s.P2Bar.HasValue)
                 score += 0.20;
 
-            if (s.PeakRatio >= 1.20)
-                score += 0.25;
+            if (s.PeakRatio >= 1.50)
+                score += 0.30;
+            else if (s.PeakRatio >= 1.20)
+                score += 0.22;
             else if (s.PeakRatio >= 1.00)
-                score += 0.15;
+                score += 0.12;
             else if (s.PeakRatio > 0.0 && s.PeakRatio < 0.90)
-                score -= 0.10;
+                score -= 0.12;
 
             if (s.Maturity == ApvaMaturityLevel.Mature)
-                score += 0.10;
-
-            if (s.IsComplete)
-                score += 0.10;
+                score += 0.08;
+            else if (s.Maturity == ApvaMaturityLevel.Late)
+                score += 0.03;
 
             s.AuthorityScore = Clamp01(score);
         }

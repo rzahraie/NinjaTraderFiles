@@ -18,6 +18,8 @@ namespace NinjaTrader.NinjaScript.APVA.V01
         private ApvaSequenceState activeSequence;
         private ApvaStateSnapshot priorState;
         private ApvaScores priorScores = new ApvaScores();
+		
+		private readonly ApvaV01SponsorEngine sponsorEngine = new ApvaV01SponsorEngine();
 
         public IReadOnlyList<ApvaStateSnapshot> Snapshots
         {
@@ -58,7 +60,7 @@ namespace NinjaTrader.NinjaScript.APVA.V01
                 activeSequence,
                 landmarkStore,
                 priorState);
-
+			
             var scores = scoringEngine.UpdateScores(
                 priorScores,
                 events,
@@ -69,7 +71,11 @@ namespace NinjaTrader.NinjaScript.APVA.V01
                 activeSequence,
                 scores,
                 priorState);
+			
+			snapshot.Events.AddRange(events);
 
+			sponsorEngine.Evaluate(snapshot, priorState);
+			
             expectationEngine.ApplyExpectations(snapshot);
 
             snapshots.Add(snapshot);
@@ -94,3 +100,5 @@ namespace NinjaTrader.NinjaScript.APVA.V01
         }
     }
 }
+
+

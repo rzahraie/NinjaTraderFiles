@@ -19,7 +19,7 @@ namespace NinjaTrader.NinjaScript.Indicators
                 Name = "xApvaV01StateLogger";
                 Description = "APVA v0.1 state logger. No trade signals.";
                 Calculate = Calculate.OnBarClose;
-                IsOverlay = false;
+                IsOverlay = true;
                 DisplayInDataBox = false;
                 DrawOnPricePanel = false;
                 PaintPriceMarkers = false;
@@ -85,3 +85,60 @@ namespace NinjaTrader.NinjaScript.Indicators
         }
     }
 }
+
+#region NinjaScript generated code. Neither change nor remove.
+
+namespace NinjaTrader.NinjaScript.Indicators
+{
+	public partial class Indicator : NinjaTrader.Gui.NinjaScript.IndicatorRenderBase
+	{
+		private xApvaV01StateLogger[] cachexApvaV01StateLogger;
+		public xApvaV01StateLogger xApvaV01StateLogger()
+		{
+			return xApvaV01StateLogger(Input);
+		}
+
+		public xApvaV01StateLogger xApvaV01StateLogger(ISeries<double> input)
+		{
+			if (cachexApvaV01StateLogger != null)
+				for (int idx = 0; idx < cachexApvaV01StateLogger.Length; idx++)
+					if (cachexApvaV01StateLogger[idx] != null &&  cachexApvaV01StateLogger[idx].EqualsInput(input))
+						return cachexApvaV01StateLogger[idx];
+			return CacheIndicator<xApvaV01StateLogger>(new xApvaV01StateLogger(), input, ref cachexApvaV01StateLogger);
+		}
+	}
+}
+
+namespace NinjaTrader.NinjaScript.MarketAnalyzerColumns
+{
+	public partial class MarketAnalyzerColumn : MarketAnalyzerColumnBase
+	{
+		public Indicators.xApvaV01StateLogger xApvaV01StateLogger()
+		{
+			return indicator.xApvaV01StateLogger(Input);
+		}
+
+		public Indicators.xApvaV01StateLogger xApvaV01StateLogger(ISeries<double> input )
+		{
+			return indicator.xApvaV01StateLogger(input);
+		}
+	}
+}
+
+namespace NinjaTrader.NinjaScript.Strategies
+{
+	public partial class Strategy : NinjaTrader.Gui.NinjaScript.StrategyRenderBase
+	{
+		public Indicators.xApvaV01StateLogger xApvaV01StateLogger()
+		{
+			return indicator.xApvaV01StateLogger(Input);
+		}
+
+		public Indicators.xApvaV01StateLogger xApvaV01StateLogger(ISeries<double> input )
+		{
+			return indicator.xApvaV01StateLogger(input);
+		}
+	}
+}
+
+#endregion

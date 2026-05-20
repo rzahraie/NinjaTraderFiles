@@ -5,7 +5,7 @@ namespace NinjaTrader.NinjaScript.APVA.V01
 {
     public sealed class ApvaV01ScoringEngine
     {
-        private const double DecayRate = 0.92;
+        private const double BaseDecayRate = 0.92;
 
         public ApvaScores UpdateScores(
             ApvaScores priorScores,
@@ -16,7 +16,7 @@ namespace NinjaTrader.NinjaScript.APVA.V01
                 ? Clone(priorScores)
                 : new ApvaScores();
 
-            ApplyDecay(scores);
+            ApplyBaseDecay(scores);
             ApplySequenceBias(scores, sequence);
 
             if (events != null)
@@ -25,49 +25,40 @@ namespace NinjaTrader.NinjaScript.APVA.V01
                     ApplyEvent(scores, e);
             }
 
+            ApplyInternalConflictRules(scores);
             Clamp(scores);
             return scores;
         }
 
-        private static void ApplyDecay(ApvaScores s)
+        private static void ApplyBaseDecay(ApvaScores s)
         {
-            s.DominanceScore *= DecayRate;
-            s.DegradationScore *= DecayRate;
-            s.BalanceScore *= DecayRate;
-            s.TransitionScore *= DecayRate;
-            s.AmbiguityScore *= DecayRate;
+            s.DominanceScore *= BaseDecayRate;
+            s.DegradationScore *= BaseDecayRate;
+            s.BalanceScore *= BaseDecayRate;
+            s.TransitionScore *= BaseDecayRate;
+            s.AmbiguityScore *= BaseDecayRate;
         }
 
-        private static void ApplySequenceBias(
-            ApvaScores s,
-            ApvaSequenceState sequence)
+        private static void ApplySequenceBias(ApvaScores s, ApvaSequenceState sequence)
         {
             if (sequence == null)
                 return;
 
             if (sequence.AuthorityScore >= 0.65)
-                s.DominanceScore += 0.08;
+                s.DominanceScore += 0.06;
 
             if (sequence.AuthorityScore >= 0.80)
-                s.DominanceScore += 0.05;
+                s.DominanceScore += 0.04;
 
             if (sequence.PeakRatio > 0.0 && sequence.PeakRatio < 0.90)
-                s.DegradationScore += 0.06;
+                s.DegradationScore += 0.05;
 
             if (sequence.Maturity == ApvaMaturityLevel.Mature ||
                 sequence.Maturity == ApvaMaturityLevel.Late)
-                s.DegradationScore += 0.03;
-
-            if (sequence.IsFailed)
-            {
-                s.DegradationScore += 0.10;
-                s.AmbiguityScore += 0.08;
-            }
+                s.DegradationScore += 0.02;
         }
 
-        private static void ApplyEvent(
-            ApvaScores s,
-            ApvaEvent e)
+        private static void ApplyEvent(ApvaScores s, ApvaEvent e)
         {
             s.DominanceScore += e.EffectOnDominance;
             s.DegradationScore += e.EffectOnDegradation;
@@ -75,29 +66,51 @@ namespace NinjaTrader.NinjaScript.APVA.V01
             s.TransitionScore += e.EffectOnTransition;
             s.AmbiguityScore += e.EffectOnAmbiguity;
 
-            if (e.EventType == ApvaEventType.FBO)
-            {
-                s.TransitionScore += 0.10;
-                s.AmbiguityScore += 0.10;
-            }
-
             if (e.EventType == ApvaEventType.FailedContinuation)
             {
-                s.DegradationScore += 0.05;
-                s.AmbiguityScore += 0.05;
+                s.DegradationScore += 0.04;
+                s.AmbiguityScore += 0.03;
             }
 
             if (e.EventType == ApvaEventType.DominanceReassertion)
             {
-                s.DominanceScore += 0.10;
-                s.DegradationScore -= 0.08;
-                s.TransitionScore -= 0.08;
+                s.DominanceScore += 0.12;
+                s.DegradationScore -= 0.10;
+                s.TransitionScore -= 0.10;
+                s.AmbiguityScore -= 0.12;
+                s.BalanceScore -= 0.08;
             }
 
             if (e.EventType == ApvaEventType.SFCandidate)
             {
-                s.DegradationScore += 0.06;
-                s.TransitionScore += 0.03;
+                s.DegradationScore += 0.03;
+                s.TransitionScore += 0.01;
+                s.AmbiguityScore += 0.02;
+            }
+
+            if (e.EventType == ApvaEventType.LateralSeed)
+            {
+                s.DominanceScore -= 0.04;
+            }
+        }
+
+        private static void ApplyInternalConflictRules(ApvaScores s)
+        {
+            if (s.BalanceScore >= 0.65)
+            {
+                s.DominanceScore *= 0.88;
+                s.TransitionScore *= 0.96;
+            }
+
+            if (s.AmbiguityScore >= 0.65)
+            {
+                s.DominanceScore *= 0.86;
+            }
+
+            if (s.DominanceScore >= 0.70 && s.DegradationScore < 0.45)
+            {
+                s.AmbiguityScore *= 0.82;
+                s.BalanceScore *= 0.90;
             }
         }
 
