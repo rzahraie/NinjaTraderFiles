@@ -11,6 +11,8 @@ namespace NinjaTrader.NinjaScript.APVA.V01
         private const double HighOverlapThreshold = 0.70;
 		private int balancePressureRun;
 		private int lastLateralSeedBar = -1;
+		private bool priorReclaimAttempt;
+		private ApvaDirection priorReclaimDirection = ApvaDirection.Unknown;
 
         public List<ApvaEvent> GenerateEvents(
             ApvaBarFeatures current,
@@ -33,10 +35,64 @@ namespace NinjaTrader.NinjaScript.APVA.V01
             TryCreateLateralSeedEvent(current, prior, events);
             TryCreateSfcCandidateEvent(current, sequence, priorState, events);
 			TryCreateReclaimEvents(current,prior,sequence,priorState,events);
+			TryCreateAcceptedReclaimFromPriorAttempt(current,sequence,events);
+			
+			priorReclaimAttempt = false;
+			priorReclaimDirection = ApvaDirection.Unknown;
+			
+			foreach (var e in events)
+			{
+			    if (e.EventType == ApvaEventType.ReclaimAttempt)
+			    {
+			        priorReclaimAttempt = true;
+			        priorReclaimDirection = e.Direction;
+			        break;
+			    }
+			}
 
             return events;
         }
 
+		private void TryCreateAcceptedReclaimFromPriorAttempt(
+		    ApvaBarFeatures current,
+		    ApvaSequenceState sequence,
+		    List<ApvaEvent> events)
+		{
+		    if (!priorReclaimAttempt || sequence == null)
+		        return;
+		
+		    if (sequence.Direction != priorReclaimDirection)
+		        return;
+		
+		    bool directionalFollowThrough =
+		        sequence.Direction == ApvaDirection.Up
+		            ? current.DirectionalResultUp > 0.0
+		            : current.DirectionalResultDown > 0.0;
+		
+		    bool strongClose =
+		        GetCloseEfficiencyForDirection(current, sequence.Direction) > 0.60;
+		
+		    bool lowOverlap =
+		        current.OverlapRatio < 0.50;
+		
+		    if (!(directionalFollowThrough && strongClose && lowOverlap))
+		        return;
+		
+		    events.Add(new ApvaEvent
+		    {
+		        EventType = ApvaEventType.AcceptedReclaim,
+		        BarIndex = current.BarIndex,
+		        Direction = sequence.Direction,
+		        Strength = 0.75,
+		        Confidence = 0.70,
+		        EffectOnDominance = 0.15,
+		        EffectOnDegradation = -0.10,
+		        EffectOnBalance = -0.08,
+		        EffectOnTransition = -0.06,
+		        EffectOnAmbiguity = -0.10
+		    });
+		}
+		
         private static void TryCreatePeakVolumeEvent(
             ApvaBarFeatures current,
             ApvaSequenceState sequence,
@@ -453,6 +509,7 @@ namespace NinjaTrader.NinjaScript.APVA.V01
 		}
     }
 }
+
 
 
 
