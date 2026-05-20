@@ -1,5 +1,5 @@
 ﻿//
-// Copyright (C) 2025, NinjaTrader LLC <www.ninjatrader.com>.
+// Copyright (C) 2026, NinjaTrader LLC <www.ninjatrader.com>.
 // NinjaTrader reserves the right to modify or overwrite this NinjaScript component with each release.
 //
 #region Using declarations
@@ -8,9 +8,11 @@ using NinjaTrader.Gui.Chart;
 using SharpDX.Direct2D1;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.Windows;
 using System.Windows.Media;
+using System.Xml.Serialization;
 #endregion
 
 //This namespace holds Indicators in this folder and is required. Do not change it. 
@@ -226,7 +228,13 @@ namespace NinjaTrader.NinjaScript.Indicators
 		
 		[Range(1, int.MaxValue), NinjaScriptProperty]
 		[Display(Name = "Lagging (Chikou) displacement", Order = 5, GroupName = "Parameters")]
-		public int LaggingDisplacement { get; set; }		
+		public int LaggingDisplacement { get; set; }
+
+		[XmlIgnore, Browsable(false)] public	Series<double>		Conversion		=> Values[0];
+		[XmlIgnore, Browsable(false)] public	Series<double>		Base			=> Values[1];
+		[XmlIgnore, Browsable(false)] public	Series<double>		LeadingSpanA	=> Values[2];
+		[XmlIgnore, Browsable(false)] public	Series<double>		LeadingSpanB	=> Values[3];
+		[XmlIgnore, Browsable(false)] public	Series<double>		Lagging			=> Values[4];
 		#endregion
 	}
 }

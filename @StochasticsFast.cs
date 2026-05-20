@@ -1,5 +1,5 @@
 //
-// Copyright (C) 2025, NinjaTrader LLC <www.ninjatrader.com>.
+// Copyright (C) 2026, NinjaTrader LLC <www.ninjatrader.com>.
 // NinjaTrader reserves the right to modify or overwrite this NinjaScript component with each release.
 //
 #region Using declarations
@@ -41,8 +41,8 @@ namespace NinjaTrader.NinjaScript.Indicators
 
 				AddPlot(Brushes.DodgerBlue,		Custom.Resource.StochasticsD);
 				AddPlot(Brushes.Goldenrod,		Custom.Resource.StochasticsK);
-				AddLine(Brushes.DarkCyan,		20,	Custom.Resource.NinjaScriptIndicatorLower);
-				AddLine(Brushes.DarkCyan,		80,	Custom.Resource.NinjaScriptIndicatorUpper);
+				AddLine(Brushes.DarkCyan,		20,	Custom.Resource.NinjaScriptIndicatorOversold);
+				AddLine(Brushes.DarkCyan,		80,	Custom.Resource.NinjaScriptIndicatorOverbought);
 			}
 			else if (State == State.DataLoaded)
 			{

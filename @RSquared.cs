@@ -1,5 +1,5 @@
 //
-// Copyright (C) 2025, NinjaTrader LLC <www.ninjatrader.com>.
+// Copyright (C) 2026, NinjaTrader LLC <www.ninjatrader.com>.
 // NinjaTrader reserves the right to modify or overwrite this NinjaScript component with each release.
 //
 #region Using declarations
@@ -39,8 +39,8 @@ namespace NinjaTrader.NinjaScript.Indicators
 				IsOverlay					= false;
 
 				AddPlot(Brushes.Crimson,				Custom.Resource.NinjaScriptIndicatorNameRSquared);
-				AddLine(Brushes.SlateBlue,	0.2,	Custom.Resource.NinjaScriptIndicatorLower);
-				AddLine(Brushes.Goldenrod,	0.75,	Custom.Resource.NinjaScriptIndicatorUpper);
+				AddLine(Brushes.SlateBlue,	0.2,	Custom.Resource.NinjaScriptIndicatorWeakFit);
+				AddLine(Brushes.Goldenrod,	0.75,	Custom.Resource.NinjaScriptIndicatorStrongFit);
 			}
 			else if (State == State.Configure)
 				priorSumXy = priorSumY = priorSumY2 = sumX = sumXy = sumX2 = sumY2 = denominator = 0;

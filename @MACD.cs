@@ -1,5 +1,5 @@
 //
-// Copyright (C) 2025, NinjaTrader LLC <www.ninjatrader.com>.
+// Copyright (C) 2026, NinjaTrader LLC <www.ninjatrader.com>.
 // NinjaTrader reserves the right to modify or overwrite this NinjaScript component with each release.
 //
 #region Using declarations
@@ -39,10 +39,16 @@ namespace NinjaTrader.NinjaScript.Indicators
 				Slow						= 26;
 				Smooth						= 9;
 
-				AddPlot(Brushes.DarkCyan,										Custom.Resource.NinjaScriptIndicatorNameMACD);
-				AddPlot(Brushes.Crimson,										Custom.Resource.NinjaScriptIndicatorAvg);
-				AddPlot(new Stroke(Brushes.DodgerBlue, 2),	PlotStyle.Bar,	Custom.Resource.NinjaScriptIndicatorDiff);
-				AddLine(Brushes.DarkGray,					0,					Custom.Resource.NinjaScriptIndicatorZeroLine);
+				PositiveIncreasingBrush		= Brushes.DarkCyan;
+				PositiveDecreasingBrush		= Brushes.PowderBlue;
+
+				NegativeIncreasingBrush		= Brushes.Pink;
+				NegativeDecreasingBrush		= Brushes.Crimson;
+
+				AddPlot(Brushes.DarkCyan,															Custom.Resource.NinjaScriptIndicatorNameMACD);
+				AddPlot(Brushes.Crimson,															Custom.Resource.NinjaScriptIndicatorAvg);
+				AddPlot(new Stroke(Brushes.Black, 2) { IsColorDisabled = true },	PlotStyle.Bar,	Custom.Resource.NinjaScriptIndicatorDiff);
+				AddLine(Brushes.DarkGray,					0,										Custom.Resource.NinjaScriptIndicatorZeroLine);
 			}
 			else if (State == State.Configure)
 			{
@@ -84,6 +90,15 @@ namespace NinjaTrader.NinjaScript.Indicators
 				Value[0]		= macd;
 				Avg[0]			= macdAvg;
 				Diff[0]			= macd - macdAvg;
+
+				PlotBrushes[2][0] = Diff[0] >= 0
+					?
+					Diff[0] > Diff[1] 
+						? PositiveIncreasingBrush
+						: PositiveDecreasingBrush
+					: Diff[0] < Diff[1]
+						? NegativeDecreasingBrush
+						: NegativeIncreasingBrush;
 			}
 		}
 
@@ -111,6 +126,34 @@ namespace NinjaTrader.NinjaScript.Indicators
 		[Range(1, int.MaxValue), NinjaScriptProperty]
 		[Display(ResourceType = typeof(Custom.Resource), Name = "Smooth", GroupName = "NinjaScriptParameters", Order = 2)]
 		public int Smooth { get; set; }
+
+		[XmlIgnore]
+		[Display(ResourceType = typeof(Resource), Name = "NinjaScriptIndicatorPositiveIncreasingBrush", GroupName = "NinjaScriptPlots", Order = 21)]
+		public Brush PositiveIncreasingBrush { get; set; }
+
+		[Browsable(false)]
+		public string PositiveIncreasingBrushSerialize { get => Serialize.BrushToString(PositiveIncreasingBrush); set => PositiveIncreasingBrush = Serialize.StringToBrush(value); }
+
+		[XmlIgnore]
+		[Display(ResourceType = typeof(Resource), Name = "NinjaScriptIndicatorPositiveDecreasingBrush", GroupName = "NinjaScriptPlots", Order = 22)]
+		public Brush PositiveDecreasingBrush { get; set; }
+
+		[Browsable(false)]
+		public string PositiveDecreasingBrushSeralizer { get => Serialize.BrushToString(PositiveDecreasingBrush); set => PositiveDecreasingBrush = Serialize.StringToBrush(value); }
+
+		[XmlIgnore]
+		[Display(ResourceType = typeof(Resource), Name = "NinjaScriptIndicatorNegativeIncreasingBrush", GroupName = "NinjaScriptPlots", Order = 23)]
+		public Brush NegativeIncreasingBrush { get; set; }
+
+		[Browsable(false)]
+		public string NegativeIncreasingBrushSerialize { get => Serialize.BrushToString(NegativeIncreasingBrush); set => NegativeIncreasingBrush = Serialize.StringToBrush(value); }
+
+		[XmlIgnore]
+		[Display(ResourceType = typeof(Resource), Name = "NinjaScriptIndicatorNegativeDecreasingBrush", GroupName = "NinjaScriptPlots", Order = 24)]
+		public Brush NegativeDecreasingBrush { get; set; }
+
+		[Browsable(false)]
+		public string NegativeDecreasingBrushSeralizer { get => Serialize.BrushToString(NegativeDecreasingBrush); set => NegativeDecreasingBrush = Serialize.StringToBrush(value); }
 		#endregion
 	}
 }

@@ -1,5 +1,5 @@
 // 
-// Copyright (C) 2025, NinjaTrader LLC <ninjatrader@ninjatrader.com>.
+// Copyright (C) 2026, NinjaTrader LLC <ninjatrader@ninjatrader.com>.
 // NinjaTrader reserves the right to modify or overwrite this NinjaScript component with each release.
 //
 #region Using declarations
@@ -87,15 +87,14 @@ namespace NinjaTrader.NinjaScript.Indicators
 			}
 			else if (State == State.Historical)
 			{
-				if (IsVisible)
+				if (IsVisible && ChartControl != null)
 				{
-					if (ChartControl != null)
-					{
-						if (Top < 0)
-							Top = 25;
+					if (ChartPanel.IsDelayedButtonVisible && Left < ChartPanel.DelayedButtonWidth)
+						Left = ChartPanel.DelayedButtonWidth;
+					if (Top < 0)
+						Top = 25;
 
-						ChartControl.Dispatcher.InvokeAsync(() => { if (State < State.Terminated) UserControlCollection.Add(CreateControl()); });
-					}
+					ChartControl.Dispatcher.InvokeAsync(() => { if (State < State.Terminated) UserControlCollection.Add(CreateControl()); });
 				}
 			}
 		}
@@ -177,6 +176,14 @@ namespace NinjaTrader.NinjaScript.Indicators
 													Left	= Math.Max(0, Math.Min(margin.Left	+ (newPoint.X - startPoint.X), ChartPanel.ActualWidth	- grid.ActualWidth)),
 													Top		= Math.Max(0, Math.Min(margin.Top	+ (newPoint.Y - startPoint.Y), ChartPanel.ActualHeight	- grid.ActualHeight))
 												};
+
+				if (ChartPanel.IsDelayedButtonVisible && grid.Margin.Left <= ChartPanel.DelayedButtonWidth && grid.Margin.Top <= ChartPanel.DelayedButtonHeight)
+				{
+					if (ChartPanel.DelayedButtonWidth - grid.Margin.Left >= ChartPanel.DelayedButtonHeight - grid.Margin.Top)
+						grid.Margin = new Thickness(grid.Margin.Left, ChartPanel.DelayedButtonHeight, 0, 0);
+					else
+						grid.Margin = new Thickness(ChartPanel.DelayedButtonWidth, grid.Margin.Top, 0, 0);
+				}
 
 				Left			= grid.Margin.Left;
 				Top				= grid.Margin.Top;

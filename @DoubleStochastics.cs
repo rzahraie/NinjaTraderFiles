@@ -1,5 +1,5 @@
 //
-// Copyright (C) 2025, NinjaTrader LLC <www.ninjatrader.com>.
+// Copyright (C) 2026, NinjaTrader LLC <www.ninjatrader.com>.
 // NinjaTrader reserves the right to modify or overwrite this NinjaScript component with each release.
 //
 #region Using declarations
@@ -39,8 +39,8 @@ namespace NinjaTrader.NinjaScript.Indicators
 				Period						= 10;
 
 				AddPlot(Brushes.Crimson,													Custom.Resource.StochasticsK);
-				AddLine(new Gui.Stroke(Brushes.DodgerBlue, Gui.DashStyleHelper.Dash, 1), 90,	Custom.Resource.NinjaScriptIndicatorUpper);
-				AddLine(new Gui.Stroke(Brushes.DodgerBlue, Gui.DashStyleHelper.Dash, 1), 10,	Custom.Resource.NinjaScriptIndicatorLower);
+				AddLine(new Gui.Stroke(Brushes.DodgerBlue, Gui.DashStyleHelper.Dash, 1), 90,	Custom.Resource.NinjaScriptIndicatorOverbought);
+				AddLine(new Gui.Stroke(Brushes.DodgerBlue, Gui.DashStyleHelper.Dash, 1), 10,	Custom.Resource.NinjaScriptIndicatorOversold);
 			}
 			else if (State == State.DataLoaded)
 			{

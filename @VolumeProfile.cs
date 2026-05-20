@@ -1,5 +1,5 @@
 //
-// Copyright (C) 2025, NinjaTrader LLC <www.ninjatrader.com>.
+// Copyright (C) 2026, NinjaTrader LLC <www.ninjatrader.com>.
 // NinjaTrader reserves the right to modify or overwrite this NinjaScript component with each release.
 //
 #region Using declarations
@@ -94,7 +94,7 @@ namespace NinjaTrader.NinjaScript.Indicators
 
 		protected override void OnMarketData(MarketDataEventArgs e)
 		{
-			if (Bars.Count <= 0)
+			if (Bars.Count <= 0 || CurrentBar < 0)
 				return;
 
 			double			price;

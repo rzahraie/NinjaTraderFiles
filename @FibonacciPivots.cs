@@ -1,5 +1,5 @@
 //
-// Copyright (C) 2025, NinjaTrader LLC <www.ninjatrader.com>.
+// Copyright (C) 2026, NinjaTrader LLC <www.ninjatrader.com>.
 // NinjaTrader reserves the right to modify or overwrite this NinjaScript component with each release.
 //
 #region Using declarations
@@ -106,14 +106,16 @@ namespace NinjaTrader.NinjaScript.Indicators
 					Draw.TextFixed(this, "NinjaScriptInfo", Custom.Resource.PiviotsPeriodTypeError, TextPosition.BottomRight);
 					Log(Custom.Resource.PiviotsPeriodTypeError, LogLevel.Error);
 				}
-				if ((PriorDayHlc == HLCCalculationMode.DailyBars &&
-					(PivotRangeType == PivotRange.Monthly && BarsArray[1].GetTime(0).Date >= BarsArray[1].GetTime(BarsArray[1].Count - 1).Date.AddMonths(-1)
-					|| PivotRangeType == PivotRange.Weekly && BarsArray[1].GetTime(0).Date >= BarsArray[1].GetTime(BarsArray[1].Count - 1).Date.AddDays(-7)
-					|| PivotRangeType == PivotRange.Daily && BarsArray[1].GetTime(0).Date >= BarsArray[1].GetTime(BarsArray[1].Count - 1).Date.AddDays(-1)))
+				if ((PriorDayHlc == HLCCalculationMode.DailyBars
+					&& (BarsArray[1].Count == 0
+						|| PivotRangeType == PivotRange.Monthly && BarsArray[1].GetTime(0).Date >= BarsArray[1].GetTime(BarsArray[1].Count - 1).Date.AddMonths(-1)
+						|| PivotRangeType == PivotRange.Weekly && BarsArray[1].GetTime(0).Date >= BarsArray[1].GetTime(BarsArray[1].Count - 1).Date.AddDays(-7)
+						|| PivotRangeType == PivotRange.Daily && BarsArray[1].GetTime(0).Date >= BarsArray[1].GetTime(BarsArray[1].Count - 1).Date.AddDays(-1))
+					)
+					|| BarsArray[0].Count == 0
 					|| PivotRangeType == PivotRange.Monthly && BarsArray[0].GetTime(0).Date >= BarsArray[0].GetTime(BarsArray[0].Count - 1).Date.AddMonths(-1)
 					|| PivotRangeType == PivotRange.Weekly && BarsArray[0].GetTime(0).Date >= BarsArray[0].GetTime(BarsArray[0].Count - 1).Date.AddDays(-7)
-					|| PivotRangeType == PivotRange.Daily && BarsArray[0].GetTime(0).Date >= BarsArray[0].GetTime(BarsArray[0].Count - 1).Date.AddDays(-1)
-					)
+					|| PivotRangeType == PivotRange.Daily && BarsArray[0].GetTime(0).Date >= BarsArray[0].GetTime(BarsArray[0].Count - 1).Date.AddDays(-1))
 				{
 					Draw.TextFixed(this, "NinjaScriptInfo", Custom.Resource.PiviotsInsufficentDataError, TextPosition.BottomRight);
 					Log(Custom.Resource.PiviotsInsufficentDataError, LogLevel.Error);

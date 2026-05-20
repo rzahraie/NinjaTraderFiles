@@ -1,5 +1,5 @@
 //
-// Copyright (C) 2025, NinjaTrader LLC <www.ninjatrader.com>.
+// Copyright (C) 2026, NinjaTrader LLC <www.ninjatrader.com>.
 // NinjaTrader reserves the right to modify or overwrite this NinjaScript component with each release.
 //
 #region Using declarations
@@ -31,8 +31,8 @@ namespace NinjaTrader.NinjaScript.Indicators
 				Interval					= 10;
 
 				AddPlot(Brushes.DarkCyan,		Custom.Resource.NinjaScriptIndicatorNameADXR);
-				AddLine(Brushes.SlateBlue,	25,	Custom.Resource.NinjaScriptIndicatorLower);
-				AddLine(Brushes.Goldenrod,	75,	Custom.Resource.NinjaScriptIndicatorUpper);
+				AddLine(Brushes.SlateBlue,	25,	Custom.Resource.NinjaScriptIndicatorStrongTrend);
+				AddLine(Brushes.Goldenrod,	75,	Custom.Resource.NinjaScriptIndicatorVeryStrongTrend);
 			}
 			else if (State == State.DataLoaded)
 				adx = ADX(Period);
