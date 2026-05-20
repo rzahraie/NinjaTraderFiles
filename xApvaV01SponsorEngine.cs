@@ -39,9 +39,12 @@ namespace NinjaTrader.NinjaScript.APVA.V01
 			    dominanceRising)
 			{
 			    bool accepted =
-			        authorityHigh &&
-			        degradationFalling &&
-			        ambiguityFalling;
+				    authorityHigh &&
+				    snapshot.Scores.DominanceScore >= 0.35 &&
+				    snapshot.Scores.DegradationScore <= 0.65 &&
+				    degradationFalling &&
+				    ambiguityFalling &&
+				    snapshot.Scores.AmbiguityScore < prior.Scores.AmbiguityScore * 0.90;
 			
 			    if (accepted)
 			    {
@@ -185,6 +188,7 @@ namespace NinjaTrader.NinjaScript.APVA.V01
         }
     }
 }
+
 
 
 
