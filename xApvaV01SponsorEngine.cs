@@ -10,6 +10,29 @@ namespace NinjaTrader.NinjaScript.APVA.V01
                 return;
 
             var s = snapshot.Scores;
+			
+			bool hasAcceptedReclaim = false;
+
+			if (snapshot.Events != null)
+			{
+			    foreach (var e in snapshot.Events)
+			    {
+			        if (e.EventType == ApvaEventType.AcceptedReclaim)
+			        {
+			            hasAcceptedReclaim = true;
+			            break;
+			        }
+			    }
+			}
+			
+			if (hasAcceptedReclaim &&
+			    s.DegradationScore < 0.80 &&
+			    s.AmbiguityScore < 0.65)
+			{
+			    snapshot.SponsorState = ApvaSponsorState.Reasserting;
+			    snapshot.SponsorConfidence = 0.70;
+			    return;
+			}
 
             bool hasUsefulDirection =
                 snapshot.ActiveDirection != ApvaDirection.Unknown &&
@@ -188,6 +211,7 @@ namespace NinjaTrader.NinjaScript.APVA.V01
         }
     }
 }
+
 
 
 
