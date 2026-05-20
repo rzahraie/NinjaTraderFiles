@@ -77,6 +77,17 @@ namespace NinjaTrader.NinjaScript.APVA.V01
 			{
 			    return ApvaMacroState.Unresolved;
 			}
+			
+			if (current.Events != null)
+			{
+			    foreach (var e in current.Events)
+			    {
+			        if (e.EventType == ApvaEventType.ReclaimAttempt ||
+			            e.EventType == ApvaEventType.RejectedReclaim ||
+			            e.EventType == ApvaEventType.AcceptedReclaim)
+			            return ApvaMacroState.Unresolved;
+			    }
+			}
 
             return ApvaMacroState.Unknown;
         }
@@ -96,4 +107,5 @@ namespace NinjaTrader.NinjaScript.APVA.V01
         }
     }
 }
+
 
