@@ -70,6 +70,13 @@ namespace NinjaTrader.NinjaScript.APVA.V01
 			    s.BalanceScore >= 0.40 ||
 			    s.AmbiguityScore >= 0.40)
 			    return ApvaMacroState.Unresolved;
+			
+			if (prior != null &&
+			    prior.SponsorState == ApvaSponsorState.Reasserting &&
+			    current.ActiveDirection == prior.ActiveDirection)
+			{
+			    return ApvaMacroState.Unresolved;
+			}
 
             return ApvaMacroState.Unknown;
         }
@@ -89,3 +96,4 @@ namespace NinjaTrader.NinjaScript.APVA.V01
         }
     }
 }
+

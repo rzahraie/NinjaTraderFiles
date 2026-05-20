@@ -2,6 +2,10 @@ namespace NinjaTrader.NinjaScript.APVA.V01
 {
     public sealed class ApvaV01SponsorEngine
     {
+		private ApvaSponsorState persistentSponsorState = ApvaSponsorState.Unknown;
+		private ApvaDirection persistentSponsorDirection = ApvaDirection.Unknown;
+		private int sponsorPersistenceBars;
+		
         public void Evaluate(
             ApvaStateSnapshot snapshot,
             ApvaStateSnapshot prior)
@@ -29,10 +33,11 @@ namespace NinjaTrader.NinjaScript.APVA.V01
 			    s.DegradationScore < 0.80 &&
 			    s.AmbiguityScore < 0.65)
 			{
-			    snapshot.SponsorState = ApvaSponsorState.Reasserting;
-			    snapshot.SponsorConfidence = 0.70;
-			    return;
+			   SetPersistentSponsor(snapshot,ApvaSponsorState.Reasserting,0.70,2);
+			   return;
 			}
+			
+			if (TryApplyPersistentSponsor(snapshot)) return;
 
             bool hasUsefulDirection =
                 snapshot.ActiveDirection != ApvaDirection.Unknown &&
@@ -209,8 +214,76 @@ namespace NinjaTrader.NinjaScript.APVA.V01
             snapshot.SponsorState = ApvaSponsorState.Unknown;
             snapshot.SponsorConfidence = 0.25;
         }
+		
+		private void SetPersistentSponsor(
+		    ApvaStateSnapshot snapshot,
+		    ApvaSponsorState state,
+		    double confidence,
+		    int bars)
+		{
+		    snapshot.SponsorState = state;
+		    snapshot.SponsorConfidence = confidence;
+		
+		    persistentSponsorState = state;
+		    persistentSponsorDirection = snapshot.ActiveDirection;
+		    sponsorPersistenceBars = bars;
+		}
+		
+		private bool HasEvent(ApvaStateSnapshot snapshot, ApvaEventType eventType)
+		{
+		    if (snapshot == null || snapshot.Events == null)
+		        return false;
+		
+		    foreach (var e in snapshot.Events)
+		    {
+		        if (e.EventType == eventType)
+		            return true;
+		    }
+		
+		    return false;
+		}
+
+		private bool TryApplyPersistentSponsor(ApvaStateSnapshot snapshot)
+		{
+		    if (sponsorPersistenceBars <= 0)
+		        return false;
+		
+		    if (persistentSponsorState == ApvaSponsorState.Unknown)
+		        return false;
+		
+		    if (snapshot.ActiveDirection != persistentSponsorDirection)
+		        return false;
+		
+		    bool rejection =
+		        HasEvent(snapshot, ApvaEventType.RejectedReclaim) ||
+		        HasEvent(snapshot, ApvaEventType.FailedContinuation);
+		
+		    if (rejection)
+		    {
+		        sponsorPersistenceBars = 0;
+		        persistentSponsorState = ApvaSponsorState.Unknown;
+		        persistentSponsorDirection = ApvaDirection.Unknown;
+		        return false;
+		    }
+		
+		    if (snapshot.Scores.AmbiguityScore >= 0.70)
+		    {
+		        sponsorPersistenceBars = 0;
+		        persistentSponsorState = ApvaSponsorState.Unknown;
+		        persistentSponsorDirection = ApvaDirection.Unknown;
+		        return false;
+		    }
+		
+		    snapshot.SponsorState = persistentSponsorState;
+		    snapshot.SponsorConfidence = 0.60;
+		
+		    sponsorPersistenceBars--;
+		    return true;
+		}
     }
 }
+
+
 
 
 
