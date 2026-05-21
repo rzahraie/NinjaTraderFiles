@@ -18,86 +18,94 @@ namespace NinjaTrader.NinjaScript.APVA.V01
 		private static int reclaimCooldownBars;
 
         public List<ApvaEvent> GenerateEvents(
-            ApvaBarFeatures current,
-            ApvaBarFeatures prior,
-            ApvaSequenceState sequence,
-            ApvaV01LandmarkStore landmarkStore,
-            ApvaStateSnapshot priorState)
-        {
-            if (current == null)
-                throw new ArgumentNullException(nameof(current));
-
-            if (landmarkStore == null)
-                throw new ArgumentNullException(nameof(landmarkStore));
-			
-			if (reclaimCooldownBars > 0)
-    			reclaimCooldownBars--;
-
-            var events = new List<ApvaEvent>();
-
-            TryCreatePeakVolumeEvent(current, sequence, landmarkStore, events);
-            TryCreateHvcEvent(current, sequence, landmarkStore, events);
-            TryCreateFailedContinuationEvent(current, prior, sequence, priorState, events);
-            TryCreateLateralSeedEvent(current, prior, events);
-            TryCreateSfcCandidateEvent(current, sequence, priorState, events);
-			TryCreateAcceptedReclaimFromPriorAttempt(current, sequence, events);
-			TryCreateRejectedReclaimFromPriorAttempt(current, sequence, events);
-			
-			bool priorReclaimResolved =
-			    HasEvent(events, ApvaEventType.AcceptedReclaim) ||
-			    HasEvent(events, ApvaEventType.RejectedReclaim);
-			
-			if (!priorReclaimResolved)
-			{
-			    TryCreateReclaimEvents(current, prior, sequence, priorState, events);
-			}
-			
-			bool sawReclaimAttempt = false;
-			ApvaDirection sawReclaimDirection = ApvaDirection.Unknown;
-			bool sawAcceptedReclaim = false;
-			bool sawRejectedReclaim = false;
-			
-			foreach (var e in events)
-			{
-			    if (e.EventType == ApvaEventType.AcceptedReclaim)
-			        sawAcceptedReclaim = true;
-			
-			    if (e.EventType == ApvaEventType.RejectedReclaim)
-			        sawRejectedReclaim = true;
-			
-			    if (e.EventType == ApvaEventType.ReclaimAttempt)
-			    {
-			        sawReclaimAttempt = true;
-			        sawReclaimDirection = e.Direction;
-			        reclaimCooldownBars = 3;
-			    }
-			}
-			
-			if (sawAcceptedReclaim || sawRejectedReclaim)
-			{
-			    priorReclaimAttempt = false;
-			    priorReclaimDirection = ApvaDirection.Unknown;
-			    priorRejectedReclaimEligible = false;
-			    priorRejectedReclaimDirection = ApvaDirection.Unknown;
-			    reclaimCooldownBars = 2;
-			}
-			else if (sawReclaimAttempt)
-			{
-			    priorReclaimAttempt = true;
-			    priorReclaimDirection = sawReclaimDirection;
-			    priorRejectedReclaimEligible = true;
-			    priorRejectedReclaimDirection = sawReclaimDirection;
-			}
-			else
-			{
-			    priorReclaimAttempt = false;
-			    priorReclaimDirection = ApvaDirection.Unknown;
-			    priorRejectedReclaimEligible = false;
-			    priorRejectedReclaimDirection = ApvaDirection.Unknown;
-			}
-			
-			return events;
-        }
+		    ApvaBarFeatures current,
+		    ApvaBarFeatures prior,
+		    ApvaSequenceState sequence,
+		    ApvaV01LandmarkStore landmarkStore,
+		    ApvaStateSnapshot priorState)
+		{
+		    if (current == null)
+		        throw new ArgumentNullException(nameof(current));
+		
+		    if (landmarkStore == null)
+		        throw new ArgumentNullException(nameof(landmarkStore));
+		
+		    if (reclaimCooldownBars > 0)
+		        reclaimCooldownBars--;
+		
+		    var events = new List<ApvaEvent>();
+		
+		    TryCreatePeakVolumeEvent(current, sequence, landmarkStore, events);
+		    TryCreateHvcEvent(current, sequence, landmarkStore, events);
+		    TryCreateFailedContinuationEvent(current, prior, sequence, priorState, events);
+		    TryCreateLateralSeedEvent(current, prior, events);
+		    TryCreateSfcCandidateEvent(current, sequence, priorState, events);
+		
+		    // Resolve prior reclaim attempt first.
+		    TryCreateAcceptedReclaimFromPriorAttempt(current, sequence, events);
+		    TryCreateRejectedReclaimFromPriorAttempt(current, sequence, events);
+		
+		    bool priorReclaimResolved =
+		        HasEvent(events, ApvaEventType.AcceptedReclaim) ||
+		        HasEvent(events, ApvaEventType.RejectedReclaim);
+		
+		    // Only create a new reclaim attempt if the prior one did not resolve.
+		    if (!priorReclaimResolved)
+		    {
+		        TryCreateReclaimEvents(current, prior, sequence, priorState, events);
+		    }
+		
+		    bool sawReclaimAttempt = false;
+		    ApvaDirection sawReclaimDirection = ApvaDirection.Unknown;
+		    bool sawAcceptedReclaim = false;
+		    bool sawRejectedReclaim = false;
+		
+		    foreach (var e in events)
+		    {
+		        if (e.EventType == ApvaEventType.AcceptedReclaim)
+		            sawAcceptedReclaim = true;
+		
+		        if (e.EventType == ApvaEventType.RejectedReclaim)
+		            sawRejectedReclaim = true;
+		
+		        if (e.EventType == ApvaEventType.ReclaimAttempt)
+		        {
+		            sawReclaimAttempt = true;
+		            sawReclaimDirection = e.Direction;
+		        }
+		    }
+		
+		    if (sawAcceptedReclaim || sawRejectedReclaim)
+		    {
+		        priorReclaimAttempt = false;
+		        priorReclaimDirection = ApvaDirection.Unknown;
+		
+		        priorRejectedReclaimEligible = false;
+		        priorRejectedReclaimDirection = ApvaDirection.Unknown;
+		
+		        reclaimCooldownBars = 2;
+		    }
+		    else if (sawReclaimAttempt)
+		    {
+		        priorReclaimAttempt = true;
+		        priorReclaimDirection = sawReclaimDirection;
+		
+		        priorRejectedReclaimEligible = true;
+		        priorRejectedReclaimDirection = sawReclaimDirection;
+		
+		        reclaimCooldownBars = 3;
+		    }
+		    else
+		    {
+		        priorReclaimAttempt = false;
+		        priorReclaimDirection = ApvaDirection.Unknown;
+		
+		        priorRejectedReclaimEligible = false;
+		        priorRejectedReclaimDirection = ApvaDirection.Unknown;
+		    }
+		
+		    return events;
+		}
 		
 		private void TryCreateRejectedReclaimFromPriorAttempt(
 		    ApvaBarFeatures current,
@@ -626,6 +634,7 @@ namespace NinjaTrader.NinjaScript.APVA.V01
 		}
     }
 }
+
 
 
 
