@@ -488,8 +488,21 @@ namespace NinjaTrader.NinjaScript.APVA.V01
 		    bool strongClose =
 		        GetCloseEfficiencyForDirection(current, sequence.Direction) > 0.60;
 		
-		    bool reclaimAttempt =
-		        continuationDirection || strongClose;
+		    bool usefulAuthority =
+			    sequence.Direction != ApvaDirection.Unknown &&
+			    sequence.Direction != ApvaDirection.Mixed;
+			
+			bool meaningfulDirection =
+			    continuationDirection &&
+			    GetCloseEfficiencyForDirection(current, sequence.Direction) > 0.45;
+			
+			bool meaningfulClose =
+			    strongClose &&
+			    current.OverlapRatio < 0.65;
+			
+			bool reclaimAttempt =
+			    usefulAuthority &&
+			    (meaningfulDirection || meaningfulClose);
 		
 		    if (!reclaimAttempt)
 		        return;
@@ -573,6 +586,9 @@ namespace NinjaTrader.NinjaScript.APVA.V01
 		}
     }
 }
+
+
+
 
 
 
