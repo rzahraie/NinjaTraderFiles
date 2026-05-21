@@ -15,6 +15,7 @@ namespace NinjaTrader.NinjaScript.APVA.V01
 		private ApvaDirection priorReclaimDirection = ApvaDirection.Unknown;
 		private bool priorRejectedReclaimEligible;
 		private ApvaDirection priorRejectedReclaimDirection = ApvaDirection.Unknown;
+		private static int reclaimCooldownBars;
 
         public List<ApvaEvent> GenerateEvents(
             ApvaBarFeatures current,
@@ -28,6 +29,9 @@ namespace NinjaTrader.NinjaScript.APVA.V01
 
             if (landmarkStore == null)
                 throw new ArgumentNullException(nameof(landmarkStore));
+			
+			if (reclaimCooldownBars > 0)
+    			reclaimCooldownBars--;
 
             var events = new List<ApvaEvent>();
 
@@ -52,6 +56,8 @@ namespace NinjaTrader.NinjaScript.APVA.V01
 				
 				    priorRejectedReclaimEligible = true;
 				    priorRejectedReclaimDirection = e.Direction;
+					
+					reclaimCooldownBars = 3;
 				}
 			}
 
@@ -466,6 +472,9 @@ namespace NinjaTrader.NinjaScript.APVA.V01
 		        sequence == null ||
 		        priorState == null)
 		        return;
+			
+			if (reclaimCooldownBars > 0)
+    			return;
 		
 		    bool priorWeak =
 			    priorState.SponsorState == ApvaSponsorState.Challenged ||
@@ -585,6 +594,8 @@ namespace NinjaTrader.NinjaScript.APVA.V01
 		}
     }
 }
+
+
 
 
 
