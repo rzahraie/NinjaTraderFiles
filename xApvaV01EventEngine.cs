@@ -51,13 +51,13 @@ namespace NinjaTrader.NinjaScript.APVA.V01
 			{
 			    if (e.EventType == ApvaEventType.ReclaimAttempt)
 				{
-				    priorReclaimAttempt = true;
-				    priorReclaimDirection = e.Direction;
-				
-				    priorRejectedReclaimEligible = true;
-				    priorRejectedReclaimDirection = e.Direction;
+				    priorReclaimAttempt = false;
+					priorReclaimDirection = ApvaDirection.Unknown;
 					
-					reclaimCooldownBars = 3;
+					priorRejectedReclaimEligible = false;
+					priorRejectedReclaimDirection = ApvaDirection.Unknown;
+					
+					reclaimCooldownBars = 0;
 				}
 			}
 
@@ -594,6 +594,7 @@ namespace NinjaTrader.NinjaScript.APVA.V01
 		}
     }
 }
+
 
 
 
