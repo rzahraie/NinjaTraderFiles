@@ -89,6 +89,14 @@ namespace NinjaTrader.NinjaScript.APVA.V01
 
 			sponsorEngine.Evaluate(snapshot, priorState);
 			
+			if (snapshot.MacroState == ApvaMacroState.Unknown &&
+			    (snapshot.SponsorState == ApvaSponsorState.ReclaimAttempt ||
+			     snapshot.SponsorState == ApvaSponsorState.Reasserting ||
+			     snapshot.SponsorState == ApvaSponsorState.FailedReclaim))
+			{
+			    snapshot.MacroState = ApvaMacroState.Unresolved;
+			}
+			
             expectationEngine.ApplyExpectations(snapshot);
 
             snapshots.Add(snapshot);
@@ -113,6 +121,7 @@ namespace NinjaTrader.NinjaScript.APVA.V01
         }
     }
 }
+
 
 
 
