@@ -55,7 +55,6 @@ namespace NinjaTrader.NinjaScript.APVA.V01
 			
 			bool sawReclaimAttempt = false;
 			ApvaDirection sawReclaimDirection = ApvaDirection.Unknown;
-			
 			bool sawAcceptedReclaim = false;
 			bool sawRejectedReclaim = false;
 			
@@ -79,17 +78,14 @@ namespace NinjaTrader.NinjaScript.APVA.V01
 			{
 			    priorReclaimAttempt = false;
 			    priorReclaimDirection = ApvaDirection.Unknown;
-			
 			    priorRejectedReclaimEligible = false;
 			    priorRejectedReclaimDirection = ApvaDirection.Unknown;
-			
 			    reclaimCooldownBars = 2;
 			}
 			else if (sawReclaimAttempt)
 			{
 			    priorReclaimAttempt = true;
 			    priorReclaimDirection = sawReclaimDirection;
-			
 			    priorRejectedReclaimEligible = true;
 			    priorRejectedReclaimDirection = sawReclaimDirection;
 			}
@@ -97,7 +93,6 @@ namespace NinjaTrader.NinjaScript.APVA.V01
 			{
 			    priorReclaimAttempt = false;
 			    priorReclaimDirection = ApvaDirection.Unknown;
-			
 			    priorRejectedReclaimEligible = false;
 			    priorRejectedReclaimDirection = ApvaDirection.Unknown;
 			}
@@ -632,6 +627,7 @@ namespace NinjaTrader.NinjaScript.APVA.V01
 		}
     }
 }
+
 
 
 
