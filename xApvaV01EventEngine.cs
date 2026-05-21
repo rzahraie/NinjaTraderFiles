@@ -81,14 +81,6 @@ namespace NinjaTrader.NinjaScript.APVA.V01
 			    priorRejectedReclaimEligible = true;
 			    priorRejectedReclaimDirection = sawReclaimDirection;
 			}
-			else
-			{
-			    priorReclaimAttempt = false;
-			    priorReclaimDirection = ApvaDirection.Unknown;
-			
-			    priorRejectedReclaimEligible = false;
-			    priorRejectedReclaimDirection = ApvaDirection.Unknown;
-			}
 			
             return events;
         }
@@ -620,6 +612,7 @@ namespace NinjaTrader.NinjaScript.APVA.V01
 		}
     }
 }
+
 
 
 
