@@ -24,37 +24,79 @@ namespace NinjaTrader.NinjaScript.APVA.V01
 		    ApvaV01LandmarkStore landmarkStore,
 		    ApvaStateSnapshot priorState)
 		{
+		    ValidateInputs(current, landmarkStore);
+		    AdvanceReclaimCooldown();
+		
+		    var events = new List<ApvaEvent>();
+		
+		    CreateStructuralEvents(current, prior, sequence, landmarkStore, priorState, events);
+		    ResolvePriorReclaimAttempt(current, sequence, events);
+		    TryCreateNewReclaimAttempt(current, prior, sequence, priorState, events);
+		    UpdateReclaimMemory(events);
+		
+		    return events;
+		}
+		
+		private static void ValidateInputs(
+		    ApvaBarFeatures current,
+		    ApvaV01LandmarkStore landmarkStore)
+		{
 		    if (current == null)
 		        throw new ArgumentNullException(nameof(current));
 		
 		    if (landmarkStore == null)
 		        throw new ArgumentNullException(nameof(landmarkStore));
+		}
 		
+		private static void AdvanceReclaimCooldown()
+		{
 		    if (reclaimCooldownBars > 0)
 		        reclaimCooldownBars--;
+		}
 		
-		    var events = new List<ApvaEvent>();
-		
+		private void CreateStructuralEvents(
+		    ApvaBarFeatures current,
+		    ApvaBarFeatures prior,
+		    ApvaSequenceState sequence,
+		    ApvaV01LandmarkStore landmarkStore,
+		    ApvaStateSnapshot priorState,
+		    List<ApvaEvent> events)
+		{
 		    TryCreatePeakVolumeEvent(current, sequence, landmarkStore, events);
 		    TryCreateHvcEvent(current, sequence, landmarkStore, events);
 		    TryCreateFailedContinuationEvent(current, prior, sequence, priorState, events);
 		    TryCreateLateralSeedEvent(current, prior, events);
 		    TryCreateSfcCandidateEvent(current, sequence, priorState, events);
+		}
 		
-		    // Resolve prior reclaim attempt first.
+		private void ResolvePriorReclaimAttempt(
+		    ApvaBarFeatures current,
+		    ApvaSequenceState sequence,
+		    List<ApvaEvent> events)
+		{
 		    TryCreateAcceptedReclaimFromPriorAttempt(current, sequence, events);
 		    TryCreateRejectedReclaimFromPriorAttempt(current, sequence, events);
+		}
 		
+		private void TryCreateNewReclaimAttempt(
+		    ApvaBarFeatures current,
+		    ApvaBarFeatures prior,
+		    ApvaSequenceState sequence,
+		    ApvaStateSnapshot priorState,
+		    List<ApvaEvent> events)
+		{
 		    bool priorReclaimResolved =
 		        HasEvent(events, ApvaEventType.AcceptedReclaim) ||
 		        HasEvent(events, ApvaEventType.RejectedReclaim);
 		
-		    // Only create a new reclaim attempt if the prior one did not resolve.
-		    if (!priorReclaimResolved)
-		    {
-		        TryCreateReclaimEvents(current, prior, sequence, priorState, events);
-		    }
+		    if (priorReclaimResolved)
+		        return;
 		
+		    TryCreateReclaimEvents(current, prior, sequence, priorState, events);
+		}
+		
+		private void UpdateReclaimMemory(List<ApvaEvent> events)
+		{
 		    bool sawReclaimAttempt = false;
 		    ApvaDirection sawReclaimDirection = ApvaDirection.Unknown;
 		    bool sawAcceptedReclaim = false;
@@ -77,15 +119,12 @@ namespace NinjaTrader.NinjaScript.APVA.V01
 		
 		    if (sawAcceptedReclaim || sawRejectedReclaim)
 		    {
-		        priorReclaimAttempt = false;
-		        priorReclaimDirection = ApvaDirection.Unknown;
-		
-		        priorRejectedReclaimEligible = false;
-		        priorRejectedReclaimDirection = ApvaDirection.Unknown;
-		
+		        ClearReclaimMemory();
 		        reclaimCooldownBars = 2;
+		        return;
 		    }
-		    else if (sawReclaimAttempt)
+		
+		    if (sawReclaimAttempt)
 		    {
 		        priorReclaimAttempt = true;
 		        priorReclaimDirection = sawReclaimDirection;
@@ -94,17 +133,19 @@ namespace NinjaTrader.NinjaScript.APVA.V01
 		        priorRejectedReclaimDirection = sawReclaimDirection;
 		
 		        reclaimCooldownBars = 3;
-		    }
-		    else
-		    {
-		        priorReclaimAttempt = false;
-		        priorReclaimDirection = ApvaDirection.Unknown;
-		
-		        priorRejectedReclaimEligible = false;
-		        priorRejectedReclaimDirection = ApvaDirection.Unknown;
+		        return;
 		    }
 		
-		    return events;
+		    ClearReclaimMemory();
+		}
+		
+		private void ClearReclaimMemory()
+		{
+		    priorReclaimAttempt = false;
+		    priorReclaimDirection = ApvaDirection.Unknown;
+		
+		    priorRejectedReclaimEligible = false;
+		    priorRejectedReclaimDirection = ApvaDirection.Unknown;
 		}
 		
 		private void TryCreateRejectedReclaimFromPriorAttempt(
@@ -568,53 +609,6 @@ namespace NinjaTrader.NinjaScript.APVA.V01
 		        EffectOnTransition = -0.01,
 		        EffectOnAmbiguity = -0.02
 		    });
-		
-		    bool accepted =
-		        continuationDirection &&
-		        overlapLow &&
-		        strongClose;
-		
-		    /*if (accepted)
-		    {
-		        events.Add(new ApvaEvent
-		        {
-		            EventType = ApvaEventType.AcceptedReclaim,
-		            BarIndex = current.BarIndex,
-		            Direction = sequence.Direction,
-		            Strength = 0.75,
-		            Confidence = 0.70,
-		            EffectOnDominance = 0.15,
-		            EffectOnDegradation = -0.10,
-		            EffectOnBalance = -0.08,
-		            EffectOnTransition = -0.06,
-		            EffectOnAmbiguity = -0.10
-		        });
-		
-		        return;
-		    }*/
-		
-		    /*bool rejected =
-		        current.OverlapRatio >= 0.70 ||
-		        (sequence.Direction == ApvaDirection.Up
-		            ? current.DirectionalResultUp <= 0.0
-		            : current.DirectionalResultDown <= 0.0);
-		
-		    if (rejected)
-		    {
-		        events.Add(new ApvaEvent
-		        {
-		            EventType = ApvaEventType.RejectedReclaim,
-		            BarIndex = current.BarIndex,
-		            Direction = sequence.Direction,
-		            Strength = 0.60,
-		            Confidence = 0.60,
-		            EffectOnDominance = -0.08,
-		            EffectOnDegradation = 0.10,
-		            EffectOnBalance = 0.06,
-		            EffectOnTransition = 0.06,
-		            EffectOnAmbiguity = 0.08
-		        });
-		    }*/
 		}
 		
 		private static bool HasEvent(
@@ -634,6 +628,7 @@ namespace NinjaTrader.NinjaScript.APVA.V01
 		}
     }
 }
+
 
 
 
