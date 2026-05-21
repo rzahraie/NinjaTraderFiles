@@ -413,6 +413,9 @@ namespace NinjaTrader.NinjaScript.APVA.V01
 		    ApvaStateSnapshot priorState,
 		    List<ApvaEvent> events)
 		{
+			if (HasEvent(events, ApvaEventType.FailedContinuation))
+    			return;
+			
 		    if (current == null ||
 		        prior == null ||
 		        sequence == null ||
@@ -507,8 +510,25 @@ namespace NinjaTrader.NinjaScript.APVA.V01
 		        });
 		    }
 		}
+		
+		private static bool HasEvent(
+		    System.Collections.Generic.List<ApvaEvent> events,
+		    ApvaEventType eventType)
+		{
+		    if (events == null)
+		        return false;
+		
+		    foreach (var e in events)
+		    {
+		        if (e.EventType == eventType)
+		            return true;
+		    }
+		
+		    return false;
+		}
     }
 }
+
 
 
 
