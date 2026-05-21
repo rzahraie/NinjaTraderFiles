@@ -92,11 +92,16 @@ namespace NinjaTrader.NinjaScript.APVA.V01
 			        snapshot.SponsorState = ApvaSponsorState.Reasserting;
 			        snapshot.SponsorConfidence = 0.65;
 			    }
-			    else
-			    {
-			        snapshot.SponsorState = ApvaSponsorState.ReclaimAttempt;
-			        snapshot.SponsorConfidence = 0.45;
-			    }
+			    else if (HasEvent(snapshot, ApvaEventType.ReclaimAttempt))
+				{
+				    snapshot.SponsorState = ApvaSponsorState.ReclaimAttempt;
+				    snapshot.SponsorConfidence = 0.45;
+				}
+				else
+				{
+				    snapshot.SponsorState = ApvaSponsorState.Unresolved;
+				    snapshot.SponsorConfidence = 0.20;
+				}
 			
 			    return;
 			}
@@ -200,11 +205,16 @@ namespace NinjaTrader.NinjaScript.APVA.V01
 				        snapshot.SponsorState = ApvaSponsorState.Reasserting;
 				        snapshot.SponsorConfidence = 0.70;
 				    }
-				    else
-				    {
-				        snapshot.SponsorState = ApvaSponsorState.ReclaimAttempt;
-				        snapshot.SponsorConfidence = 0.45;
-				    }
+				    else if (HasEvent(snapshot, ApvaEventType.ReclaimAttempt))
+					{
+					    snapshot.SponsorState = ApvaSponsorState.ReclaimAttempt;
+					    snapshot.SponsorConfidence = 0.45;
+					}
+					else
+					{
+					    snapshot.SponsorState = ApvaSponsorState.Unresolved;
+					    snapshot.SponsorConfidence = 0.20;
+					}
 				
 				    return;
 				}
@@ -296,6 +306,7 @@ namespace NinjaTrader.NinjaScript.APVA.V01
 		}
     }
 }
+
 
 
 
