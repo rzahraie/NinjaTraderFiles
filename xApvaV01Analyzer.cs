@@ -73,6 +73,19 @@ namespace NinjaTrader.NinjaScript.APVA.V01
                 priorState);
 			
 			snapshot.Events.AddRange(events);
+			
+			foreach (var e in events)
+			{
+			    if (e.EventType == ApvaEventType.ReclaimAttempt ||
+			        e.EventType == ApvaEventType.AcceptedReclaim ||
+			        e.EventType == ApvaEventType.RejectedReclaim)
+			    {
+			        if (snapshot.MacroState == ApvaMacroState.Unknown)
+			            snapshot.MacroState = ApvaMacroState.Unresolved;
+			
+			        break;
+			    }
+			}
 
 			sponsorEngine.Evaluate(snapshot, priorState);
 			
@@ -100,5 +113,6 @@ namespace NinjaTrader.NinjaScript.APVA.V01
         }
     }
 }
+
 
 

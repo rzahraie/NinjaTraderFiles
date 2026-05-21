@@ -468,11 +468,10 @@ namespace NinjaTrader.NinjaScript.APVA.V01
 		        return;
 		
 		    bool priorWeak =
-		        priorState.SponsorState == ApvaSponsorState.Pressured ||
-		        priorState.SponsorState == ApvaSponsorState.Challenged ||
-		        priorState.SponsorState == ApvaSponsorState.Failing ||
-		        priorState.SponsorState == ApvaSponsorState.Balance ||
-		        priorState.SponsorState == ApvaSponsorState.Unresolved;
+			    priorState.SponsorState == ApvaSponsorState.Challenged ||
+			    priorState.SponsorState == ApvaSponsorState.Failing ||
+			    priorState.SponsorState == ApvaSponsorState.Balance ||
+			    priorState.SponsorState == ApvaSponsorState.Unresolved;
 		
 		    if (!priorWeak)
 		        return;
@@ -502,7 +501,7 @@ namespace NinjaTrader.NinjaScript.APVA.V01
 			
 			bool reclaimAttempt =
 			    usefulAuthority &&
-			    (meaningfulDirection || meaningfulClose);
+			    meaningfulDirection;
 		
 		    if (!reclaimAttempt)
 		        return;
@@ -586,6 +585,8 @@ namespace NinjaTrader.NinjaScript.APVA.V01
 		}
     }
 }
+
+
 
 
 
