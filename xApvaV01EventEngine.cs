@@ -44,9 +44,6 @@ namespace NinjaTrader.NinjaScript.APVA.V01
 			TryCreateAcceptedReclaimFromPriorAttempt(current,sequence,events);
 			TryCreateRejectedReclaimFromPriorAttempt(current,sequence,events);
 			
-			priorReclaimAttempt = false;
-			priorReclaimDirection = ApvaDirection.Unknown;
-			
 			bool sawReclaimAttempt = false;
 			ApvaDirection sawReclaimDirection = ApvaDirection.Unknown;
 			bool sawAcceptedReclaim = false;
@@ -623,6 +620,7 @@ namespace NinjaTrader.NinjaScript.APVA.V01
 		}
     }
 }
+
 
 
 
