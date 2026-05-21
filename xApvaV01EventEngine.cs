@@ -47,18 +47,50 @@ namespace NinjaTrader.NinjaScript.APVA.V01
 			priorReclaimAttempt = false;
 			priorReclaimDirection = ApvaDirection.Unknown;
 			
+			bool sawReclaimAttempt = false;
+			ApvaDirection sawReclaimDirection = ApvaDirection.Unknown;
+			bool sawAcceptedReclaim = false;
+			
 			foreach (var e in events)
 			{
+			    if (e.EventType == ApvaEventType.AcceptedReclaim)
+			    {
+			        sawAcceptedReclaim = true;
+			    }
+			
 			    if (e.EventType == ApvaEventType.ReclaimAttempt)
-				{
-				    priorReclaimAttempt = false;
-					priorReclaimDirection = ApvaDirection.Unknown;
-					
-					priorRejectedReclaimEligible = false;
-					priorRejectedReclaimDirection = ApvaDirection.Unknown;
-					
-					reclaimCooldownBars = 0;
-				}
+			    {
+			        sawReclaimAttempt = true;
+			        sawReclaimDirection = e.Direction;
+			        reclaimCooldownBars = 3;
+			    }
+			}
+			
+			if (sawAcceptedReclaim)
+			{
+			    priorReclaimAttempt = false;
+			    priorReclaimDirection = ApvaDirection.Unknown;
+			
+			    priorRejectedReclaimEligible = false;
+			    priorRejectedReclaimDirection = ApvaDirection.Unknown;
+			
+			    reclaimCooldownBars = 0;
+			}
+			else if (sawReclaimAttempt)
+			{
+			    priorReclaimAttempt = true;
+			    priorReclaimDirection = sawReclaimDirection;
+			
+			    priorRejectedReclaimEligible = true;
+			    priorRejectedReclaimDirection = sawReclaimDirection;
+			}
+			else
+			{
+			    priorReclaimAttempt = false;
+			    priorReclaimDirection = ApvaDirection.Unknown;
+			
+			    priorRejectedReclaimEligible = false;
+			    priorRejectedReclaimDirection = ApvaDirection.Unknown;
 			}
 
 			priorRejectedReclaimEligible = false;
@@ -594,6 +626,7 @@ namespace NinjaTrader.NinjaScript.APVA.V01
 		}
     }
 }
+
 
 
 
