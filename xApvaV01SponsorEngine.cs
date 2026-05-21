@@ -45,7 +45,7 @@ namespace NinjaTrader.NinjaScript.APVA.V01
 			        snapshot,
 			        ApvaSponsorState.FailedReclaim,
 			        0.70,
-			        2);
+			        1);
 			
 			    return;
 			}
@@ -296,6 +296,8 @@ namespace NinjaTrader.NinjaScript.APVA.V01
 		}
     }
 }
+
+
 
 
 
