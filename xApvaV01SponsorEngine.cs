@@ -37,6 +37,19 @@ namespace NinjaTrader.NinjaScript.APVA.V01
 			   return;
 			}
 			
+			bool hasRejectedReclaim = HasEvent(snapshot, ApvaEventType.RejectedReclaim);
+
+			if (hasRejectedReclaim)
+			{
+			    SetPersistentSponsor(
+			        snapshot,
+			        ApvaSponsorState.FailedReclaim,
+			        0.70,
+			        2);
+			
+			    return;
+			}
+			
 			if (TryApplyPersistentSponsor(snapshot)) return;
 
             bool hasUsefulDirection =
@@ -255,8 +268,9 @@ namespace NinjaTrader.NinjaScript.APVA.V01
 		        return false;
 		
 		    bool rejection =
-		        HasEvent(snapshot, ApvaEventType.RejectedReclaim) ||
-		        HasEvent(snapshot, ApvaEventType.FailedContinuation);
+			    persistentSponsorState == ApvaSponsorState.Reasserting &&
+			    (HasEvent(snapshot, ApvaEventType.RejectedReclaim) ||
+			     HasEvent(snapshot, ApvaEventType.FailedContinuation));
 		
 		    if (rejection)
 		    {
@@ -282,6 +296,7 @@ namespace NinjaTrader.NinjaScript.APVA.V01
 		}
     }
 }
+
 
 
 

@@ -92,6 +92,7 @@ namespace NinjaTrader.NinjaScript.APVA.V01
 	
 		ReclaimAttempt,
 	    Reasserting,
+		FailedReclaim,
 	    Transferred,
 	
 	    Balance,
@@ -252,6 +253,7 @@ namespace NinjaTrader.NinjaScript.APVA.V01
 		public ApvaSponsorState PriorSponsorState { get; set; }
     }
 }
+
 
 
 
