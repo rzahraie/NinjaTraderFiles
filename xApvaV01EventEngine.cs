@@ -41,19 +41,31 @@ namespace NinjaTrader.NinjaScript.APVA.V01
             TryCreateLateralSeedEvent(current, prior, events);
             TryCreateSfcCandidateEvent(current, sequence, priorState, events);
 			TryCreateReclaimEvents(current,prior,sequence,priorState,events);
-			TryCreateAcceptedReclaimFromPriorAttempt(current,sequence,events);
-			TryCreateRejectedReclaimFromPriorAttempt(current,sequence,events);
+			TryCreateAcceptedReclaimFromPriorAttempt(current, sequence, events);
+			TryCreateRejectedReclaimFromPriorAttempt(current, sequence, events);
+			
+			bool priorReclaimResolved =
+			    HasEvent(events, ApvaEventType.AcceptedReclaim) ||
+			    HasEvent(events, ApvaEventType.RejectedReclaim);
+			
+			if (!priorReclaimResolved)
+			{
+			    TryCreateReclaimEvents(current, prior, sequence, priorState, events);
+			}
 			
 			bool sawReclaimAttempt = false;
 			ApvaDirection sawReclaimDirection = ApvaDirection.Unknown;
+			
 			bool sawAcceptedReclaim = false;
+			bool sawRejectedReclaim = false;
 			
 			foreach (var e in events)
 			{
 			    if (e.EventType == ApvaEventType.AcceptedReclaim)
-			    {
 			        sawAcceptedReclaim = true;
-			    }
+			
+			    if (e.EventType == ApvaEventType.RejectedReclaim)
+			        sawRejectedReclaim = true;
 			
 			    if (e.EventType == ApvaEventType.ReclaimAttempt)
 			    {
@@ -63,7 +75,7 @@ namespace NinjaTrader.NinjaScript.APVA.V01
 			    }
 			}
 			
-			if (sawAcceptedReclaim)
+			if (sawAcceptedReclaim || sawRejectedReclaim)
 			{
 			    priorReclaimAttempt = false;
 			    priorReclaimDirection = ApvaDirection.Unknown;
@@ -71,7 +83,7 @@ namespace NinjaTrader.NinjaScript.APVA.V01
 			    priorRejectedReclaimEligible = false;
 			    priorRejectedReclaimDirection = ApvaDirection.Unknown;
 			
-			    reclaimCooldownBars = 0;
+			    reclaimCooldownBars = 2;
 			}
 			else if (sawReclaimAttempt)
 			{
@@ -81,8 +93,16 @@ namespace NinjaTrader.NinjaScript.APVA.V01
 			    priorRejectedReclaimEligible = true;
 			    priorRejectedReclaimDirection = sawReclaimDirection;
 			}
+			else
+			{
+			    priorReclaimAttempt = false;
+			    priorReclaimDirection = ApvaDirection.Unknown;
 			
-            return events;
+			    priorRejectedReclaimEligible = false;
+			    priorRejectedReclaimDirection = ApvaDirection.Unknown;
+			}
+			
+			return events;
         }
 		
 		private void TryCreateRejectedReclaimFromPriorAttempt(
@@ -612,6 +632,7 @@ namespace NinjaTrader.NinjaScript.APVA.V01
 		}
     }
 }
+
 
 
 
