@@ -40,7 +40,6 @@ namespace NinjaTrader.NinjaScript.APVA.V01
             TryCreateFailedContinuationEvent(current, prior, sequence, priorState, events);
             TryCreateLateralSeedEvent(current, prior, events);
             TryCreateSfcCandidateEvent(current, sequence, priorState, events);
-			TryCreateReclaimEvents(current,prior,sequence,priorState,events);
 			TryCreateAcceptedReclaimFromPriorAttempt(current, sequence, events);
 			TryCreateRejectedReclaimFromPriorAttempt(current, sequence, events);
 			
@@ -627,6 +626,7 @@ namespace NinjaTrader.NinjaScript.APVA.V01
 		}
     }
 }
+
 
 
 
