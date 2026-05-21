@@ -532,7 +532,7 @@ namespace NinjaTrader.NinjaScript.APVA.V01
 		        return;
 		    }*/
 		
-		    bool rejected =
+		    /*bool rejected =
 		        current.OverlapRatio >= 0.70 ||
 		        (sequence.Direction == ApvaDirection.Up
 		            ? current.DirectionalResultUp <= 0.0
@@ -553,7 +553,7 @@ namespace NinjaTrader.NinjaScript.APVA.V01
 		            EffectOnTransition = 0.06,
 		            EffectOnAmbiguity = 0.08
 		        });
-		    }
+		    }*/
 		}
 		
 		private static bool HasEvent(
@@ -573,6 +573,7 @@ namespace NinjaTrader.NinjaScript.APVA.V01
 		}
     }
 }
+
 
 
 
