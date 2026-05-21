@@ -13,6 +13,8 @@ namespace NinjaTrader.NinjaScript.APVA.V01
 		private int lastLateralSeedBar = -1;
 		private bool priorReclaimAttempt;
 		private ApvaDirection priorReclaimDirection = ApvaDirection.Unknown;
+		private bool priorRejectedReclaimEligible;
+		private ApvaDirection priorRejectedReclaimDirection = ApvaDirection.Unknown;
 
         public List<ApvaEvent> GenerateEvents(
             ApvaBarFeatures current,
@@ -36,6 +38,7 @@ namespace NinjaTrader.NinjaScript.APVA.V01
             TryCreateSfcCandidateEvent(current, sequence, priorState, events);
 			TryCreateReclaimEvents(current,prior,sequence,priorState,events);
 			TryCreateAcceptedReclaimFromPriorAttempt(current,sequence,events);
+			TryCreateRejectedReclaimFromPriorAttempt(current,sequence,events);
 			
 			priorReclaimAttempt = false;
 			priorReclaimDirection = ApvaDirection.Unknown;
@@ -43,15 +46,57 @@ namespace NinjaTrader.NinjaScript.APVA.V01
 			foreach (var e in events)
 			{
 			    if (e.EventType == ApvaEventType.ReclaimAttempt)
-			    {
-			        priorReclaimAttempt = true;
-			        priorReclaimDirection = e.Direction;
-			        break;
-			    }
+				{
+				    priorReclaimAttempt = true;
+				    priorReclaimDirection = e.Direction;
+				
+				    priorRejectedReclaimEligible = true;
+				    priorRejectedReclaimDirection = e.Direction;
+				}
 			}
 
+			priorRejectedReclaimEligible = false;
+			priorRejectedReclaimDirection = ApvaDirection.Unknown;
+			
             return events;
         }
+		
+		private void TryCreateRejectedReclaimFromPriorAttempt(
+		    ApvaBarFeatures current,
+		    ApvaSequenceState sequence,
+		    List<ApvaEvent> events)
+		{
+		    if (!priorRejectedReclaimEligible || sequence == null)
+		        return;
+		
+		    if (sequence.Direction != priorRejectedReclaimDirection)
+		        return;
+		
+		    bool failedProgress =
+		        sequence.Direction == ApvaDirection.Up
+		            ? current.DirectionalResultUp <= 0.0
+		            : current.DirectionalResultDown <= 0.0;
+		
+		    bool highOverlap =
+		        current.OverlapRatio >= 0.70;
+		
+		    if (!(failedProgress || highOverlap))
+		        return;
+		
+		    events.Add(new ApvaEvent
+		    {
+		        EventType = ApvaEventType.RejectedReclaim,
+		        BarIndex = current.BarIndex,
+		        Direction = sequence.Direction,
+		        Strength = 0.60,
+		        Confidence = 0.60,
+		        EffectOnDominance = -0.08,
+		        EffectOnDegradation = 0.10,
+		        EffectOnBalance = 0.06,
+		        EffectOnTransition = 0.06,
+		        EffectOnAmbiguity = 0.08
+		    });
+		}
 
 		private void TryCreateAcceptedReclaimFromPriorAttempt(
 		    ApvaBarFeatures current,
@@ -528,6 +573,9 @@ namespace NinjaTrader.NinjaScript.APVA.V01
 		}
     }
 }
+
+
+
 
 
 
