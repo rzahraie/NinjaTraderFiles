@@ -252,7 +252,16 @@ namespace NinjaTrader.NinjaScript.APVA.V01
 		
 		public ApvaSponsorState PriorSponsorState { get; set; }
     }
+	
+	public sealed class ApvaSponsorCandidate
+	{
+	    public ApvaSponsorState State { get; set; }
+	    public double Confidence { get; set; }
+	    public int Priority { get; set; }
+	    public string Reason { get; set; }
+	}
 }
+
 
 
 

@@ -2,10 +2,18 @@ namespace NinjaTrader.NinjaScript.APVA.V01
 {
     public sealed class ApvaV01SponsorEngine
     {
-		private ApvaSponsorState persistentSponsorState = ApvaSponsorState.Unknown;
-		private ApvaDirection persistentSponsorDirection = ApvaDirection.Unknown;
-		private int sponsorPersistenceBars;
-		
+        private ApvaSponsorState persistentSponsorState = ApvaSponsorState.Unknown;
+        private ApvaDirection persistentSponsorDirection = ApvaDirection.Unknown;
+        private int sponsorPersistenceBars;
+
+        private sealed class SponsorCandidate
+        {
+            public ApvaSponsorState State;
+            public double Confidence;
+            public int Priority;
+            public int PersistenceBars;
+        }
+
         public void Evaluate(
             ApvaStateSnapshot snapshot,
             ApvaStateSnapshot prior)
@@ -13,309 +21,291 @@ namespace NinjaTrader.NinjaScript.APVA.V01
             if (snapshot == null)
                 return;
 
-            var s = snapshot.Scores;
-			
-			bool hasAcceptedReclaim = false;
+            var candidates = new System.Collections.Generic.List<SponsorCandidate>();
 
-			if (snapshot.Events != null)
-			{
-			    foreach (var e in snapshot.Events)
-			    {
-			        if (e.EventType == ApvaEventType.AcceptedReclaim)
-			        {
-			            hasAcceptedReclaim = true;
-			            break;
-			        }
-			    }
-			}
-			
-			if (hasAcceptedReclaim &&
-			    s.DegradationScore < 0.80 &&
-			    s.AmbiguityScore < 0.65)
-			{
-			   SetPersistentSponsor(snapshot,ApvaSponsorState.Reasserting,0.70,2);
-			   return;
-			}
-			
-			bool hasRejectedReclaim = HasEvent(snapshot, ApvaEventType.RejectedReclaim);
+            AddAcceptedReclaimCandidate(snapshot, candidates);
+            AddRejectedReclaimCandidate(snapshot, candidates);
+            AddPersistentSponsorCandidate(snapshot, candidates);
+            AddTransferredCandidate(snapshot, prior, candidates);
+            AddDominanceCandidates(snapshot, prior, candidates);
+            AddEventDrivenReclaimCandidate(snapshot, candidates);
+            AddMacroFallbackCandidate(snapshot, candidates);
 
-			if (hasRejectedReclaim)
-			{
-			    SetPersistentSponsor(
-			        snapshot,
-			        ApvaSponsorState.FailedReclaim,
-			        0.70,
-			        1);
-			
-			    return;
-			}
-			
-			if (TryApplyPersistentSponsor(snapshot)) return;
+            ApplyBestCandidate(snapshot, candidates);
+        }
 
-            bool hasUsefulDirection =
-                snapshot.ActiveDirection != ApvaDirection.Unknown &&
-                snapshot.ActiveDirection != ApvaDirection.Mixed;
+        private void AddAcceptedReclaimCandidate(
+            ApvaStateSnapshot snapshot,
+            System.Collections.Generic.List<SponsorCandidate> candidates)
+        {
+            if (!HasEvent(snapshot, ApvaEventType.AcceptedReclaim))
+                return;
 
-            bool authorityHigh =
-                snapshot.SequenceAuthority >= 0.75;
+            if (snapshot.Scores.DegradationScore >= 0.80 ||
+                snapshot.Scores.AmbiguityScore >= 0.65)
+                return;
 
-            bool dominanceRising =
-                prior != null &&
-                s.DominanceScore > prior.Scores.DominanceScore;
-
-            bool degradationFalling =
-                prior != null &&
-                s.DegradationScore < prior.Scores.DegradationScore;
-
-            bool ambiguityFalling =
-                prior != null &&
-                s.AmbiguityScore < prior.Scores.AmbiguityScore;
-
-            bool balanceOrUnresolved =
-                snapshot.MacroState == ApvaMacroState.Balance ||
-                snapshot.MacroState == ApvaMacroState.Unresolved;
-
-            if (balanceOrUnresolved &&
-			    hasUsefulDirection &&
-			    dominanceRising)
-			{
-			    bool accepted =
-				    authorityHigh &&
-				    snapshot.Scores.DominanceScore >= 0.35 &&
-				    snapshot.Scores.DegradationScore <= 0.65 &&
-				    degradationFalling &&
-				    ambiguityFalling &&
-				    snapshot.Scores.AmbiguityScore < prior.Scores.AmbiguityScore * 0.90;
-			
-			    if (accepted)
-			    {
-			        snapshot.SponsorState = ApvaSponsorState.Reasserting;
-			        snapshot.SponsorConfidence = 0.65;
-			    }
-			    else if (HasEvent(snapshot, ApvaEventType.ReclaimAttempt))
-				{
-				    snapshot.SponsorState = ApvaSponsorState.ReclaimAttempt;
-				    snapshot.SponsorConfidence = 0.45;
-				}
-				else
-				{
-				    snapshot.SponsorState = ApvaSponsorState.Unresolved;
-				    snapshot.SponsorConfidence = 0.20;
-				}
-			
-			    return;
-			}
-
-            if (balanceOrUnresolved &&
-                hasUsefulDirection &&
-                authorityHigh &&
-                dominanceRising &&
-                ambiguityFalling)
+            candidates.Add(new SponsorCandidate
             {
-                snapshot.SponsorState = ApvaSponsorState.Pressured;
-                snapshot.SponsorConfidence = 0.55;
+                State = ApvaSponsorState.Reasserting,
+                Confidence = 0.70,
+                Priority = 100,
+                PersistenceBars = 2
+            });
+        }
+
+        private void AddRejectedReclaimCandidate(
+            ApvaStateSnapshot snapshot,
+            System.Collections.Generic.List<SponsorCandidate> candidates)
+        {
+            if (!HasEvent(snapshot, ApvaEventType.RejectedReclaim))
+                return;
+
+            candidates.Add(new SponsorCandidate
+            {
+                State = ApvaSponsorState.FailedReclaim,
+                Confidence = 0.70,
+                Priority = 100,
+                PersistenceBars = 1
+            });
+        }
+
+        private void AddPersistentSponsorCandidate(
+            ApvaStateSnapshot snapshot,
+            System.Collections.Generic.List<SponsorCandidate> candidates)
+        {
+            if (sponsorPersistenceBars <= 0)
+                return;
+
+            if (persistentSponsorState == ApvaSponsorState.Unknown)
+                return;
+
+            if (snapshot.ActiveDirection != persistentSponsorDirection)
+                return;
+
+            bool rejection =
+                persistentSponsorState == ApvaSponsorState.Reasserting &&
+                (HasEvent(snapshot, ApvaEventType.RejectedReclaim) ||
+                 HasEvent(snapshot, ApvaEventType.FailedContinuation));
+
+            if (rejection || snapshot.Scores.AmbiguityScore >= 0.70)
+            {
+                ClearPersistentSponsor();
                 return;
             }
+
+            candidates.Add(new SponsorCandidate
+            {
+                State = persistentSponsorState,
+                Confidence = 0.60,
+                Priority = 80,
+                PersistenceBars = -1
+            });
+        }
+
+        private void AddTransferredCandidate(
+            ApvaStateSnapshot snapshot,
+            ApvaStateSnapshot prior,
+            System.Collections.Generic.List<SponsorCandidate> candidates)
+        {
+            if (prior == null)
+                return;
+
+            bool directionChanged =
+                prior.ActiveDirection != ApvaDirection.Unknown &&
+                snapshot.ActiveDirection != ApvaDirection.Unknown &&
+                prior.ActiveDirection != snapshot.ActiveDirection;
+
+            bool priorWasWeak =
+                prior.SponsorState == ApvaSponsorState.Challenged ||
+                prior.SponsorState == ApvaSponsorState.Failing ||
+                prior.SponsorState == ApvaSponsorState.Unresolved;
+
+            bool currentStrong =
+                snapshot.Scores.DominanceScore >= 0.45 &&
+                snapshot.Scores.DegradationScore < 0.50;
+
+            if (directionChanged && priorWasWeak && currentStrong)
+            {
+                candidates.Add(new SponsorCandidate
+                {
+                    State = ApvaSponsorState.Transferred,
+                    Confidence = 0.75,
+                    Priority = 70
+                });
+            }
+        }
+
+        private void AddDominanceCandidates(
+            ApvaStateSnapshot snapshot,
+            ApvaStateSnapshot prior,
+            System.Collections.Generic.List<SponsorCandidate> candidates)
+        {
+            var s = snapshot.Scores;
 
             if (s.DominanceScore >= 0.65 &&
                 s.DegradationScore < 0.35 &&
                 s.AmbiguityScore < 0.35)
             {
-                snapshot.SponsorState = ApvaSponsorState.Dominant;
-                snapshot.SponsorConfidence = 0.85;
-                return;
+                candidates.Add(new SponsorCandidate
+                {
+                    State = ApvaSponsorState.Dominant,
+                    Confidence = 0.85,
+                    Priority = 60
+                });
             }
 
             if (s.DominanceScore >= 0.45 &&
                 s.DegradationScore >= 0.35 &&
                 s.DegradationScore < 0.60)
             {
-                snapshot.SponsorState = ApvaSponsorState.Pressured;
-                snapshot.SponsorConfidence = 0.65;
-                return;
+                candidates.Add(new SponsorCandidate
+                {
+                    State = ApvaSponsorState.Pressured,
+                    Confidence = 0.65,
+                    Priority = 55
+                });
             }
 
             if (s.DominanceScore >= 0.30 &&
-			    s.DegradationScore >= 0.60 &&
-			    s.TransitionScore >= 0.20)
+                s.DegradationScore >= 0.60 &&
+                s.TransitionScore >= 0.20)
             {
-                snapshot.SponsorState = ApvaSponsorState.Challenged;
-                snapshot.SponsorConfidence = 0.70;
-                return;
-            }
-
-          bool priorHadSponsor =
-			    prior != null &&
-			    (prior.SponsorState == ApvaSponsorState.Dominant ||
-			     prior.SponsorState == ApvaSponsorState.Pressured ||
-			     prior.SponsorState == ApvaSponsorState.Challenged);
-			
-			if (priorHadSponsor &&
-			    s.DegradationScore >= 0.75 &&
-			    s.DominanceScore < 0.30)
-            {
-                snapshot.SponsorState = ApvaSponsorState.Failing;
-                snapshot.SponsorConfidence = 0.80;
-                return;
-            }
-
-            if (prior != null)
-            {
-                bool directionChanged =
-                    prior.ActiveDirection != ApvaDirection.Unknown &&
-                    snapshot.ActiveDirection != ApvaDirection.Unknown &&
-                    prior.ActiveDirection != snapshot.ActiveDirection;
-
-                bool priorWasWeak =
-                    prior.SponsorState == ApvaSponsorState.Challenged ||
-                    prior.SponsorState == ApvaSponsorState.Failing ||
-                    prior.SponsorState == ApvaSponsorState.Unresolved;
-
-                bool currentStrong =
-                    s.DominanceScore >= 0.45 &&
-                    s.DegradationScore < 0.50;
-
-                if (directionChanged && priorWasWeak && currentStrong)
+                candidates.Add(new SponsorCandidate
                 {
-                    snapshot.SponsorState = ApvaSponsorState.Transferred;
-                    snapshot.SponsorConfidence = 0.75;
-                    return;
-                }
-
-                bool reclaiming =
-                    (prior.SponsorState == ApvaSponsorState.Challenged ||
-                     prior.SponsorState == ApvaSponsorState.Failing ||
-                     prior.SponsorState == ApvaSponsorState.Balance ||
-                     prior.SponsorState == ApvaSponsorState.Unresolved) &&
-                    s.DominanceScore > prior.Scores.DominanceScore &&
-                    s.DegradationScore < prior.Scores.DegradationScore;
-
-                if (reclaiming)
-				{
-				   bool accepted =
-					    authorityHigh &&
-					    snapshot.Scores.DominanceScore >= 0.35 &&
-					    snapshot.Scores.DegradationScore <= 0.65 &&
-					    degradationFalling &&
-					    ambiguityFalling &&
-					    snapshot.Scores.AmbiguityScore < prior.Scores.AmbiguityScore * 0.90;
-				
-				    if (accepted)
-				    {
-				        snapshot.SponsorState = ApvaSponsorState.Reasserting;
-				        snapshot.SponsorConfidence = 0.70;
-				    }
-				    else if (HasEvent(snapshot, ApvaEventType.ReclaimAttempt))
-					{
-					    snapshot.SponsorState = ApvaSponsorState.ReclaimAttempt;
-					    snapshot.SponsorConfidence = 0.45;
-					}
-					else
-					{
-					    snapshot.SponsorState = ApvaSponsorState.Unresolved;
-					    snapshot.SponsorConfidence = 0.20;
-					}
-				
-				    return;
-				}
+                    State = ApvaSponsorState.Challenged,
+                    Confidence = 0.70,
+                    Priority = 50
+                });
             }
 
+            bool priorHadSponsor =
+                prior != null &&
+                (prior.SponsorState == ApvaSponsorState.Dominant ||
+                 prior.SponsorState == ApvaSponsorState.Pressured ||
+                 prior.SponsorState == ApvaSponsorState.Challenged);
+
+            if (priorHadSponsor &&
+                s.DegradationScore >= 0.75 &&
+                s.DominanceScore < 0.30)
+            {
+                candidates.Add(new SponsorCandidate
+                {
+                    State = ApvaSponsorState.Failing,
+                    Confidence = 0.80,
+                    Priority = 65
+                });
+            }
+        }
+
+        private void AddEventDrivenReclaimCandidate(
+            ApvaStateSnapshot snapshot,
+            System.Collections.Generic.List<SponsorCandidate> candidates)
+        {
+            if (!HasEvent(snapshot, ApvaEventType.ReclaimAttempt))
+                return;
+
+            candidates.Add(new SponsorCandidate
+            {
+                State = ApvaSponsorState.ReclaimAttempt,
+                Confidence = 0.45,
+                Priority = 75
+            });
+        }
+
+        private void AddMacroFallbackCandidate(
+            ApvaStateSnapshot snapshot,
+            System.Collections.Generic.List<SponsorCandidate> candidates)
+        {
             if (snapshot.MacroState == ApvaMacroState.Balance)
             {
-                snapshot.SponsorState = ApvaSponsorState.Balance;
-                snapshot.SponsorConfidence = 0.30;
+                candidates.Add(new SponsorCandidate
+                {
+                    State = ApvaSponsorState.Balance,
+                    Confidence = 0.30,
+                    Priority = 10
+                });
                 return;
             }
 
             if (snapshot.MacroState == ApvaMacroState.Unresolved)
             {
-                snapshot.SponsorState = ApvaSponsorState.Unresolved;
-                snapshot.SponsorConfidence = 0.20;
+                candidates.Add(new SponsorCandidate
+                {
+                    State = ApvaSponsorState.Unresolved,
+                    Confidence = 0.20,
+                    Priority = 10
+                });
                 return;
             }
 
-            snapshot.SponsorState = ApvaSponsorState.Unknown;
-            snapshot.SponsorConfidence = 0.25;
+            candidates.Add(new SponsorCandidate
+            {
+                State = ApvaSponsorState.Unknown,
+                Confidence = 0.25,
+                Priority = 0
+            });
         }
-		
-		private void SetPersistentSponsor(
-		    ApvaStateSnapshot snapshot,
-		    ApvaSponsorState state,
-		    double confidence,
-		    int bars)
-		{
-		    snapshot.SponsorState = state;
-		    snapshot.SponsorConfidence = confidence;
-		
-		    persistentSponsorState = state;
-		    persistentSponsorDirection = snapshot.ActiveDirection;
-		    sponsorPersistenceBars = bars;
-		}
-		
-		private bool HasEvent(ApvaStateSnapshot snapshot, ApvaEventType eventType)
-		{
-		    if (snapshot == null || snapshot.Events == null)
-		        return false;
-		
-		    foreach (var e in snapshot.Events)
-		    {
-		        if (e.EventType == eventType)
-		            return true;
-		    }
-		
-		    return false;
-		}
 
-		private bool TryApplyPersistentSponsor(ApvaStateSnapshot snapshot)
-		{
-		    if (sponsorPersistenceBars <= 0)
-		        return false;
-		
-		    if (persistentSponsorState == ApvaSponsorState.Unknown)
-		        return false;
-		
-		    if (snapshot.ActiveDirection != persistentSponsorDirection)
-		        return false;
-		
-		    bool rejection =
-			    persistentSponsorState == ApvaSponsorState.Reasserting &&
-			    (HasEvent(snapshot, ApvaEventType.RejectedReclaim) ||
-			     HasEvent(snapshot, ApvaEventType.FailedContinuation));
-		
-		    if (rejection)
-		    {
-		        sponsorPersistenceBars = 0;
-		        persistentSponsorState = ApvaSponsorState.Unknown;
-		        persistentSponsorDirection = ApvaDirection.Unknown;
-		        return false;
-		    }
-		
-		    if (snapshot.Scores.AmbiguityScore >= 0.70)
-		    {
-		        sponsorPersistenceBars = 0;
-		        persistentSponsorState = ApvaSponsorState.Unknown;
-		        persistentSponsorDirection = ApvaDirection.Unknown;
-		        return false;
-		    }
-		
-		    snapshot.SponsorState = persistentSponsorState;
-		    snapshot.SponsorConfidence = 0.60;
-		
-		    sponsorPersistenceBars--;
-		    return true;
-		}
+        private void ApplyBestCandidate(
+            ApvaStateSnapshot snapshot,
+            System.Collections.Generic.List<SponsorCandidate> candidates)
+        {
+            SponsorCandidate best = null;
+
+            foreach (var c in candidates)
+            {
+                if (best == null ||
+                    c.Priority > best.Priority ||
+                    (c.Priority == best.Priority && c.Confidence > best.Confidence))
+                {
+                    best = c;
+                }
+            }
+
+            if (best == null)
+            {
+                snapshot.SponsorState = ApvaSponsorState.Unknown;
+                snapshot.SponsorConfidence = 0.25;
+                return;
+            }
+
+            snapshot.SponsorState = best.State;
+            snapshot.SponsorConfidence = best.Confidence;
+
+            if (best.PersistenceBars > 0)
+            {
+                persistentSponsorState = best.State;
+                persistentSponsorDirection = snapshot.ActiveDirection;
+                sponsorPersistenceBars = best.PersistenceBars;
+            }
+            else if (best.PersistenceBars == -1)
+            {
+                sponsorPersistenceBars--;
+            }
+        }
+
+        private void ClearPersistentSponsor()
+        {
+            sponsorPersistenceBars = 0;
+            persistentSponsorState = ApvaSponsorState.Unknown;
+            persistentSponsorDirection = ApvaDirection.Unknown;
+        }
+
+        private bool HasEvent(
+            ApvaStateSnapshot snapshot,
+            ApvaEventType eventType)
+        {
+            if (snapshot == null || snapshot.Events == null)
+                return false;
+
+            foreach (var e in snapshot.Events)
+            {
+                if (e.EventType == eventType)
+                    return true;
+            }
+
+            return false;
+        }
     }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
