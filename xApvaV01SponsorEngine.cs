@@ -134,6 +134,16 @@ namespace NinjaTrader.NinjaScript.APVA.V01
             if (sponsorPersistenceBars <= 0)
                 return;
 
+			if (persistentSponsorState == ApvaSponsorState.FailedReclaim &&
+			    snapshot.MacroState == ApvaMacroState.Directional &&
+			    snapshot.Scores.DominanceScore >= 0.40 &&
+			    snapshot.Scores.DegradationScore < 0.45 &&
+			    snapshot.Scores.AmbiguityScore < 0.28)
+			{
+			    ClearPersistentSponsor();
+			    return;
+			}
+
             if (persistentSponsorState == ApvaSponsorState.Unknown)
                 return;
 
@@ -373,6 +383,7 @@ namespace NinjaTrader.NinjaScript.APVA.V01
         }
     }
 }
+
 
 
 
