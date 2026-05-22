@@ -29,11 +29,42 @@ namespace NinjaTrader.NinjaScript.APVA.V01
             AddTransferredCandidate(snapshot, prior, candidates);
             AddDominanceCandidates(snapshot, prior, candidates);
             AddEventDrivenReclaimCandidate(snapshot, candidates);
+			AddDegradingFallbackCandidate(snapshot, candidates);
 			AddDirectionalFallbackCandidate(snapshot, candidates);
             AddMacroFallbackCandidate(snapshot, candidates);
 
             ApplyBestCandidate(snapshot, candidates);
         }
+		
+		private void AddDegradingFallbackCandidate(
+		    ApvaStateSnapshot snapshot,
+		    System.Collections.Generic.List<SponsorCandidate> candidates)
+		{
+		    if (snapshot.MacroState != ApvaMacroState.Degrading)
+		        return;
+		
+		    if (snapshot.Scores.DegradationScore >= 0.65 ||
+		        snapshot.Scores.AmbiguityScore >= 0.40)
+		    {
+		        candidates.Add(new SponsorCandidate
+		        {
+		            State = ApvaSponsorState.Failing,
+		            Confidence = 0.60,
+		            Priority = 22,
+		            PersistenceBars = 0
+		        });
+		
+		        return;
+		    }
+		
+		    candidates.Add(new SponsorCandidate
+		    {
+		        State = ApvaSponsorState.Challenged,
+		        Confidence = 0.55,
+		        Priority = 22,
+		        PersistenceBars = 0
+		    });
+		}
 
 		private void AddDirectionalFallbackCandidate(
 		    ApvaStateSnapshot snapshot,
@@ -339,6 +370,7 @@ namespace NinjaTrader.NinjaScript.APVA.V01
         }
     }
 }
+
 
 
 
