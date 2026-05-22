@@ -11,6 +11,7 @@ namespace NinjaTrader.NinjaScript.APVA.V01
         private readonly ApvaV01ScoringEngine scoringEngine = new ApvaV01ScoringEngine();
         private readonly ApvaV01StateEngine stateEngine = new ApvaV01StateEngine();
         private readonly ApvaV01ExpectationEngine expectationEngine = new ApvaV01ExpectationEngine();
+        private readonly ApvaV01SponsorEngine sponsorEngine = new ApvaV01SponsorEngine();
 
         private readonly List<ApvaStateSnapshot> snapshots = new List<ApvaStateSnapshot>();
 
@@ -18,8 +19,6 @@ namespace NinjaTrader.NinjaScript.APVA.V01
         private ApvaSequenceState activeSequence;
         private ApvaStateSnapshot priorState;
         private ApvaScores priorScores = new ApvaScores();
-		
-		private readonly ApvaV01SponsorEngine sponsorEngine = new ApvaV01SponsorEngine();
 
         public IReadOnlyList<ApvaStateSnapshot> Snapshots
         {
@@ -60,7 +59,7 @@ namespace NinjaTrader.NinjaScript.APVA.V01
                 activeSequence,
                 landmarkStore,
                 priorState);
-			
+
             var scores = scoringEngine.UpdateScores(
                 priorScores,
                 events,
@@ -71,32 +70,15 @@ namespace NinjaTrader.NinjaScript.APVA.V01
                 activeSequence,
                 scores,
                 priorState);
-			
-			snapshot.Events.AddRange(events);
-			
-			foreach (var e in events)
-			{
-			    if (e.EventType == ApvaEventType.ReclaimAttempt ||
-			        e.EventType == ApvaEventType.AcceptedReclaim ||
-			        e.EventType == ApvaEventType.RejectedReclaim)
-			    {
-			        if (snapshot.MacroState == ApvaMacroState.Unknown)
-			            snapshot.MacroState = ApvaMacroState.Unresolved;
-			
-			        break;
-			    }
-			}
 
-			sponsorEngine.Evaluate(snapshot, priorState);
-			
-			if (snapshot.MacroState == ApvaMacroState.Unknown &&
-			    (snapshot.SponsorState == ApvaSponsorState.ReclaimAttempt ||
-			     snapshot.SponsorState == ApvaSponsorState.Reasserting ||
-			     snapshot.SponsorState == ApvaSponsorState.FailedReclaim))
-			{
-			    snapshot.MacroState = ApvaMacroState.Unresolved;
-			}
-			
+            snapshot.Events.AddRange(events);
+
+            NormalizeEventMacroCoherence(snapshot);
+
+            sponsorEngine.Evaluate(snapshot, priorState);
+
+            NormalizeSponsorMacroCoherence(snapshot);
+
             expectationEngine.ApplyExpectations(snapshot);
 
             snapshots.Add(snapshot);
@@ -106,6 +88,35 @@ namespace NinjaTrader.NinjaScript.APVA.V01
             priorScores = scores;
 
             return snapshot;
+        }
+
+        private static void NormalizeEventMacroCoherence(
+            ApvaStateSnapshot snapshot)
+        {
+            foreach (var e in snapshot.Events)
+            {
+                if (e.EventType == ApvaEventType.ReclaimAttempt ||
+                    e.EventType == ApvaEventType.AcceptedReclaim ||
+                    e.EventType == ApvaEventType.RejectedReclaim)
+                {
+                    if (snapshot.MacroState == ApvaMacroState.Unknown)
+                        snapshot.MacroState = ApvaMacroState.Unresolved;
+
+                    return;
+                }
+            }
+        }
+
+        private static void NormalizeSponsorMacroCoherence(
+            ApvaStateSnapshot snapshot)
+        {
+            if (snapshot.MacroState == ApvaMacroState.Unknown &&
+                (snapshot.SponsorState == ApvaSponsorState.ReclaimAttempt ||
+                 snapshot.SponsorState == ApvaSponsorState.Reasserting ||
+                 snapshot.SponsorState == ApvaSponsorState.FailedReclaim))
+            {
+                snapshot.MacroState = ApvaMacroState.Unresolved;
+            }
         }
 
         public void Reset()
@@ -121,7 +132,3 @@ namespace NinjaTrader.NinjaScript.APVA.V01
         }
     }
 }
-
-
-
-

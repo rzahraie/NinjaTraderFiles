@@ -35,7 +35,8 @@ namespace NinjaTrader.NinjaScript.APVA.V01
             snapshot.MacroState = ClassifyMacroState(snapshot, priorState);
             snapshot.SFCStatus = ClassifySfcStatus(snapshot);
 
-            return snapshot;
+            NormalizeMacroState(snapshot);
+			return snapshot;
         }
 
         private static ApvaMacroState ClassifyMacroState(
@@ -105,7 +106,30 @@ namespace NinjaTrader.NinjaScript.APVA.V01
 
             return "None";
         }
+		
+		private static void NormalizeMacroState(ApvaStateSnapshot snapshot)
+		{
+		    if (snapshot == null)
+		        return;
+		
+		    if (snapshot.MacroState != ApvaMacroState.Unknown)
+		        return;
+		
+		    if (snapshot.Scores == null)
+		        return;
+		
+		    bool enoughAuctionEvidence =
+		        snapshot.Scores.DominanceScore >= 0.20 ||
+		        snapshot.Scores.DegradationScore >= 0.20 ||
+		        snapshot.Scores.BalanceScore >= 0.20 ||
+		        snapshot.Scores.TransitionScore >= 0.10 ||
+		        snapshot.Scores.AmbiguityScore >= 0.20;
+		
+		    if (enoughAuctionEvidence)
+		        snapshot.MacroState = ApvaMacroState.Unresolved;
+		}
     }
 }
+
 
 

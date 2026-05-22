@@ -571,9 +571,6 @@ namespace NinjaTrader.NinjaScript.APVA.V01
 		            ? current.DirectionalResultUp > 0.0
 		            : current.DirectionalResultDown > 0.0;
 		
-		    bool overlapLow =
-		        current.OverlapRatio < 0.40;
-		
 		    bool strongClose =
 		        GetCloseEfficiencyForDirection(current, sequence.Direction) > 0.60;
 		
@@ -628,6 +625,7 @@ namespace NinjaTrader.NinjaScript.APVA.V01
 		}
     }
 }
+
 
 
 
