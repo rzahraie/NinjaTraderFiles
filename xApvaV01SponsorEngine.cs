@@ -83,6 +83,9 @@ namespace NinjaTrader.NinjaScript.APVA.V01
             if (snapshot.ActiveDirection != persistentSponsorDirection)
                 return;
 
+			if (HasEvent(snapshot, ApvaEventType.ReclaimAttempt))
+    			return;
+			
             bool rejection =
                 persistentSponsorState == ApvaSponsorState.Reasserting &&
                 (HasEvent(snapshot, ApvaEventType.RejectedReclaim) ||
@@ -309,3 +312,4 @@ namespace NinjaTrader.NinjaScript.APVA.V01
         }
     }
 }
+
