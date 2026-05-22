@@ -545,6 +545,9 @@ namespace NinjaTrader.NinjaScript.APVA.V01
 		    ApvaStateSnapshot priorState,
 		    List<ApvaEvent> events)
 		{
+			if (current.BarIndex < 20)
+    			return;
+			
 			if (HasEvent(events, ApvaEventType.FailedContinuation))
     			return;
 			
@@ -625,6 +628,7 @@ namespace NinjaTrader.NinjaScript.APVA.V01
 		}
     }
 }
+
 
 
 
