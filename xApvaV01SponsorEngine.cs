@@ -73,11 +73,14 @@ namespace NinjaTrader.NinjaScript.APVA.V01
 		    if (snapshot.MacroState != ApvaMacroState.Directional)
 		        return;
 		
-		    if (snapshot.Scores.DominanceScore < 0.45)
-		        return;
-		
-		    if (snapshot.Scores.DegradationScore >= 0.50)
-		        return;
+		    if (snapshot.Scores.DominanceScore < 0.40)
+			    return;
+			
+			if (snapshot.Scores.DegradationScore >= 0.45)
+			    return;
+			
+			if (snapshot.Scores.AmbiguityScore >= 0.28)
+			    return;
 		
 		    candidates.Add(new SponsorCandidate
 		    {
@@ -370,6 +373,7 @@ namespace NinjaTrader.NinjaScript.APVA.V01
         }
     }
 }
+
 
 
 
