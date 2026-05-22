@@ -98,9 +98,19 @@ namespace NinjaTrader.NinjaScript.APVA.V01
             if (!HasEvent(snapshot, ApvaEventType.AcceptedReclaim))
                 return;
 
-            if (snapshot.Scores.DegradationScore >= 0.80 ||
-                snapshot.Scores.AmbiguityScore >= 0.65)
-                return;
+           if (snapshot.Scores.DegradationScore >= 0.60 ||
+			    snapshot.Scores.AmbiguityScore >= 0.35)
+			{
+			    candidates.Add(new SponsorCandidate
+			    {
+			        State = ApvaSponsorState.Challenged,
+			        Confidence = 0.60,
+			        Priority = 95,
+			        PersistenceBars = 0
+			    });
+			
+			    return;
+			}
 
             candidates.Add(new SponsorCandidate
             {
@@ -383,9 +393,4 @@ namespace NinjaTrader.NinjaScript.APVA.V01
         }
     }
 }
-
-
-
-
-
 
