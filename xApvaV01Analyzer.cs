@@ -76,6 +76,8 @@ namespace NinjaTrader.NinjaScript.APVA.V01
             NormalizeEventMacroCoherence(snapshot);
 
             sponsorEngine.Evaluate(snapshot, priorState);
+			
+			NormalizeAcceptedReclaimMacroState(snapshot);
 
             NormalizeSponsorMacroCoherence(snapshot);
 
@@ -119,6 +121,40 @@ namespace NinjaTrader.NinjaScript.APVA.V01
             }
         }
 
+		private static void NormalizeAcceptedReclaimMacroState(
+		    ApvaStateSnapshot snapshot)
+		{
+		    if (snapshot == null)
+		        return;
+		
+		    if (snapshot.MacroState != ApvaMacroState.Unresolved)
+		        return;
+		
+		    bool acceptedReclaim = false;
+		
+		    foreach (var e in snapshot.Events)
+		    {
+		        if (e.EventType == ApvaEventType.AcceptedReclaim)
+		        {
+		            acceptedReclaim = true;
+		            break;
+		        }
+		    }
+		
+		    if (!acceptedReclaim)
+		        return;
+		
+		    if (snapshot.SponsorState != ApvaSponsorState.Reasserting)
+		        return;
+		
+		    if (snapshot.Scores.DominanceScore >= 0.24 &&
+		        snapshot.Scores.DegradationScore < 0.50 &&
+		        snapshot.Scores.AmbiguityScore < 0.35)
+		    {
+		        snapshot.MacroState = ApvaMacroState.Directional;
+		    }
+		}
+
         public void Reset()
         {
             snapshots.Clear();
@@ -132,3 +168,4 @@ namespace NinjaTrader.NinjaScript.APVA.V01
         }
     }
 }
+

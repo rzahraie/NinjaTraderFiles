@@ -202,13 +202,13 @@ namespace NinjaTrader.NinjaScript.APVA.V01
 			        : current.DirectionalResultDown > 0.0;
 			
 			bool strongClose =
-			    GetCloseEfficiencyForDirection(current, sequence.Direction) > 0.65;
+			    GetCloseEfficiencyForDirection(current, sequence.Direction) > 0.60;
 			
 			bool lowOverlap =
-			    current.OverlapRatio < 0.45;
+			    current.OverlapRatio < 0.55;
 			
 			bool usefulAuthority =
-    			sequence.AuthorityScore >= 0.55;
+			    sequence.AuthorityScore >= 0.55;
 			
 			if (!(directionalFollowThrough && strongClose && lowOverlap && usefulAuthority))
 			    return;
@@ -624,6 +624,7 @@ namespace NinjaTrader.NinjaScript.APVA.V01
 		}
     }
 }
+
 
 
 
