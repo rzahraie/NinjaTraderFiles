@@ -29,10 +29,33 @@ namespace NinjaTrader.NinjaScript.APVA.V01
             AddTransferredCandidate(snapshot, prior, candidates);
             AddDominanceCandidates(snapshot, prior, candidates);
             AddEventDrivenReclaimCandidate(snapshot, candidates);
+			AddDirectionalFallbackCandidate(snapshot, candidates);
             AddMacroFallbackCandidate(snapshot, candidates);
 
             ApplyBestCandidate(snapshot, candidates);
         }
+
+		private void AddDirectionalFallbackCandidate(
+		    ApvaStateSnapshot snapshot,
+		    System.Collections.Generic.List<SponsorCandidate> candidates)
+		{
+		    if (snapshot.MacroState != ApvaMacroState.Directional)
+		        return;
+		
+		    if (snapshot.Scores.DominanceScore < 0.45)
+		        return;
+		
+		    if (snapshot.Scores.DegradationScore >= 0.50)
+		        return;
+		
+		    candidates.Add(new SponsorCandidate
+		    {
+		        State = ApvaSponsorState.Dominant,
+		        Confidence = 0.55,
+		        Priority = 20,
+		        PersistenceBars = 0
+		    });
+		}
 
         private void AddAcceptedReclaimCandidate(
             ApvaStateSnapshot snapshot,
@@ -316,5 +339,6 @@ namespace NinjaTrader.NinjaScript.APVA.V01
         }
     }
 }
+
 
 
