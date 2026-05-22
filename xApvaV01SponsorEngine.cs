@@ -86,10 +86,14 @@ namespace NinjaTrader.NinjaScript.APVA.V01
 			if (HasEvent(snapshot, ApvaEventType.ReclaimAttempt))
     			return;
 			
-            bool rejection =
-                persistentSponsorState == ApvaSponsorState.Reasserting &&
-                (HasEvent(snapshot, ApvaEventType.RejectedReclaim) ||
-                 HasEvent(snapshot, ApvaEventType.FailedContinuation));
+            bool reassertingDegraded =
+			    persistentSponsorState == ApvaSponsorState.Reasserting &&
+			    (snapshot.Scores.DegradationScore >= 0.60 ||
+			     snapshot.Scores.AmbiguityScore >= 0.35 ||
+			     HasEvent(snapshot, ApvaEventType.FailedContinuation) ||
+			     HasEvent(snapshot, ApvaEventType.RejectedReclaim));
+			
+			bool rejection = reassertingDegraded;
 
             if (rejection || snapshot.Scores.AmbiguityScore >= 0.70)
             {
@@ -312,4 +316,5 @@ namespace NinjaTrader.NinjaScript.APVA.V01
         }
     }
 }
+
 
