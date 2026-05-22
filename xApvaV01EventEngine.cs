@@ -117,12 +117,19 @@ namespace NinjaTrader.NinjaScript.APVA.V01
 		        }
 		    }
 		
-		    if (sawAcceptedReclaim || sawRejectedReclaim)
-		    {
-		        ClearReclaimMemory();
-		        reclaimCooldownBars = 2;
-		        return;
-		    }
+		    if (sawRejectedReclaim)
+			{
+			    ClearReclaimMemory();
+			    reclaimCooldownBars = 4;
+			    return;
+			}
+			
+			if (sawAcceptedReclaim)
+			{
+			    ClearReclaimMemory();
+			    reclaimCooldownBars = 2;
+			    return;
+			}
 		
 		    if (sawReclaimAttempt)
 		    {
@@ -624,6 +631,7 @@ namespace NinjaTrader.NinjaScript.APVA.V01
 		}
     }
 }
+
 
 
 
