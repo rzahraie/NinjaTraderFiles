@@ -196,19 +196,22 @@ namespace NinjaTrader.NinjaScript.APVA.V01
 		    if (sequence.Direction != priorReclaimDirection)
 		        return;
 		
-		    bool directionalFollowThrough =
-		        sequence.Direction == ApvaDirection.Up
-		            ? current.DirectionalResultUp > 0.0
-		            : current.DirectionalResultDown > 0.0;
-		
-		    bool strongClose =
-		        GetCloseEfficiencyForDirection(current, sequence.Direction) > 0.60;
-		
-		    bool lowOverlap =
-		        current.OverlapRatio < 0.50;
-		
-		    if (!(directionalFollowThrough && strongClose && lowOverlap))
-		        return;
+		   	bool directionalFollowThrough =
+			    sequence.Direction == ApvaDirection.Up
+			        ? current.DirectionalResultUp > 0.0
+			        : current.DirectionalResultDown > 0.0;
+			
+			bool strongClose =
+			    GetCloseEfficiencyForDirection(current, sequence.Direction) > 0.65;
+			
+			bool lowOverlap =
+			    current.OverlapRatio < 0.45;
+			
+			bool usefulAuthority =
+    			sequence.AuthorityScore >= 0.55;
+			
+			if (!(directionalFollowThrough && strongClose && lowOverlap && usefulAuthority))
+			    return;
 		
 		    events.Add(new ApvaEvent
 		    {
@@ -574,9 +577,6 @@ namespace NinjaTrader.NinjaScript.APVA.V01
 		            ? current.DirectionalResultUp > 0.0
 		            : current.DirectionalResultDown > 0.0;
 		
-		    bool strongClose =
-		        GetCloseEfficiencyForDirection(current, sequence.Direction) > 0.60;
-		
 		    bool usefulAuthority =
 			    sequence.Direction != ApvaDirection.Unknown &&
 			    sequence.Direction != ApvaDirection.Mixed;
@@ -584,10 +584,6 @@ namespace NinjaTrader.NinjaScript.APVA.V01
 			bool meaningfulDirection =
 			    continuationDirection &&
 			    GetCloseEfficiencyForDirection(current, sequence.Direction) > 0.45;
-			
-			bool meaningfulClose =
-			    strongClose &&
-			    current.OverlapRatio < 0.65;
 			
 			bool reclaimAttempt =
 			    usefulAuthority &&
@@ -628,6 +624,8 @@ namespace NinjaTrader.NinjaScript.APVA.V01
 		}
     }
 }
+
+
 
 
 
