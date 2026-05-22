@@ -124,12 +124,23 @@ namespace NinjaTrader.NinjaScript.APVA.V01
 		        snapshot.Scores.BalanceScore >= 0.20 ||
 		        snapshot.Scores.TransitionScore >= 0.10 ||
 		        snapshot.Scores.AmbiguityScore >= 0.20;
+			
+			if (snapshot.MacroState == ApvaMacroState.Unresolved &&
+			    snapshot.Scores.DominanceScore >= 0.40 &&
+			    snapshot.Scores.DegradationScore < 0.45 &&
+			    snapshot.Scores.AmbiguityScore < 0.25 &&
+			    snapshot.SequenceAuthority >= 0.67)
+			{
+			    snapshot.MacroState = ApvaMacroState.Directional;
+			    return;
+			}
 		
 		    if (enoughAuctionEvidence)
 		        snapshot.MacroState = ApvaMacroState.Unresolved;
 		}
     }
 }
+
 
 
 
