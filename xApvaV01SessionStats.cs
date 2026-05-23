@@ -1,5 +1,6 @@
 #region Using declarations
 using System;
+using System.Collections.Generic;
 using System.Globalization;
 using NinjaTrader.NinjaScript.APVA.V01;
 #endregion
@@ -21,6 +22,9 @@ namespace NinjaTrader.NinjaScript.Indicators
         public int FailedContinuationCount;
         public int PeakVolumeCount;
         public int LateralSeedCount;
+		
+		private Dictionary<string, int> transitions;
+		private ApvaMacroState? previousState;
 
         public void Accumulate(ApvaStateSnapshot snapshot)
         {
@@ -84,6 +88,19 @@ namespace NinjaTrader.NinjaScript.Indicators
                         break;
                 }
             }
+			
+			if (previousState.HasValue)
+			{
+			    string key =
+			        previousState.Value + "->" + snapshot.MacroState;
+			
+			    if (!transitions.ContainsKey(key))
+			        transitions[key] = 0;
+			
+			    transitions[key]++;
+			}
+			
+			previousState = snapshot.MacroState;
         }
 
 		public string ToCsvSummary(
@@ -155,8 +172,40 @@ namespace NinjaTrader.NinjaScript.Indicators
 
             return 100.0 * count / TotalBars;
         }
+		
+		public string ToTransitionCsv(
+		    string instrument,
+		    string sessionContext)
+		{
+		    if (transitions == null || transitions.Count == 0)
+		        return string.Empty;
+		
+		    System.Text.StringBuilder sb = new System.Text.StringBuilder();
+		
+		    foreach (var kvp in transitions)
+		    {
+		        sb.AppendLine(string.Format(
+		            CultureInfo.InvariantCulture,
+		            "{0},{1},{2},{3}",
+		            instrument,
+		            sessionContext,
+		            kvp.Key,
+		            kvp.Value));
+		    }
+		
+		    return sb.ToString();
+		}
+		
+		public static string TransitionCsvHeader()
+		{
+		    return "Instrument,SessionContext,Transition,Count";
+		}
     }
 }
+
+
+
+
 
 
 

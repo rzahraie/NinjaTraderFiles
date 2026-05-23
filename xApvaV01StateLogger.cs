@@ -15,6 +15,8 @@ namespace NinjaTrader.NinjaScript.Indicators
 		private bool summaryPrinted;
 		private string summaryPath;
 		private bool summaryHeaderWritten;
+		private string transitionPath;
+		private bool transitionHeaderWritten;
 		
         protected override void OnStateChange()
         {
@@ -60,6 +62,12 @@ namespace NinjaTrader.NinjaScript.Indicators
 				summaryHeaderWritten = false;
 				
 				Print("APVA session stats initialized");
+				
+				transitionPath = Path.Combine(
+				    indicatorDir,
+				    "xApvaV01Transitions.csv");
+				
+				transitionHeaderWritten = false;
 
                 try
 				{
@@ -68,6 +76,9 @@ namespace NinjaTrader.NinjaScript.Indicators
 				
 				    if (File.Exists(summaryPath))
 				        File.Delete(summaryPath);
+					
+					if (File.Exists(transitionPath))
+    					File.Delete(transitionPath);
 				}
 				catch (Exception ex)
 				{
@@ -155,6 +166,25 @@ namespace NinjaTrader.NinjaScript.Indicators
 				        sessionStats.ToCsvSummary(
 				            instrumentName,
 				            sessionContext) + Environment.NewLine);
+					
+					if (!transitionHeaderWritten)
+					{
+					    File.AppendAllText(
+					        transitionPath,
+					        xApvaV01SessionStats.TransitionCsvHeader() + Environment.NewLine);
+					
+					    transitionHeaderWritten = true;
+					}
+					
+					string transitionCsv =
+					    sessionStats.ToTransitionCsv(instrumentName, sessionContext);
+					
+					if (!string.IsNullOrEmpty(transitionCsv))
+					{
+					    File.AppendAllText(
+					        transitionPath,
+					        transitionCsv);
+					}
 				}
 		    }
 		    catch (Exception ex)
