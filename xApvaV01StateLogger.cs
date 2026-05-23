@@ -177,7 +177,10 @@ namespace NinjaTrader.NinjaScript.Indicators
 					}
 					
 					string transitionCsv =
-					    sessionStats.ToTransitionCsv(instrumentName, sessionContext);
+					    sessionStats.ToTransitionCsv(
+					        instrumentName,
+					        sessionContext,
+					        sessionStats.TotalBars);
 					
 					if (!string.IsNullOrEmpty(transitionCsv))
 					{

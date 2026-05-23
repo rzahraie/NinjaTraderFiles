@@ -175,7 +175,8 @@ namespace NinjaTrader.NinjaScript.Indicators
 		
 		public string ToTransitionCsv(
 		    string instrument,
-		    string sessionContext)
+		    string sessionContext,
+		    int totalBars)
 		{
 		    if (transitions == null || transitions.Count == 0)
 		        return string.Empty;
@@ -186,11 +187,12 @@ namespace NinjaTrader.NinjaScript.Indicators
 		    {
 		        sb.AppendLine(string.Format(
 		            CultureInfo.InvariantCulture,
-		            "{0},{1},{2},{3}",
+		           "{0},{1},{2},{3},{4}",
 		            instrument,
-		            sessionContext,
-		            kvp.Key,
-		            kvp.Value));
+					sessionContext,
+					totalBars,
+					kvp.Key,
+					kvp.Value));
 		    }
 		
 		    return sb.ToString();
@@ -198,10 +200,11 @@ namespace NinjaTrader.NinjaScript.Indicators
 		
 		public static string TransitionCsvHeader()
 		{
-		    return "Instrument,SessionContext,Transition,Count";
+		    return "Instrument,SessionContext,TotalBars,Transition,Count";
 		}
     }
 }
+
 
 
 
