@@ -110,6 +110,14 @@ namespace NinjaTrader.NinjaScript.APVA.V01
 			
 			snapshot.Scores.EntropicCompression =
 			    Clamp01(entropicCompression);
+			
+			double incubationQuality =
+			    snapshot.Scores.StructuralCompression
+			    - snapshot.Scores.EntropicCompression
+			    + snapshot.Scores.ExpansionPressure;
+			
+			snapshot.Scores.IncubationQuality =
+			    Clamp01(incubationQuality);
 		}
 		
 		private static double Clamp01(double value)
@@ -224,6 +232,7 @@ namespace NinjaTrader.NinjaScript.APVA.V01
 		}
     }
 }
+
 
 
 

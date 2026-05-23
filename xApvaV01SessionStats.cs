@@ -47,6 +47,7 @@ namespace NinjaTrader.NinjaScript.Indicators
 		private double currentRunExpansionSum;
 		private double currentRunStructuralCompressionSum;
 		private double currentRunEntropicCompressionSum;
+		private double currentRunIncubationQualitySum;
 		private int currentRunEventCount;
 		private int currentRunLength;
 		private int persistenceLength;
@@ -78,6 +79,7 @@ namespace NinjaTrader.NinjaScript.Indicators
 		private Dictionary<string, double> precursorExpansionSums = new Dictionary<string, double>();
 		private Dictionary<string, double> precursorStructuralCompressionSums = new Dictionary<string, double>();
 		private Dictionary<string, double> precursorEntropicCompressionSums = new Dictionary<string, double>();
+		private Dictionary<string, double> precursorIncubationQualitySums = new Dictionary<string, double>();
 		private Dictionary<string, int> precursorEventCountSums = new Dictionary<string, int>();
 		private Dictionary<string, int> stateSurvivalCounts = new Dictionary<string, int>();
 		private Dictionary<string, int> stateExitCounts = new Dictionary<string, int>();
@@ -264,6 +266,11 @@ namespace NinjaTrader.NinjaScript.Indicators
 			    snapshot.Scores != null
 			        ? snapshot.Scores.EntropicCompression
 			        : 0.0;
+			
+			currentRunIncubationQualitySum +=
+			    snapshot.Scores != null
+			        ? snapshot.Scores.IncubationQuality
+			        : 0.0;
 		}
 		
 		private void ResetCurrentRunMetrics(ApvaStateSnapshot snapshot)
@@ -278,6 +285,7 @@ namespace NinjaTrader.NinjaScript.Indicators
 			currentRunExpansionSum = 0.0;
 			currentRunStructuralCompressionSum = 0.0;
 			currentRunEntropicCompressionSum = 0.0;
+			currentRunIncubationQualitySum = 0.0;
 		
 		    AddCurrentRunMetrics(snapshot);
 		}
@@ -346,6 +354,9 @@ namespace NinjaTrader.NinjaScript.Indicators
 			
 			if (!precursorEntropicCompressionSums.ContainsKey(transition))
 			    precursorEntropicCompressionSums[transition] = 0.0;
+			
+			if (!precursorIncubationQualitySums.ContainsKey(transition))
+    			precursorIncubationQualitySums[transition] = 0.0;
 		
 		    double meanSponsorConfidence =
 		        currentRunSponsorConfidenceSum / priorRunLength;
@@ -370,6 +381,9 @@ namespace NinjaTrader.NinjaScript.Indicators
 			
 			double meanEntropicCompression =
 			    currentRunEntropicCompressionSum / priorRunLength;
+			
+			double meanIncubationQuality =
+    			currentRunIncubationQualitySum / priorRunLength;
 		
 		    precursorCounts[transition]++;
 		    precursorPriorRunLengthSums[transition] += priorRunLength;
@@ -1121,7 +1135,7 @@ namespace NinjaTrader.NinjaScript.Indicators
 		{
 		    return "Instrument,SessionContext,TotalBars,Transition,Entries," +
 		           "MeanPriorRunLength,MeanSponsorConfidence,MaxSponsorConfidence," +
-		           "MeanDominanceScore,MeanDegradationScore,MeanBalanceScore,EventCount,MeanCompressionScore,MeanExpansionPressure,MeanStructuralCompression,MeanEntropicCompression";
+		           "MeanDominanceScore,MeanDegradationScore,MeanBalanceScore,EventCount,MeanCompressionScore,MeanExpansionPressure,MeanStructuralCompression,MeanEntropicCompression,MeanIncubationQuality";
 		}
 		
 		public string ToPersistenceCsv(
@@ -1233,11 +1247,16 @@ namespace NinjaTrader.NinjaScript.Indicators
 				        ? precursorEntropicCompressionSums[transition]
 				        : 0.0;
 				
+				double incubationQualitySum =
+				    precursorIncubationQualitySums.ContainsKey(transition)
+				        ? precursorIncubationQualitySums[transition]
+				        : 0.0;
+				
 		        sb.AppendLine(string.Format(
 		            CultureInfo.InvariantCulture,
 		            "{0},{1},{2},{3},{4},{5:F2},{6:F3},{7:F3}," +
 					"{8:F3},{9:F3},{10:F3},{11}," +
-					"{12:F3},{13:F3},{14:F3},{15:F3}",
+					"{12:F3},{13:F3},{14:F3},{15:F3},{16:F3}",
 		            instrument,
 		            sessionContext,
 		            totalBars,
@@ -1253,7 +1272,8 @@ namespace NinjaTrader.NinjaScript.Indicators
 					compressionSum / entries,
 					expansionSum / entries,
 					structuralCompressionSum / entries,
-					entropicCompressionSum / entries));
+					entropicCompressionSum / entries,
+					incubationQualitySum / entries));
 		    }
 		
 		    return sb.ToString();
@@ -1430,6 +1450,7 @@ namespace NinjaTrader.NinjaScript.Indicators
 		}
     }
 }
+
 
 
 

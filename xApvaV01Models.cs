@@ -214,6 +214,7 @@ namespace NinjaTrader.NinjaScript.APVA.V01
 		public double ExpansionPressure { get; set; }
 		public double StructuralCompression { get; set; }
 		public double EntropicCompression { get; set; }
+		public double IncubationQuality { get; set; }
     }
 
     public sealed class ApvaStateSnapshot
@@ -265,6 +266,7 @@ namespace NinjaTrader.NinjaScript.APVA.V01
 	    public string Reason { get; set; }
 	}
 }
+
 
 
 
