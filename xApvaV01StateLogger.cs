@@ -13,24 +13,7 @@ namespace NinjaTrader.NinjaScript.Indicators
 		private string outputPath;
         private bool headerWritten;
 		private bool summaryPrinted;
-		private string summaryPath;
-		private bool summaryHeaderWritten;
-		private string transitionPath;
-		private bool transitionHeaderWritten;
-		private string transitionProbabilityPath;
-		private bool transitionProbabilityHeaderWritten;
-		private string runLengthPath;
-		private bool runLengthHeaderWritten;
-		private string entryStatsPath;
-		private bool entryStatsHeaderWritten;
-		private string durationBucketTransitionPath;
-		private bool durationBucketTransitionHeaderWritten;
-		private string durationBucketProbabilityPath;
-		private bool durationBucketProbabilityHeaderWritten;
-		private string precursorStatsPath;
-		private bool precursorStatsHeaderWritten;
-		private string hazardPath;
-		private bool hazardHeaderWritten;
+		private xApvaV01CsvReportWriter reportWriter;
 		
         protected override void OnStateChange()
         {
@@ -64,96 +47,89 @@ namespace NinjaTrader.NinjaScript.Indicators
 				outputPath = Path.Combine(
 				    indicatorDir,
 				    "xApvaV01StateLog_" + safeInstrumentName + ".csv");
-				
-				summaryPath = Path.Combine(
-				    indicatorDir,
-				    "xApvaV01SessionStats.csv");
 
                 headerWritten = false;
 				
 				sessionStats = new xApvaV01SessionStats();
 				
-				summaryHeaderWritten = false;
-				
-				Print("APVA session stats initialized");
-				
-				transitionPath = Path.Combine(
-				    indicatorDir,
-				    "xApvaV01Transitions.csv");
-				
-				transitionProbabilityPath = Path.Combine(
-				    indicatorDir,
-				    "xApvaV01TransitionProbabilities.csv");
-				
-				transitionProbabilityHeaderWritten = false;
-				
-				transitionHeaderWritten = false;
-				
-				runLengthPath = Path.Combine(
-				    indicatorDir,
-				    "xApvaV01RunLengths.csv");
-				
-				runLengthHeaderWritten = false;
-				
-				entryStatsPath = Path.Combine(indicatorDir, "xApvaV01EntryStats.csv");
+				reportWriter = new xApvaV01CsvReportWriter();
 
-				entryStatsHeaderWritten = false;
+				reportWriter.AddReport(
+				    Path.Combine(indicatorDir, "xApvaV01SessionStats.csv"),
+				    xApvaV01SessionStats.CsvHeader(),
+				    () => sessionStats.ToCsvSummary(instrumentName, GetSessionContext())
+				        + Environment.NewLine);
 				
-				durationBucketTransitionPath = Path.Combine(
-				    indicatorDir,
-				    "xApvaV01DurationBucketTransitions.csv");
+				reportWriter.AddReport(
+				    Path.Combine(indicatorDir, "xApvaV01Transitions.csv"),
+				    xApvaV01SessionStats.TransitionCsvHeader(),
+				    () => sessionStats.ToTransitionCsv(
+				        instrumentName,
+				        GetSessionContext(),
+				        sessionStats.TotalBars));
 				
-				durationBucketTransitionHeaderWritten = false;
+				reportWriter.AddReport(
+				    Path.Combine(indicatorDir, "xApvaV01TransitionProbabilities.csv"),
+				    xApvaV01SessionStats.TransitionProbabilityCsvHeader(),
+				    () => sessionStats.ToTransitionProbabilityCsv(
+				        instrumentName,
+				        GetSessionContext(),
+				        sessionStats.TotalBars));
 				
-				durationBucketProbabilityPath = Path.Combine(
-				    indicatorDir,
-				    "xApvaV01DurationBucketProbabilities.csv");
+				reportWriter.AddReport(
+				    Path.Combine(indicatorDir, "xApvaV01RunLengths.csv"),
+				    xApvaV01SessionStats.RunLengthCsvHeader(),
+				    () => sessionStats.ToRunLengthCsv(
+				        instrumentName,
+				        GetSessionContext(),
+				        sessionStats.TotalBars));
 				
-				durationBucketProbabilityHeaderWritten = false;
+				reportWriter.AddReport(
+				    Path.Combine(indicatorDir, "xApvaV01EntryStats.csv"),
+				    xApvaV01SessionStats.EntryStatsCsvHeader(),
+				    () => sessionStats.ToEntryStatsCsv(
+				        instrumentName,
+				        GetSessionContext(),
+				        sessionStats.TotalBars));
 				
-				precursorStatsPath = Path.Combine(
-				    indicatorDir,
-				    "xApvaV01PrecursorStats.csv");
+				reportWriter.AddReport(
+				    Path.Combine(indicatorDir, "xApvaV01DurationBucketTransitions.csv"),
+				    xApvaV01SessionStats.DurationBucketTransitionCsvHeader(),
+				    () => sessionStats.ToDurationBucketTransitionCsv(
+				        instrumentName,
+				        GetSessionContext(),
+				        sessionStats.TotalBars));
 				
-				precursorStatsHeaderWritten = false;
+				reportWriter.AddReport(
+				    Path.Combine(indicatorDir, "xApvaV01DurationBucketProbabilities.csv"),
+				    xApvaV01SessionStats.DurationBucketProbabilityCsvHeader(),
+				    () => sessionStats.ToDurationBucketProbabilityCsv(
+				        instrumentName,
+				        GetSessionContext(),
+				        sessionStats.TotalBars));
 				
-				hazardPath = Path.Combine(
-				    indicatorDir,
-				    "xApvaV01HazardRates.csv");
+				reportWriter.AddReport(
+				    Path.Combine(indicatorDir, "xApvaV01PrecursorStats.csv"),
+				    xApvaV01SessionStats.PrecursorStatsCsvHeader(),
+				    () => sessionStats.ToPrecursorStatsCsv(
+				        instrumentName,
+				        GetSessionContext(),
+				        sessionStats.TotalBars));
 				
-				hazardHeaderWritten = false;
+				reportWriter.AddReport(
+				    Path.Combine(indicatorDir, "xApvaV01HazardRates.csv"),
+				    xApvaV01SessionStats.HazardCsvHeader(),
+				    () => sessionStats.ToHazardCsv(
+				        instrumentName,
+				        GetSessionContext(),
+				        sessionStats.TotalBars));
+				
+				reportWriter.DeleteExistingFiles();
 
                 try
 				{
-				    if (File.Exists(outputPath))
-				        File.Delete(outputPath);
-				
-				    if (File.Exists(summaryPath))
-				        File.Delete(summaryPath);
-					
-					if (File.Exists(transitionPath))
-    					File.Delete(transitionPath);
-					
-					if (File.Exists(transitionProbabilityPath))
-    					File.Delete(transitionProbabilityPath);
-					
-					if (File.Exists(runLengthPath))
-						File.Delete(runLengthPath);
-					
-					if (File.Exists(entryStatsPath))
-						File.Delete(entryStatsPath);
-					
-					if (File.Exists(durationBucketTransitionPath))
-    					File.Delete(durationBucketTransitionPath);
-					
-					if (File.Exists(durationBucketProbabilityPath))
-    					File.Delete(durationBucketProbabilityPath);
-					
-					if (File.Exists(precursorStatsPath))
-    					File.Delete(precursorStatsPath);
-					
-					if (File.Exists(hazardPath))
-    					File.Delete(hazardPath);
+					if (File.Exists(outputPath))
+    					File.Delete(outputPath);
 				}
 				catch (Exception ex)
 				{
@@ -224,207 +200,9 @@ namespace NinjaTrader.NinjaScript.Indicators
 		
 		        if (sessionStats != null)
 		            sessionStats.Accumulate(snapshot);
-				
-				if (!summaryHeaderWritten)
-				{
-				    File.AppendAllText(
-				        summaryPath,
-				        xApvaV01SessionStats.CsvHeader() + Environment.NewLine);
-				
-				    summaryHeaderWritten = true;
-				}
 
-		        if (CurrentBar % 50 == 0)
-				{
-				    File.AppendAllText(
-				        summaryPath,
-				        sessionStats.ToCsvSummary(
-				            instrumentName,
-				            sessionContext) + Environment.NewLine);
-					
-					if (!transitionHeaderWritten)
-					{
-					    File.AppendAllText(
-					        transitionPath,
-					        xApvaV01SessionStats.TransitionCsvHeader() + Environment.NewLine);
-					
-					    transitionHeaderWritten = true;
-					}
-					
-					string transitionCsv =
-					    sessionStats.ToTransitionCsv(
-					        instrumentName,
-					        sessionContext,
-					        sessionStats.TotalBars);
-					
-					if (!string.IsNullOrEmpty(transitionCsv))
-					{
-					    File.AppendAllText(
-					        transitionPath,
-					        transitionCsv);
-					}
-					
-					if (!transitionProbabilityHeaderWritten)
-					{
-					    File.AppendAllText(
-					        transitionProbabilityPath,
-					        xApvaV01SessionStats.TransitionProbabilityCsvHeader()
-					            + Environment.NewLine);
-					
-					    transitionProbabilityHeaderWritten = true;
-					}
-					
-					string probabilityCsv =
-					    sessionStats.ToTransitionProbabilityCsv(
-					        instrumentName,
-					        sessionContext,
-					        sessionStats.TotalBars);
-					
-					if (!string.IsNullOrEmpty(probabilityCsv))
-					{
-					    File.AppendAllText(
-					        transitionProbabilityPath,
-					        probabilityCsv);
-					}
-					
-					if (!runLengthHeaderWritten)
-					{
-					    File.AppendAllText(
-					        runLengthPath,
-					        xApvaV01SessionStats.RunLengthCsvHeader()
-					            + Environment.NewLine);
-					
-					    runLengthHeaderWritten = true;
-					}
-					
-					string runLengthCsv =
-					    sessionStats.ToRunLengthCsv(
-					        instrumentName,
-					        sessionContext,
-					        sessionStats.TotalBars);
-					
-					if (!string.IsNullOrEmpty(runLengthCsv))
-					{
-					    File.AppendAllText(
-					        runLengthPath,
-					        runLengthCsv);
-					}
-					
-					if (!entryStatsHeaderWritten)
-					{
-					    File.AppendAllText(
-					        entryStatsPath,
-					        xApvaV01SessionStats.EntryStatsCsvHeader()
-					            + Environment.NewLine);
-					
-					    entryStatsHeaderWritten = true;
-					}
-					
-					string entryStatsCsv =
-					    sessionStats.ToEntryStatsCsv(
-					        instrumentName,
-					        sessionContext,
-					        sessionStats.TotalBars);
-					
-					if (!string.IsNullOrEmpty(entryStatsCsv))
-					{
-					    File.AppendAllText(
-					        entryStatsPath,
-					        entryStatsCsv);
-					}
-					
-					if (!durationBucketTransitionHeaderWritten)
-					{
-					    File.AppendAllText(
-					        durationBucketTransitionPath,
-					        xApvaV01SessionStats.DurationBucketTransitionCsvHeader()
-					            + Environment.NewLine);
-					
-					    durationBucketTransitionHeaderWritten = true;
-					}
-					
-					string durationBucketTransitionCsv =
-					    sessionStats.ToDurationBucketTransitionCsv(
-					        instrumentName,
-					        sessionContext,
-					        sessionStats.TotalBars);
-					
-					if (!string.IsNullOrEmpty(durationBucketTransitionCsv))
-					{
-					    File.AppendAllText(
-					        durationBucketTransitionPath,
-					        durationBucketTransitionCsv);
-					}
-					
-					if (!durationBucketProbabilityHeaderWritten)
-					{
-					    File.AppendAllText(
-					        durationBucketProbabilityPath,
-					        xApvaV01SessionStats.DurationBucketProbabilityCsvHeader()
-					            + Environment.NewLine);
-					
-					    durationBucketProbabilityHeaderWritten = true;
-					}
-					
-					string durationBucketProbabilityCsv =
-					    sessionStats.ToDurationBucketProbabilityCsv(
-					        instrumentName,
-					        sessionContext,
-					        sessionStats.TotalBars);
-					
-					if (!string.IsNullOrEmpty(durationBucketProbabilityCsv))
-					{
-					    File.AppendAllText(
-					        durationBucketProbabilityPath,
-					        durationBucketProbabilityCsv);
-					}
-					
-					if (!precursorStatsHeaderWritten)
-					{
-					    File.AppendAllText(
-					        precursorStatsPath,
-					        xApvaV01SessionStats.PrecursorStatsCsvHeader()
-					            + Environment.NewLine);
-					
-					    precursorStatsHeaderWritten = true;
-					}
-					
-					string precursorStatsCsv =
-					    sessionStats.ToPrecursorStatsCsv(
-					        instrumentName,
-					        sessionContext,
-					        sessionStats.TotalBars);
-					
-					if (!string.IsNullOrEmpty(precursorStatsCsv))
-					{
-					    File.AppendAllText(
-					        precursorStatsPath,
-					        precursorStatsCsv);
-					}
-					
-					if (!hazardHeaderWritten)
-					{
-					    File.AppendAllText(
-					        hazardPath,
-					        xApvaV01SessionStats.HazardCsvHeader()
-					            + Environment.NewLine);
-					
-					    hazardHeaderWritten = true;
-					}
-					
-					string hazardCsv =
-					    sessionStats.ToHazardCsv(
-					        instrumentName,
-					        sessionContext,
-					        sessionStats.TotalBars);
-					
-					if (!string.IsNullOrEmpty(hazardCsv))
-					{
-					    File.AppendAllText(
-					        hazardPath,
-					        hazardCsv);
-					}
-				}
+		        if (CurrentBar % 50 == 0 && reportWriter != null)
+    				reportWriter.WriteAll();
 		    }
 		    catch (Exception ex)
 		    {
