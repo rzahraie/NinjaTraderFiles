@@ -23,7 +23,7 @@ namespace NinjaTrader.NinjaScript.Indicators
         public int PeakVolumeCount;
         public int LateralSeedCount;
 		
-		private Dictionary<string, int> transitions;
+		private Dictionary<string, int> transitions = new Dictionary<string, int>();
 		private ApvaMacroState? previousState;
 
         public void Accumulate(ApvaStateSnapshot snapshot)
@@ -202,6 +202,7 @@ namespace NinjaTrader.NinjaScript.Indicators
 		}
     }
 }
+
 
 
 
