@@ -23,6 +23,16 @@ namespace NinjaTrader.NinjaScript.Indicators
         public int PeakVolumeCount;
         public int LateralSeedCount;
 		
+		private double currentRunSponsorConfidenceSum;
+		private double currentRunSponsorConfidenceMax;
+		private double currentRunDominanceScoreSum;
+		private double currentRunDegradationScoreSum;
+		private double currentRunBalanceScoreSum;
+		private int currentRunEventCount;
+		private ApvaMacroState? currentRunState;
+		private ApvaMacroState? previousState;
+		private int currentRunLength;
+		
 		private Dictionary<string, int> transitions = new Dictionary<string, int>();
 		private Dictionary<ApvaMacroState, List<int>> completedRuns = new Dictionary<ApvaMacroState, List<int>>();
 		private Dictionary<string, int> entryTransitionCounts = new Dictionary<string, int>();
@@ -30,11 +40,14 @@ namespace NinjaTrader.NinjaScript.Indicators
 		private Dictionary<string, int> entryTransitionRunMax = new Dictionary<string, int>();
 		private Dictionary<string, List<int>> entryTransitionRunLengths = new Dictionary<string, List<int>>();
 		private Dictionary<string, int> durationBucketTransitions = new Dictionary<string, int>();
-		
-		private ApvaMacroState? currentRunState;
-		private ApvaMacroState? previousState;
-		
-		private int currentRunLength;
+		private Dictionary<string, int> precursorCounts = new Dictionary<string, int>();
+		private Dictionary<string, int> precursorPriorRunLengthSums = new Dictionary<string, int>();
+		private Dictionary<string, double> precursorSponsorConfidenceSums = new Dictionary<string, double>();
+		private Dictionary<string, double> precursorSponsorConfidenceMax = new Dictionary<string, double>();
+		private Dictionary<string, double> precursorDominanceScoreSums = new Dictionary<string, double>();
+		private Dictionary<string, double> precursorDegradationScoreSums = new Dictionary<string, double>();
+		private Dictionary<string, double> precursorBalanceScoreSums = new Dictionary<string, double>();
+		private Dictionary<string, int> precursorEventCountSums = new Dictionary<string, int>();
 		
 		private string GetDurationBucket(int length)
 		{
@@ -53,6 +66,117 @@ namespace NinjaTrader.NinjaScript.Indicators
 		    return "21+";
 		}
 		
+		private int GetSnapshotEventCount(ApvaStateSnapshot snapshot)
+		{
+		    return snapshot != null && snapshot.Events != null
+		        ? snapshot.Events.Count
+		        : 0;
+		}
+		
+		private double GetDominanceScore(ApvaStateSnapshot snapshot)
+		{
+		    return snapshot != null && snapshot.Scores != null
+		        ? snapshot.Scores.DominanceScore
+		        : 0.0;
+		}
+		
+		private double GetDegradationScore(ApvaStateSnapshot snapshot)
+		{
+		    return snapshot != null && snapshot.Scores != null
+		        ? snapshot.Scores.DegradationScore
+		        : 0.0;
+		}
+		
+		private double GetBalanceScore(ApvaStateSnapshot snapshot)
+		{
+		    return snapshot != null && snapshot.Scores != null
+		        ? snapshot.Scores.BalanceScore
+		        : 0.0;
+		}
+		
+		private void AddCurrentRunMetrics(ApvaStateSnapshot snapshot)
+		{
+		    if (snapshot == null)
+		        return;
+		
+		    currentRunSponsorConfidenceSum += snapshot.SponsorConfidence;
+		
+		    if (snapshot.SponsorConfidence > currentRunSponsorConfidenceMax)
+		        currentRunSponsorConfidenceMax = snapshot.SponsorConfidence;
+		
+		    currentRunDominanceScoreSum += GetDominanceScore(snapshot);
+		    currentRunDegradationScoreSum += GetDegradationScore(snapshot);
+		    currentRunBalanceScoreSum += GetBalanceScore(snapshot);
+		    currentRunEventCount += GetSnapshotEventCount(snapshot);
+		}
+		
+		private void ResetCurrentRunMetrics(ApvaStateSnapshot snapshot)
+		{
+		    currentRunSponsorConfidenceSum = 0.0;
+		    currentRunSponsorConfidenceMax = 0.0;
+		    currentRunDominanceScoreSum = 0.0;
+		    currentRunDegradationScoreSum = 0.0;
+		    currentRunBalanceScoreSum = 0.0;
+		    currentRunEventCount = 0;
+		
+		    AddCurrentRunMetrics(snapshot);
+		}
+
+		private void AccumulatePrecursorStats(
+		    string transition,
+		    int priorRunLength)
+		{
+		    if (priorRunLength <= 0)
+		        return;
+		
+		    if (!precursorCounts.ContainsKey(transition))
+		        precursorCounts[transition] = 0;
+		
+		    if (!precursorPriorRunLengthSums.ContainsKey(transition))
+		        precursorPriorRunLengthSums[transition] = 0;
+		
+		    if (!precursorSponsorConfidenceSums.ContainsKey(transition))
+		        precursorSponsorConfidenceSums[transition] = 0.0;
+		
+		    if (!precursorSponsorConfidenceMax.ContainsKey(transition))
+		        precursorSponsorConfidenceMax[transition] = 0.0;
+		
+		    if (!precursorDominanceScoreSums.ContainsKey(transition))
+		        precursorDominanceScoreSums[transition] = 0.0;
+		
+		    if (!precursorDegradationScoreSums.ContainsKey(transition))
+		        precursorDegradationScoreSums[transition] = 0.0;
+		
+		    if (!precursorBalanceScoreSums.ContainsKey(transition))
+		        precursorBalanceScoreSums[transition] = 0.0;
+		
+		    if (!precursorEventCountSums.ContainsKey(transition))
+		        precursorEventCountSums[transition] = 0;
+		
+		    double meanSponsorConfidence =
+		        currentRunSponsorConfidenceSum / priorRunLength;
+		
+		    double meanDominanceScore =
+		        currentRunDominanceScoreSum / priorRunLength;
+		
+		    double meanDegradationScore =
+		        currentRunDegradationScoreSum / priorRunLength;
+		
+		    double meanBalanceScore =
+		        currentRunBalanceScoreSum / priorRunLength;
+		
+		    precursorCounts[transition]++;
+		    precursorPriorRunLengthSums[transition] += priorRunLength;
+		    precursorSponsorConfidenceSums[transition] += meanSponsorConfidence;
+		    precursorDominanceScoreSums[transition] += meanDominanceScore;
+		    precursorDegradationScoreSums[transition] += meanDegradationScore;
+		    precursorBalanceScoreSums[transition] += meanBalanceScore;
+		    precursorEventCountSums[transition] += currentRunEventCount;
+		
+		    if (currentRunSponsorConfidenceMax > precursorSponsorConfidenceMax[transition])
+		        precursorSponsorConfidenceMax[transition] = currentRunSponsorConfidenceMax;
+		}
+
 		private void AccumulateDurationBucketTransition(string transition, int priorRunLength)
 		{
 		    string bucket = GetDurationBucket(priorRunLength);
@@ -226,26 +350,38 @@ namespace NinjaTrader.NinjaScript.Indicators
 		    return sb.ToString();
 		}
 
-		private void AccumulateRunLength(ApvaMacroState state)
+		private void AccumulateRunLength(ApvaStateSnapshot snapshot)
 		{
+		    if (snapshot == null)
+		        return;
+		
+		    ApvaMacroState state = snapshot.MacroState;
+		
 		    if (!currentRunState.HasValue)
 		    {
 		        currentRunState = state;
 		        currentRunLength = 1;
+		        ResetCurrentRunMetrics(snapshot);
 		        return;
 		    }
 		
 		    if (currentRunState.Value == state)
 		    {
 		        currentRunLength++;
+		        AddCurrentRunMetrics(snapshot);
 		        return;
 		    }
 		
+		    string transition =
+		        currentRunState.Value + "->" + state;
+		
 		    AddCompletedRun(currentRunState.Value, currentRunLength);
-			AccumulateEntryStats(state, currentRunState.Value, currentRunLength);
+		    AccumulateEntryStats(state, currentRunState.Value, currentRunLength);
+		    AccumulatePrecursorStats(transition, currentRunLength);
 		
 		    currentRunState = state;
 		    currentRunLength = 1;
+		    ResetCurrentRunMetrics(snapshot);
 		}
 		
 		private void AddCompletedRun(ApvaMacroState state, int length)
@@ -333,8 +469,8 @@ namespace NinjaTrader.NinjaScript.Indicators
 
             TotalBars++;
 			
-			AccumulateRunLength(snapshot.MacroState);
-
+			AccumulateRunLength(snapshot);
+			
             switch (snapshot.MacroState)
             {
                 case ApvaMacroState.Directional:
@@ -576,6 +712,87 @@ namespace NinjaTrader.NinjaScript.Indicators
 		    return "Instrument,SessionContext,TotalBars,FromState,Transition,ProbabilityPct";
 		}
 		
+		public static string PrecursorStatsCsvHeader()
+		{
+		    return "Instrument,SessionContext,TotalBars,Transition,Entries," +
+		           "MeanPriorRunLength,MeanSponsorConfidence,MaxSponsorConfidence," +
+		           "MeanDominanceScore,MeanDegradationScore,MeanBalanceScore,EventCount";
+		}
+
+		public string ToPrecursorStatsCsv(
+		    string instrument,
+		    string sessionContext,
+		    int totalBars)
+		{
+		    if (precursorCounts == null || precursorCounts.Count == 0)
+		        return string.Empty;
+		
+		    System.Text.StringBuilder sb =
+		        new System.Text.StringBuilder();
+		
+		    foreach (var kvp in precursorCounts)
+		    {
+		        string transition = kvp.Key;
+		        int entries = kvp.Value;
+		
+		        if (entries <= 0)
+		            continue;
+		
+		        int runLengthSum =
+		            precursorPriorRunLengthSums.ContainsKey(transition)
+		                ? precursorPriorRunLengthSums[transition]
+		                : 0;
+		
+		        double sponsorSum =
+		            precursorSponsorConfidenceSums.ContainsKey(transition)
+		                ? precursorSponsorConfidenceSums[transition]
+		                : 0.0;
+		
+		        double sponsorMax =
+		            precursorSponsorConfidenceMax.ContainsKey(transition)
+		                ? precursorSponsorConfidenceMax[transition]
+		                : 0.0;
+		
+		        double dominanceSum =
+		            precursorDominanceScoreSums.ContainsKey(transition)
+		                ? precursorDominanceScoreSums[transition]
+		                : 0.0;
+		
+		        double degradationSum =
+		            precursorDegradationScoreSums.ContainsKey(transition)
+		                ? precursorDegradationScoreSums[transition]
+		                : 0.0;
+		
+		        double balanceSum =
+		            precursorBalanceScoreSums.ContainsKey(transition)
+		                ? precursorBalanceScoreSums[transition]
+		                : 0.0;
+		
+		        int eventCount =
+		            precursorEventCountSums.ContainsKey(transition)
+		                ? precursorEventCountSums[transition]
+		                : 0;
+		
+		        sb.AppendLine(string.Format(
+		            CultureInfo.InvariantCulture,
+		            "{0},{1},{2},{3},{4},{5:F2},{6:F3},{7:F3},{8:F3},{9:F3},{10:F3},{11}",
+		            instrument,
+		            sessionContext,
+		            totalBars,
+		            transition,
+		            entries,
+		            (double)runLengthSum / entries,
+		            sponsorSum / entries,
+		            sponsorMax,
+		            dominanceSum / entries,
+		            degradationSum / entries,
+		            balanceSum / entries,
+		            eventCount));
+		    }
+		
+		    return sb.ToString();
+		}
+		
 		public static string EntryStatsCsvHeader()
 		{
 		    return "Instrument,SessionContext,TotalBars,Transition,Entries,MeanPriorRunLength,MedianPriorRunLength,MaxPriorRunLength";
@@ -645,6 +862,7 @@ namespace NinjaTrader.NinjaScript.Indicators
 		}
     }
 }
+
 
 
 

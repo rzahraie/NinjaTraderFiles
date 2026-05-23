@@ -27,6 +27,8 @@ namespace NinjaTrader.NinjaScript.Indicators
 		private bool durationBucketTransitionHeaderWritten;
 		private string durationBucketProbabilityPath;
 		private bool durationBucketProbabilityHeaderWritten;
+		private string precursorStatsPath;
+		private bool precursorStatsHeaderWritten;
 		
         protected override void OnStateChange()
         {
@@ -106,6 +108,12 @@ namespace NinjaTrader.NinjaScript.Indicators
 				    "xApvaV01DurationBucketProbabilities.csv");
 				
 				durationBucketProbabilityHeaderWritten = false;
+				
+				precursorStatsPath = Path.Combine(
+				    indicatorDir,
+				    "xApvaV01PrecursorStats.csv");
+				
+				precursorStatsHeaderWritten = false;
 
                 try
 				{
@@ -132,6 +140,9 @@ namespace NinjaTrader.NinjaScript.Indicators
 					
 					if (File.Exists(durationBucketProbabilityPath))
     					File.Delete(durationBucketProbabilityPath);
+					
+					if (File.Exists(precursorStatsPath))
+    					File.Delete(precursorStatsPath);
 				}
 				catch (Exception ex)
 				{
@@ -355,6 +366,29 @@ namespace NinjaTrader.NinjaScript.Indicators
 					    File.AppendAllText(
 					        durationBucketProbabilityPath,
 					        durationBucketProbabilityCsv);
+					}
+					
+					if (!precursorStatsHeaderWritten)
+					{
+					    File.AppendAllText(
+					        precursorStatsPath,
+					        xApvaV01SessionStats.PrecursorStatsCsvHeader()
+					            + Environment.NewLine);
+					
+					    precursorStatsHeaderWritten = true;
+					}
+					
+					string precursorStatsCsv =
+					    sessionStats.ToPrecursorStatsCsv(
+					        instrumentName,
+					        sessionContext,
+					        sessionStats.TotalBars);
+					
+					if (!string.IsNullOrEmpty(precursorStatsCsv))
+					{
+					    File.AppendAllText(
+					        precursorStatsPath,
+					        precursorStatsCsv);
 					}
 				}
 		    }
