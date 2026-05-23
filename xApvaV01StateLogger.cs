@@ -23,6 +23,8 @@ namespace NinjaTrader.NinjaScript.Indicators
 		private bool runLengthHeaderWritten;
 		private string entryStatsPath;
 		private bool entryStatsHeaderWritten;
+		private string durationBucketTransitionPath;
+		private bool durationBucketTransitionHeaderWritten;
 		
         protected override void OnStateChange()
         {
@@ -90,6 +92,12 @@ namespace NinjaTrader.NinjaScript.Indicators
 				entryStatsPath = Path.Combine(indicatorDir, "xApvaV01EntryStats.csv");
 
 				entryStatsHeaderWritten = false;
+				
+				durationBucketTransitionPath = Path.Combine(
+				    indicatorDir,
+				    "xApvaV01DurationBucketTransitions.csv");
+				
+				durationBucketTransitionHeaderWritten = false;
 
                 try
 				{
@@ -110,6 +118,9 @@ namespace NinjaTrader.NinjaScript.Indicators
 					
 					if (File.Exists(entryStatsPath))
 						File.Delete(entryStatsPath);
+					
+					if (File.Exists(durationBucketTransitionPath))
+    					File.Delete(durationBucketTransitionPath);
 				}
 				catch (Exception ex)
 				{
@@ -287,6 +298,29 @@ namespace NinjaTrader.NinjaScript.Indicators
 					    File.AppendAllText(
 					        entryStatsPath,
 					        entryStatsCsv);
+					}
+					
+					if (!durationBucketTransitionHeaderWritten)
+					{
+					    File.AppendAllText(
+					        durationBucketTransitionPath,
+					        xApvaV01SessionStats.DurationBucketTransitionCsvHeader()
+					            + Environment.NewLine);
+					
+					    durationBucketTransitionHeaderWritten = true;
+					}
+					
+					string durationBucketTransitionCsv =
+					    sessionStats.ToDurationBucketTransitionCsv(
+					        instrumentName,
+					        sessionContext,
+					        sessionStats.TotalBars);
+					
+					if (!string.IsNullOrEmpty(durationBucketTransitionCsv))
+					{
+					    File.AppendAllText(
+					        durationBucketTransitionPath,
+					        durationBucketTransitionCsv);
 					}
 				}
 		    }

@@ -29,11 +29,40 @@ namespace NinjaTrader.NinjaScript.Indicators
 		private Dictionary<string, int> entryTransitionRunSums = new Dictionary<string, int>();
 		private Dictionary<string, int> entryTransitionRunMax = new Dictionary<string, int>();
 		private Dictionary<string, List<int>> entryTransitionRunLengths = new Dictionary<string, List<int>>();
+		private Dictionary<string, int> durationBucketTransitions = new Dictionary<string, int>();
 		
 		private ApvaMacroState? currentRunState;
 		private ApvaMacroState? previousState;
 		
 		private int currentRunLength;
+		
+		private string GetDurationBucket(int length)
+		{
+		    if (length <= 2)
+		        return "1-2";
+		
+		    if (length <= 5)
+		        return "3-5";
+		
+		    if (length <= 10)
+		        return "6-10";
+		
+		    if (length <= 20)
+		        return "11-20";
+		
+		    return "21+";
+		}
+		
+		private void AccumulateDurationBucketTransition(string transition, int priorRunLength)
+		{
+		    string bucket = GetDurationBucket(priorRunLength);
+		    string key = bucket + "|" + transition;
+		
+		    if (!durationBucketTransitions.ContainsKey(key))
+		        durationBucketTransitions[key] = 0;
+		
+		    durationBucketTransitions[key]++;
+		}
 		
 		private void AccumulateEntryStats(
 		    ApvaMacroState newState,
@@ -57,11 +86,44 @@ namespace NinjaTrader.NinjaScript.Indicators
 			
 			entryTransitionRunLengths[key].Add(priorRunLength);
 		
-		    entryTransitionCounts[key]++;
-		    entryTransitionRunSums[key] += priorRunLength;
+		    AccumulateDurationBucketTransition(key, priorRunLength);
+		}
+
+		public static string DurationBucketTransitionCsvHeader()
+		{
+		    return "Instrument,SessionContext,TotalBars,Bucket,Transition,Count";
+		}
 		
-		    if (priorRunLength > entryTransitionRunMax[key])
-		        entryTransitionRunMax[key] = priorRunLength;
+		public string ToDurationBucketTransitionCsv(
+		    string instrument,
+		    string sessionContext,
+		    int totalBars)
+		{
+		    if (durationBucketTransitions == null || durationBucketTransitions.Count == 0)
+		        return string.Empty;
+		
+		    System.Text.StringBuilder sb =
+		        new System.Text.StringBuilder();
+		
+		    foreach (var kvp in durationBucketTransitions)
+		    {
+		        string[] parts = kvp.Key.Split('|');
+		
+		        if (parts.Length != 2)
+		            continue;
+		
+		        sb.AppendLine(string.Format(
+		            CultureInfo.InvariantCulture,
+		            "{0},{1},{2},{3},{4},{5}",
+		            instrument,
+		            sessionContext,
+		            totalBars,
+		            parts[0],
+		            parts[1],
+		            kvp.Value));
+		    }
+		
+		    return sb.ToString();
 		}
 
 		private void AccumulateRunLength(ApvaMacroState state)
@@ -483,6 +545,8 @@ namespace NinjaTrader.NinjaScript.Indicators
 		}
     }
 }
+
+
 
 
 
