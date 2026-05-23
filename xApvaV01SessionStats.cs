@@ -25,11 +25,35 @@ namespace NinjaTrader.NinjaScript.Indicators
 		
 		private Dictionary<string, int> transitions = new Dictionary<string, int>();
 		private Dictionary<ApvaMacroState, List<int>> completedRuns = new Dictionary<ApvaMacroState, List<int>>();
+		private Dictionary<ApvaMacroState, int> entryCounts = new Dictionary<ApvaMacroState, int>();
+		private Dictionary<ApvaMacroState, int> priorRunLengthSums = new Dictionary<ApvaMacroState, int>();
+		private Dictionary<ApvaMacroState, int> priorRunLengthMax = new Dictionary<ApvaMacroState, int>();
 		
 		private ApvaMacroState? currentRunState;
 		private ApvaMacroState? previousState;
 		
 		private int currentRunLength;
+		
+		private void AccumulateEntryStats(
+		    ApvaMacroState newState,
+		    ApvaMacroState priorState,
+		    int priorRunLength)
+		{
+		    if (!entryCounts.ContainsKey(newState))
+		        entryCounts[newState] = 0;
+		
+		    if (!priorRunLengthSums.ContainsKey(newState))
+		        priorRunLengthSums[newState] = 0;
+		
+		    if (!priorRunLengthMax.ContainsKey(newState))
+		        priorRunLengthMax[newState] = 0;
+		
+		    entryCounts[newState]++;
+		    priorRunLengthSums[newState] += priorRunLength;
+		
+		    if (priorRunLength > priorRunLengthMax[newState])
+		        priorRunLengthMax[newState] = priorRunLength;
+		}
 
 		private void AccumulateRunLength(ApvaMacroState state)
 		{
@@ -47,6 +71,7 @@ namespace NinjaTrader.NinjaScript.Indicators
 		    }
 		
 		    AddCompletedRun(currentRunState.Value, currentRunLength);
+			AccumulateEntryStats(state, currentRunState.Value, currentRunLength);
 		
 		    currentRunState = state;
 		    currentRunLength = 1;
@@ -379,8 +404,57 @@ namespace NinjaTrader.NinjaScript.Indicators
 		{
 		    return "Instrument,SessionContext,TotalBars,FromState,Transition,ProbabilityPct";
 		}
+		
+		public static string EntryStatsCsvHeader()
+{
+    return "Instrument,SessionContext,TotalBars,State,Entries,MeanPriorRunLength,MaxPriorRunLength";
+}
+
+		public string ToEntryStatsCsv(
+		    string instrument,
+		    string sessionContext,
+		    int totalBars)
+		{
+		    System.Text.StringBuilder sb =
+		        new System.Text.StringBuilder();
+		
+		    foreach (var kvp in entryCounts)
+		    {
+		        ApvaMacroState state = kvp.Key;
+		        int entries = kvp.Value;
+		
+		        int sum =
+		            priorRunLengthSums.ContainsKey(state)
+		                ? priorRunLengthSums[state]
+		                : 0;
+		
+		        int max =
+		            priorRunLengthMax.ContainsKey(state)
+		                ? priorRunLengthMax[state]
+		                : 0;
+		
+		        double mean =
+		            entries > 0
+		                ? (double)sum / entries
+		                : 0.0;
+		
+		        sb.AppendLine(string.Format(
+		            CultureInfo.InvariantCulture,
+		            "{0},{1},{2},{3},{4},{5:F2},{6}",
+		            instrument,
+		            sessionContext,
+		            totalBars,
+		            state,
+		            entries,
+		            mean,
+		            max));
+		    }
+		
+		    return sb.ToString();
+		}
     }
 }
+
 
 
 
