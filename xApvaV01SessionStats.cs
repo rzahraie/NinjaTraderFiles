@@ -24,14 +24,99 @@ namespace NinjaTrader.NinjaScript.Indicators
         public int LateralSeedCount;
 		
 		private Dictionary<string, int> transitions = new Dictionary<string, int>();
+		private Dictionary<ApvaMacroState, List<int>> completedRuns = new Dictionary<ApvaMacroState, List<int>>();
+		
+		private ApvaMacroState? currentRunState;
 		private ApvaMacroState? previousState;
+		
+		private int currentRunLength;
 
+		private void AccumulateRunLength(ApvaMacroState state)
+		{
+		    if (!currentRunState.HasValue)
+		    {
+		        currentRunState = state;
+		        currentRunLength = 1;
+		        return;
+		    }
+		
+		    if (currentRunState.Value == state)
+		    {
+		        currentRunLength++;
+		        return;
+		    }
+		
+		    AddCompletedRun(currentRunState.Value, currentRunLength);
+		
+		    currentRunState = state;
+		    currentRunLength = 1;
+		}
+		
+		private void AddCompletedRun(ApvaMacroState state, int length)
+		{
+		    if (!completedRuns.ContainsKey(state))
+		        completedRuns[state] = new List<int>();
+		
+		    completedRuns[state].Add(length);
+		}
+
+		public static string RunLengthCsvHeader()
+{
+    return "Instrument,SessionContext,TotalBars,State,CompletedRuns,MeanRunLength,MaxRunLength";
+}
+
+		public string ToRunLengthCsv(
+		    string instrument,
+		    string sessionContext,
+		    int totalBars)
+		{
+		    System.Text.StringBuilder sb = new System.Text.StringBuilder();
+		
+		    foreach (var kvp in completedRuns)
+		    {
+		        List<int> runs = kvp.Value;
+		
+		        if (runs == null || runs.Count == 0)
+		            continue;
+		
+		        int sum = 0;
+		        int max = 0;
+		
+		        foreach (int length in runs)
+		        {
+		            sum += length;
+		
+		            if (length > max)
+		                max = length;
+		        }
+		
+		        double mean = runs.Count > 0
+		            ? (double)sum / runs.Count
+		            : 0.0;
+		
+		        sb.AppendLine(string.Format(
+		            CultureInfo.InvariantCulture,
+		            "{0},{1},{2},{3},{4},{5:F2},{6}",
+		            instrument,
+		            sessionContext,
+		            totalBars,
+		            kvp.Key,
+		            runs.Count,
+		            mean,
+		            max));
+		    }
+		
+		    return sb.ToString();
+		}
+		
         public void Accumulate(ApvaStateSnapshot snapshot)
         {
             if (snapshot == null)
                 return;
 
             TotalBars++;
+			
+			AccumulateRunLength(snapshot.MacroState);
 
             switch (snapshot.MacroState)
             {
@@ -275,6 +360,7 @@ namespace NinjaTrader.NinjaScript.Indicators
 		}
     }
 }
+
 
 
 

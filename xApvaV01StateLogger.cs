@@ -19,6 +19,8 @@ namespace NinjaTrader.NinjaScript.Indicators
 		private bool transitionHeaderWritten;
 		private string transitionProbabilityPath;
 		private bool transitionProbabilityHeaderWritten;
+		private string runLengthPath;
+		private bool runLengthHeaderWritten;
 		
         protected override void OnStateChange()
         {
@@ -76,6 +78,12 @@ namespace NinjaTrader.NinjaScript.Indicators
 				transitionProbabilityHeaderWritten = false;
 				
 				transitionHeaderWritten = false;
+				
+				runLengthPath = Path.Combine(
+				    indicatorDir,
+				    "xApvaV01RunLengths.csv");
+				
+				runLengthHeaderWritten = false;
 
                 try
 				{
@@ -221,6 +229,29 @@ namespace NinjaTrader.NinjaScript.Indicators
 					    File.AppendAllText(
 					        transitionProbabilityPath,
 					        probabilityCsv);
+					}
+					
+					if (!runLengthHeaderWritten)
+					{
+					    File.AppendAllText(
+					        runLengthPath,
+					        xApvaV01SessionStats.RunLengthCsvHeader()
+					            + Environment.NewLine);
+					
+					    runLengthHeaderWritten = true;
+					}
+					
+					string runLengthCsv =
+					    sessionStats.ToRunLengthCsv(
+					        instrumentName,
+					        sessionContext,
+					        sessionStats.TotalBars);
+					
+					if (!string.IsNullOrEmpty(runLengthCsv))
+					{
+					    File.AppendAllText(
+					        runLengthPath,
+					        runLengthCsv);
 					}
 				}
 		    }
