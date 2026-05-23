@@ -92,6 +92,24 @@ namespace NinjaTrader.NinjaScript.APVA.V01
 		
 		    snapshot.Scores.CompressionScore = Clamp01(rawCompression);
 		    snapshot.Scores.ExpansionPressure = Clamp01(rawExpansion);
+			
+			double structuralCompression =
+			    0.40 * balance +
+			    0.30 * (1.0 - degradation) +
+			    0.20 * snapshot.SequenceAuthority +
+			    0.10 * overlap;
+			
+			double entropicCompression =
+			    0.40 * ambiguity +
+			    0.30 * degradation +
+			    0.20 * overlap +
+			    0.10 * (1.0 - snapshot.SequenceAuthority);
+			
+			snapshot.Scores.StructuralCompression =
+			    Clamp01(structuralCompression);
+			
+			snapshot.Scores.EntropicCompression =
+			    Clamp01(entropicCompression);
 		}
 		
 		private static double Clamp01(double value)
@@ -206,6 +224,7 @@ namespace NinjaTrader.NinjaScript.APVA.V01
 		}
     }
 }
+
 
 
 

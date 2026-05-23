@@ -45,6 +45,8 @@ namespace NinjaTrader.NinjaScript.Indicators
 		private double currentRunBalanceScoreSum;
 		private double currentRunCompressionSum;
 		private double currentRunExpansionSum;
+		private double currentRunStructuralCompressionSum;
+		private double currentRunEntropicCompressionSum;
 		private int currentRunEventCount;
 		private int currentRunLength;
 		private int persistenceLength;
@@ -74,6 +76,8 @@ namespace NinjaTrader.NinjaScript.Indicators
 		private Dictionary<string, double> precursorBalanceScoreSums = new Dictionary<string, double>();
 		private Dictionary<string, double> precursorCompressionSums = new Dictionary<string, double>();
 		private Dictionary<string, double> precursorExpansionSums = new Dictionary<string, double>();
+		private Dictionary<string, double> precursorStructuralCompressionSums = new Dictionary<string, double>();
+		private Dictionary<string, double> precursorEntropicCompressionSums = new Dictionary<string, double>();
 		private Dictionary<string, int> precursorEventCountSums = new Dictionary<string, int>();
 		private Dictionary<string, int> stateSurvivalCounts = new Dictionary<string, int>();
 		private Dictionary<string, int> stateExitCounts = new Dictionary<string, int>();
@@ -251,6 +255,15 @@ namespace NinjaTrader.NinjaScript.Indicators
 			currentRunExpansionSum += snapshot.Scores != null
         			? snapshot.Scores.ExpansionPressure
         			: 0.0;
+			currentRunStructuralCompressionSum +=
+			    snapshot.Scores != null
+			        ? snapshot.Scores.StructuralCompression
+			        : 0.0;
+			
+			currentRunEntropicCompressionSum +=
+			    snapshot.Scores != null
+			        ? snapshot.Scores.EntropicCompression
+			        : 0.0;
 		}
 		
 		private void ResetCurrentRunMetrics(ApvaStateSnapshot snapshot)
@@ -263,6 +276,8 @@ namespace NinjaTrader.NinjaScript.Indicators
 		    currentRunEventCount = 0;
 			currentRunCompressionSum = 0.0;
 			currentRunExpansionSum = 0.0;
+			currentRunStructuralCompressionSum = 0.0;
+			currentRunEntropicCompressionSum = 0.0;
 		
 		    AddCurrentRunMetrics(snapshot);
 		}
@@ -325,6 +340,12 @@ namespace NinjaTrader.NinjaScript.Indicators
 			
 			if (!precursorExpansionSums.ContainsKey(transition))
 			    precursorExpansionSums[transition] = 0.0;
+			
+			if (!precursorStructuralCompressionSums.ContainsKey(transition))
+			    precursorStructuralCompressionSums[transition] = 0.0;
+			
+			if (!precursorEntropicCompressionSums.ContainsKey(transition))
+			    precursorEntropicCompressionSums[transition] = 0.0;
 		
 		    double meanSponsorConfidence =
 		        currentRunSponsorConfidenceSum / priorRunLength;
@@ -343,6 +364,12 @@ namespace NinjaTrader.NinjaScript.Indicators
 			
 			double meanExpansionPressure =
 			    currentRunExpansionSum / priorRunLength;
+			
+			double meanStructuralCompression =
+			    currentRunStructuralCompressionSum / priorRunLength;
+			
+			double meanEntropicCompression =
+			    currentRunEntropicCompressionSum / priorRunLength;
 		
 		    precursorCounts[transition]++;
 		    precursorPriorRunLengthSums[transition] += priorRunLength;
@@ -353,6 +380,8 @@ namespace NinjaTrader.NinjaScript.Indicators
 		    precursorEventCountSums[transition] += currentRunEventCount;
 			precursorCompressionSums[transition] += meanCompressionScore;
 			precursorExpansionSums[transition] += meanExpansionPressure;
+			precursorStructuralCompressionSums[transition] += meanStructuralCompression;
+			precursorEntropicCompressionSums[transition] += meanEntropicCompression;
 		
 		    if (currentRunSponsorConfidenceMax > precursorSponsorConfidenceMax[transition])
 		        precursorSponsorConfidenceMax[transition] = currentRunSponsorConfidenceMax;
@@ -1092,7 +1121,7 @@ namespace NinjaTrader.NinjaScript.Indicators
 		{
 		    return "Instrument,SessionContext,TotalBars,Transition,Entries," +
 		           "MeanPriorRunLength,MeanSponsorConfidence,MaxSponsorConfidence," +
-		           "MeanDominanceScore,MeanDegradationScore,MeanBalanceScore,EventCount,MeanCompressionScore,MeanExpansionPressure";
+		           "MeanDominanceScore,MeanDegradationScore,MeanBalanceScore,EventCount,MeanCompressionScore,MeanExpansionPressure,MeanStructuralCompression,MeanEntropicCompression";
 		}
 		
 		public string ToPersistenceCsv(
@@ -1194,9 +1223,21 @@ namespace NinjaTrader.NinjaScript.Indicators
 				        ? precursorExpansionSums[transition]
 				        : 0.0;
 				
+				double structuralCompressionSum =
+				    precursorStructuralCompressionSums.ContainsKey(transition)
+				        ? precursorStructuralCompressionSums[transition]
+				        : 0.0;
+				
+				double entropicCompressionSum =
+				    precursorEntropicCompressionSums.ContainsKey(transition)
+				        ? precursorEntropicCompressionSums[transition]
+				        : 0.0;
+				
 		        sb.AppendLine(string.Format(
 		            CultureInfo.InvariantCulture,
-		            "{0},{1},{2},{3},{4},{5:F2},{6:F3},{7:F3},{8:F3},{9:F3},{10:F3},{11},{12:F3},{13:F3}",
+		            "{0},{1},{2},{3},{4},{5:F2},{6:F3},{7:F3}," +
+					"{8:F3},{9:F3},{10:F3},{11}," +
+					"{12:F3},{13:F3},{14:F3},{15:F3}",
 		            instrument,
 		            sessionContext,
 		            totalBars,
@@ -1210,7 +1251,9 @@ namespace NinjaTrader.NinjaScript.Indicators
 		            balanceSum / entries,
 		            eventCount,
 					compressionSum / entries,
-					expansionSum / entries));
+					expansionSum / entries,
+					structuralCompressionSum / entries,
+					entropicCompressionSum / entries));
 		    }
 		
 		    return sb.ToString();
@@ -1387,6 +1430,8 @@ namespace NinjaTrader.NinjaScript.Indicators
 		}
     }
 }
+
+
 
 
 
