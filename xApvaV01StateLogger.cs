@@ -9,9 +9,10 @@ namespace NinjaTrader.NinjaScript.Indicators
     public class xApvaV01StateLogger : Indicator
     {
         private ApvaV01Analyzer analyzer;
-        private string outputPath;
+        private xApvaV01SessionStats sessionStats;
+		private string outputPath;
         private bool headerWritten;
-
+		
         protected override void OnStateChange()
         {
             if (State == State.SetDefaults)
@@ -28,6 +29,7 @@ namespace NinjaTrader.NinjaScript.Indicators
             else if (State == State.Configure)
             {
                 analyzer = new ApvaV01Analyzer();
+				sessionStats = new xApvaV01SessionStats();
             }
             else if (State == State.DataLoaded)
             {
@@ -88,7 +90,11 @@ namespace NinjaTrader.NinjaScript.Indicators
                 if (!headerWritten)
                 {
                     File.AppendAllText(outputPath, ApvaV01SnapshotFormatter.CsvHeader() + Environment.NewLine);
-                    headerWritten = true;
+					
+					if (sessionStats != null)
+    					sessionStats.Accumulate(snapshot);
+                    
+					headerWritten = true;
                 }
 
 				string instrumentName = Instrument != null && Instrument.MasterInstrument != null ? Instrument.MasterInstrument.Name : "UnknownInstrument";
