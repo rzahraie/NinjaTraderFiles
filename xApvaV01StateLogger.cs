@@ -124,6 +124,22 @@ namespace NinjaTrader.NinjaScript.Indicators
 				        GetSessionContext(),
 				        sessionStats.TotalBars));
 				
+				reportWriter.AddReport(
+				    Path.Combine(indicatorDir, "xApvaV01SponsorStates.csv"),
+				    xApvaV01SessionStats.SponsorStateCsvHeader(),
+				    () => sessionStats.ToSponsorStateCsv(
+				        instrumentName,
+				        GetSessionContext(),
+				        sessionStats.TotalBars));
+				
+				reportWriter.AddReport(
+				    Path.Combine(indicatorDir, "xApvaV01SponsorTransitions.csv"),
+				    xApvaV01SessionStats.SponsorTransitionCsvHeader(),
+				    () => sessionStats.ToSponsorTransitionCsv(
+				        instrumentName,
+				        GetSessionContext(),
+				        sessionStats.TotalBars));
+				
 				reportWriter.DeleteExistingFiles();
 
                 try

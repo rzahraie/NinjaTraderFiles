@@ -51,6 +51,16 @@ namespace NinjaTrader.NinjaScript.Indicators
 		private Dictionary<string, int> stateSurvivalCounts = new Dictionary<string, int>();
 		private Dictionary<string, int> stateExitCounts = new Dictionary<string, int>();
 		
+		/// <summary>
+		/// 
+		/// </summary>
+		/// <param name="length"></param>
+		/// <returns></returns>
+		private ApvaSponsorState? previousSponsorState;
+
+		private Dictionary<string, int> sponsorStateTransitions = new Dictionary<string, int>();
+		private Dictionary<ApvaSponsorState, int> sponsorStateCounts = new Dictionary<ApvaSponsorState, int>();
+		
 		private string GetDurationBucket(int length)
 		{
 		    if (length <= 2)
@@ -495,6 +505,7 @@ namespace NinjaTrader.NinjaScript.Indicators
 
             TotalBars++;
 			
+			AccumulateSponsorStats(snapshot);
 			AccumulateRunLength(snapshot);
 			
             switch (snapshot.MacroState)
@@ -566,6 +577,100 @@ namespace NinjaTrader.NinjaScript.Indicators
 			
 			previousState = snapshot.MacroState;
         }
+
+		private void AccumulateSponsorStats(ApvaStateSnapshot snapshot)
+		{
+		    if (snapshot == null)
+		        return;
+		
+		    ApvaSponsorState sponsorState = snapshot.SponsorState;
+		
+		    if (!sponsorStateCounts.ContainsKey(sponsorState))
+		        sponsorStateCounts[sponsorState] = 0;
+		
+		    sponsorStateCounts[sponsorState]++;
+		
+		    if (previousSponsorState.HasValue)
+		    {
+		        string key =
+		            previousSponsorState.Value + "->" + sponsorState;
+		
+		        if (!sponsorStateTransitions.ContainsKey(key))
+		            sponsorStateTransitions[key] = 0;
+		
+		        sponsorStateTransitions[key]++;
+		    }
+		
+		    previousSponsorState = sponsorState;
+		}
+
+		public static string SponsorStateCsvHeader()
+		{
+		    return "Instrument,SessionContext,TotalBars,SponsorState,Count,Percent";
+		}
+
+		public string ToSponsorStateCsv(
+		    string instrument,
+		    string sessionContext,
+		    int totalBars)
+		{
+		    if (sponsorStateCounts == null || sponsorStateCounts.Count == 0)
+		        return string.Empty;
+		
+		    System.Text.StringBuilder sb =
+		        new System.Text.StringBuilder();
+		
+		    foreach (var kvp in sponsorStateCounts)
+		    {
+		        double pct =
+		            TotalBars > 0
+		                ? 100.0 * kvp.Value / TotalBars
+		                : 0.0;
+		
+		        sb.AppendLine(string.Format(
+		            CultureInfo.InvariantCulture,
+		            "{0},{1},{2},{3},{4},{5:F2}",
+		            instrument,
+		            sessionContext,
+		            totalBars,
+		            kvp.Key,
+		            kvp.Value,
+		            pct));
+		    }
+		
+		    return sb.ToString();
+		}
+
+		public static string SponsorTransitionCsvHeader()
+		{
+		    return "Instrument,SessionContext,TotalBars,Transition,Count";
+		}
+
+		public string ToSponsorTransitionCsv(
+		    string instrument,
+		    string sessionContext,
+		    int totalBars)
+		{
+		    if (sponsorStateTransitions == null || sponsorStateTransitions.Count == 0)
+		        return string.Empty;
+		
+		    System.Text.StringBuilder sb =
+		        new System.Text.StringBuilder();
+		
+		    foreach (var kvp in sponsorStateTransitions)
+		    {
+		        sb.AppendLine(string.Format(
+		            CultureInfo.InvariantCulture,
+		            "{0},{1},{2},{3},{4}",
+		            instrument,
+		            sessionContext,
+		            totalBars,
+		            kvp.Key,
+		            kvp.Value));
+		    }
+		
+		    return sb.ToString();
+		}
 
 		public string ToCsvSummary(
 		    string instrument,
@@ -945,6 +1050,7 @@ namespace NinjaTrader.NinjaScript.Indicators
 		}
     }
 }
+
 
 
 
