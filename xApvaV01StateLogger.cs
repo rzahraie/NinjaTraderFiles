@@ -13,6 +13,7 @@ namespace NinjaTrader.NinjaScript.Indicators
 		private string outputPath;
         private bool headerWritten;
 		private bool summaryPrinted;
+		private string summaryPath;
 		
         protected override void OnStateChange()
         {
@@ -37,9 +38,19 @@ namespace NinjaTrader.NinjaScript.Indicators
 
 				string safeInstrumentName = MakeSafeFileName(instrumentName);
 				
-				outputPath = Path.Combine(
+				string indicatorDir = Path.Combine(
 				    NinjaTrader.Core.Globals.UserDataDir,
+				    "bin",
+				    "Custom",
+				    "Indicators");
+				
+				outputPath = Path.Combine(
+				    indicatorDir,
 				    "xApvaV01StateLog_" + safeInstrumentName + ".csv");
+				
+				summaryPath = Path.Combine(
+				    indicatorDir,
+				    "xApvaV01SessionStats.csv");
 
                 headerWritten = false;
 				
@@ -48,14 +59,17 @@ namespace NinjaTrader.NinjaScript.Indicators
 				Print("APVA session stats initialized");
 
                 try
-                {
-                    if (File.Exists(outputPath))
-                        File.Delete(outputPath);
-                }
-                catch (Exception ex)
-                {
-                    Print("xApvaV01StateLogger: Could not delete prior log: " + ex.Message);
-                }
+				{
+				    if (File.Exists(outputPath))
+				        File.Delete(outputPath);
+				
+				    if (File.Exists(summaryPath))
+				        File.Delete(summaryPath);
+				}
+				catch (Exception ex)
+				{
+				    Print("xApvaV01StateLogger: Could not delete prior log/stat files: " + ex.Message);
+				}
 			}
         }
 
