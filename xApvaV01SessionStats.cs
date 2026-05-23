@@ -29,12 +29,17 @@ namespace NinjaTrader.NinjaScript.Indicators
 		private double currentRunDegradationScoreSum;
 		private double currentRunBalanceScoreSum;
 		private int currentRunEventCount;
+		private int currentRunLength;
+		
 		private ApvaMacroState? currentRunState;
 		private ApvaMacroState? previousState;
-		private int currentRunLength;
+		private ApvaMacroState? previousState1;
+		private ApvaMacroState? previousState2;
+		private ApvaSponsorState? previousSponsorState;
 		
 		private Dictionary<string, int> transitions = new Dictionary<string, int>();
 		private Dictionary<ApvaMacroState, List<int>> completedRuns = new Dictionary<ApvaMacroState, List<int>>();
+		private Dictionary<ApvaSponsorState, int> sponsorStateCounts = new Dictionary<ApvaSponsorState, int>();
 		private Dictionary<string, int> entryTransitionCounts = new Dictionary<string, int>();
 		private Dictionary<string, int> entryTransitionRunSums = new Dictionary<string, int>();
 		private Dictionary<string, int> entryTransitionRunMax = new Dictionary<string, int>();
@@ -50,17 +55,50 @@ namespace NinjaTrader.NinjaScript.Indicators
 		private Dictionary<string, int> precursorEventCountSums = new Dictionary<string, int>();
 		private Dictionary<string, int> stateSurvivalCounts = new Dictionary<string, int>();
 		private Dictionary<string, int> stateExitCounts = new Dictionary<string, int>();
-		
-		/// <summary>
-		/// 
-		/// </summary>
-		/// <param name="length"></param>
-		/// <returns></returns>
-		private ApvaSponsorState? previousSponsorState;
-
+		private Dictionary<string, int> stateTriplets = new Dictionary<string, int>();
+		private Dictionary<string, int> stateTripletTransitions = new Dictionary<string, int>();
 		private Dictionary<string, int> sponsorStateTransitions = new Dictionary<string, int>();
-		private Dictionary<ApvaSponsorState, int> sponsorStateCounts = new Dictionary<ApvaSponsorState, int>();
 		
+		private void AccumulateStatePathStats(
+		    ApvaMacroState currentState)
+		{
+		    if (previousState1.HasValue &&
+		        previousState2.HasValue)
+		    {
+		        string triplet =
+		            previousState2.Value + "->" +
+		            previousState1.Value + "->" +
+		            currentState;
+		
+		        if (!stateTriplets.ContainsKey(triplet))
+		            stateTriplets[triplet] = 0;
+		
+		        stateTriplets[triplet]++;
+		    }
+		
+		    if (previousState1.HasValue)
+		    {
+		        string transition =
+		            previousState1.Value + "->" +
+		            currentState;
+		
+		        if (previousState2.HasValue)
+		        {
+		            string pathTransition =
+		                previousState2.Value + "->" +
+		                transition;
+		
+		            if (!stateTripletTransitions.ContainsKey(pathTransition))
+		                stateTripletTransitions[pathTransition] = 0;
+		
+		            stateTripletTransitions[pathTransition]++;
+		        }
+		    }
+		
+		    previousState2 = previousState1;
+		    previousState1 = currentState;
+		}
+
 		private string GetDurationBucket(int length)
 		{
 		    if (length <= 2)
@@ -506,6 +544,7 @@ namespace NinjaTrader.NinjaScript.Indicators
             TotalBars++;
 			
 			AccumulateSponsorStats(snapshot);
+			AccumulateStatePathStats(snapshot.MacroState);
 			AccumulateRunLength(snapshot);
 			
             switch (snapshot.MacroState)
@@ -602,6 +641,70 @@ namespace NinjaTrader.NinjaScript.Indicators
 		    }
 		
 		    previousSponsorState = sponsorState;
+		}
+		
+		public string ToStateTripletCsv(
+		    string instrument,
+		    string sessionContext,
+		    int totalBars)
+		{
+		    if (stateTriplets == null ||
+		        stateTriplets.Count == 0)
+		        return string.Empty;
+		
+		    System.Text.StringBuilder sb =
+		        new System.Text.StringBuilder();
+		
+		    foreach (var kvp in stateTriplets)
+		    {
+		        sb.AppendLine(string.Format(
+		            CultureInfo.InvariantCulture,
+		            "{0},{1},{2},{3},{4}",
+		            instrument,
+		            sessionContext,
+		            totalBars,
+		            kvp.Key,
+		            kvp.Value));
+		    }
+		
+		    return sb.ToString();
+		}
+		
+		public string ToStateTripletTransitionCsv(
+		    string instrument,
+		    string sessionContext,
+		    int totalBars)
+		{
+		    if (stateTripletTransitions == null ||
+		        stateTripletTransitions.Count == 0)
+		        return string.Empty;
+		
+		    System.Text.StringBuilder sb =
+		        new System.Text.StringBuilder();
+		
+		    foreach (var kvp in stateTripletTransitions)
+		    {
+		        sb.AppendLine(string.Format(
+		            CultureInfo.InvariantCulture,
+		            "{0},{1},{2},{3},{4}",
+		            instrument,
+		            sessionContext,
+		            totalBars,
+		            kvp.Key,
+		            kvp.Value));
+		    }
+		
+		    return sb.ToString();
+		}
+
+		public static string StateTripletCsvHeader()
+		{
+		    return "Instrument,SessionContext,TotalBars,Triplet,Count";
+		}
+		
+		public static string StateTripletTransitionCsvHeader()
+		{
+		    return "Instrument,SessionContext,TotalBars,PathTransition,Count";
 		}
 
 		public static string SponsorStateCsvHeader()
@@ -1050,6 +1153,7 @@ namespace NinjaTrader.NinjaScript.Indicators
 		}
     }
 }
+
 
 
 

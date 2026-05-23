@@ -140,6 +140,22 @@ namespace NinjaTrader.NinjaScript.Indicators
 				        GetSessionContext(),
 				        sessionStats.TotalBars));
 				
+				reportWriter.AddReport(
+				    Path.Combine(indicatorDir, "xApvaV01StateTriplets.csv"),
+				    xApvaV01SessionStats.StateTripletCsvHeader(),
+				    () => sessionStats.ToStateTripletCsv(
+				        instrumentName,
+				        GetSessionContext(),
+				        sessionStats.TotalBars));
+				
+				reportWriter.AddReport(
+				    Path.Combine(indicatorDir, "xApvaV01StateTripletTransitions.csv"),
+				    xApvaV01SessionStats.StateTripletTransitionCsvHeader(),
+				    () => sessionStats.ToStateTripletTransitionCsv(
+				        instrumentName,
+				        GetSessionContext(),
+				        sessionStats.TotalBars));
+				
 				reportWriter.DeleteExistingFiles();
 
                 try
