@@ -28,6 +28,7 @@ namespace NinjaTrader.NinjaScript.Indicators
 		private Dictionary<string, int> entryTransitionCounts = new Dictionary<string, int>();
 		private Dictionary<string, int> entryTransitionRunSums = new Dictionary<string, int>();
 		private Dictionary<string, int> entryTransitionRunMax = new Dictionary<string, int>();
+		private Dictionary<string, List<int>> entryTransitionRunLengths = new Dictionary<string, List<int>>();
 		
 		private ApvaMacroState? currentRunState;
 		private ApvaMacroState? previousState;
@@ -50,6 +51,11 @@ namespace NinjaTrader.NinjaScript.Indicators
 		
 		    if (!entryTransitionRunMax.ContainsKey(key))
 		        entryTransitionRunMax[key] = 0;
+			
+			if (!entryTransitionRunLengths.ContainsKey(key))
+			    entryTransitionRunLengths[key] = new List<int>();
+			
+			entryTransitionRunLengths[key].Add(priorRunLength);
 		
 		    entryTransitionCounts[key]++;
 		    entryTransitionRunSums[key] += priorRunLength;
@@ -410,8 +416,7 @@ namespace NinjaTrader.NinjaScript.Indicators
 		
 		public static string EntryStatsCsvHeader()
 		{
-		    return "Instrument,SessionContext,TotalBars," +
-		           "Transition,Entries,MeanPriorRunLength,MaxPriorRunLength";
+		    return "Instrument,SessionContext,TotalBars,Transition,Entries,MeanPriorRunLength,MedianPriorRunLength,MaxPriorRunLength";
 		}
 
 		public string ToEntryStatsCsv(
@@ -442,16 +447,35 @@ namespace NinjaTrader.NinjaScript.Indicators
 		            entries > 0
 		                ? (double)sum / entries
 		                : 0.0;
+				
+				double median = 0.0;
+
+				if (entryTransitionRunLengths.ContainsKey(key))
+				{
+				    List<int> sorted = new List<int>(entryTransitionRunLengths[key]);
+				    sorted.Sort();
+				
+				    int n = sorted.Count;
+				
+				    if (n > 0)
+				    {
+				        if (n % 2 == 1)
+				            median = sorted[n / 2];
+				        else
+				            median = 0.5 * (sorted[(n / 2) - 1] + sorted[n / 2]);
+				    }
+				}
 		
 		        sb.AppendLine(string.Format(
 		            CultureInfo.InvariantCulture,
-		            "{0},{1},{2},{3},{4},{5:F2},{6}",
+		            "{0},{1},{2},{3},{4},{5:F2},{6:F2},{7}",
 		            instrument,
 		            sessionContext,
 		            totalBars,
 		            key,
 		            entries,
 		            mean,
+					median,
 		            max));
 		    }
 		
@@ -459,6 +483,7 @@ namespace NinjaTrader.NinjaScript.Indicators
 		}
     }
 }
+
 
 
 
