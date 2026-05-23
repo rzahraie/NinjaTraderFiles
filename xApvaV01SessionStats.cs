@@ -94,6 +94,106 @@ namespace NinjaTrader.NinjaScript.Indicators
 		    return "Instrument,SessionContext,TotalBars,Bucket,Transition,Count";
 		}
 		
+		public static string DurationBucketProbabilityCsvHeader()
+		{
+		    return "Instrument,SessionContext,TotalBars," +
+		           "Bucket,FromState,Transition,ProbabilityPct";
+		}
+		
+		public string ToDurationBucketProbabilityCsv(
+		    string instrument,
+		    string sessionContext,
+		    int totalBars)
+		{
+		    if (durationBucketTransitions == null ||
+		        durationBucketTransitions.Count == 0)
+		        return string.Empty;
+		
+		    Dictionary<string, int> totals =
+		        new Dictionary<string, int>();
+		
+		    foreach (var kvp in durationBucketTransitions)
+		    {
+		        string[] parts = kvp.Key.Split('|');
+		
+		        if (parts.Length != 2)
+		            continue;
+		
+		        string bucket = parts[0];
+		
+		        string transition = parts[1];
+		
+		        string[] states =
+		            transition.Split(
+		                new string[] { "->" },
+		                StringSplitOptions.None);
+		
+		        if (states.Length != 2)
+		            continue;
+		
+		        string fromState = states[0];
+		
+		        string totalKey =
+		            bucket + "|" + fromState;
+		
+		        if (!totals.ContainsKey(totalKey))
+		            totals[totalKey] = 0;
+		
+		        totals[totalKey] += kvp.Value;
+		    }
+		
+		    System.Text.StringBuilder sb =
+		        new System.Text.StringBuilder();
+		
+		    foreach (var kvp in durationBucketTransitions)
+		    {
+		        string[] parts = kvp.Key.Split('|');
+		
+		        if (parts.Length != 2)
+		            continue;
+		
+		        string bucket = parts[0];
+		
+		        string transition = parts[1];
+		
+		        string[] states =
+		            transition.Split(
+		                new string[] { "->" },
+		                StringSplitOptions.None);
+		
+		        if (states.Length != 2)
+		            continue;
+		
+		        string fromState = states[0];
+		
+		        string totalKey =
+		            bucket + "|" + fromState;
+		
+		        int total =
+		            totals.ContainsKey(totalKey)
+		                ? totals[totalKey]
+		                : 0;
+		
+		        double probability =
+		            total > 0
+		                ? 100.0 * kvp.Value / total
+		                : 0.0;
+		
+		        sb.AppendLine(string.Format(
+		            CultureInfo.InvariantCulture,
+		            "{0},{1},{2},{3},{4},{5},{6:F2}",
+		            instrument,
+		            sessionContext,
+		            totalBars,
+		            bucket,
+		            fromState,
+		            transition,
+		            probability));
+		    }
+		
+		    return sb.ToString();
+		}
+		
 		public string ToDurationBucketTransitionCsv(
 		    string instrument,
 		    string sessionContext,
@@ -545,6 +645,7 @@ namespace NinjaTrader.NinjaScript.Indicators
 		}
     }
 }
+
 
 
 

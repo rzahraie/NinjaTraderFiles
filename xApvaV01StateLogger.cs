@@ -25,6 +25,8 @@ namespace NinjaTrader.NinjaScript.Indicators
 		private bool entryStatsHeaderWritten;
 		private string durationBucketTransitionPath;
 		private bool durationBucketTransitionHeaderWritten;
+		private string durationBucketProbabilityPath;
+		private bool durationBucketProbabilityHeaderWritten;
 		
         protected override void OnStateChange()
         {
@@ -98,6 +100,12 @@ namespace NinjaTrader.NinjaScript.Indicators
 				    "xApvaV01DurationBucketTransitions.csv");
 				
 				durationBucketTransitionHeaderWritten = false;
+				
+				durationBucketProbabilityPath = Path.Combine(
+				    indicatorDir,
+				    "xApvaV01DurationBucketProbabilities.csv");
+				
+				durationBucketProbabilityHeaderWritten = false;
 
                 try
 				{
@@ -121,6 +129,9 @@ namespace NinjaTrader.NinjaScript.Indicators
 					
 					if (File.Exists(durationBucketTransitionPath))
     					File.Delete(durationBucketTransitionPath);
+					
+					if (File.Exists(durationBucketProbabilityPath))
+    					File.Delete(durationBucketProbabilityPath);
 				}
 				catch (Exception ex)
 				{
@@ -321,6 +332,29 @@ namespace NinjaTrader.NinjaScript.Indicators
 					    File.AppendAllText(
 					        durationBucketTransitionPath,
 					        durationBucketTransitionCsv);
+					}
+					
+					if (!durationBucketProbabilityHeaderWritten)
+					{
+					    File.AppendAllText(
+					        durationBucketProbabilityPath,
+					        xApvaV01SessionStats.DurationBucketProbabilityCsvHeader()
+					            + Environment.NewLine);
+					
+					    durationBucketProbabilityHeaderWritten = true;
+					}
+					
+					string durationBucketProbabilityCsv =
+					    sessionStats.ToDurationBucketProbabilityCsv(
+					        instrumentName,
+					        sessionContext,
+					        sessionStats.TotalBars);
+					
+					if (!string.IsNullOrEmpty(durationBucketProbabilityCsv))
+					{
+					    File.AppendAllText(
+					        durationBucketProbabilityPath,
+					        durationBucketProbabilityCsv);
 					}
 				}
 		    }
