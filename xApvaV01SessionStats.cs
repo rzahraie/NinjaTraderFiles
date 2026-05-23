@@ -61,9 +61,9 @@ namespace NinjaTrader.NinjaScript.Indicators
 		}
 
 		public static string RunLengthCsvHeader()
-{
-    return "Instrument,SessionContext,TotalBars,State,CompletedRuns,MeanRunLength,MaxRunLength";
-}
+		{
+		   return "Instrument,SessionContext,TotalBars,State,CompletedRuns,MeanRunLength,MedianRunLength,MaxRunLength";
+		}
 
 		public string ToRunLengthCsv(
 		    string instrument,
@@ -93,16 +93,37 @@ namespace NinjaTrader.NinjaScript.Indicators
 		        double mean = runs.Count > 0
 		            ? (double)sum / runs.Count
 		            : 0.0;
+				
+				List<int> sorted = new List<int>(runs);
+				sorted.Sort();
+				
+				double median;
+				
+				int n = sorted.Count;
+				
+				if (n == 0)
+				{
+				    median = 0.0;
+				}
+				else if (n % 2 == 1)
+				{
+				    median = sorted[n / 2];
+				}
+				else
+				{
+				    median = 0.5 * (sorted[(n / 2) - 1] + sorted[n / 2]);
+				}
 		
 		        sb.AppendLine(string.Format(
 		            CultureInfo.InvariantCulture,
-		            "{0},{1},{2},{3},{4},{5:F2},{6}",
+		            "{0},{1},{2},{3},{4},{5:F2},{6:F2},{7}",
 		            instrument,
 		            sessionContext,
 		            totalBars,
 		            kvp.Key,
 		            runs.Count,
 		            mean,
+					median,
 		            max));
 		    }
 		
@@ -360,6 +381,7 @@ namespace NinjaTrader.NinjaScript.Indicators
 		}
     }
 }
+
 
 
 
