@@ -6,34 +6,38 @@ namespace NinjaTrader.NinjaScript.APVA.V01
     public static class ApvaV01SnapshotFormatter
     {
         public static string CsvHeader()
-        {
-            return string.Join(",",
-			    "BarIndex",
-			    "Time",
-			    "MacroState",
-			    "ActiveDirection",
-			    "SponsorState",
-			    "SponsorConfidence",
-			    "SequencePhase",
-			    "SequenceAuthority",
-			    "MaturityLevel",
-			    "DominanceScore",
-			    "DegradationScore",
-			    "BalanceScore",
-			    "TransitionScore",
-			    "AmbiguityScore",
-				"Events",
-			    "SFCStatus",
-			    "ExpectedNextBehavior",
-			    "InvalidationCondition");
-        }
+		{
+		    return string.Join(",",
+		        "Instrument",
+		        "SessionContext",
+		        "BarIndex",
+		        "Time",
+		        "MacroState",
+		        "ActiveDirection",
+		        "SponsorState",
+		        "SponsorConfidence",
+		        "SequencePhase",
+		        "SequenceAuthority",
+		        "MaturityLevel",
+		        "DominanceScore",
+		        "DegradationScore",
+		        "BalanceScore",
+		        "TransitionScore",
+		        "AmbiguityScore",
+		        "Events",
+		        "SFCStatus",
+		        "ExpectedNextBehavior",
+		        "InvalidationCondition");
+		}
 
-        public static string ToCsv(ApvaStateSnapshot s)
+       public static string ToCsv(ApvaStateSnapshot s, string instrument, string sessionContext)
         {
             if (s == null)
                 return string.Empty;
 
             return string.Join(",",
+				Escape(instrument),
+				Escape(sessionContext),
                 s.BarIndex.ToString(CultureInfo.InvariantCulture),
                 Escape(s.Time.ToString("yyyy-MM-dd HH:mm:ss", CultureInfo.InvariantCulture)),
                 Escape(s.MacroState.ToString()),
@@ -78,5 +82,6 @@ namespace NinjaTrader.NinjaScript.APVA.V01
 		}
     }
 }
+
 
 

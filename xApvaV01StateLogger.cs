@@ -31,9 +31,13 @@ namespace NinjaTrader.NinjaScript.Indicators
             }
             else if (State == State.DataLoaded)
             {
-                outputPath = Path.Combine(
-                    NinjaTrader.Core.Globals.UserDataDir,
-                    "xApvaV01StateLog.csv");
+                string instrumentName = Instrument != null && Instrument.MasterInstrument != null ? Instrument.MasterInstrument.Name : "UnknownInstrument";
+
+				string safeInstrumentName = MakeSafeFileName(instrumentName);
+				
+				outputPath = Path.Combine(
+				    NinjaTrader.Core.Globals.UserDataDir,
+				    "xApvaV01StateLog_" + safeInstrumentName + ".csv");
 
                 headerWritten = false;
 
@@ -48,6 +52,17 @@ namespace NinjaTrader.NinjaScript.Indicators
                 }
             }
         }
+
+		private static string MakeSafeFileName(string value)
+		{
+		    if (string.IsNullOrEmpty(value))
+		        return "UnknownInstrument";
+		
+		    foreach (char c in Path.GetInvalidFileNameChars())
+		        value = value.Replace(c, '_');
+		
+		    return value;
+		}
 
         protected override void OnBarUpdate()
         {
@@ -76,7 +91,9 @@ namespace NinjaTrader.NinjaScript.Indicators
                     headerWritten = true;
                 }
 
-                File.AppendAllText(outputPath, ApvaV01SnapshotFormatter.ToCsv(snapshot) + Environment.NewLine);
+				string instrumentName = Instrument != null && Instrument.MasterInstrument != null ? Instrument.MasterInstrument.Name : "UnknownInstrument";
+				string sessionContext = Bars != null && Bars.IsFirstBarOfSession ? "RTH": "ETH";
+                File.AppendAllText(outputPath, ApvaV01SnapshotFormatter.ToCsv(snapshot,instrumentName,sessionContext) + Environment.NewLine);
             }
             catch (Exception ex)
             {
