@@ -149,9 +149,12 @@ namespace NinjaTrader.NinjaScript.Indicators
 				        sessionStats.TotalBars));
 				
 				reportWriter.AddReport(
-				    Path.Combine(indicatorDir, "xApvaV01StateTripletTransitions.csv"),
-				    xApvaV01SessionStats.StateTripletTransitionCsvHeader(),
-				    () => sessionStats.ToStateTripletTransitionCsv(
+				    Path.Combine(
+				        indicatorDir,
+				        "xApvaV01StateTripletProbabilities.csv"),
+				    xApvaV01SessionStats
+				        .StateTripletProbabilityCsvHeader(),
+				    () => sessionStats.ToStateTripletProbabilityCsv(
 				        instrumentName,
 				        GetSessionContext(),
 				        sessionStats.TotalBars));

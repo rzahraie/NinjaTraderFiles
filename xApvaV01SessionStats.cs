@@ -56,8 +56,8 @@ namespace NinjaTrader.NinjaScript.Indicators
 		private Dictionary<string, int> stateSurvivalCounts = new Dictionary<string, int>();
 		private Dictionary<string, int> stateExitCounts = new Dictionary<string, int>();
 		private Dictionary<string, int> stateTriplets = new Dictionary<string, int>();
-		private Dictionary<string, int> stateTripletTransitions = new Dictionary<string, int>();
 		private Dictionary<string, int> sponsorStateTransitions = new Dictionary<string, int>();
+		private Dictionary<string, int> tripletPrefixCounts = new Dictionary<string, int>();
 		
 		private void AccumulateStatePathStats(
 		    ApvaMacroState currentState)
@@ -65,34 +65,22 @@ namespace NinjaTrader.NinjaScript.Indicators
 		    if (previousState1.HasValue &&
 		        previousState2.HasValue)
 		    {
-		        string triplet =
+		        string prefix =
 		            previousState2.Value + "->" +
-		            previousState1.Value + "->" +
-		            currentState;
+		            previousState1.Value;
+		
+		        string triplet =
+		            prefix + "->" + currentState;
+		
+		        if (!tripletPrefixCounts.ContainsKey(prefix))
+		            tripletPrefixCounts[prefix] = 0;
+		
+		        tripletPrefixCounts[prefix]++;
 		
 		        if (!stateTriplets.ContainsKey(triplet))
 		            stateTriplets[triplet] = 0;
 		
 		        stateTriplets[triplet]++;
-		    }
-		
-		    if (previousState1.HasValue)
-		    {
-		        string transition =
-		            previousState1.Value + "->" +
-		            currentState;
-		
-		        if (previousState2.HasValue)
-		        {
-		            string pathTransition =
-		                previousState2.Value + "->" +
-		                transition;
-		
-		            if (!stateTripletTransitions.ContainsKey(pathTransition))
-		                stateTripletTransitions[pathTransition] = 0;
-		
-		            stateTripletTransitions[pathTransition]++;
-		        }
 		    }
 		
 		    previousState2 = previousState1;
@@ -670,28 +658,53 @@ namespace NinjaTrader.NinjaScript.Indicators
 		    return sb.ToString();
 		}
 		
-		public string ToStateTripletTransitionCsv(
+		public string ToStateTripletProbabilityCsv(
 		    string instrument,
 		    string sessionContext,
 		    int totalBars)
 		{
-		    if (stateTripletTransitions == null ||
-		        stateTripletTransitions.Count == 0)
+		    if (stateTriplets == null ||
+		        stateTriplets.Count == 0)
 		        return string.Empty;
 		
 		    System.Text.StringBuilder sb =
 		        new System.Text.StringBuilder();
 		
-		    foreach (var kvp in stateTripletTransitions)
+		    foreach (var kvp in stateTriplets)
 		    {
+		        string triplet = kvp.Key;
+		
+		        string[] parts =
+		            triplet.Split(
+		                new string[] { "->" },
+		                StringSplitOptions.None);
+		
+		        if (parts.Length != 3)
+		            continue;
+		
+		        string prefix =
+		            parts[0] + "->" + parts[1];
+		
+		        int prefixCount =
+		            tripletPrefixCounts.ContainsKey(prefix)
+		                ? tripletPrefixCounts[prefix]
+		                : 0;
+		
+		        double probability =
+		            prefixCount > 0
+		                ? 100.0 * kvp.Value / prefixCount
+		                : 0.0;
+		
 		        sb.AppendLine(string.Format(
 		            CultureInfo.InvariantCulture,
-		            "{0},{1},{2},{3},{4}",
+		            "{0},{1},{2},{3},{4},{5},{6:F2}",
 		            instrument,
 		            sessionContext,
 		            totalBars,
-		            kvp.Key,
-		            kvp.Value));
+		            prefix,
+		            triplet,
+		            kvp.Value,
+		            probability));
 		    }
 		
 		    return sb.ToString();
@@ -702,9 +715,10 @@ namespace NinjaTrader.NinjaScript.Indicators
 		    return "Instrument,SessionContext,TotalBars,Triplet,Count";
 		}
 		
-		public static string StateTripletTransitionCsvHeader()
+		public static string StateTripletProbabilityCsvHeader()
 		{
-		    return "Instrument,SessionContext,TotalBars,PathTransition,Count";
+		    return "Instrument,SessionContext,TotalBars," +
+		           "Prefix,Triplet,Count,ConditionalProbability";
 		}
 
 		public static string SponsorStateCsvHeader()
@@ -1153,6 +1167,7 @@ namespace NinjaTrader.NinjaScript.Indicators
 		}
     }
 }
+
 
 
 
