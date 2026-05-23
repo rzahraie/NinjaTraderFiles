@@ -28,6 +28,16 @@ namespace NinjaTrader.NinjaScript.Indicators
 		    public int Count;
 		    public int TotalPersistence;
 		}
+		
+		private sealed class BirthQualityAccumulator
+		{
+		    public int Count;
+		    public int PersistGE2;
+		    public int PersistGE3;
+		    public int PersistGE5;
+		    public int PersistGE8;
+		}
+
 		private double currentRunSponsorConfidenceSum;
 		private double currentRunSponsorConfidenceMax;
 		private double currentRunDominanceScoreSum;
@@ -67,7 +77,39 @@ namespace NinjaTrader.NinjaScript.Indicators
 		private Dictionary<string, int> sponsorStateTransitions = new Dictionary<string, int>();
 		private Dictionary<string, int> tripletPrefixCounts = new Dictionary<string, int>();
 		private Dictionary<string, PersistenceAccumulator> pathPersistenceStats = new Dictionary<string, PersistenceAccumulator>();
+		private Dictionary<string, BirthQualityAccumulator> birthQualityStats = new Dictionary<string, BirthQualityAccumulator>();
 		
+		private void AccumulateBirthQuality(
+		    string entryPath,
+		    int persistenceLength)
+		{
+		    if (string.IsNullOrEmpty(entryPath))
+		        return;
+		
+		    if (!birthQualityStats.ContainsKey(entryPath))
+		    {
+		        birthQualityStats[entryPath] =
+		            new BirthQualityAccumulator();
+		    }
+		
+		    BirthQualityAccumulator acc =
+		        birthQualityStats[entryPath];
+		
+		    acc.Count++;
+		
+		    if (persistenceLength >= 2)
+		        acc.PersistGE2++;
+		
+		    if (persistenceLength >= 3)
+		        acc.PersistGE3++;
+		
+		    if (persistenceLength >= 5)
+		        acc.PersistGE5++;
+		
+		    if (persistenceLength >= 8)
+		        acc.PersistGE8++;
+		}
+
 		private void AccumulatePersistenceStats(
 		    ApvaMacroState currentState)
 		{
@@ -86,21 +128,26 @@ namespace NinjaTrader.NinjaScript.Indicators
 		    }
 		
 		    if (persistenceOriginState.HasValue)
-		    {
-		        string key =
-		            persistenceOriginState.Value + "->" +
-		            persistenceCurrentState.Value;
-		
-		        if (!pathPersistenceStats.ContainsKey(key))
-		        {
-		            pathPersistenceStats[key] =
-		                new PersistenceAccumulator();
-		        }
-		
-		        pathPersistenceStats[key].Count++;
-		        pathPersistenceStats[key].TotalPersistence +=
-		            persistenceLength;
-		    }
+			{
+			    string key =
+			        persistenceOriginState.Value + "->" +
+			        persistenceCurrentState.Value;
+			
+			    if (!pathPersistenceStats.ContainsKey(key))
+			    {
+			        pathPersistenceStats[key] =
+			            new PersistenceAccumulator();
+			    }
+			
+			    pathPersistenceStats[key].Count++;
+			
+			    pathPersistenceStats[key].TotalPersistence +=
+			        persistenceLength;
+			
+			    AccumulateBirthQuality(
+			        key,
+			        persistenceLength);
+			}
 		
 		    persistenceOriginState = previousState1;
 		    persistenceCurrentState = currentState;
@@ -1131,6 +1178,13 @@ namespace NinjaTrader.NinjaScript.Indicators
 		    return sb.ToString();
 		}
 		
+		public static string BirthQualityCsvHeader()
+		{
+		    return "Instrument,SessionContext,TotalBars," +
+		           "EntryPath,Occurrences," +
+		           "PersistGE2,PersistGE3,PersistGE5,PersistGE8";
+		}
+
 		public static string HazardCsvHeader()
 		{
 		    return "Instrument,SessionContext,TotalBars," +
@@ -1140,6 +1194,44 @@ namespace NinjaTrader.NinjaScript.Indicators
 		public static string EntryStatsCsvHeader()
 		{
 		    return "Instrument,SessionContext,TotalBars,Transition,Entries,MeanPriorRunLength,MedianPriorRunLength,MaxPriorRunLength";
+		}
+
+		public string ToBirthQualityCsv(
+		    string instrument,
+		    string sessionContext,
+		    int totalBars)
+		{
+		    if (birthQualityStats == null ||
+		        birthQualityStats.Count == 0)
+		        return string.Empty;
+		
+		    System.Text.StringBuilder sb =
+		        new System.Text.StringBuilder();
+		
+		    foreach (var kvp in birthQualityStats)
+		    {
+		        BirthQualityAccumulator acc =
+		            kvp.Value;
+		
+		        if (acc.Count <= 0)
+		            continue;
+		
+		        sb.AppendLine(string.Format(
+		            CultureInfo.InvariantCulture,
+		            "{0},{1},{2},{3},{4}," +
+		            "{5:F2},{6:F2},{7:F2},{8:F2}",
+		            instrument,
+		            sessionContext,
+		            totalBars,
+		            kvp.Key,
+		            acc.Count,
+		            100.0 * acc.PersistGE2 / acc.Count,
+		            100.0 * acc.PersistGE3 / acc.Count,
+		            100.0 * acc.PersistGE5 / acc.Count,
+		            100.0 * acc.PersistGE8 / acc.Count));
+		    }
+		
+		    return sb.ToString();
 		}
 
 		public string ToHazardCsv(
@@ -1257,6 +1349,7 @@ namespace NinjaTrader.NinjaScript.Indicators
 		}
     }
 }
+
 
 
 
