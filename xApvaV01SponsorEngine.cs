@@ -5,6 +5,9 @@ namespace NinjaTrader.NinjaScript.APVA.V01
         private ApvaSponsorState persistentSponsorState = ApvaSponsorState.Unknown;
         private ApvaDirection persistentSponsorDirection = ApvaDirection.Unknown;
         private int sponsorPersistenceBars;
+		private double sponsorStrength;
+		private double sponsorPressure;
+		private double sponsorFailure;
 
         private sealed class SponsorCandidate
         {
@@ -14,6 +17,133 @@ namespace NinjaTrader.NinjaScript.APVA.V01
             public int PersistenceBars;
         }
 
+		private double Clamp01(double value)
+{
+    if (value < 0.0)
+        return 0.0;
+
+    if (value > 1.0)
+        return 1.0;
+
+    return value;
+}
+
+		private void UpdateLatentSponsorState(ApvaStateSnapshot snapshot)
+		{
+		    if (snapshot == null || snapshot.Scores == null)
+		        return;
+		
+		    double dominance = snapshot.Scores.DominanceScore;
+		    double degradation = snapshot.Scores.DegradationScore;
+		    double ambiguity = snapshot.Scores.AmbiguityScore;
+		
+		    // Natural decay.
+		    sponsorStrength *= 0.92;
+		    sponsorPressure *= 0.90;
+		    sponsorFailure *= 0.88;
+		
+		    // Reinforcement.
+		    if (snapshot.MacroState == ApvaMacroState.Directional &&
+		        dominance >= 0.40 &&
+		        degradation < 0.55)
+		    {
+		        sponsorStrength += 0.10 * dominance;
+		    }
+		
+		    // Pressure.
+		    if (degradation >= 0.45 || ambiguity >= 0.35)
+		        sponsorPressure += 0.08 * degradation + 0.04 * ambiguity;
+		
+		    // Failure.
+		    if (HasEvent(snapshot, ApvaEventType.RejectedReclaim) ||
+		        HasEvent(snapshot, ApvaEventType.FailedContinuation))
+		    {
+		        sponsorFailure += 0.18;
+		        sponsorPressure += 0.08;
+		    }
+		
+		    // Successful reclaim slightly repairs sponsorship.
+		    if (HasEvent(snapshot, ApvaEventType.AcceptedReclaim))
+		    {
+		        sponsorStrength += 0.12;
+		        sponsorFailure *= 0.70;
+		    }
+		
+		    // Prolonged unresolved should not automatically imply failure.
+		    if (snapshot.MacroState == ApvaMacroState.Unresolved)
+		    {
+		        sponsorPressure *= 0.96;
+		        sponsorFailure *= 0.94;
+		    }
+		
+		    sponsorStrength = Clamp01(sponsorStrength);
+		    sponsorPressure = Clamp01(sponsorPressure);
+		    sponsorFailure = Clamp01(sponsorFailure);
+		}
+
+		private void AddLatentSponsorCandidate(
+		    ApvaStateSnapshot snapshot,
+		    System.Collections.Generic.List<SponsorCandidate> candidates)
+		{
+		    if (snapshot == null)
+		        return;
+		
+		    if (sponsorFailure >= 0.70)
+		    {
+		        candidates.Add(new SponsorCandidate
+		        {
+		            State = ApvaSponsorState.FailedReclaim,
+		            Confidence = 0.65 + 0.25 * sponsorFailure,
+		            Priority = 68,
+		            PersistenceBars = 1
+		        });
+		
+		        return;
+		    }
+		
+		    if (sponsorStrength >= 0.70 &&
+		        sponsorPressure < 0.45 &&
+		        snapshot.MacroState == ApvaMacroState.Directional)
+		    {
+		        candidates.Add(new SponsorCandidate
+		        {
+		            State = ApvaSponsorState.Dominant,
+		            Confidence = 0.65 + 0.25 * sponsorStrength,
+		            Priority = 62,
+		            PersistenceBars = 2
+		        });
+		
+		        return;
+		    }
+		
+		    if (sponsorStrength >= 0.50 &&
+		        sponsorPressure >= 0.35 &&
+		        sponsorFailure < 0.70)
+		    {
+		        candidates.Add(new SponsorCandidate
+		        {
+		            State = ApvaSponsorState.Challenged,
+		            Confidence = 0.55 + 0.25 * sponsorPressure,
+		            Priority = 58,
+		            PersistenceBars = 1
+		        });
+		
+		        return;
+		    }
+		
+		    if (sponsorStrength >= 0.45 &&
+		        sponsorPressure < 0.55)
+		    {
+		        candidates.Add(new SponsorCandidate
+		        {
+		            State = ApvaSponsorState.Pressured,
+		            Confidence = 0.55 + 0.20 * sponsorStrength,
+		            Priority = 56,
+		            PersistenceBars = 1
+		        });
+		    }
+		}
+
         public void Evaluate(
             ApvaStateSnapshot snapshot,
             ApvaStateSnapshot prior)
@@ -21,6 +151,8 @@ namespace NinjaTrader.NinjaScript.APVA.V01
             if (snapshot == null)
                 return;
 
+			UpdateLatentSponsorState(snapshot);
+			
             var candidates = new System.Collections.Generic.List<SponsorCandidate>();
 
             AddAcceptedReclaimCandidate(snapshot, candidates);
@@ -28,6 +160,7 @@ namespace NinjaTrader.NinjaScript.APVA.V01
             AddPersistentSponsorCandidate(snapshot, candidates);
             AddTransferredCandidate(snapshot, prior, candidates);
             AddDominanceCandidates(snapshot, prior, candidates);
+			AddLatentSponsorCandidate(snapshot, candidates);
             AddEventDrivenReclaimCandidate(snapshot, candidates);
 			AddDegradingFallbackCandidate(snapshot, candidates);
 			AddDirectionalFallbackCandidate(snapshot, candidates);
@@ -393,4 +526,5 @@ namespace NinjaTrader.NinjaScript.APVA.V01
         }
     }
 }
+
 
