@@ -29,6 +29,8 @@ namespace NinjaTrader.NinjaScript.Indicators
 		private bool durationBucketProbabilityHeaderWritten;
 		private string precursorStatsPath;
 		private bool precursorStatsHeaderWritten;
+		private string hazardPath;
+		private bool hazardHeaderWritten;
 		
         protected override void OnStateChange()
         {
@@ -114,6 +116,12 @@ namespace NinjaTrader.NinjaScript.Indicators
 				    "xApvaV01PrecursorStats.csv");
 				
 				precursorStatsHeaderWritten = false;
+				
+				hazardPath = Path.Combine(
+				    indicatorDir,
+				    "xApvaV01HazardRates.csv");
+				
+				hazardHeaderWritten = false;
 
                 try
 				{
@@ -143,6 +151,9 @@ namespace NinjaTrader.NinjaScript.Indicators
 					
 					if (File.Exists(precursorStatsPath))
     					File.Delete(precursorStatsPath);
+					
+					if (File.Exists(hazardPath))
+    					File.Delete(hazardPath);
 				}
 				catch (Exception ex)
 				{
@@ -389,6 +400,29 @@ namespace NinjaTrader.NinjaScript.Indicators
 					    File.AppendAllText(
 					        precursorStatsPath,
 					        precursorStatsCsv);
+					}
+					
+					if (!hazardHeaderWritten)
+					{
+					    File.AppendAllText(
+					        hazardPath,
+					        xApvaV01SessionStats.HazardCsvHeader()
+					            + Environment.NewLine);
+					
+					    hazardHeaderWritten = true;
+					}
+					
+					string hazardCsv =
+					    sessionStats.ToHazardCsv(
+					        instrumentName,
+					        sessionContext,
+					        sessionStats.TotalBars);
+					
+					if (!string.IsNullOrEmpty(hazardCsv))
+					{
+					    File.AppendAllText(
+					        hazardPath,
+					        hazardCsv);
 					}
 				}
 		    }

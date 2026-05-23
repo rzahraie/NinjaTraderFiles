@@ -48,6 +48,8 @@ namespace NinjaTrader.NinjaScript.Indicators
 		private Dictionary<string, double> precursorDegradationScoreSums = new Dictionary<string, double>();
 		private Dictionary<string, double> precursorBalanceScoreSums = new Dictionary<string, double>();
 		private Dictionary<string, int> precursorEventCountSums = new Dictionary<string, int>();
+		private Dictionary<string, int> stateSurvivalCounts = new Dictionary<string, int>();
+		private Dictionary<string, int> stateExitCounts = new Dictionary<string, int>();
 		
 		private string GetDurationBucket(int length)
 		{
@@ -120,6 +122,28 @@ namespace NinjaTrader.NinjaScript.Indicators
 		    currentRunEventCount = 0;
 		
 		    AddCurrentRunMetrics(snapshot);
+		}
+
+		private void AccumulateHazardStats(
+		    ApvaMacroState state,
+		    int runLength,
+		    bool exited)
+		{
+		    string key =
+		        state + "|" + runLength;
+		
+		    if (!stateSurvivalCounts.ContainsKey(key))
+		        stateSurvivalCounts[key] = 0;
+		
+		    stateSurvivalCounts[key]++;
+		
+		    if (exited)
+		    {
+		        if (!stateExitCounts.ContainsKey(key))
+		            stateExitCounts[key] = 0;
+		
+		        stateExitCounts[key]++;
+		    }
 		}
 
 		private void AccumulatePrecursorStats(
@@ -367,6 +391,7 @@ namespace NinjaTrader.NinjaScript.Indicators
 		
 		    if (currentRunState.Value == state)
 		    {
+				AccumulateHazardStats(state,currentRunLength,false);
 		        currentRunLength++;
 		        AddCurrentRunMetrics(snapshot);
 		        return;
@@ -378,6 +403,7 @@ namespace NinjaTrader.NinjaScript.Indicators
 		    AddCompletedRun(currentRunState.Value, currentRunLength);
 		    AccumulateEntryStats(state, currentRunState.Value, currentRunLength);
 		    AccumulatePrecursorStats(transition, currentRunLength);
+			AccumulateHazardStats(currentRunState.Value,currentRunLength,true);
 		
 		    currentRunState = state;
 		    currentRunLength = 1;
@@ -793,9 +819,66 @@ namespace NinjaTrader.NinjaScript.Indicators
 		    return sb.ToString();
 		}
 		
+		public static string HazardCsvHeader()
+		{
+		    return "Instrument,SessionContext,TotalBars," +
+		           "State,RunLength,SurvivalCount,ExitCount,HazardProbability";
+		}
+		
 		public static string EntryStatsCsvHeader()
 		{
 		    return "Instrument,SessionContext,TotalBars,Transition,Entries,MeanPriorRunLength,MedianPriorRunLength,MaxPriorRunLength";
+		}
+
+		public string ToHazardCsv(
+		    string instrument,
+		    string sessionContext,
+		    int totalBars)
+		{
+		    if (stateSurvivalCounts == null ||
+		        stateSurvivalCounts.Count == 0)
+		        return string.Empty;
+		
+		    System.Text.StringBuilder sb =
+		        new System.Text.StringBuilder();
+		
+		    foreach (var kvp in stateSurvivalCounts)
+		    {
+		        string[] parts =
+		            kvp.Key.Split('|');
+		
+		        if (parts.Length != 2)
+		            continue;
+		
+		        string state = parts[0];
+		        string runLength = parts[1];
+		
+		        int survivalCount = kvp.Value;
+		
+		        int exitCount =
+		            stateExitCounts.ContainsKey(kvp.Key)
+		                ? stateExitCounts[kvp.Key]
+		                : 0;
+		
+		        double hazard =
+		            survivalCount > 0
+		                ? 100.0 * exitCount / survivalCount
+		                : 0.0;
+		
+		        sb.AppendLine(string.Format(
+		            CultureInfo.InvariantCulture,
+		            "{0},{1},{2},{3},{4},{5},{6},{7:F2}",
+		            instrument,
+		            sessionContext,
+		            totalBars,
+		            state,
+		            runLength,
+		            survivalCount,
+		            exitCount,
+		            hazard));
+		    }
+		
+		    return sb.ToString();
 		}
 
 		public string ToEntryStatsCsv(
@@ -862,6 +945,7 @@ namespace NinjaTrader.NinjaScript.Indicators
 		}
     }
 }
+
 
 
 
