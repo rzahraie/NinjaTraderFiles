@@ -29,7 +29,6 @@ namespace NinjaTrader.NinjaScript.Indicators
             else if (State == State.Configure)
             {
                 analyzer = new ApvaV01Analyzer();
-				sessionStats = new xApvaV01SessionStats();
             }
             else if (State == State.DataLoaded)
             {
@@ -42,6 +41,10 @@ namespace NinjaTrader.NinjaScript.Indicators
 				    "xApvaV01StateLog_" + safeInstrumentName + ".csv");
 
                 headerWritten = false;
+				
+				sessionStats = new xApvaV01SessionStats();
+				
+				Print("APVA session stats initialized");
 
                 try
                 {
@@ -53,7 +56,27 @@ namespace NinjaTrader.NinjaScript.Indicators
                     Print("xApvaV01StateLogger: Could not delete prior log: " + ex.Message);
                 }
             }
+			else if (State == State.Terminated)
+			{
+			    PrintSessionStats();
+			}
         }
+
+		private void PrintSessionStats()
+		{
+		    if (sessionStats == null)
+		        return;
+		
+		    string instrumentName =
+		        Instrument != null && Instrument.MasterInstrument != null
+		            ? Instrument.MasterInstrument.Name
+		            : "Unknown";
+		
+		    string sessionContext =
+		        GetSessionContext();
+		
+		    Print(sessionStats.ToSummaryString(instrumentName, sessionContext));
+		}
 
 		private static string MakeSafeFileName(string value)
 		{
@@ -82,6 +105,13 @@ namespace NinjaTrader.NinjaScript.Indicators
 
             WriteSnapshot(snapshot);
         }
+
+		private string GetSessionContext()
+		{
+		    return Bars != null && Bars.IsFirstBarOfSession
+		        ? "RTH"
+		        : "ETH";
+		}
 
         private void WriteSnapshot(ApvaStateSnapshot snapshot)
         {
