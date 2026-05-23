@@ -12,6 +12,7 @@ namespace NinjaTrader.NinjaScript.Indicators
         private xApvaV01SessionStats sessionStats;
 		private string outputPath;
         private bool headerWritten;
+		private bool summaryPrinted;
 		
         protected override void OnStateChange()
         {
@@ -55,10 +56,6 @@ namespace NinjaTrader.NinjaScript.Indicators
                 {
                     Print("xApvaV01StateLogger: Could not delete prior log: " + ex.Message);
                 }
-            }
-			else if (State == State.Terminated)
-			{
-			    PrintSessionStats();
 			}
         }
 
@@ -123,6 +120,14 @@ namespace NinjaTrader.NinjaScript.Indicators
 					
 					if (sessionStats != null)
     					sessionStats.Accumulate(snapshot);
+					
+					if (!summaryPrinted &&
+					    State == State.Historical &&
+					    CurrentBar >= Count - 1)
+					{
+					    PrintSessionStats();
+					    summaryPrinted = true;
+					}
                     
 					headerWritten = true;
                 }
