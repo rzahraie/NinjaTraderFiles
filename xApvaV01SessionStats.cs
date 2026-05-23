@@ -396,6 +396,7 @@ namespace NinjaTrader.NinjaScript.Indicators
 			precursorExpansionSums[transition] += meanExpansionPressure;
 			precursorStructuralCompressionSums[transition] += meanStructuralCompression;
 			precursorEntropicCompressionSums[transition] += meanEntropicCompression;
+			precursorIncubationQualitySums[transition] += meanIncubationQuality;
 		
 		    if (currentRunSponsorConfidenceMax > precursorSponsorConfidenceMax[transition])
 		        precursorSponsorConfidenceMax[transition] = currentRunSponsorConfidenceMax;
@@ -1450,6 +1451,7 @@ namespace NinjaTrader.NinjaScript.Indicators
 		}
     }
 }
+
 
 
 
