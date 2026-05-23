@@ -31,12 +31,12 @@ namespace NinjaTrader.NinjaScript.APVA.V01
                     ? sequence.Direction
                     : ApvaDirection.Unknown
             };
+			
+			ComputeEnergyScores(snapshot, features, priorState);
 
             snapshot.MacroState = ClassifyMacroState(snapshot, priorState);
             snapshot.SFCStatus = ClassifySfcStatus(snapshot);
 			
-			ComputeEnergyScores(snapshot, features, priorState);
-
             NormalizeMacroState(snapshot);
 			return snapshot;
         }
@@ -206,6 +206,7 @@ namespace NinjaTrader.NinjaScript.APVA.V01
 		}
     }
 }
+
 
 
 

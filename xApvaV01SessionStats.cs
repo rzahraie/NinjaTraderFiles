@@ -261,6 +261,8 @@ namespace NinjaTrader.NinjaScript.Indicators
 		    currentRunDegradationScoreSum = 0.0;
 		    currentRunBalanceScoreSum = 0.0;
 		    currentRunEventCount = 0;
+			currentRunCompressionSum = 0.0;
+			currentRunExpansionSum = 0.0;
 		
 		    AddCurrentRunMetrics(snapshot);
 		}
@@ -1385,6 +1387,7 @@ namespace NinjaTrader.NinjaScript.Indicators
 		}
     }
 }
+
 
 
 
