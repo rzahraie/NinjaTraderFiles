@@ -118,19 +118,19 @@ namespace NinjaTrader.NinjaScript.Indicators
                 {
                     File.AppendAllText(outputPath, ApvaV01SnapshotFormatter.CsvHeader() + Environment.NewLine);
 					
-					if (sessionStats != null)
-    					sessionStats.Accumulate(snapshot);
-					
-					if (!summaryPrinted &&
-					    State == State.Historical &&
-					    CurrentBar >= Count - 1)
-					{
-					    PrintSessionStats();
-					    summaryPrinted = true;
-					}
-                    
 					headerWritten = true;
                 }
+				
+				if (sessionStats != null)
+    					sessionStats.Accumulate(snapshot);
+				
+				if (!summaryPrinted &&
+				    State == State.Historical &&
+				    CurrentBar >= Count - 1)
+				{
+				    PrintSessionStats();
+				    summaryPrinted = true;
+				}
 
 				string instrumentName = Instrument != null && Instrument.MasterInstrument != null ? Instrument.MasterInstrument.Name : "UnknownInstrument";
 				string sessionContext = Bars != null && Bars.IsFirstBarOfSession ? "RTH": "ETH";
