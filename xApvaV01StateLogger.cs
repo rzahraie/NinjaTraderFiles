@@ -151,10 +151,6 @@ namespace NinjaTrader.NinjaScript.Indicators
 		
 		        if (sessionStats != null)
 		            sessionStats.Accumulate(snapshot);
-				
-				string summaryPath = Path.Combine(
-				    NinjaTrader.Core.Globals.UserDataDir,
-				    "xApvaV01SessionStats.csv");
 		
 		        if (CurrentBar % 50 == 0)
 				{
