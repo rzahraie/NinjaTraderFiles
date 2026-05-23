@@ -142,16 +142,13 @@ namespace NinjaTrader.NinjaScript.Indicators
 				    NinjaTrader.Core.Globals.UserDataDir,
 				    "xApvaV01SessionStats.csv");
 		
-		        if (!summaryPrinted &&
-				    CurrentBar == Count - 1)
+		        if (CurrentBar % 50 == 0)
 				{
 				    File.AppendAllText(
 				        summaryPath,
 				        sessionStats.ToCsvSummary(
 				            instrumentName,
 				            sessionContext) + Environment.NewLine);
-				
-				    summaryPrinted = true;
 				}
 		    }
 		    catch (Exception ex)
