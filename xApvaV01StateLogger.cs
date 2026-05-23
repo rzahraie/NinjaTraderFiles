@@ -14,6 +14,7 @@ namespace NinjaTrader.NinjaScript.Indicators
         private bool headerWritten;
 		private bool summaryPrinted;
 		private string summaryPath;
+		private bool summaryHeaderWritten;
 		
         protected override void OnStateChange()
         {
@@ -56,6 +57,8 @@ namespace NinjaTrader.NinjaScript.Indicators
 				
 				sessionStats = new xApvaV01SessionStats();
 				
+				summaryHeaderWritten = false;
+				
 				Print("APVA session stats initialized");
 
                 try
@@ -72,23 +75,7 @@ namespace NinjaTrader.NinjaScript.Indicators
 				}
 			}
         }
-
-		private void PrintSessionStats()
-		{
-		    if (sessionStats == null)
-		        return;
 		
-		    string instrumentName =
-		        Instrument != null && Instrument.MasterInstrument != null
-		            ? Instrument.MasterInstrument.Name
-		            : "Unknown";
-		
-		    string sessionContext =
-		        GetSessionContext();
-		
-		    Print(sessionStats.ToSummaryString(instrumentName, sessionContext));
-		}
-
 		private static string MakeSafeFileName(string value)
 		{
 		    if (string.IsNullOrEmpty(value))
@@ -151,7 +138,16 @@ namespace NinjaTrader.NinjaScript.Indicators
 		
 		        if (sessionStats != null)
 		            sessionStats.Accumulate(snapshot);
-		
+				
+				if (!summaryHeaderWritten)
+				{
+				    File.AppendAllText(
+				        summaryPath,
+				        xApvaV01SessionStats.CsvHeader() + Environment.NewLine);
+				
+				    summaryHeaderWritten = true;
+				}
+
 		        if (CurrentBar % 50 == 0)
 				{
 				    File.AppendAllText(

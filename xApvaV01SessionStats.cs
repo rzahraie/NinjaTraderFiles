@@ -141,6 +141,13 @@ namespace NinjaTrader.NinjaScript.Indicators
                 LateralSeedCount);
         }
 
+		public static string CsvHeader()
+		{
+		    return "Instrument,SessionContext,TotalBars," +
+		           "DirectionalPct,DegradingPct,BalancePct,UnresolvedPct,UnknownPct," +
+		           "AcceptedReclaim,RejectedReclaim,FailedContinuation,PeakVolume,LateralSeed";
+		}
+
         private double Percent(int count)
         {
             if (TotalBars <= 0)
@@ -150,6 +157,7 @@ namespace NinjaTrader.NinjaScript.Indicators
         }
     }
 }
+
 
 
 
