@@ -111,36 +111,46 @@ namespace NinjaTrader.NinjaScript.Indicators
 		}
 
         private void WriteSnapshot(ApvaStateSnapshot snapshot)
-        {
-            try
-            {
-                if (!headerWritten)
-                {
-                    File.AppendAllText(outputPath, ApvaV01SnapshotFormatter.CsvHeader() + Environment.NewLine);
-					
-					headerWritten = true;
-                }
-				
-				if (sessionStats != null)
-    					sessionStats.Accumulate(snapshot);
-				
-				if (!summaryPrinted &&
-				    State == State.Historical &&
-				    CurrentBar >= Count - 1)
-				{
-				    PrintSessionStats();
-				    summaryPrinted = true;
-				}
-
-				string instrumentName = Instrument != null && Instrument.MasterInstrument != null ? Instrument.MasterInstrument.Name : "UnknownInstrument";
-				string sessionContext = Bars != null && Bars.IsFirstBarOfSession ? "RTH": "ETH";
-                File.AppendAllText(outputPath, ApvaV01SnapshotFormatter.ToCsv(snapshot,instrumentName,sessionContext) + Environment.NewLine);
-            }
-            catch (Exception ex)
-            {
-                Print("xApvaV01StateLogger: Write failed: " + ex.Message);
-            }
-        }
+		{
+		    try
+		    {
+		        if (!headerWritten)
+		        {
+		            File.AppendAllText(
+		                outputPath,
+		                ApvaV01SnapshotFormatter.CsvHeader() + Environment.NewLine);
+		
+		            headerWritten = true;
+		        }
+		
+		        string instrumentName =
+		            Instrument != null && Instrument.MasterInstrument != null
+		                ? Instrument.MasterInstrument.Name
+		                : "UnknownInstrument";
+		
+		        string sessionContext = GetSessionContext();
+		
+		        File.AppendAllText(
+		            outputPath,
+		            ApvaV01SnapshotFormatter.ToCsv(snapshot, instrumentName, sessionContext)
+		                + Environment.NewLine);
+		
+		        if (sessionStats != null)
+		            sessionStats.Accumulate(snapshot);
+		
+		        if (!summaryPrinted &&
+		            State == State.Historical &&
+		            CurrentBar == Count - 1)
+		        {
+		            PrintSessionStats();
+		            summaryPrinted = true;
+		        }
+		    }
+		    catch (Exception ex)
+		    {
+		        Print("xApvaV01StateLogger: Write failed: " + ex.Message);
+		    }
+		}
     }
 }
 
