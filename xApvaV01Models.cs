@@ -210,6 +210,8 @@ namespace NinjaTrader.NinjaScript.APVA.V01
         public double BalanceScore { get; set; }
         public double TransitionScore { get; set; }
         public double AmbiguityScore { get; set; }
+		public double CompressionScore { get; set; }
+		public double ExpansionPressure { get; set; }
     }
 
     public sealed class ApvaStateSnapshot
@@ -261,6 +263,7 @@ namespace NinjaTrader.NinjaScript.APVA.V01
 	    public string Reason { get; set; }
 	}
 }
+
 
 
 

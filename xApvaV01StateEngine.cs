@@ -34,10 +34,76 @@ namespace NinjaTrader.NinjaScript.APVA.V01
 
             snapshot.MacroState = ClassifyMacroState(snapshot, priorState);
             snapshot.SFCStatus = ClassifySfcStatus(snapshot);
+			
+			ComputeEnergyScores(snapshot, features, priorState);
 
             NormalizeMacroState(snapshot);
 			return snapshot;
         }
+
+		private static void ComputeEnergyScores(
+		    ApvaStateSnapshot snapshot,
+		    ApvaBarFeatures features,
+		    ApvaStateSnapshot priorState)
+		{
+		    if (snapshot == null || snapshot.Scores == null || features == null)
+		        return;
+		
+		    double overlap = Clamp01(features.OverlapRatio);
+		    double narrowBody = Clamp01(1.0 - features.BodyToRangeRatio);
+		    double ambiguity = Clamp01(snapshot.Scores.AmbiguityScore);
+		    double degradation = Clamp01(snapshot.Scores.DegradationScore);
+		    double dominance = Clamp01(snapshot.Scores.DominanceScore);
+		    double balance = Clamp01(snapshot.Scores.BalanceScore);
+		
+		    double priorCompression =
+		        priorState != null && priorState.Scores != null
+		            ? priorState.Scores.CompressionScore
+		            : 0.0;
+		
+		    double rawCompression =
+		        0.35 * overlap +
+		        0.25 * narrowBody +
+		        0.20 * ambiguity +
+		        0.20 * balance;
+		
+		    // Persistent unresolved/balance should allow compression to accumulate.
+		    if (priorState != null &&
+		        (priorState.MacroState == ApvaMacroState.Unresolved ||
+		         priorState.MacroState == ApvaMacroState.Balance))
+		    {
+		        rawCompression =
+		            0.70 * rawCompression +
+		            0.30 * priorCompression;
+		    }
+		
+		    // Heavy degradation means this is not clean compression.
+		    rawCompression *= (1.0 - 0.35 * degradation);
+		
+		    double rawExpansion =
+		        0.45 * dominance +
+		        0.25 * snapshot.SequenceAuthority +
+		        0.20 * features.BodyToRangeRatio +
+		        0.10 * (1.0 - overlap);
+		
+		    // Compression can fuel expansion, but only if degradation is not dominant.
+		    if (priorCompression >= 0.45 && degradation < 0.60)
+		        rawExpansion += 0.15 * priorCompression;
+		
+		    snapshot.Scores.CompressionScore = Clamp01(rawCompression);
+		    snapshot.Scores.ExpansionPressure = Clamp01(rawExpansion);
+		}
+		
+		private static double Clamp01(double value)
+		{
+		    if (value < 0.0)
+		        return 0.0;
+		
+		    if (value > 1.0)
+		        return 1.0;
+		
+		    return value;
+		}
 
         private static ApvaMacroState ClassifyMacroState(
             ApvaStateSnapshot current,
@@ -140,6 +206,7 @@ namespace NinjaTrader.NinjaScript.APVA.V01
 		}
     }
 }
+
 
 
 
