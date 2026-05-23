@@ -137,14 +137,22 @@ namespace NinjaTrader.NinjaScript.Indicators
 		
 		        if (sessionStats != null)
 		            sessionStats.Accumulate(snapshot);
+				
+				string summaryPath = Path.Combine(
+				    NinjaTrader.Core.Globals.UserDataDir,
+				    "xApvaV01SessionStats.csv");
 		
 		        if (!summaryPrinted &&
-		            State == State.Historical &&
-		            CurrentBar == Count - 1)
-		        {
-		            PrintSessionStats();
-		            summaryPrinted = true;
-		        }
+				    CurrentBar == Count - 1)
+				{
+				    File.AppendAllText(
+				        summaryPath,
+				        sessionStats.ToCsvSummary(
+				            instrumentName,
+				            sessionContext) + Environment.NewLine);
+				
+				    summaryPrinted = true;
+				}
 		    }
 		    catch (Exception ex)
 		    {

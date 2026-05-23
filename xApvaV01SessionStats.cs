@@ -86,6 +86,28 @@ namespace NinjaTrader.NinjaScript.Indicators
             }
         }
 
+		public string ToCsvSummary(
+		    string instrument,
+		    string sessionContext)
+		{
+		    return string.Format(
+		        CultureInfo.InvariantCulture,
+		        "{0},{1},{2},{3:F1},{4:F1},{5:F1},{6:F1},{7:F1},{8},{9},{10},{11},{12}",
+		        instrument,
+		        sessionContext,
+		        TotalBars,
+		        Percent(DirectionalBars),
+		        Percent(DegradingBars),
+		        Percent(BalanceBars),
+		        Percent(UnresolvedBars),
+		        Percent(UnknownBars),
+		        AcceptedReclaimCount,
+		        RejectedReclaimCount,
+		        FailedContinuationCount,
+		        PeakVolumeCount,
+		        LateralSeedCount);
+}
+
         public string ToSummaryString(
             string instrument,
             string sessionContext)
@@ -128,5 +150,6 @@ namespace NinjaTrader.NinjaScript.Indicators
         }
     }
 }
+
 
 
