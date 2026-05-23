@@ -23,6 +23,11 @@ namespace NinjaTrader.NinjaScript.Indicators
         public int PeakVolumeCount;
         public int LateralSeedCount;
 		
+		private class PersistenceAccumulator
+		{
+		    public int Count;
+		    public int TotalPersistence;
+		}
 		private double currentRunSponsorConfidenceSum;
 		private double currentRunSponsorConfidenceMax;
 		private double currentRunDominanceScoreSum;
@@ -30,16 +35,19 @@ namespace NinjaTrader.NinjaScript.Indicators
 		private double currentRunBalanceScoreSum;
 		private int currentRunEventCount;
 		private int currentRunLength;
+		private int persistenceLength;
 		
 		private ApvaMacroState? currentRunState;
 		private ApvaMacroState? previousState;
 		private ApvaMacroState? previousState1;
 		private ApvaMacroState? previousState2;
+		private ApvaMacroState? persistenceOriginState;
+		private ApvaMacroState? persistenceCurrentState;
 		private ApvaSponsorState? previousSponsorState;
 		
-		private Dictionary<string, int> transitions = new Dictionary<string, int>();
 		private Dictionary<ApvaMacroState, List<int>> completedRuns = new Dictionary<ApvaMacroState, List<int>>();
 		private Dictionary<ApvaSponsorState, int> sponsorStateCounts = new Dictionary<ApvaSponsorState, int>();
+		private Dictionary<string, int> transitions = new Dictionary<string, int>();
 		private Dictionary<string, int> entryTransitionCounts = new Dictionary<string, int>();
 		private Dictionary<string, int> entryTransitionRunSums = new Dictionary<string, int>();
 		private Dictionary<string, int> entryTransitionRunMax = new Dictionary<string, int>();
@@ -58,7 +66,47 @@ namespace NinjaTrader.NinjaScript.Indicators
 		private Dictionary<string, int> stateTriplets = new Dictionary<string, int>();
 		private Dictionary<string, int> sponsorStateTransitions = new Dictionary<string, int>();
 		private Dictionary<string, int> tripletPrefixCounts = new Dictionary<string, int>();
+		private Dictionary<string, PersistenceAccumulator> pathPersistenceStats = new Dictionary<string, PersistenceAccumulator>();
 		
+		private void AccumulatePersistenceStats(
+		    ApvaMacroState currentState)
+		{
+		    if (!persistenceCurrentState.HasValue)
+		    {
+		        persistenceCurrentState = currentState;
+		        persistenceOriginState = previousState1;
+		        persistenceLength = 1;
+		        return;
+		    }
+		
+		    if (persistenceCurrentState.Value == currentState)
+		    {
+		        persistenceLength++;
+		        return;
+		    }
+		
+		    if (persistenceOriginState.HasValue)
+		    {
+		        string key =
+		            persistenceOriginState.Value + "->" +
+		            persistenceCurrentState.Value;
+		
+		        if (!pathPersistenceStats.ContainsKey(key))
+		        {
+		            pathPersistenceStats[key] =
+		                new PersistenceAccumulator();
+		        }
+		
+		        pathPersistenceStats[key].Count++;
+		        pathPersistenceStats[key].TotalPersistence +=
+		            persistenceLength;
+		    }
+		
+		    persistenceOriginState = previousState1;
+		    persistenceCurrentState = currentState;
+		    persistenceLength = 1;
+		}
+
 		private void AccumulateStatePathStats(
 		    ApvaMacroState currentState)
 		{
@@ -532,6 +580,7 @@ namespace NinjaTrader.NinjaScript.Indicators
             TotalBars++;
 			
 			AccumulateSponsorStats(snapshot);
+			AccumulatePersistenceStats(snapshot.MacroState);
 			AccumulateStatePathStats(snapshot.MacroState);
 			AccumulateRunLength(snapshot);
 			
@@ -950,6 +999,12 @@ namespace NinjaTrader.NinjaScript.Indicators
 		    return sb.ToString();
 		}
 		
+		public static string PersistenceCsvHeader()
+		{
+		    return "Instrument,SessionContext,TotalBars," +
+		           "EntryPath,Occurrences,MeanPersistence";
+		}
+		
 		public static string TransitionCsvHeader()
 		{
 		    return "Instrument,SessionContext,TotalBars,Transition,Count";
@@ -965,6 +1020,41 @@ namespace NinjaTrader.NinjaScript.Indicators
 		    return "Instrument,SessionContext,TotalBars,Transition,Entries," +
 		           "MeanPriorRunLength,MeanSponsorConfidence,MaxSponsorConfidence," +
 		           "MeanDominanceScore,MeanDegradationScore,MeanBalanceScore,EventCount";
+		}
+		
+		public string ToPersistenceCsv(
+		    string instrument,
+		    string sessionContext,
+		    int totalBars)
+		{
+		    if (pathPersistenceStats == null ||
+		        pathPersistenceStats.Count == 0)
+		        return string.Empty;
+		
+		    System.Text.StringBuilder sb =
+		        new System.Text.StringBuilder();
+		
+		    foreach (var kvp in pathPersistenceStats)
+		    {
+		        PersistenceAccumulator acc = kvp.Value;
+		
+		        double meanPersistence =
+		            acc.Count > 0
+		                ? (double)acc.TotalPersistence / acc.Count
+		                : 0.0;
+		
+		        sb.AppendLine(string.Format(
+		            CultureInfo.InvariantCulture,
+		            "{0},{1},{2},{3},{4},{5:F2}",
+		            instrument,
+		            sessionContext,
+		            totalBars,
+		            kvp.Key,
+		            acc.Count,
+		            meanPersistence));
+		    }
+		
+		    return sb.ToString();
 		}
 
 		public string ToPrecursorStatsCsv(
@@ -1167,6 +1257,11 @@ namespace NinjaTrader.NinjaScript.Indicators
 		}
     }
 }
+
+
+
+
+
 
 
 

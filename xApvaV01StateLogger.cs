@@ -159,6 +159,16 @@ namespace NinjaTrader.NinjaScript.Indicators
 				        GetSessionContext(),
 				        sessionStats.TotalBars));
 				
+				reportWriter.AddReport(
+				    Path.Combine(
+				        indicatorDir,
+				        "xApvaV01PersistenceStats.csv"),
+				    xApvaV01SessionStats.PersistenceCsvHeader(),
+				    () => sessionStats.ToPersistenceCsv(
+				        instrumentName,
+				        GetSessionContext(),
+				        sessionStats.TotalBars));
+				
 				reportWriter.DeleteExistingFiles();
 
                 try
