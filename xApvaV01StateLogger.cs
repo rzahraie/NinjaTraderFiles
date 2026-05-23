@@ -184,9 +184,10 @@ namespace NinjaTrader.NinjaScript.Indicators
 
 		private string GetSessionContext()
 		{
-		    return Bars != null && Bars.IsFirstBarOfSession
-		        ? "RTH"
-		        : "ETH";
+		    //return Bars != null && Bars.IsFirstBarOfSession
+		      //  ? "RTH"
+		     //   : "ETH";
+			 return "RTH";
 		}
 
         private void WriteSnapshot(ApvaStateSnapshot snapshot)
