@@ -198,12 +198,84 @@ namespace NinjaTrader.NinjaScript.Indicators
 		    return sb.ToString();
 		}
 		
+		public string ToTransitionProbabilityCsv(
+		    string instrument,
+		    string sessionContext,
+		    int totalBars)
+		{
+		    if (transitions == null || transitions.Count == 0)
+		        return string.Empty;
+		
+		    Dictionary<string, int> totals =
+		        new Dictionary<string, int>();
+		
+		    foreach (var kvp in transitions)
+		    {
+		        string[] parts = kvp.Key.Split(
+		            new string[] { "->" },
+		            StringSplitOptions.None);
+		
+		        if (parts.Length != 2)
+		            continue;
+		
+		        string fromState = parts[0];
+		
+		        if (!totals.ContainsKey(fromState))
+		            totals[fromState] = 0;
+		
+		        totals[fromState] += kvp.Value;
+		    }
+		
+		    System.Text.StringBuilder sb =
+		        new System.Text.StringBuilder();
+		
+		    foreach (var kvp in transitions)
+		    {
+		        string[] parts = kvp.Key.Split(
+		            new string[] { "->" },
+		            StringSplitOptions.None);
+		
+		        if (parts.Length != 2)
+		            continue;
+		
+		        string fromState = parts[0];
+		
+		        int total =
+		            totals.ContainsKey(fromState)
+		                ? totals[fromState]
+		                : 0;
+		
+		        double probability =
+		            total > 0
+		                ? 100.0 * kvp.Value / total
+		                : 0.0;
+		
+		        sb.AppendLine(string.Format(
+		            CultureInfo.InvariantCulture,
+		            "{0},{1},{2},{3},{4},{5:F2}",
+		            instrument,
+		            sessionContext,
+		            totalBars,
+		            fromState,
+		            kvp.Key,
+		            probability));
+		    }
+		
+		    return sb.ToString();
+		}
+		
 		public static string TransitionCsvHeader()
 		{
 		    return "Instrument,SessionContext,TotalBars,Transition,Count";
 		}
+		
+		public static string TransitionProbabilityCsvHeader()
+		{
+		    return "Instrument,SessionContext,TotalBars,FromState,Transition,ProbabilityPct";
+		}
     }
 }
+
 
 
 
