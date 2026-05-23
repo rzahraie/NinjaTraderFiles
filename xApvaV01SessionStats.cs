@@ -25,9 +25,9 @@ namespace NinjaTrader.NinjaScript.Indicators
 		
 		private Dictionary<string, int> transitions = new Dictionary<string, int>();
 		private Dictionary<ApvaMacroState, List<int>> completedRuns = new Dictionary<ApvaMacroState, List<int>>();
-		private Dictionary<ApvaMacroState, int> entryCounts = new Dictionary<ApvaMacroState, int>();
-		private Dictionary<ApvaMacroState, int> priorRunLengthSums = new Dictionary<ApvaMacroState, int>();
-		private Dictionary<ApvaMacroState, int> priorRunLengthMax = new Dictionary<ApvaMacroState, int>();
+		private Dictionary<string, int> entryTransitionCounts = new Dictionary<string, int>();
+		private Dictionary<string, int> entryTransitionRunSums = new Dictionary<string, int>();
+		private Dictionary<string, int> entryTransitionRunMax = new Dictionary<string, int>();
 		
 		private ApvaMacroState? currentRunState;
 		private ApvaMacroState? previousState;
@@ -39,20 +39,23 @@ namespace NinjaTrader.NinjaScript.Indicators
 		    ApvaMacroState priorState,
 		    int priorRunLength)
 		{
-		    if (!entryCounts.ContainsKey(newState))
-		        entryCounts[newState] = 0;
+		    string key =
+		        priorState + "->" + newState;
 		
-		    if (!priorRunLengthSums.ContainsKey(newState))
-		        priorRunLengthSums[newState] = 0;
+		    if (!entryTransitionCounts.ContainsKey(key))
+		        entryTransitionCounts[key] = 0;
 		
-		    if (!priorRunLengthMax.ContainsKey(newState))
-		        priorRunLengthMax[newState] = 0;
+		    if (!entryTransitionRunSums.ContainsKey(key))
+		        entryTransitionRunSums[key] = 0;
 		
-		    entryCounts[newState]++;
-		    priorRunLengthSums[newState] += priorRunLength;
+		    if (!entryTransitionRunMax.ContainsKey(key))
+		        entryTransitionRunMax[key] = 0;
 		
-		    if (priorRunLength > priorRunLengthMax[newState])
-		        priorRunLengthMax[newState] = priorRunLength;
+		    entryTransitionCounts[key]++;
+		    entryTransitionRunSums[key] += priorRunLength;
+		
+		    if (priorRunLength > entryTransitionRunMax[key])
+		        entryTransitionRunMax[key] = priorRunLength;
 		}
 
 		private void AccumulateRunLength(ApvaMacroState state)
@@ -406,9 +409,10 @@ namespace NinjaTrader.NinjaScript.Indicators
 		}
 		
 		public static string EntryStatsCsvHeader()
-{
-    return "Instrument,SessionContext,TotalBars,State,Entries,MeanPriorRunLength,MaxPriorRunLength";
-}
+		{
+		    return "Instrument,SessionContext,TotalBars," +
+		           "Transition,Entries,MeanPriorRunLength,MaxPriorRunLength";
+		}
 
 		public string ToEntryStatsCsv(
 		    string instrument,
@@ -418,19 +422,20 @@ namespace NinjaTrader.NinjaScript.Indicators
 		    System.Text.StringBuilder sb =
 		        new System.Text.StringBuilder();
 		
-		    foreach (var kvp in entryCounts)
+		    foreach (var kvp in entryTransitionCounts)
 		    {
-		        ApvaMacroState state = kvp.Key;
+		        string key = kvp.Key;
+		
 		        int entries = kvp.Value;
 		
 		        int sum =
-		            priorRunLengthSums.ContainsKey(state)
-		                ? priorRunLengthSums[state]
+		            entryTransitionRunSums.ContainsKey(key)
+		                ? entryTransitionRunSums[key]
 		                : 0;
 		
 		        int max =
-		            priorRunLengthMax.ContainsKey(state)
-		                ? priorRunLengthMax[state]
+		            entryTransitionRunMax.ContainsKey(key)
+		                ? entryTransitionRunMax[key]
 		                : 0;
 		
 		        double mean =
@@ -444,7 +449,7 @@ namespace NinjaTrader.NinjaScript.Indicators
 		            instrument,
 		            sessionContext,
 		            totalBars,
-		            state,
+		            key,
 		            entries,
 		            mean,
 		            max));
@@ -454,6 +459,8 @@ namespace NinjaTrader.NinjaScript.Indicators
 		}
     }
 }
+
+
 
 
 
