@@ -104,6 +104,12 @@ namespace NinjaTrader.NinjaScript.Indicators
 					
 					if (File.Exists(transitionProbabilityPath))
     					File.Delete(transitionProbabilityPath);
+					
+					if (File.Exists(runLengthPath))
+						File.Delete(runLengthPath);
+					
+					if (File.Exists(entryStatsPath))
+						File.Delete(entryStatsPath);
 				}
 				catch (Exception ex)
 				{
