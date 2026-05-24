@@ -199,6 +199,18 @@ namespace NinjaTrader.NinjaScript.Indicators
 				        GetSessionContext(),
 				        sessionStats.TotalBars));
 				
+				reportWriter.AddReport(
+				    Path.Combine(
+				        indicatorDir,
+				        "xApvaV01IncubationQualityConditionalProbabilities.csv"),
+				    xApvaV01SessionStats
+				        .IncubationQualityConditionalProbabilityCsvHeader(),
+				    () => sessionStats
+				        .ToIncubationQualityConditionalProbabilityCsv(
+				            instrumentName,
+				            GetSessionContext(),
+				            sessionStats.TotalBars));
+				
 				reportWriter.DeleteExistingFiles();
 
                 try
