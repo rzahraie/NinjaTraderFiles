@@ -37,6 +37,15 @@ namespace NinjaTrader.NinjaScript.Indicators
 		    public int PersistGE5;
 		    public int PersistGE8;
 		}
+		
+		private sealed class TransitionExpectancyAccumulator
+		{
+		    public int Occurrences;
+		    public int TotalNextRunLength;
+		    public int ImmediateFailures;
+		    public int DirectionalContinuationEligible;
+		    public int DirectionalContinuations;
+		}
 
 		private double currentRunSponsorConfidenceSum;
 		private double currentRunSponsorConfidenceMax;
@@ -89,6 +98,7 @@ namespace NinjaTrader.NinjaScript.Indicators
 		private Dictionary<string, int> incubationQualityBucketTransitions = new Dictionary<string, int>();
 		private Dictionary<string, PersistenceAccumulator> pathPersistenceStats = new Dictionary<string, PersistenceAccumulator>();
 		private Dictionary<string, BirthQualityAccumulator> birthQualityStats = new Dictionary<string, BirthQualityAccumulator>();
+		private Dictionary<string, TransitionExpectancyAccumulator> transitionExpectancyStats = new Dictionary<string, TransitionExpectancyAccumulator>();
 		
 		private string GetIncubationQualityBucket(double value)
 		{
@@ -105,6 +115,43 @@ namespace NinjaTrader.NinjaScript.Indicators
 		        return "0.60-0.80";
 		
 		    return "0.80-1.00";
+		}
+
+		private void AccumulateTransitionExpectancy(
+		    string transition,
+		    int nextRunLength)
+		{
+		    if (string.IsNullOrEmpty(transition))
+		        return;
+		
+		    if (!transitionExpectancyStats.ContainsKey(transition))
+		    {
+		        transitionExpectancyStats[transition] =
+		            new TransitionExpectancyAccumulator();
+		    }
+		
+		    TransitionExpectancyAccumulator acc =
+		        transitionExpectancyStats[transition];
+		
+		    acc.Occurrences++;
+		    acc.TotalNextRunLength += nextRunLength;
+		
+		    if (nextRunLength <= 1)
+		        acc.ImmediateFailures++;
+		
+		    string[] parts =
+		        transition.Split(
+		            new string[] { "->" },
+		            StringSplitOptions.None);
+		
+		    if (parts.Length == 2 &&
+		        parts[1] == ApvaMacroState.Directional.ToString())
+		    {
+		        acc.DirectionalContinuationEligible++;
+		
+		        if (nextRunLength >= 2)
+		            acc.DirectionalContinuations++;
+		    }
 		}
 
 		private void AccumulateBirthQuality(
@@ -175,6 +222,10 @@ namespace NinjaTrader.NinjaScript.Indicators
 			    AccumulateBirthQuality(
 			        key,
 			        persistenceLength);
+				
+				AccumulateTransitionExpectancy(
+				    key,
+				    persistenceLength);
 			}
 		
 		    persistenceOriginState = previousState1;
@@ -1169,6 +1220,63 @@ namespace NinjaTrader.NinjaScript.Indicators
 		           "MeanDominanceScore,MeanDegradationScore,MeanBalanceScore,EventCount,MeanCompressionScore,MeanExpansionPressure,MeanStructuralCompression,MeanEntropicCompression,MeanIncubationQuality";
 		}
 		
+		public static string TransitionExpectancyCsvHeader()
+		{
+		    return "Instrument,SessionContext,TotalBars," +
+		           "Transition,Occurrences,MeanNextRunLength," +
+		           "ImmediateFailurePct,DirectionalContinuationPct";
+		}
+		
+		public string ToTransitionExpectancyCsv(
+		    string instrument,
+		    string sessionContext,
+		    int totalBars)
+		{
+		    if (transitionExpectancyStats == null ||
+		        transitionExpectancyStats.Count == 0)
+		        return string.Empty;
+		
+		    System.Text.StringBuilder sb =
+		        new System.Text.StringBuilder();
+		
+		    foreach (var kvp in transitionExpectancyStats)
+		    {
+		        string transition = kvp.Key;
+		
+		        TransitionExpectancyAccumulator acc =
+		            kvp.Value;
+		
+		        if (acc.Occurrences <= 0)
+		            continue;
+		
+		        double meanNextRunLength =
+		            (double)acc.TotalNextRunLength / acc.Occurrences;
+		
+		        double immediateFailurePct =
+		            100.0 * acc.ImmediateFailures / acc.Occurrences;
+		
+		        double directionalContinuationPct =
+		            acc.DirectionalContinuationEligible > 0
+		                ? 100.0 * acc.DirectionalContinuations /
+		                  acc.DirectionalContinuationEligible
+		                : 0.0;
+		
+		        sb.AppendLine(string.Format(
+		            CultureInfo.InvariantCulture,
+		            "{0},{1},{2},{3},{4},{5:F2},{6:F2},{7:F2}",
+		            instrument,
+		            sessionContext,
+		            totalBars,
+		            transition,
+		            acc.Occurrences,
+		            meanNextRunLength,
+		            immediateFailurePct,
+		            directionalContinuationPct));
+		    }
+		
+		    return sb.ToString();
+		}
+
 		public string ToPersistenceCsv(
 		    string instrument,
 		    string sessionContext,
@@ -1684,6 +1792,7 @@ namespace NinjaTrader.NinjaScript.Indicators
 		}
     }
 }
+
 
 
 

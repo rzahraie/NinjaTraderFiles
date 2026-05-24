@@ -211,6 +211,16 @@ namespace NinjaTrader.NinjaScript.Indicators
 				            GetSessionContext(),
 				            sessionStats.TotalBars));
 				
+				reportWriter.AddReport(
+				    Path.Combine(
+				        indicatorDir,
+				        "xApvaV01TransitionExpectancy.csv"),
+				    xApvaV01SessionStats.TransitionExpectancyCsvHeader(),
+				    () => sessionStats.ToTransitionExpectancyCsv(
+				        instrumentName,
+				        GetSessionContext(),
+				        sessionStats.TotalBars));
+				
 				reportWriter.DeleteExistingFiles();
 
                 try
