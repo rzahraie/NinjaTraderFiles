@@ -1333,6 +1333,76 @@ namespace NinjaTrader.NinjaScript.Indicators
 		    return "Instrument,SessionContext,TotalBars,Bucket,Transition,Count";
 		}
 
+		public static string IncubationQualityBucketProbabilityCsvHeader()
+		{
+		    return "Instrument,SessionContext,TotalBars,Bucket,Transition,Count,ProbabilityPct";
+		}
+
+		public string ToIncubationQualityBucketProbabilityCsv(
+		    string instrument,
+		    string sessionContext,
+		    int totalBars)
+		{
+		    if (incubationQualityBucketTransitions == null ||
+		        incubationQualityBucketTransitions.Count == 0)
+		        return string.Empty;
+		
+		    Dictionary<string, int> bucketTotals =
+		        new Dictionary<string, int>();
+		
+		    foreach (var kvp in incubationQualityBucketTransitions)
+		    {
+		        string[] parts = kvp.Key.Split('|');
+		
+		        if (parts.Length != 2)
+		            continue;
+		
+		        string bucket = parts[0];
+		
+		        if (!bucketTotals.ContainsKey(bucket))
+		            bucketTotals[bucket] = 0;
+		
+		        bucketTotals[bucket] += kvp.Value;
+		    }
+		
+		    System.Text.StringBuilder sb =
+		        new System.Text.StringBuilder();
+		
+		    foreach (var kvp in incubationQualityBucketTransitions)
+		    {
+		        string[] parts = kvp.Key.Split('|');
+		
+		        if (parts.Length != 2)
+		            continue;
+		
+		        string bucket = parts[0];
+		        string transition = parts[1];
+		
+		        int total =
+		            bucketTotals.ContainsKey(bucket)
+		                ? bucketTotals[bucket]
+		                : 0;
+		
+		        double probability =
+		            total > 0
+		                ? 100.0 * kvp.Value / total
+		                : 0.0;
+		
+		        sb.AppendLine(string.Format(
+		            CultureInfo.InvariantCulture,
+		            "{0},{1},{2},{3},{4},{5},{6:F2}",
+		            instrument,
+		            sessionContext,
+		            totalBars,
+		            bucket,
+		            transition,
+		            kvp.Value,
+		            probability));
+		    }
+		
+		    return sb.ToString();
+		}
+
 		public string ToIncubationQualityBucketCsv(
 		    string instrument,
 		    string sessionContext,
@@ -1519,6 +1589,7 @@ namespace NinjaTrader.NinjaScript.Indicators
 		}
     }
 }
+
 
 
 
