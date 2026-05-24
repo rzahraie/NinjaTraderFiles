@@ -86,9 +86,27 @@ namespace NinjaTrader.NinjaScript.Indicators
 		private Dictionary<string, int> stateTriplets = new Dictionary<string, int>();
 		private Dictionary<string, int> sponsorStateTransitions = new Dictionary<string, int>();
 		private Dictionary<string, int> tripletPrefixCounts = new Dictionary<string, int>();
+		private Dictionary<string, int> incubationQualityBucketTransitions = new Dictionary<string, int>();
 		private Dictionary<string, PersistenceAccumulator> pathPersistenceStats = new Dictionary<string, PersistenceAccumulator>();
 		private Dictionary<string, BirthQualityAccumulator> birthQualityStats = new Dictionary<string, BirthQualityAccumulator>();
 		
+		private string GetIncubationQualityBucket(double value)
+		{
+		    if (value < 0.20)
+		        return "0.00-0.20";
+		
+		    if (value < 0.40)
+		        return "0.20-0.40";
+		
+		    if (value < 0.60)
+		        return "0.40-0.60";
+		
+		    if (value < 0.80)
+		        return "0.60-0.80";
+		
+		    return "0.80-1.00";
+		}
+
 		private void AccumulateBirthQuality(
 		    string entryPath,
 		    int persistenceLength)
@@ -384,6 +402,18 @@ namespace NinjaTrader.NinjaScript.Indicators
 			
 			double meanIncubationQuality =
     			currentRunIncubationQualitySum / priorRunLength;
+			
+			string incubationBucket =
+			GetIncubationQualityBucket(meanIncubationQuality);
+			
+			string incubationBucketKey =
+			    incubationBucket + "|" + transition;
+			
+			if (!incubationQualityBucketTransitions.ContainsKey(incubationBucketKey))
+			    incubationQualityBucketTransitions[incubationBucketKey] = 0;
+			
+			incubationQualityBucketTransitions[incubationBucketKey]++;
+		
 		
 		    precursorCounts[transition]++;
 		    precursorPriorRunLengthSums[transition] += priorRunLength;
@@ -1297,6 +1327,44 @@ namespace NinjaTrader.NinjaScript.Indicators
 		{
 		    return "Instrument,SessionContext,TotalBars,Transition,Entries,MeanPriorRunLength,MedianPriorRunLength,MaxPriorRunLength";
 		}
+		
+		public static string IncubationQualityBucketCsvHeader()
+		{
+		    return "Instrument,SessionContext,TotalBars,Bucket,Transition,Count";
+		}
+
+		public string ToIncubationQualityBucketCsv(
+		    string instrument,
+		    string sessionContext,
+		    int totalBars)
+		{
+		    if (incubationQualityBucketTransitions == null ||
+		        incubationQualityBucketTransitions.Count == 0)
+		        return string.Empty;
+		
+		    System.Text.StringBuilder sb =
+		        new System.Text.StringBuilder();
+		
+		    foreach (var kvp in incubationQualityBucketTransitions)
+		    {
+		        string[] parts = kvp.Key.Split('|');
+		
+		        if (parts.Length != 2)
+		            continue;
+		
+		        sb.AppendLine(string.Format(
+		            CultureInfo.InvariantCulture,
+		            "{0},{1},{2},{3},{4},{5}",
+		            instrument,
+		            sessionContext,
+		            totalBars,
+		            parts[0],
+		            parts[1],
+		            kvp.Value));
+		    }
+		
+		    return sb.ToString();
+		}
 
 		public string ToBirthQualityCsv(
 		    string instrument,
@@ -1451,6 +1519,7 @@ namespace NinjaTrader.NinjaScript.Indicators
 		}
     }
 }
+
 
 
 

@@ -179,6 +179,16 @@ namespace NinjaTrader.NinjaScript.Indicators
 				        GetSessionContext(),
 				        sessionStats.TotalBars));
 				
+				reportWriter.AddReport(
+				    Path.Combine(
+				        indicatorDir,
+				        "xApvaV01IncubationQualityBuckets.csv"),
+				    xApvaV01SessionStats.IncubationQualityBucketCsvHeader(),
+				    () => sessionStats.ToIncubationQualityBucketCsv(
+				        instrumentName,
+				        GetSessionContext(),
+				        sessionStats.TotalBars));
+				
 				reportWriter.DeleteExistingFiles();
 
                 try
