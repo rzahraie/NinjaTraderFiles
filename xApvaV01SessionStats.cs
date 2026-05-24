@@ -68,6 +68,7 @@ namespace NinjaTrader.NinjaScript.Indicators
 		private ApvaMacroState? persistenceOriginState;
 		private ApvaMacroState? persistenceCurrentState;
 		private ApvaSponsorState? previousSponsorState;
+		private ApvaMacroState? previousState3;
 		
 		private Dictionary<ApvaMacroState, List<int>> completedRuns = new Dictionary<ApvaMacroState, List<int>>();
 		private Dictionary<ApvaSponsorState, int> sponsorStateCounts = new Dictionary<ApvaSponsorState, int>();
@@ -96,9 +97,14 @@ namespace NinjaTrader.NinjaScript.Indicators
 		private Dictionary<string, int> sponsorStateTransitions = new Dictionary<string, int>();
 		private Dictionary<string, int> tripletPrefixCounts = new Dictionary<string, int>();
 		private Dictionary<string, int> incubationQualityBucketTransitions = new Dictionary<string, int>();
+		private Dictionary<string, int> stateQuadruplets = new Dictionary<string, int>();
+		private Dictionary<string, int> quadrupletPrefixCounts = new Dictionary<string, int>();
 		private Dictionary<string, PersistenceAccumulator> pathPersistenceStats = new Dictionary<string, PersistenceAccumulator>();
 		private Dictionary<string, BirthQualityAccumulator> birthQualityStats = new Dictionary<string, BirthQualityAccumulator>();
 		private Dictionary<string, TransitionExpectancyAccumulator> transitionExpectancyStats = new Dictionary<string, TransitionExpectancyAccumulator>();
+		
+
+
 		
 		private string GetIncubationQualityBucket(double value)
 		{
@@ -233,23 +239,20 @@ namespace NinjaTrader.NinjaScript.Indicators
 		    persistenceLength = 1;
 		}
 
-		private void AccumulateStatePathStats(
-		    ApvaMacroState currentState)
+		private void AccumulateStatePathStats(ApvaMacroState currentState)
 		{
-		    if (previousState1.HasValue &&
-		        previousState2.HasValue)
+		    if (previousState1.HasValue && previousState2.HasValue)
 		    {
-		        string prefix =
-		            previousState2.Value + "->" +
-		            previousState1.Value;
+		        string tripletPrefix =
+		            previousState2.Value + "->" + previousState1.Value;
 		
 		        string triplet =
-		            prefix + "->" + currentState;
+		            tripletPrefix + "->" + currentState;
 		
-		        if (!tripletPrefixCounts.ContainsKey(prefix))
-		            tripletPrefixCounts[prefix] = 0;
+		        if (!tripletPrefixCounts.ContainsKey(tripletPrefix))
+		            tripletPrefixCounts[tripletPrefix] = 0;
 		
-		        tripletPrefixCounts[prefix]++;
+		        tripletPrefixCounts[tripletPrefix]++;
 		
 		        if (!stateTriplets.ContainsKey(triplet))
 		            stateTriplets[triplet] = 0;
@@ -257,6 +260,30 @@ namespace NinjaTrader.NinjaScript.Indicators
 		        stateTriplets[triplet]++;
 		    }
 		
+		    if (previousState1.HasValue &&
+		        previousState2.HasValue &&
+		        previousState3.HasValue)
+		    {
+		        string quadPrefix =
+		            previousState3.Value + "->" +
+		            previousState2.Value + "->" +
+		            previousState1.Value;
+		
+		        string quadruplet =
+		            quadPrefix + "->" + currentState;
+		
+		        if (!quadrupletPrefixCounts.ContainsKey(quadPrefix))
+		            quadrupletPrefixCounts[quadPrefix] = 0;
+		
+		        quadrupletPrefixCounts[quadPrefix]++;
+		
+		        if (!stateQuadruplets.ContainsKey(quadruplet))
+		            stateQuadruplets[quadruplet] = 0;
+		
+		        stateQuadruplets[quadruplet]++;
+		    }
+		
+		    previousState3 = previousState2;
 		    previousState2 = previousState1;
 		    previousState1 = currentState;
 		}
@@ -1452,6 +1479,93 @@ namespace NinjaTrader.NinjaScript.Indicators
 		           "Bucket,FromState,Transition,Count,ProbabilityPct";
 		}
 
+		public static string StateQuadrupletCsvHeader()
+		{
+		    return "Instrument,SessionContext,TotalBars,Quadruplet,Count";
+		}
+		
+		public static string StateQuadruletProbabilityCsvHeader()
+		{
+		    return "Instrument,SessionContext,TotalBars,Prefix,Quadruplet,Count,ConditionalProbability";
+		}
+		
+		public string ToStateQuadrupletCsv(
+    string instrument,
+    string sessionContext,
+    int totalBars)
+{
+    if (stateQuadruplets == null || stateQuadruplets.Count == 0)
+        return string.Empty;
+
+    System.Text.StringBuilder sb =
+        new System.Text.StringBuilder();
+
+    foreach (var kvp in stateQuadruplets)
+    {
+        sb.AppendLine(string.Format(
+            CultureInfo.InvariantCulture,
+            "{0},{1},{2},{3},{4}",
+            instrument,
+            sessionContext,
+            totalBars,
+            kvp.Key,
+            kvp.Value));
+    }
+
+    return sb.ToString();
+}
+
+		public string ToStateQuadrupletProbabilityCsv(
+		    string instrument,
+		    string sessionContext,
+		    int totalBars)
+		{
+		    if (stateQuadruplets == null || stateQuadruplets.Count == 0)
+		        return string.Empty;
+		
+		    System.Text.StringBuilder sb =
+		        new System.Text.StringBuilder();
+		
+		    foreach (var kvp in stateQuadruplets)
+		    {
+		        string quadruplet = kvp.Key;
+		
+		        string[] parts =
+		            quadruplet.Split(
+		                new string[] { "->" },
+		                StringSplitOptions.None);
+		
+		        if (parts.Length != 4)
+		            continue;
+		
+		        string prefix =
+		            parts[0] + "->" + parts[1] + "->" + parts[2];
+		
+		        int prefixCount =
+		            quadrupletPrefixCounts.ContainsKey(prefix)
+		                ? quadrupletPrefixCounts[prefix]
+		                : 0;
+		
+		        double probability =
+		            prefixCount > 0
+		                ? 100.0 * kvp.Value / prefixCount
+		                : 0.0;
+		
+		        sb.AppendLine(string.Format(
+		            CultureInfo.InvariantCulture,
+		            "{0},{1},{2},{3},{4},{5},{6:F2}",
+		            instrument,
+		            sessionContext,
+		            totalBars,
+		            prefix,
+		            quadruplet,
+		            kvp.Value,
+		            probability));
+		    }
+		
+		    return sb.ToString();
+		}
+
 		public string ToIncubationQualityConditionalProbabilityCsv(
 		    string instrument,
 		    string sessionContext,
@@ -1792,6 +1906,7 @@ namespace NinjaTrader.NinjaScript.Indicators
 		}
     }
 }
+
 
 
 

@@ -221,6 +221,26 @@ namespace NinjaTrader.NinjaScript.Indicators
 				        GetSessionContext(),
 				        sessionStats.TotalBars));
 				
+				reportWriter.AddReport(
+				    Path.Combine(
+				        indicatorDir,
+				        "xApvaV01StateQuadruplets.csv"),
+				    xApvaV01SessionStats.StateQuadrupletCsvHeader(),
+				    () => sessionStats.ToStateQuadrupletCsv(
+				        instrumentName,
+				        GetSessionContext(),
+				        sessionStats.TotalBars));
+				
+				reportWriter.AddReport(
+				    Path.Combine(
+				        indicatorDir,
+				        "xApvaV01StateQuadrupletProbabilities.csv"),
+				    xApvaV01SessionStats.StateQuadruletProbabilityCsvHeader(),
+				    () => sessionStats.ToStateQuadrupletProbabilityCsv(
+				        instrumentName,
+				        GetSessionContext(),
+				        sessionStats.TotalBars));
+				
 				reportWriter.DeleteExistingFiles();
 
                 try
