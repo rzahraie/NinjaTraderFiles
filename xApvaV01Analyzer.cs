@@ -71,7 +71,12 @@ namespace NinjaTrader.NinjaScript.APVA.V01
                 scores,
                 priorState,
 				priorFeatures);
-
+			
+			snapshot.Open = open;
+			snapshot.High = high;
+			snapshot.Low = low;
+			snapshot.Close = close;
+			
             snapshot.Events.AddRange(events);
 
             NormalizeEventMacroCoherence(snapshot);
@@ -170,4 +175,5 @@ namespace NinjaTrader.NinjaScript.APVA.V01
         }
     }
 }
+
 

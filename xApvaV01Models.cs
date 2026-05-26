@@ -221,6 +221,10 @@ namespace NinjaTrader.NinjaScript.APVA.V01
     {
         public int BarIndex { get; set; }
         public DateTime Time { get; set; }
+		public double Open { get; set; }
+		public double High { get; set; }
+		public double Low { get; set; }
+		public double Close { get; set; }
 
 		public double Volume { get; set; }
 		public double VolumeSMA { get; set; }
@@ -283,6 +287,7 @@ namespace NinjaTrader.NinjaScript.APVA.V01
 	    public string Reason { get; set; }
 	}
 }
+
 
 
 

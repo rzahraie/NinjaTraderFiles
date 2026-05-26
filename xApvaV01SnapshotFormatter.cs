@@ -12,6 +12,10 @@ namespace NinjaTrader.NinjaScript.APVA.V01
 		        "SessionContext",
 		        "BarIndex",
 		        "Time",
+				"Open",
+				"High",
+				"Low",
+				"Close",
 		        "MacroState",
 		        "ActiveDirection",
 		        "SponsorState",
@@ -56,6 +60,10 @@ namespace NinjaTrader.NinjaScript.APVA.V01
 				Escape(sessionContext),
                 s.BarIndex.ToString(CultureInfo.InvariantCulture),
                 Escape(s.Time.ToString("yyyy-MM-dd HH:mm:ss", CultureInfo.InvariantCulture)),
+				FormatDouble(s.Open),
+				FormatDouble(s.High),
+				FormatDouble(s.Low),
+				FormatDouble(s.Close),
                 Escape(s.MacroState.ToString()),
                 Escape(s.ActiveDirection.ToString()),
 				Escape(s.SponsorState.ToString()),
@@ -119,6 +127,9 @@ namespace NinjaTrader.NinjaScript.APVA.V01
 		}
     }
 }
+
+
+
 
 
 
