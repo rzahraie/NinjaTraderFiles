@@ -27,7 +27,23 @@ namespace NinjaTrader.NinjaScript.APVA.V01
 		        "Events",
 		        "SFCStatus",
 		        "ExpectedNextBehavior",
-		        "InvalidationCondition");
+		        "InvalidationCondition",
+				"Volume",
+				"VolumeSMA",
+				"RelativeVolume",
+				"VolumeZScore",
+				"BarDirection",
+				"SignedVolume",
+				"UpVolume",
+				"DownVolume",
+				"FlatVolume",
+				"UpDownVolumeDelta",
+				"SpyderDominantVolume",
+				"SpyderNonDominantVolume",
+				"SpyderDominantVolumeShare",
+				"SpyderNonDominantVolumeShare",
+				"SpyderNonDominantColor",
+				"SpyderSplitMethod");
 		}
 
        public static string ToCsv(ApvaStateSnapshot s, string instrument, string sessionContext)
@@ -55,7 +71,23 @@ namespace NinjaTrader.NinjaScript.APVA.V01
 				Escape(FormatEvents(s.Events)),
                 Escape(s.SFCStatus),
                 Escape(s.ExpectedNextBehavior),
-                Escape(s.InvalidationCondition));
+                Escape(s.InvalidationCondition),
+				FormatDouble(s.Volume),
+				FormatDouble(s.VolumeSMA),
+				FormatDouble(s.RelativeVolume),
+				FormatDouble(s.VolumeZScore),
+				Escape(s.BarDirection),
+				FormatDouble(s.SignedVolume),
+				FormatDouble(s.UpVolume),
+				FormatDouble(s.DownVolume),
+				FormatDouble(s.FlatVolume),
+				FormatDouble(s.UpDownVolumeDelta),
+				FormatDouble(s.SpyderDominantVolume),
+				FormatDouble(s.SpyderNonDominantVolume),
+				FormatDouble(s.SpyderDominantVolumeShare),
+				FormatDouble(s.SpyderNonDominantVolumeShare),
+				Escape(s.SpyderNonDominantColor),
+				Escape(s.SpyderSplitMethod));
         }
 
         private static string Escape(string value)
@@ -66,6 +98,11 @@ namespace NinjaTrader.NinjaScript.APVA.V01
             return "\"" + value.Replace("\"", "\"\"") + "\"";
         }
 		
+		private static string FormatDouble(double value)
+		{
+		    return value.ToString("0.##########", CultureInfo.InvariantCulture);
+		}
+
 		private static string FormatEvents(System.Collections.Generic.IEnumerable<ApvaEvent> events)
 		{
 		    if (events == null)

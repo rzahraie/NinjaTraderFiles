@@ -222,6 +222,23 @@ namespace NinjaTrader.NinjaScript.APVA.V01
         public int BarIndex { get; set; }
         public DateTime Time { get; set; }
 
+		public double Volume { get; set; }
+		public double VolumeSMA { get; set; }
+		public double RelativeVolume { get; set; }
+		public double VolumeZScore { get; set; }
+		public string BarDirection { get; set; } = "Flat";
+		public double SignedVolume { get; set; }
+		public double UpVolume { get; set; }
+		public double DownVolume { get; set; }
+		public double FlatVolume { get; set; }
+		public double UpDownVolumeDelta { get; set; }
+		public double SpyderDominantVolume { get; set; }
+		public double SpyderNonDominantVolume { get; set; }
+		public double SpyderDominantVolumeShare { get; set; }
+		public double SpyderNonDominantVolumeShare { get; set; }
+		public string SpyderNonDominantColor { get; set; } = "Unknown";
+		public string SpyderSplitMethod { get; set; } = "PreviousCurrentHighLow_NoPrior";
+
         public ApvaMacroState MacroState { get; set; }
         public ApvaDirection ActiveDirection { get; set; }
 

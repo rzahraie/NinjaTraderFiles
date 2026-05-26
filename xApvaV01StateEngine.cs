@@ -1,12 +1,20 @@
+using System;
+using System.Collections.Generic;
+
 namespace NinjaTrader.NinjaScript.APVA.V01
 {
     public sealed class ApvaV01StateEngine
     {
+		private const int VolumeWindowLength = 20;
+		private readonly Queue<double> volumeWindow = new Queue<double>();
+		private double volumeWindowSum;
+
         public ApvaStateSnapshot BuildSnapshot(
             ApvaBarFeatures features,
             ApvaSequenceState sequence,
             ApvaScores scores,
-            ApvaStateSnapshot priorState)
+            ApvaStateSnapshot priorState,
+			ApvaBarFeatures priorFeatures)
         {
             var snapshot = new ApvaStateSnapshot
             {
@@ -32,6 +40,7 @@ namespace NinjaTrader.NinjaScript.APVA.V01
                     : ApvaDirection.Unknown
             };
 			
+			ComputeVolumeExportFields(snapshot, features, priorFeatures);
 			ComputeEnergyScores(snapshot, features, priorState);
 
             snapshot.MacroState = ClassifyMacroState(snapshot, priorState);
@@ -40,6 +49,178 @@ namespace NinjaTrader.NinjaScript.APVA.V01
             NormalizeMacroState(snapshot);
 			return snapshot;
         }
+
+		public void Reset()
+		{
+			volumeWindow.Clear();
+			volumeWindowSum = 0.0;
+		}
+
+		private void ComputeVolumeExportFields(
+			ApvaStateSnapshot snapshot,
+			ApvaBarFeatures features,
+			ApvaBarFeatures priorFeatures)
+		{
+			if (snapshot == null || features == null)
+				return;
+
+			double volume = features.Volume;
+			snapshot.Volume = volume;
+
+			volumeWindow.Enqueue(volume);
+			volumeWindowSum += volume;
+			if (volumeWindow.Count > VolumeWindowLength)
+				volumeWindowSum -= volumeWindow.Dequeue();
+
+			snapshot.VolumeSMA = volumeWindow.Count > 0
+				? volumeWindowSum / volumeWindow.Count
+				: 0.0;
+			snapshot.RelativeVolume = snapshot.VolumeSMA > 0.0
+				? volume / snapshot.VolumeSMA
+				: 0.0;
+
+			double sampleVariance = 0.0;
+			if (volumeWindow.Count > 1)
+			{
+				foreach (double observedVolume in volumeWindow)
+				sampleVariance += Math.Pow(observedVolume - snapshot.VolumeSMA, 2.0);
+
+				sampleVariance /= volumeWindow.Count - 1;
+			}
+
+			double sampleStdDev = sampleVariance > 0.0
+				? Math.Sqrt(sampleVariance)
+				: 0.0;
+			snapshot.VolumeZScore = sampleStdDev > 0.0
+				? (volume - snapshot.VolumeSMA) / sampleStdDev
+				: 0.0;
+
+			if (features.Close > features.Open)
+			{
+				snapshot.BarDirection = "Up";
+				snapshot.SignedVolume = volume;
+				snapshot.UpVolume = volume;
+			}
+			else if (features.Close < features.Open)
+			{
+				snapshot.BarDirection = "Down";
+				snapshot.SignedVolume = -volume;
+				snapshot.DownVolume = volume;
+			}
+			else
+			{
+				snapshot.BarDirection = "Flat";
+				snapshot.FlatVolume = volume;
+			}
+
+			snapshot.UpDownVolumeDelta = snapshot.UpVolume - snapshot.DownVolume;
+			ComputeSpyderPreviousCurrentHighLow(snapshot, features, priorFeatures);
+		}
+
+		private static void ComputeSpyderPreviousCurrentHighLow(
+			ApvaStateSnapshot snapshot,
+			ApvaBarFeatures features,
+			ApvaBarFeatures priorFeatures)
+		{
+			if (priorFeatures == null)
+			{
+				snapshot.SpyderDominantVolume = snapshot.Volume;
+				snapshot.SpyderNonDominantVolume = 0.0;
+				snapshot.SpyderDominantVolumeShare = 1.0;
+				snapshot.SpyderNonDominantVolumeShare = 0.0;
+				snapshot.SpyderNonDominantColor = "Unknown";
+				snapshot.SpyderSplitMethod = "PreviousCurrentHighLow_NoPrior";
+				return;
+			}
+
+			double dominantLegDistance = Math.Max(0.0, Math.Abs(features.High - features.Low));
+			double nonDominantLegDistance = 0.0;
+			string nonDominantColor;
+
+			if (features.High > priorFeatures.High && features.Low > priorFeatures.Low)
+			{
+				nonDominantLegDistance = priorFeatures.High - features.Low;
+				nonDominantColor = "Red";
+			}
+			else if (features.High < priorFeatures.High && features.Low < priorFeatures.Low)
+			{
+				nonDominantLegDistance = features.High - priorFeatures.Low;
+				nonDominantColor = "Black";
+			}
+			else if (features.High > priorFeatures.High && features.Low == priorFeatures.Low)
+			{
+				nonDominantLegDistance = priorFeatures.High - features.Low;
+				nonDominantColor = "Black";
+			}
+			else if (features.High == priorFeatures.High && features.Low < priorFeatures.Low)
+			{
+				nonDominantLegDistance = features.High - priorFeatures.Low;
+				nonDominantColor = "Red";
+			}
+			else if (features.High == priorFeatures.High && features.Low > priorFeatures.Low)
+			{
+				nonDominantLegDistance = priorFeatures.High - features.Low;
+				nonDominantColor = "Red";
+			}
+			else if (features.High < priorFeatures.High && features.Low == priorFeatures.Low)
+			{
+				nonDominantLegDistance = features.High - priorFeatures.Low;
+				nonDominantColor = "Black";
+			}
+			else if (features.High < priorFeatures.High && features.Low > priorFeatures.Low)
+			{
+				if (features.Close > features.Open)
+				{
+					nonDominantLegDistance = priorFeatures.High - features.Low;
+					nonDominantColor = "Red";
+				}
+				else
+				{
+					nonDominantLegDistance = features.High - priorFeatures.Low;
+					nonDominantColor = "Black";
+				}
+			}
+			else if (features.High > priorFeatures.High && features.Low < priorFeatures.Low &&
+				features.Close >= priorFeatures.Close)
+			{
+				nonDominantLegDistance = priorFeatures.High - features.Low;
+				nonDominantColor = "Red";
+			}
+			else if (features.High > priorFeatures.High && features.Low < priorFeatures.Low)
+			{
+				nonDominantLegDistance = features.High - priorFeatures.Low;
+				nonDominantColor = "Black";
+			}
+			else
+			{
+				nonDominantColor = features.Close < features.Open ? "Red" : "Black";
+			}
+
+			nonDominantLegDistance = Math.Max(0.0, nonDominantLegDistance);
+			double totalDistance = dominantLegDistance + nonDominantLegDistance;
+
+			if (totalDistance <= 0.0)
+			{
+				snapshot.SpyderDominantVolume = snapshot.Volume;
+				snapshot.SpyderNonDominantVolume = 0.0;
+			}
+			else
+			{
+				snapshot.SpyderNonDominantVolume =
+					snapshot.Volume * nonDominantLegDistance / totalDistance;
+				snapshot.SpyderDominantVolume =
+					snapshot.Volume * dominantLegDistance / totalDistance;
+			}
+
+			snapshot.SpyderDominantVolumeShare = snapshot.Volume > 0.0
+				? snapshot.SpyderDominantVolume / snapshot.Volume
+				: 0.0;
+			snapshot.SpyderNonDominantVolumeShare = snapshot.Volume > 0.0
+				? snapshot.SpyderNonDominantVolume / snapshot.Volume
+				: 0.0;
+			snapshot.SpyderNonDominantColor = nonDominantColor;
+			snapshot.SpyderSplitMethod = "PreviousCurrentHighLow";
+		}
 
 		private static void ComputeEnergyScores(
 		    ApvaStateSnapshot snapshot,

@@ -69,7 +69,8 @@ namespace NinjaTrader.NinjaScript.APVA.V01
                 features,
                 activeSequence,
                 scores,
-                priorState);
+                priorState,
+				priorFeatures);
 
             snapshot.Events.AddRange(events);
 
@@ -163,6 +164,7 @@ namespace NinjaTrader.NinjaScript.APVA.V01
             activeSequence = null;
             priorState = null;
             priorScores = new ApvaScores();
+			stateEngine.Reset();
 
             landmarkStore.Clear();
         }
