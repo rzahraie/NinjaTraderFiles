@@ -1,5 +1,6 @@
 #region Using declarations
 using System;
+using System.ComponentModel.DataAnnotations;
 using System.IO;
 using NinjaTrader.NinjaScript.APVA.V01;
 #endregion
@@ -14,6 +15,14 @@ namespace NinjaTrader.NinjaScript.Indicators
         private bool headerWritten;
 		private bool summaryPrinted;
 		private xApvaV01CsvReportWriter reportWriter;
+
+		[NinjaScriptProperty]
+		[Display(Name = "OutputRoot", Order = 100, GroupName = "Export")]
+		public string OutputRoot { get; set; }
+
+		[NinjaScriptProperty]
+		[Display(Name = "ExportTag", Order = 101, GroupName = "Export")]
+		public string ExportTag { get; set; }
 		
         protected override void OnStateChange()
         {
@@ -27,6 +36,12 @@ namespace NinjaTrader.NinjaScript.Indicators
                 DrawOnPricePanel = false;
                 PaintPriceMarkers = false;
                 IsSuspendedWhileInactive = true;
+				OutputRoot = Path.Combine(
+				    Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments),
+				    "ApvaAnalysis",
+				    "data",
+				    "Validation");
+				ExportTag = "";
             }
             else if (State == State.Configure)
             {
@@ -37,16 +52,23 @@ namespace NinjaTrader.NinjaScript.Indicators
                 string instrumentName = Instrument != null && Instrument.MasterInstrument != null ? Instrument.MasterInstrument.Name : "UnknownInstrument";
 
 				string safeInstrumentName = MakeSafeFileName(instrumentName);
-				
-				string indicatorDir = Path.Combine(
-				    NinjaTrader.Core.Globals.UserDataDir,
-				    "bin",
-				    "Custom",
-				    "Indicators");
+
+				string tag = string.IsNullOrWhiteSpace(ExportTag)
+				    ? ""
+				    : ExportTag.Trim();
+
+				string rawInstrumentDir = Path.Combine(OutputRoot, safeInstrumentName);
+				string reportsDir = Path.Combine(OutputRoot, "Reports");
+				string reportSuffix = "_" + safeInstrumentName + tag + ".csv";
+
+				Directory.CreateDirectory(rawInstrumentDir);
+				Directory.CreateDirectory(reportsDir);
 				
 				outputPath = Path.Combine(
-				    indicatorDir,
-				    "xApvaV01StateLog_" + safeInstrumentName + ".csv");
+				    rawInstrumentDir,
+				    "xApvaV01StateLog_" + safeInstrumentName + tag + ".csv");
+
+				Print("xApvaV01StateLogger outputPath: " + outputPath);
 
                 headerWritten = false;
 				
@@ -55,13 +77,13 @@ namespace NinjaTrader.NinjaScript.Indicators
 				reportWriter = new xApvaV01CsvReportWriter();
 
 				reportWriter.AddReport(
-				    Path.Combine(indicatorDir, "xApvaV01SessionStats.csv"),
+				    Path.Combine(reportsDir, "xApvaV01SessionStats" + reportSuffix),
 				    xApvaV01SessionStats.CsvHeader(),
 				    () => sessionStats.ToCsvSummary(instrumentName, GetSessionContext())
 				        + Environment.NewLine);
 				
 				reportWriter.AddReport(
-				    Path.Combine(indicatorDir, "xApvaV01Transitions.csv"),
+				    Path.Combine(reportsDir, "xApvaV01Transitions" + reportSuffix),
 				    xApvaV01SessionStats.TransitionCsvHeader(),
 				    () => sessionStats.ToTransitionCsv(
 				        instrumentName,
@@ -69,7 +91,7 @@ namespace NinjaTrader.NinjaScript.Indicators
 				        sessionStats.TotalBars));
 				
 				reportWriter.AddReport(
-				    Path.Combine(indicatorDir, "xApvaV01TransitionProbabilities.csv"),
+				    Path.Combine(reportsDir, "xApvaV01TransitionProbabilities" + reportSuffix),
 				    xApvaV01SessionStats.TransitionProbabilityCsvHeader(),
 				    () => sessionStats.ToTransitionProbabilityCsv(
 				        instrumentName,
@@ -77,7 +99,7 @@ namespace NinjaTrader.NinjaScript.Indicators
 				        sessionStats.TotalBars));
 				
 				reportWriter.AddReport(
-				    Path.Combine(indicatorDir, "xApvaV01RunLengths.csv"),
+				    Path.Combine(reportsDir, "xApvaV01RunLengths" + reportSuffix),
 				    xApvaV01SessionStats.RunLengthCsvHeader(),
 				    () => sessionStats.ToRunLengthCsv(
 				        instrumentName,
@@ -85,7 +107,7 @@ namespace NinjaTrader.NinjaScript.Indicators
 				        sessionStats.TotalBars));
 				
 				reportWriter.AddReport(
-				    Path.Combine(indicatorDir, "xApvaV01EntryStats.csv"),
+				    Path.Combine(reportsDir, "xApvaV01EntryStats" + reportSuffix),
 				    xApvaV01SessionStats.EntryStatsCsvHeader(),
 				    () => sessionStats.ToEntryStatsCsv(
 				        instrumentName,
@@ -93,7 +115,7 @@ namespace NinjaTrader.NinjaScript.Indicators
 				        sessionStats.TotalBars));
 				
 				reportWriter.AddReport(
-				    Path.Combine(indicatorDir, "xApvaV01DurationBucketTransitions.csv"),
+				    Path.Combine(reportsDir, "xApvaV01DurationBucketTransitions" + reportSuffix),
 				    xApvaV01SessionStats.DurationBucketTransitionCsvHeader(),
 				    () => sessionStats.ToDurationBucketTransitionCsv(
 				        instrumentName,
@@ -101,7 +123,7 @@ namespace NinjaTrader.NinjaScript.Indicators
 				        sessionStats.TotalBars));
 				
 				reportWriter.AddReport(
-				    Path.Combine(indicatorDir, "xApvaV01DurationBucketProbabilities.csv"),
+				    Path.Combine(reportsDir, "xApvaV01DurationBucketProbabilities" + reportSuffix),
 				    xApvaV01SessionStats.DurationBucketProbabilityCsvHeader(),
 				    () => sessionStats.ToDurationBucketProbabilityCsv(
 				        instrumentName,
@@ -109,7 +131,7 @@ namespace NinjaTrader.NinjaScript.Indicators
 				        sessionStats.TotalBars));
 				
 				reportWriter.AddReport(
-				    Path.Combine(indicatorDir, "xApvaV01PrecursorStats.csv"),
+				    Path.Combine(reportsDir, "xApvaV01PrecursorStats" + reportSuffix),
 				    xApvaV01SessionStats.PrecursorStatsCsvHeader(),
 				    () => sessionStats.ToPrecursorStatsCsv(
 				        instrumentName,
@@ -117,7 +139,7 @@ namespace NinjaTrader.NinjaScript.Indicators
 				        sessionStats.TotalBars));
 				
 				reportWriter.AddReport(
-				    Path.Combine(indicatorDir, "xApvaV01HazardRates.csv"),
+				    Path.Combine(reportsDir, "xApvaV01HazardRates" + reportSuffix),
 				    xApvaV01SessionStats.HazardCsvHeader(),
 				    () => sessionStats.ToHazardCsv(
 				        instrumentName,
@@ -125,7 +147,7 @@ namespace NinjaTrader.NinjaScript.Indicators
 				        sessionStats.TotalBars));
 				
 				reportWriter.AddReport(
-				    Path.Combine(indicatorDir, "xApvaV01SponsorStates.csv"),
+				    Path.Combine(reportsDir, "xApvaV01SponsorStates" + reportSuffix),
 				    xApvaV01SessionStats.SponsorStateCsvHeader(),
 				    () => sessionStats.ToSponsorStateCsv(
 				        instrumentName,
@@ -133,7 +155,7 @@ namespace NinjaTrader.NinjaScript.Indicators
 				        sessionStats.TotalBars));
 				
 				reportWriter.AddReport(
-				    Path.Combine(indicatorDir, "xApvaV01SponsorTransitions.csv"),
+				    Path.Combine(reportsDir, "xApvaV01SponsorTransitions" + reportSuffix),
 				    xApvaV01SessionStats.SponsorTransitionCsvHeader(),
 				    () => sessionStats.ToSponsorTransitionCsv(
 				        instrumentName,
@@ -141,7 +163,7 @@ namespace NinjaTrader.NinjaScript.Indicators
 				        sessionStats.TotalBars));
 				
 				reportWriter.AddReport(
-				    Path.Combine(indicatorDir, "xApvaV01StateTriplets.csv"),
+				    Path.Combine(reportsDir, "xApvaV01StateTriplets" + reportSuffix),
 				    xApvaV01SessionStats.StateTripletCsvHeader(),
 				    () => sessionStats.ToStateTripletCsv(
 				        instrumentName,
@@ -150,8 +172,8 @@ namespace NinjaTrader.NinjaScript.Indicators
 				
 				reportWriter.AddReport(
 				    Path.Combine(
-				        indicatorDir,
-				        "xApvaV01StateTripletProbabilities.csv"),
+				        reportsDir,
+				        "xApvaV01StateTripletProbabilities" + reportSuffix),
 				    xApvaV01SessionStats
 				        .StateTripletProbabilityCsvHeader(),
 				    () => sessionStats.ToStateTripletProbabilityCsv(
@@ -161,8 +183,8 @@ namespace NinjaTrader.NinjaScript.Indicators
 				
 				reportWriter.AddReport(
 				    Path.Combine(
-				        indicatorDir,
-				        "xApvaV01PersistenceStats.csv"),
+				        reportsDir,
+				        "xApvaV01PersistenceStats" + reportSuffix),
 				    xApvaV01SessionStats.PersistenceCsvHeader(),
 				    () => sessionStats.ToPersistenceCsv(
 				        instrumentName,
@@ -171,8 +193,8 @@ namespace NinjaTrader.NinjaScript.Indicators
 				
 				reportWriter.AddReport(
 				    Path.Combine(
-				        indicatorDir,
-				        "xApvaV01BirthQuality.csv"),
+				        reportsDir,
+				        "xApvaV01BirthQuality" + reportSuffix),
 				    xApvaV01SessionStats.BirthQualityCsvHeader(),
 				    () => sessionStats.ToBirthQualityCsv(
 				        instrumentName,
@@ -181,8 +203,8 @@ namespace NinjaTrader.NinjaScript.Indicators
 				
 				reportWriter.AddReport(
 				    Path.Combine(
-				        indicatorDir,
-				        "xApvaV01IncubationQualityBuckets.csv"),
+				        reportsDir,
+				        "xApvaV01IncubationQualityBuckets" + reportSuffix),
 				    xApvaV01SessionStats.IncubationQualityBucketCsvHeader(),
 				    () => sessionStats.ToIncubationQualityBucketCsv(
 				        instrumentName,
@@ -191,8 +213,8 @@ namespace NinjaTrader.NinjaScript.Indicators
 				
 				reportWriter.AddReport(
 				    Path.Combine(
-				        indicatorDir,
-				        "xApvaV01IncubationQualityBucketProbabilities.csv"),
+				        reportsDir,
+				        "xApvaV01IncubationQualityBucketProbabilities" + reportSuffix),
 				    xApvaV01SessionStats.IncubationQualityBucketProbabilityCsvHeader(),
 				    () => sessionStats.ToIncubationQualityBucketProbabilityCsv(
 				        instrumentName,
@@ -201,8 +223,8 @@ namespace NinjaTrader.NinjaScript.Indicators
 				
 				reportWriter.AddReport(
 				    Path.Combine(
-				        indicatorDir,
-				        "xApvaV01IncubationQualityConditionalProbabilities.csv"),
+				        reportsDir,
+				        "xApvaV01IncubationQualityConditionalProbabilities" + reportSuffix),
 				    xApvaV01SessionStats
 				        .IncubationQualityConditionalProbabilityCsvHeader(),
 				    () => sessionStats
@@ -213,8 +235,8 @@ namespace NinjaTrader.NinjaScript.Indicators
 				
 				reportWriter.AddReport(
 				    Path.Combine(
-				        indicatorDir,
-				        "xApvaV01TransitionExpectancy.csv"),
+				        reportsDir,
+				        "xApvaV01TransitionExpectancy" + reportSuffix),
 				    xApvaV01SessionStats.TransitionExpectancyCsvHeader(),
 				    () => sessionStats.ToTransitionExpectancyCsv(
 				        instrumentName,
@@ -223,8 +245,8 @@ namespace NinjaTrader.NinjaScript.Indicators
 				
 				reportWriter.AddReport(
 				    Path.Combine(
-				        indicatorDir,
-				        "xApvaV01StateQuadruplets.csv"),
+				        reportsDir,
+				        "xApvaV01StateQuadruplets" + reportSuffix),
 				    xApvaV01SessionStats.StateQuadrupletCsvHeader(),
 				    () => sessionStats.ToStateQuadrupletCsv(
 				        instrumentName,
@@ -233,8 +255,8 @@ namespace NinjaTrader.NinjaScript.Indicators
 				
 				reportWriter.AddReport(
 				    Path.Combine(
-				        indicatorDir,
-				        "xApvaV01StateQuadrupletProbabilities.csv"),
+				        reportsDir,
+				        "xApvaV01StateQuadrupletProbabilities" + reportSuffix),
 				    xApvaV01SessionStats.StateQuadruletProbabilityCsvHeader(),
 				    () => sessionStats.ToStateQuadrupletProbabilityCsv(
 				        instrumentName,
@@ -337,18 +359,18 @@ namespace NinjaTrader.NinjaScript.Indicators
 	public partial class Indicator : NinjaTrader.Gui.NinjaScript.IndicatorRenderBase
 	{
 		private xApvaV01StateLogger[] cachexApvaV01StateLogger;
-		public xApvaV01StateLogger xApvaV01StateLogger()
+		public xApvaV01StateLogger xApvaV01StateLogger(string outputRoot, string exportTag)
 		{
-			return xApvaV01StateLogger(Input);
+			return xApvaV01StateLogger(Input, outputRoot, exportTag);
 		}
 
-		public xApvaV01StateLogger xApvaV01StateLogger(ISeries<double> input)
+		public xApvaV01StateLogger xApvaV01StateLogger(ISeries<double> input, string outputRoot, string exportTag)
 		{
 			if (cachexApvaV01StateLogger != null)
 				for (int idx = 0; idx < cachexApvaV01StateLogger.Length; idx++)
-					if (cachexApvaV01StateLogger[idx] != null &&  cachexApvaV01StateLogger[idx].EqualsInput(input))
+					if (cachexApvaV01StateLogger[idx] != null && cachexApvaV01StateLogger[idx].OutputRoot == outputRoot && cachexApvaV01StateLogger[idx].ExportTag == exportTag && cachexApvaV01StateLogger[idx].EqualsInput(input))
 						return cachexApvaV01StateLogger[idx];
-			return CacheIndicator<xApvaV01StateLogger>(new xApvaV01StateLogger(), input, ref cachexApvaV01StateLogger);
+			return CacheIndicator<xApvaV01StateLogger>(new xApvaV01StateLogger(){ OutputRoot = outputRoot, ExportTag = exportTag }, input, ref cachexApvaV01StateLogger);
 		}
 	}
 }
@@ -357,14 +379,14 @@ namespace NinjaTrader.NinjaScript.MarketAnalyzerColumns
 {
 	public partial class MarketAnalyzerColumn : MarketAnalyzerColumnBase
 	{
-		public Indicators.xApvaV01StateLogger xApvaV01StateLogger()
+		public Indicators.xApvaV01StateLogger xApvaV01StateLogger(string outputRoot, string exportTag)
 		{
-			return indicator.xApvaV01StateLogger(Input);
+			return indicator.xApvaV01StateLogger(Input, outputRoot, exportTag);
 		}
 
-		public Indicators.xApvaV01StateLogger xApvaV01StateLogger(ISeries<double> input )
+		public Indicators.xApvaV01StateLogger xApvaV01StateLogger(ISeries<double> input , string outputRoot, string exportTag)
 		{
-			return indicator.xApvaV01StateLogger(input);
+			return indicator.xApvaV01StateLogger(input, outputRoot, exportTag);
 		}
 	}
 }
@@ -373,14 +395,14 @@ namespace NinjaTrader.NinjaScript.Strategies
 {
 	public partial class Strategy : NinjaTrader.Gui.NinjaScript.StrategyRenderBase
 	{
-		public Indicators.xApvaV01StateLogger xApvaV01StateLogger()
+		public Indicators.xApvaV01StateLogger xApvaV01StateLogger(string outputRoot, string exportTag)
 		{
-			return indicator.xApvaV01StateLogger(Input);
+			return indicator.xApvaV01StateLogger(Input, outputRoot, exportTag);
 		}
 
-		public Indicators.xApvaV01StateLogger xApvaV01StateLogger(ISeries<double> input )
+		public Indicators.xApvaV01StateLogger xApvaV01StateLogger(ISeries<double> input , string outputRoot, string exportTag)
 		{
-			return indicator.xApvaV01StateLogger(input);
+			return indicator.xApvaV01StateLogger(input, outputRoot, exportTag);
 		}
 	}
 }

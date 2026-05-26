@@ -122,6 +122,8 @@ namespace NinjaTrader.NinjaScript.APVA.V01
 			ApvaBarFeatures features,
 			ApvaBarFeatures priorFeatures)
 		{
+			// This is a deterministic price-geometry weighted volume proxy inspired by
+			// xSplitVolumeV3 PreviousCurrentHighLow. It is not true bid/ask split volume.
 			if (priorFeatures == null)
 			{
 				snapshot.SpyderDominantVolume = snapshot.Volume;
