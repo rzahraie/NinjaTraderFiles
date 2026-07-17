@@ -1,5 +1,6 @@
 #region Using declarations
 using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.Globalization;
@@ -9,6 +10,7 @@ using NinjaTrader.Data;
 using NinjaTrader.Gui.Tools;
 using NinjaTrader.NinjaScript;
 using NinjaTrader.NinjaScript.DrawingTools;
+using NinjaTrader.NinjaScript.Indicators.xPvaDrawingRecorder;
 using NinjaTrader.NinjaScript.Indicators.xPvaOrderFlow;
 using NinjaTrader.NinjaScript.Indicators.xPvaTradeJournal;
 #endregion
@@ -143,6 +145,7 @@ namespace NinjaTrader.NinjaScript.Indicators.xPvaTradeJournal
 				AppendPriceBars(json, contextBars);
 				AppendOrderFlowContext(json);
 				AppendFeatureContext(json);
+				AppendDrawingContext(json, snapshot.TimestampUtc);
 				json.Append(",\"evidence\":{\"available\":false,\"message\":\"xPvaOrderFlowEvidence has no shared registry in this build\"}");
 				json.Append("}");
 				snapshot.ContextAvailable = true;
@@ -155,6 +158,45 @@ namespace NinjaTrader.NinjaScript.Indicators.xPvaTradeJournal
 				snapshot.Json = BuildUnavailableJson(ex.Message);
 			}
 			return snapshot;
+		}
+
+		private void AppendDrawingContext(StringBuilder json, DateTime timestampUtc)
+		{
+			IReadOnlyList<xPvaDrawingSnapshot> drawings;
+			bool available = xPvaDrawingRegistry.TryGetActiveDrawings(InstrumentFullName, timestampUtc, out drawings);
+			json.Append(",\"drawings\":{\"available\":").Append(available ? "true" : "false");
+			json.Append(",\"items\":[");
+			if (drawings != null)
+			{
+				for (int i = 0; i < drawings.Count; i++)
+				{
+					xPvaDrawingSnapshot drawing = drawings[i];
+					if (i > 0) json.Append(',');
+					json.Append("{\"drawingId\":\"").Append(EscapeJson(drawing.DrawingId)).Append("\"");
+					json.Append(",\"revision\":").Append(drawing.Revision.ToString(CultureInfo.InvariantCulture));
+					json.Append(",\"role\":\"").Append(drawing.Role).Append("\"");
+					json.Append(",\"structuralLevel\":\"").Append(drawing.StructuralLevel).Append("\"");
+					json.Append(",\"drawingToolType\":\"").Append(EscapeJson(drawing.DrawingToolType)).Append("\"");
+					AppendDrawingAnchor(json, "anchor1", drawing.Anchor1);
+					AppendDrawingAnchor(json, "anchor2", drawing.Anchor2);
+					AppendDrawingAnchor(json, "anchor3", drawing.Anchor3);
+					json.Append('}');
+				}
+			}
+			json.Append("]}");
+		}
+
+		private void AppendDrawingAnchor(StringBuilder json, string name, xPvaDrawingAnchor anchor)
+		{
+			json.Append(",\"").Append(name).Append("\":");
+			if (anchor == null)
+			{
+				json.Append("null");
+				return;
+			}
+			json.Append("{\"timeUtc\":\"").Append(anchor.TimeUtc.ToString("o", CultureInfo.InvariantCulture)).Append("\"");
+			json.Append(",\"price\":").Append(anchor.Price.ToString(CultureInfo.InvariantCulture));
+			json.Append(",\"barIndexAtCapture\":").Append(anchor.BarIndexAtCapture.ToString(CultureInfo.InvariantCulture)).Append('}');
 		}
 
 		private void AppendPriceBars(StringBuilder json, int contextBars)
