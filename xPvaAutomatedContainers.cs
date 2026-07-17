@@ -4,6 +4,8 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.Globalization;
+using System.IO;
+using System.Text;
 using NinjaTrader.Gui.Chart;
 using NinjaTrader.NinjaScript;
 using NinjaTrader.NinjaScript.xPva.Engine;
@@ -182,22 +184,49 @@ namespace NinjaTrader.NinjaScript.Indicators
             public bool IsValid;
         }
 
+        private sealed class ContainerExportEvent
+        {
+            public int EventId;
+            public int Bar;
+            public string EventType;
+            public int ContainerId;
+            public readonly List<int> RelatedContainerIds = new List<int>();
+            public int Level;
+            public string Reason;
+            public string Details;
+        }
+
+        private sealed class ExportWarning
+        {
+            public int WarningId;
+            public int Bar;
+            public int ContainerId;
+            public string WarningType;
+            public string Severity;
+            public string Message;
+        }
+
         private xPvaDiscreteEventEngine eventEngine;
         private readonly List<AnalyzedBar> analyzedBars = new List<AnalyzedBar>();
         private readonly List<PriceContainer> containers = new List<PriceContainer>();
         private readonly List<StructuralLineageJoin> structuralLineageJoins = new List<StructuralLineageJoin>();
         private readonly List<RenderSegment> renderSegments = new List<RenderSegment>();
         private readonly List<string> debugEvents = new List<string>();
+        private readonly List<ContainerExportEvent> exportEvents = new List<ContainerExportEvent>();
         private readonly List<PriceContainer> containersFrozenThisBar = new List<PriceContainer>();
         private PendingTape pendingTape;
         private LateralFormation lateral;
         private int nextContainerId;
         private int nextLineageId;
         private int nextStructuralLineageJoinId;
+        private int nextExportEventId;
+        private int resolvedLateralBar;
+        private int resolvedLateralOrigin;
         private int lastBuiltStart = -1;
         private int lastBuiltEnd = -1;
         private bool lastDebugMode;
         private bool lastEnableLineageJoins;
+        private string lastJsonExportSignature;
         private SharpDX.Direct2D1.Brush upBrushDx;
         private SharpDX.Direct2D1.Brush downBrushDx;
         private StrokeStyle dashStrokeStyle;
@@ -220,6 +249,26 @@ namespace NinjaTrader.NinjaScript.Indicators
         [Display(Name = "Enable Lineage Joins", GroupName = "Debug", Order = 4)]
         public bool EnableLineageJoins { get; set; }
 
+        [NinjaScriptProperty]
+        [Display(Name = "Export JSON", GroupName = "Export", Order = 1)]
+        public bool ExportJson { get; set; }
+
+        [NinjaScriptProperty]
+        [Display(Name = "JSON Export Folder", GroupName = "Export", Order = 2)]
+        public string JsonExportFolder { get; set; }
+
+        [NinjaScriptProperty]
+        [Display(Name = "JSON File Name", GroupName = "Export", Order = 3)]
+        public string JsonFileName { get; set; }
+
+        [NinjaScriptProperty]
+        [Display(Name = "Export On Every Bar", GroupName = "Export", Order = 4)]
+        public bool ExportOnEveryBar { get; set; }
+
+        [NinjaScriptProperty]
+        [Display(Name = "Debug Export", GroupName = "Export", Order = 5)]
+        public bool DebugExport { get; set; }
+
         protected override void OnStateChange()
         {
             if (State == State.SetDefaults)
@@ -236,6 +285,11 @@ namespace NinjaTrader.NinjaScript.Indicators
                 EnableLineageJoins = false;
                 StartBar = 0;
                 EndBar = 0;
+                ExportJson = false;
+                JsonExportFolder = @"C:\Users\rz0\Documents\ApvaAnalysis\ContainerJSON";
+                JsonFileName = string.Empty;
+                ExportOnEveryBar = false;
+                DebugExport = false;
             }
             else if (State == State.DataLoaded)
             {
@@ -370,6 +424,7 @@ namespace NinjaTrader.NinjaScript.Indicators
 
             RebuildRenderSegments();
             ValidateHierarchy();
+            MaybeExportJson(start, end);
 
             if (Debug)
             {
@@ -385,11 +440,15 @@ namespace NinjaTrader.NinjaScript.Indicators
             structuralLineageJoins.Clear();
             renderSegments.Clear();
             debugEvents.Clear();
+            exportEvents.Clear();
             pendingTape = new PendingTape();
             lateral = new LateralFormation();
             nextContainerId = 1;
             nextLineageId = 1;
             nextStructuralLineageJoinId = 1;
+            nextExportEventId = 1;
+            resolvedLateralBar = -1;
+            resolvedLateralOrigin = -1;
         }
 
         private void SeedReplayStart(AnalyzedBar bar)
@@ -578,6 +637,8 @@ namespace NinjaTrader.NinjaScript.Indicators
             if (direction == ContainerDirection.Unknown)
                 return;
 
+            direction = ResolvePendingConstructionDirection(bar, direction);
+
             LogV2ShadowDecision(bar, direction);
 
             int resolvedOrigin = ResolveOriginBar(bar);
@@ -684,9 +745,159 @@ namespace NinjaTrader.NinjaScript.Indicators
             PriceContainer created = CreateContainer(origin, bar.Bar, direction, level, "created from " + bar.Relation);
             InheritBrokenChildParentScope(created, broken, bar);
             AttachContainedChildren(created);
-            TryJoinTriads(created);
+            PriceContainer rolloverParent = TryJoinFrozenParentTerminalTriad(created, bar);
+            TryJoinTriads(rolloverParent ?? created);
 
             pendingTape = new PendingTape { StartBar = bar.Bar };
+        }
+
+        private ContainerDirection ResolvePendingConstructionDirection(AnalyzedBar bar, ContainerDirection fallback)
+        {
+            if (bar == null || pendingTape.StartBar < 0 || pendingTape.StartBar >= bar.Bar - 1)
+                return fallback;
+
+            AnalyzedBar start = GetAnalyzed(pendingTape.StartBar);
+            if (start == null)
+                return fallback;
+
+            bool upValid = IsValidTwoPointConstruction(start, bar, ContainerDirection.Up);
+            bool downValid = IsValidTwoPointConstruction(start, bar, ContainerDirection.Down);
+            if (upValid == downValid)
+                return fallback;
+
+            ContainerDirection resolved = upValid ? ContainerDirection.Up : ContainerDirection.Down;
+            if (resolved != fallback)
+            {
+                LogDebug(bar.Bar,
+                    "pending construction direction resolved from origin " + pendingTape.StartBar
+                    + ": local=" + fallback
+                    + " aggregate=" + resolved);
+            }
+            return resolved;
+        }
+
+        private PriceContainer TryJoinFrozenParentTerminalTriad(PriceContainer created, AnalyzedBar bar)
+        {
+            if (!EnableLineageJoins || created == null || created.ParentId != 0)
+                return null;
+
+            PriceContainer bestLeft = null;
+            PriceContainer bestMiddle = null;
+            PriceContainer bestBrokenParent = null;
+            string bestReject = "no terminal joined pair";
+
+            foreach (PriceContainer frozenParent in containersFrozenThisBar)
+            {
+                if (frozenParent == null || frozenParent.Status != ContainerStatus.Broken)
+                    continue;
+                if (frozenParent.ParentId != created.ParentId || frozenParent.Direction == created.Direction)
+                    continue;
+                if (string.IsNullOrEmpty(frozenParent.Reason)
+                    || !frozenParent.Reason.StartsWith("joined triad ", StringComparison.Ordinal))
+                    continue;
+
+                var joinedChildren = new List<PriceContainer>();
+                foreach (int childId in frozenParent.ChildIds)
+                {
+                    PriceContainer child = FindContainer(childId);
+                    if (child == null || child.ParentId != frozenParent.Id || child.Status == ContainerStatus.Broken)
+                        continue;
+                    joinedChildren.Add(child);
+                }
+
+                joinedChildren.Sort((a, b) =>
+                {
+                    int startCompare = a.StartBar.CompareTo(b.StartBar);
+                    return startCompare != 0 ? startCompare : a.Id.CompareTo(b.Id);
+                });
+
+                for (int i = 0; i < joinedChildren.Count - 1; i++)
+                {
+                    PriceContainer left = joinedChildren[i];
+                    PriceContainer middle = joinedChildren[i + 1];
+                    if (left.Direction != created.Direction || middle.Direction == created.Direction)
+                        continue;
+                    if (left.Status != ContainerStatus.Joined)
+                        continue;
+                    if (middle.Status != ContainerStatus.Joined
+                        && middle.Status != ContainerStatus.Active
+                        && middle.Status != ContainerStatus.Adjusted)
+                        continue;
+                    if (!(left.StartBar < middle.StartBar && middle.StartBar < created.StartBar))
+                        continue;
+
+                    string rejectReason;
+                    if (!CanJoinFrozenParentTerminalContainers(left, middle, created, out rejectReason))
+                    {
+                        bestReject = rejectReason;
+                        continue;
+                    }
+
+                    if (bestLeft == null || middle.StartBar > bestMiddle.StartBar)
+                    {
+                        bestLeft = left;
+                        bestMiddle = middle;
+                        bestBrokenParent = frozenParent;
+                    }
+                }
+            }
+
+            if (bestLeft == null || bestMiddle == null)
+            {
+                if (containersFrozenThisBar.Count > 0)
+                    LogDebug(bar.Bar, "frozen-parent terminal join not applied: new=" + created.Id + " reason=" + bestReject);
+                return null;
+            }
+
+            int parentLevel = Math.Min(created.Level, Math.Min(bestLeft.Level, bestMiddle.Level));
+            PriceContainer joined = CreateJoinedParent(bestLeft, bestMiddle, created, false, parentLevel, created.ParentId);
+            if (joined != null)
+            {
+                LogDebug(bar.Bar,
+                    "frozen-parent terminal join accepted: parent=" + joined.Id
+                    + " children=" + bestLeft.Id + "," + bestMiddle.Id + "," + created.Id
+                    + " brokenParent=" + bestBrokenParent.Id);
+            }
+
+            return joined;
+        }
+
+        private bool CanJoinFrozenParentTerminalContainers(PriceContainer left, PriceContainer middle, PriceContainer right, out string rejectReason)
+        {
+            rejectReason = "";
+            if (!IsAlternatingTriad(left, middle, right))
+            {
+                rejectReason = "not alternating";
+                return false;
+            }
+            if (!(left.StartBar < middle.StartBar && middle.StartBar < right.StartBar))
+            {
+                rejectReason = "not start ordered";
+                return false;
+            }
+
+            string p1Reject;
+            if (!HasJoinP1Geometry(left, middle, right, out p1Reject))
+            {
+                rejectReason = p1Reject;
+                return false;
+            }
+            if (!HasMiddleFailureToTraverse(left, middle))
+            {
+                rejectReason = "middle FTT failed";
+                return false;
+            }
+
+            int p3Bar;
+            double p3Price;
+            FindJoinedParentP3(left.Direction, left, middle, right, new List<PriceContainer>(), out p3Bar, out p3Price);
+            if (!IsValidP1P3Geometry(left.Direction, left.P1Price, p3Price))
+            {
+                rejectReason = "joined P1/P3 geometry failed";
+                return false;
+            }
+
+            return true;
         }
 
         private bool TryPromoteChildAfterParentBreak(AnalyzedBar bar)
@@ -772,6 +983,15 @@ namespace NinjaTrader.NinjaScript.Indicators
             if (parent.Direction == direction)
             {
                 LogDebug(bar.Bar, "V2 child creation suppressed: same-direction local parent id=" + parent.Id + " dir=" + direction);
+                return false;
+            }
+
+            PriceContainer brokenByClose = FindBrokenContainer(bar, direction);
+            if (brokenByClose != null && brokenByClose.Id == parent.Id)
+            {
+                LogDebug(bar.Bar,
+                    "V2 child creation deferred: proposed parent id=" + parent.Id
+                    + " is broken by current " + direction + " close");
                 return false;
             }
 
@@ -1414,6 +1634,8 @@ namespace NinjaTrader.NinjaScript.Indicators
                     continue;
                 if (child.Direction != parent.Direction)
                     continue;
+                if (child.Status != ContainerStatus.Joined)
+                    continue;
 
                 if (selected == null ||
                     child.StartBar > selected.StartBar ||
@@ -1421,7 +1643,7 @@ namespace NinjaTrader.NinjaScript.Indicators
                     selected = child;
             }
 
-            return selected != null && selected.Status == ContainerStatus.Joined ? selected : null;
+            return selected;
         }
 
         private bool HasLiveParentScope(PriceContainer container)
@@ -1463,6 +1685,7 @@ namespace NinjaTrader.NinjaScript.Indicators
             double p1Price = direction == ContainerDirection.Up ? start.Low : start.High;
             double rtlEnd = direction == ContainerDirection.Up ? end.Low : end.High;
             double slope = (rtlEnd - p1Price) / Math.Max(1, endBar - startBar);
+            slope = FitInitialRtlToInterveningBars(startBar, endBar, direction, p1Price, slope);
             double ltlStart = direction == ContainerDirection.Up ? start.High : start.Low;
             double p2Price = direction == ContainerDirection.Up ? Math.Max(start.High, end.High) : Math.Min(start.Low, end.Low);
             int p2Bar = direction == ContainerDirection.Up
@@ -1498,6 +1721,38 @@ namespace NinjaTrader.NinjaScript.Indicators
             containers.Add(container);
             LogDebug(endBar, "container created: id=" + container.Id + " " + direction + " L" + container.Level + " start=" + startBar + " end=" + endBar + " lineage=" + container.LineageId + " reason=" + reason);
             return container;
+        }
+
+        private double FitInitialRtlToInterveningBars(int startBar, int endBar, ContainerDirection direction, double p1Price, double initialSlope)
+        {
+            double selectedSlope = initialSlope;
+            int supportBar = endBar;
+
+            for (int bar = startBar + 1; bar < endBar; bar++)
+            {
+                double candidatePrice = direction == ContainerDirection.Up
+                    ? Low.GetValueAt(bar)
+                    : High.GetValueAt(bar);
+                double projected = p1Price + selectedSlope * (bar - startBar);
+                bool violates = direction == ContainerDirection.Up
+                    ? candidatePrice < projected - TickSize * 0.5
+                    : candidatePrice > projected + TickSize * 0.5;
+                if (!violates)
+                    continue;
+
+                double candidateSlope = (candidatePrice - p1Price) / Math.Max(1, bar - startBar);
+                if ((direction == ContainerDirection.Up && candidateSlope < selectedSlope)
+                    || (direction == ContainerDirection.Down && candidateSlope > selectedSlope))
+                {
+                    selectedSlope = candidateSlope;
+                    supportBar = bar;
+                }
+            }
+
+            if (supportBar != endBar)
+                LogDebug(endBar, "initial RTL fitted to intervening bar " + supportBar + " for " + direction + " container start=" + startBar + " end=" + endBar);
+
+            return selectedSlope;
         }
 
         private void InitializeFttCandidate(PriceContainer container)
@@ -1766,6 +2021,67 @@ namespace NinjaTrader.NinjaScript.Indicators
                     + " inheritedParent=" + promotionChild.ParentId
                     + " level=" + promotionChild.Level
                     + " brokenParent=" + brokenByClose.Id);
+                return true;
+            }
+
+            bool activeIsJoinedParent = !string.IsNullOrEmpty(container.Reason)
+                && container.Reason.StartsWith("joined triad", StringComparison.Ordinal);
+            if (brokenByClose != null
+                && brokenByClose.ParentId == container.Id
+                && brokenByClose.Direction != container.Direction
+                && !activeIsJoinedParent)
+            {
+                brokenByClose.Status = ContainerStatus.Broken;
+                ConfirmFttCandidate(brokenByClose, bar, "direct opposite child break");
+                if (!containersFrozenThisBar.Contains(brokenByClose))
+                    containersFrozenThisBar.Add(brokenByClose);
+                CloseStructuralLineageContextsForBrokenContainer(brokenByClose, bar, "direct opposite child break");
+                LogDebug(bar.Bar,
+                    "direct opposite child terminated: parent=" + container.Id
+                    + " child=" + brokenByClose.Id
+                    + " direction=" + direction);
+
+                int responseOrigin = -1;
+                if (lateral.IsValid && lateral.BarsInside >= 3)
+                {
+                    int lateralOrigin = Math.Max(lateral.StartBar, brokenByClose.StartBar);
+                    AnalyzedBar lateralStart = GetAnalyzed(lateralOrigin);
+                    if (lateralStart != null && IsValidTwoPointConstruction(lateralStart, bar, direction))
+                    {
+                        responseOrigin = lateralOrigin;
+                        resolvedLateralBar = bar.Bar;
+                        resolvedLateralOrigin = lateralOrigin;
+                        lateral.IsValid = false;
+                        LogDebug(bar.Bar,
+                            "direct child break consumed lateral origin " + lateralOrigin
+                            + " for " + direction + " response");
+                    }
+                }
+                if (responseOrigin < 0)
+                    responseOrigin = Math.Max(ResolveOriginBar(bar), brokenByClose.StartBar);
+                PriceContainer response = responseOrigin < bar.Bar
+                    ? CreateContainer(responseOrigin, bar.Bar, direction, brokenByClose.Level,
+                        "same-direction response after direct child break " + brokenByClose.Id + " from " + bar.Relation)
+                    : null;
+                if (response != null)
+                {
+                    response.ParentId = container.Id;
+                    if (!container.ChildIds.Contains(response.Id))
+                        container.ChildIds.Add(response.Id);
+                    AssignStructuralLineageFromSource(response, brokenByClose, container, bar, "same-direction response after direct child break");
+                    AssignStructuralLineageContextInheritance(response, bar, "same-direction response after direct child break");
+                    AssignInheritedParentStructuralContext(response, container, bar, "create direct child-break response");
+                    LogDebug(bar.Bar,
+                        "direct child-break response created: id=" + response.Id
+                        + " parent=" + container.Id
+                        + " level=" + response.Level
+                        + " origin=" + responseOrigin);
+                    TryJoinTriads(response);
+                }
+                else
+                {
+                    TryJoinTriads(container);
+                }
                 return true;
             }
 
@@ -2108,6 +2424,17 @@ namespace NinjaTrader.NinjaScript.Indicators
                 }
             }
 
+            double adjustedPrice = container.Direction == ContainerDirection.Up ? bar.Low : bar.High;
+            if (!IsValidP1P3Geometry(container.Direction, container.P1Price, adjustedPrice))
+            {
+                LogDebug(bar.Bar,
+                    "RTL wick adjustment rejected: id=" + container.Id
+                    + " would violate " + container.Direction + " P1/P3 geometry"
+                    + " p1=" + FormatPrice(container.P1Price)
+                    + " candidateP3=" + FormatPrice(adjustedPrice));
+                return false;
+            }
+
             return true;
         }
 
@@ -2129,12 +2456,17 @@ namespace NinjaTrader.NinjaScript.Indicators
 
         private void AdjustContainerToWickViolation(PriceContainer container, AnalyzedBar bar)
         {
+            bool remainsJoined = container.Status == ContainerStatus.Joined;
             double adjustedPrice = container.Direction == ContainerDirection.Up ? bar.Low : bar.High;
             container.Rtl.Slope = (adjustedPrice - container.P1Price) / Math.Max(1, bar.Bar - container.P1Bar);
             container.Ltl.Slope = container.Rtl.Slope;
             RebuildOuterExpansion(container, bar.Bar);
-            container.Status = ContainerStatus.Adjusted;
-            LogDebug(bar.Bar, "RTL wick adjustment: id=" + container.Id + " close remained inside container");
+            if (!remainsJoined)
+                container.Status = ContainerStatus.Adjusted;
+            LogDebug(bar.Bar,
+                "RTL wick adjustment: id=" + container.Id
+                + " close remained inside container"
+                + (remainsJoined ? "; joined status preserved" : ""));
         }
 
         private void RebuildOuterExpansion(PriceContainer container, int throughBar)
@@ -2183,6 +2515,10 @@ namespace NinjaTrader.NinjaScript.Indicators
                     Slope = container.Rtl.Slope
                 };
                 activeIsVe = true;
+                LogDebug(bar,
+                    "VE rebuilt: " + container.Direction.ToString().ToLowerInvariant()
+                    + " container id=" + container.Id
+                    + " price pierced recalculated LTL/VE");
             }
 
             if (activeIsVe)
@@ -2221,12 +2557,18 @@ namespace NinjaTrader.NinjaScript.Indicators
 
         private int ResolveOriginBar(AnalyzedBar bar)
         {
+            if (resolvedLateralBar == bar.Bar && resolvedLateralOrigin >= 0)
+                return resolvedLateralOrigin;
+
             if (lateral.IsValid && lateral.BarsInside >= 3)
             {
                 if (BarBreaksLateral(bar, DirectionFromRelation(bar.Relation)))
                 {
+                    resolvedLateralBar = bar.Bar;
+                    resolvedLateralOrigin = lateral.StartBar;
+                    lateral.IsValid = false;
                     LogDebug(bar.Bar, "lateral resolved into container from origin " + lateral.StartBar);
-                    return lateral.StartBar;
+                    return resolvedLateralOrigin;
                 }
             }
 
@@ -2625,6 +2967,12 @@ namespace NinjaTrader.NinjaScript.Indicators
                 return false;
             }
 
+            bool oppositeBreakException = left.Status != ContainerStatus.Broken
+                && middle.Status == ContainerStatus.Broken
+                && right.Status != ContainerStatus.Broken;
+            if (oppositeBreakException)
+                return true;
+
             if (IsRootLevelOneDownUpDownJoin(left, middle, right))
                 return true;
 
@@ -2950,7 +3298,8 @@ namespace NinjaTrader.NinjaScript.Indicators
             int parentLevel = Math.Min(bestLeft.Level, Math.Min(bestMiddle.Level, right.Level));
             int parentId = ResolveStructuralContextJoinedParentId(bestLeft, bestMiddle, right, parentLevel);
             List<PriceContainer> absorbedContextContainers = FindInterveningStructuralContextContainers(bestLeft, bestMiddle, right, contextKey, contextSourceId);
-            parent = CreateJoinedParent(bestLeft, bestMiddle, right, false, parentLevel, parentId, absorbedContextContainers);
+            PriceContainer originOverride = ResolveStructuralContextJoinedOrigin(bestLeft, right, contextSourceId, parentId);
+            parent = CreateJoinedParent(bestLeft, bestMiddle, right, false, parentLevel, parentId, absorbedContextContainers, originOverride);
             if (parent != null)
                 LogDebug(parent.EndBar,
                     "structural context join accepted: parent=" + parent.Id
@@ -2958,11 +3307,32 @@ namespace NinjaTrader.NinjaScript.Indicators
                     + " absorbed=" + JoinContainerIds(absorbedContextContainers)
                     + " trigger=" + newest.Id
                     + " context=" + contextKey
+                    + " originOverride=" + (originOverride == null ? "none" : originOverride.Id + "@" + originOverride.StartBar)
                     + " lineage=" + parent.LineageId
                     + " level=" + parent.Level
                     + " parent=" + parent.ParentId);
 
             return parent != null;
+        }
+
+        private PriceContainer ResolveStructuralContextJoinedOrigin(PriceContainer left, PriceContainer right, int contextSourceId, int joinedParentId)
+        {
+            if (left == null || right == null || contextSourceId == 0)
+                return null;
+
+            PriceContainer source = FindContainer(contextSourceId);
+            if (source == null)
+                return null;
+            if (source.Direction != left.Direction)
+                return null;
+            if (source.P1Bar >= left.P1Bar)
+                return null;
+            if (joinedParentId != 0 && source.ParentId != joinedParentId && source.Id != joinedParentId)
+                return null;
+            if (!IsStructuralContextFrontierMember(left, contextSourceId) || !IsStructuralContextFrontierMember(right, contextSourceId))
+                return null;
+
+            return source;
         }
 
         private PriceContainer ResolveStructuralContextFrontierContainer(PriceContainer container, int contextSourceId)
@@ -3654,11 +4024,30 @@ namespace NinjaTrader.NinjaScript.Indicators
 
         private PriceContainer CreateJoinedParent(PriceContainer left, PriceContainer middle, PriceContainer right, bool preserveMiddleAsNestedChild, int parentLevel, int parentId, List<PriceContainer> additionalDirectChildren)
         {
+            return CreateJoinedParent(left, middle, right, preserveMiddleAsNestedChild, parentLevel, parentId, additionalDirectChildren, null);
+        }
+
+        private PriceContainer CreateJoinedParent(PriceContainer left, PriceContainer middle, PriceContainer right, bool preserveMiddleAsNestedChild, int parentLevel, int parentId, List<PriceContainer> additionalDirectChildren, PriceContainer originOverride)
+        {
             ContainerDirection direction = left.Direction;
+            PriceContainer owningParent = FindContainer(parentId);
+            bool oppositeBreakException = left.Status != ContainerStatus.Broken
+                && middle.Status == ContainerStatus.Broken
+                && right.Status != ContainerStatus.Broken;
+            if (owningParent != null && owningParent.Direction == direction && !oppositeBreakException)
+            {
+                LogDebug(right.EndBar,
+                    "join rejected: same-direction joined child would be created under parent=" + owningParent.Id
+                    + " direction=" + direction
+                    + " children=" + left.Id + "," + middle.Id + "," + right.Id);
+                return null;
+            }
+
             int childLevel = parentLevel + 1;
-            int startBar = left.P1Bar;
+            PriceContainer origin = originOverride != null ? originOverride : left;
+            int startBar = origin.P1Bar;
             int endBar = right.EndBar;
-            double p1Price = left.P1Price;
+            double p1Price = origin.P1Price;
             int p3Bar;
             double p3Price;
             int p2Bar;
@@ -3666,7 +4055,7 @@ namespace NinjaTrader.NinjaScript.Indicators
 
             List<PriceContainer> interveningRootContainers = FindInterveningRootContainers(left, right);
             AddUniqueContainers(interveningRootContainers, additionalDirectChildren);
-            FindJoinedParentP3(direction, left, middle, right, interveningRootContainers, out p3Bar, out p3Price);
+            FindJoinedParentP3(direction, startBar, p1Price, left, middle, right, interveningRootContainers, out p3Bar, out p3Price);
             p2Bar = left.P2Bar;
             p2Price = left.P2Price;
 
@@ -3711,9 +4100,21 @@ namespace NinjaTrader.NinjaScript.Indicators
             var directChildren = new List<PriceContainer> { left, right };
             if (!preserveMiddleAsNestedChild)
                 directChildren.Insert(1, middle);
+            if (originOverride != null && !directChildren.Contains(originOverride))
+            {
+                for (int i = directChildren.Count - 1; i >= 0; i--)
+                {
+                    PriceContainer child = directChildren[i];
+                    if (child != null && IsDescendantOf(child, originOverride.Id))
+                        directChildren.RemoveAt(i);
+                }
+                directChildren.Add(originOverride);
+            }
 
             foreach (PriceContainer child in interveningRootContainers)
             {
+                if (originOverride != null && child != null && IsDescendantOf(child, originOverride.Id))
+                    continue;
                 if (!directChildren.Contains(child))
                     directChildren.Add(child);
             }
@@ -3730,9 +4131,11 @@ namespace NinjaTrader.NinjaScript.Indicators
             AttachJoinedParentToExistingParent(parent);
             foreach (PriceContainer child in directChildren)
             {
+                bool remainsBroken = child.Status == ContainerStatus.Broken;
                 DetachFromExistingParent(child);
                 child.ParentId = parent.Id;
-                child.Status = ContainerStatus.Joined;
+                if (!remainsBroken)
+                    child.Status = ContainerStatus.Joined;
                 if (!parent.ChildIds.Contains(child.Id))
                     parent.ChildIds.Add(child.Id);
                 DemoteRecursively(child, childLevel);
@@ -3864,6 +4267,11 @@ namespace NinjaTrader.NinjaScript.Indicators
 
         private void FindJoinedParentP3(ContainerDirection direction, PriceContainer left, PriceContainer middle, PriceContainer right, List<PriceContainer> interveningRootContainers, out int p3Bar, out double p3Price)
         {
+            FindJoinedParentP3(direction, left.P1Bar, left.P1Price, left, middle, right, interveningRootContainers, out p3Bar, out p3Price);
+        }
+
+        private void FindJoinedParentP3(ContainerDirection direction, int p1Bar, double p1Price, PriceContainer left, PriceContainer middle, PriceContainer right, List<PriceContainer> interveningRootContainers, out int p3Bar, out double p3Price)
+        {
             p3Bar = middle.P2Bar;
             p3Price = middle.P2Price;
             bool foundOppositeExtreme = false;
@@ -3881,7 +4289,7 @@ namespace NinjaTrader.NinjaScript.Indicators
                 p3Price = right.P1Price;
             }
 
-            AdjustJoinedParentP3ForRtlViolations(direction, left.P1Bar, left.P1Price, p3Bar, p3Price, right.EndBar, out p3Bar, out p3Price);
+            AdjustJoinedParentP3ForRtlViolations(direction, p1Bar, p1Price, p3Bar, p3Price, right.EndBar, out p3Bar, out p3Price);
         }
 
         private void FindOppositeExtremeForP3(ContainerDirection parentDirection, PriceContainer opposite, ref int p3Bar, ref double p3Price, ref bool found)
@@ -4039,12 +4447,618 @@ namespace NinjaTrader.NinjaScript.Indicators
             }
         }
 
+        private void MaybeExportJson(int start, int end)
+        {
+            if (!ExportJson)
+                return;
+
+            if (!ExportOnEveryBar)
+            {
+                bool debugBoundReached = Debug && EndBar > 0 && CurrentBar >= end;
+                bool historicalComplete = State != State.Historical || CurrentBar >= Count - 1;
+                if (!debugBoundReached && !historicalComplete)
+                    return;
+            }
+
+            string signature = start.ToString(CultureInfo.InvariantCulture)
+                + ":" + end.ToString(CultureInfo.InvariantCulture)
+                + ":" + containers.Count.ToString(CultureInfo.InvariantCulture)
+                + ":" + analyzedBars.Count.ToString(CultureInfo.InvariantCulture)
+                + ":" + ExportOnEveryBar.ToString(CultureInfo.InvariantCulture);
+            if (!ExportOnEveryBar && signature == lastJsonExportSignature)
+                return;
+
+            try
+            {
+                List<ExportWarning> warnings = BuildExportWarnings();
+                string folder = string.IsNullOrWhiteSpace(JsonExportFolder)
+                    ? @"C:\Users\rz0\Documents\ApvaAnalysis\ContainerJSON"
+                    : JsonExportFolder;
+                Directory.CreateDirectory(folder);
+
+                string fileName = string.IsNullOrWhiteSpace(JsonFileName)
+                    ? BuildDefaultJsonFileName(start, end)
+                    : JsonFileName;
+                if (!fileName.EndsWith(".json", StringComparison.OrdinalIgnoreCase))
+                    fileName += ".json";
+
+                string path = Path.Combine(folder, SanitizeFileName(fileName));
+                File.WriteAllText(path, BuildContainerJson(start, end, warnings), Encoding.UTF8);
+                lastJsonExportSignature = signature;
+
+                if (DebugExport)
+                {
+                    Print("[APVA Export] path=" + path);
+                    Print("[APVA Export] bars=" + analyzedBars.Count
+                        + " containers=" + containers.Count
+                        + " memberships=" + analyzedBars.Count
+                        + " events=" + exportEvents.Count
+                        + " warnings=" + warnings.Count);
+                }
+            }
+            catch (Exception ex)
+            {
+                if (DebugExport)
+                    Print("[APVA Export] failed: " + ex.Message);
+            }
+        }
+
+        private string BuildContainerJson(int start, int end, List<ExportWarning> warnings)
+        {
+            var sb = new StringBuilder(1024 * 128);
+            sb.AppendLine("{");
+            AppendMetadataJson(sb, start, end);
+            sb.AppendLine(",");
+            AppendBarsJson(sb);
+            sb.AppendLine(",");
+            AppendContainersJson(sb);
+            sb.AppendLine(",");
+            AppendBarMembershipJson(sb);
+            sb.AppendLine(",");
+            AppendContainerEventsJson(sb);
+            sb.AppendLine(",");
+            AppendValidationWarningsJson(sb, warnings);
+            sb.AppendLine();
+            sb.Append("}");
+            return sb.ToString();
+        }
+
+        private void AppendMetadataJson(StringBuilder sb, int start, int end)
+        {
+            AnalyzedBar first = analyzedBars.Count > 0 ? analyzedBars[0] : null;
+            AnalyzedBar last = analyzedBars.Count > 0 ? analyzedBars[analyzedBars.Count - 1] : null;
+
+            sb.AppendLine("  \"metadata\": {");
+            AppendJsonProperty(sb, 4, "instrument", SafeInstrumentName(), true);
+            AppendJsonProperty(sb, 4, "barsPeriod", SafeBarsPeriodName(), true);
+            AppendJsonProperty(sb, 4, "sessionTemplate", SafeSessionTemplateName(), true);
+            AppendJsonProperty(sb, 4, "timezone", TimeZoneInfo.Local.Id, true);
+            AppendJsonProperty(sb, 4, "startBar", start, true);
+            AppendJsonProperty(sb, 4, "endBar", end, true);
+            AppendJsonProperty(sb, 4, "firstProcessedTime", first == null ? null : first.Time.ToString("O", CultureInfo.InvariantCulture), true);
+            AppendJsonProperty(sb, 4, "lastProcessedTime", last == null ? null : last.Time.ToString("O", CultureInfo.InvariantCulture), true);
+            AppendJsonProperty(sb, 4, "generatedAt", DateTime.Now.ToString("O", CultureInfo.InvariantCulture), true);
+            AppendJsonProperty(sb, 4, "indicatorName", "xPvaAutomatedContainers", true);
+            AppendJsonProperty(sb, 4, "indicatorVersion", "0.1", true);
+            AppendJsonProperty(sb, 4, "chartBarsCount", Count, true);
+            AppendJsonProperty(sb, 4, "processedBarCount", analyzedBars.Count, false);
+            sb.Append("  }");
+        }
+
+        private void AppendBarsJson(StringBuilder sb)
+        {
+            sb.AppendLine("  \"bars\": [");
+            for (int i = 0; i < analyzedBars.Count; i++)
+            {
+                AnalyzedBar bar = analyzedBars[i];
+                sb.AppendLine("    {");
+                AppendJsonProperty(sb, 6, "barIndex", bar.Bar, true);
+                AppendJsonProperty(sb, 6, "time", bar.Time.ToString("O", CultureInfo.InvariantCulture), true);
+                AppendJsonProperty(sb, 6, "open", bar.Open, true);
+                AppendJsonProperty(sb, 6, "high", bar.High, true);
+                AppendJsonProperty(sb, 6, "low", bar.Low, true);
+                AppendJsonProperty(sb, 6, "close", bar.Close, true);
+                AppendJsonProperty(sb, 6, "volume", bar.Volume, true);
+                AppendJsonProperty(sb, 6, "priceType", bar.Relation.ToString(), true);
+                AppendJsonProperty(sb, 6, "volumeColor", "Unknown", true);
+                AppendJsonProperty(sb, 6, "eventText", bar.Relation.ToString(), true);
+                AppendJsonProperty(sb, 6, "isLateralSynthetic", false, true);
+                AppendJsonNullProperty(sb, 6, "lateralId", true);
+                AppendIndent(sb, 6);
+                sb.Append("\"rawBarIndexes\": [").Append(bar.Bar.ToString(CultureInfo.InvariantCulture)).AppendLine("]");
+                sb.Append("    }");
+                if (i < analyzedBars.Count - 1)
+                    sb.Append(",");
+                sb.AppendLine();
+            }
+            sb.Append("  ]");
+        }
+
+        private void AppendContainersJson(StringBuilder sb)
+        {
+            sb.AppendLine("  \"containers\": [");
+            for (int i = 0; i < containers.Count; i++)
+            {
+                PriceContainer container = containers[i];
+                sb.AppendLine("    {");
+                AppendJsonProperty(sb, 6, "containerId", container.Id, true);
+                AppendJsonProperty(sb, 6, "level", container.Level, true);
+                AppendJsonProperty(sb, 6, "direction", container.Direction.ToString(), true);
+                AppendJsonProperty(sb, 6, "status", container.Status.ToString(), true);
+                AppendJsonProperty(sb, 6, "startBar", container.StartBar, true);
+                AppendJsonProperty(sb, 6, "endBar", container.EndBar, true);
+                AppendNullableBarProperty(sb, 6, "p1Bar", container.P1Bar, true);
+                AppendNullableBarProperty(sb, 6, "p2Bar", container.P2Bar, true);
+                AppendNullableBarProperty(sb, 6, "p3Bar", container.P3Bar, true);
+                AppendNullableBarProperty(sb, 6, "fttBar", container.FttConfirmed ? container.FttCandidateBar : 0, true);
+                AppendLineAnchorJson(sb, container, true);
+                AppendNullableBarProperty(sb, 6, "veBar", container.ActiveVe == null ? 0 : container.ActiveVe.StartBar, true);
+                AppendNullablePriceProperty(sb, 6, "vePrice", container.ActiveVe == null ? double.NaN : container.ActiveVe.StartPrice, true);
+                AppendNullableBarProperty(sb, 6, "breakBar", container.Status == ContainerStatus.Broken ? container.EndBar : 0, true);
+                AppendJsonProperty(sb, 6, "breakType", container.Status == ContainerStatus.Broken ? "BreakConfirmed" : null, true);
+                AppendNullableBarProperty(sb, 6, "parentContainerId", container.ParentId, true);
+                AppendIntArrayProperty(sb, 6, "childContainerIds", container.ChildIds, true);
+                AppendJsonProperty(sb, 6, "creationReason", container.Reason, true);
+                AppendJsonProperty(sb, 6, "completionReason", container.FttConfirmed ? "FTT confirmed" : null, true);
+                AppendJsonProperty(sb, 6, "joinReason", container.Status == ContainerStatus.Joined || IsJoinedReason(container) ? container.Reason : null, true);
+                AppendJsonProperty(sb, 6, "adjustmentReason", container.Status == ContainerStatus.Adjusted ? "Adjusted" : null, true);
+                AppendJsonProperty(sb, 6, "confidence", "High", true);
+                AppendStringArrayProperty(sb, 6, "warnings", ContainerWarningMessages(container), true);
+                AppendJsonProperty(sb, 6, "lineStyle", "Level" + container.Level.ToString(CultureInfo.InvariantCulture), true);
+                AppendJsonProperty(sb, 6, "lineColor", container.Direction == ContainerDirection.Up ? "Blue" : container.Direction == ContainerDirection.Down ? "Red" : "Unknown", true);
+                AppendJsonProperty(sb, 6, "lineWidth", (double)WidthForLevel(container.Level), true);
+                AppendJsonProperty(sb, 6, "dashStyle", DashStyleName(container.Level), false);
+                sb.Append("    }");
+                if (i < containers.Count - 1)
+                    sb.Append(",");
+                sb.AppendLine();
+            }
+            sb.Append("  ]");
+        }
+
+        private void AppendLineAnchorJson(StringBuilder sb, PriceContainer container, bool commaAfter)
+        {
+            AppendNullableBarProperty(sb, 6, "rtlStartBar", container.Rtl == null ? 0 : container.Rtl.StartBar, true);
+            AppendNullablePriceProperty(sb, 6, "rtlStartPrice", container.Rtl == null ? double.NaN : container.Rtl.StartPrice, true);
+            AppendNullableBarProperty(sb, 6, "rtlEndBar", container.Rtl == null ? 0 : container.EndBar, true);
+            AppendNullablePriceProperty(sb, 6, "rtlEndPrice", container.Rtl == null ? double.NaN : container.Rtl.ValueAt(container.EndBar), true);
+            AppendNullableBarProperty(sb, 6, "ltlStartBar", container.Ltl == null ? 0 : container.Ltl.StartBar, true);
+            AppendNullablePriceProperty(sb, 6, "ltlStartPrice", container.Ltl == null ? double.NaN : container.Ltl.StartPrice, true);
+            AppendNullableBarProperty(sb, 6, "ltlEndBar", container.Ltl == null ? 0 : container.EndBar, true);
+            AppendNullablePriceProperty(sb, 6, "ltlEndPrice", container.Ltl == null ? double.NaN : container.Ltl.ValueAt(container.EndBar), commaAfter);
+        }
+
+        private void AppendBarMembershipJson(StringBuilder sb)
+        {
+            sb.AppendLine("  \"barMembership\": [");
+            for (int i = 0; i < analyzedBars.Count; i++)
+            {
+                AnalyzedBar bar = analyzedBars[i];
+                List<PriceContainer> members = ContainersForBar(bar.Bar);
+                PriceContainer primary = PrimaryContainer(members);
+                sb.AppendLine("    {");
+                AppendJsonProperty(sb, 6, "barIndex", bar.Bar, true);
+                AppendContainerIdArrayProperty(sb, 6, "containerIds", members, true);
+                AppendNullableBarProperty(sb, 6, "primaryContainerId", primary == null ? 0 : primary.Id, true);
+                sb.AppendLine("      \"roles\": [");
+                bool wroteRole = false;
+                for (int m = 0; m < members.Count; m++)
+                    wroteRole = AppendRolesForContainer(sb, members[m], bar.Bar, wroteRole);
+                sb.AppendLine();
+                sb.AppendLine("      ]");
+                sb.Append("    }");
+                if (i < analyzedBars.Count - 1)
+                    sb.Append(",");
+                sb.AppendLine();
+            }
+            sb.Append("  ]");
+        }
+
+        private bool AppendRolesForContainer(StringBuilder sb, PriceContainer container, int bar, bool wroteRole)
+        {
+            string[] roles = RolesForContainerBar(container, bar);
+            for (int i = 0; i < roles.Length; i++)
+            {
+                if (wroteRole)
+                    sb.AppendLine(",");
+                sb.AppendLine("        {");
+                AppendJsonProperty(sb, 10, "containerId", container.Id, true);
+                AppendJsonProperty(sb, 10, "role", roles[i], false);
+                sb.Append("        }");
+                wroteRole = true;
+            }
+            return wroteRole;
+        }
+
+        private void AppendContainerEventsJson(StringBuilder sb)
+        {
+            sb.AppendLine("  \"containerEvents\": [");
+            for (int i = 0; i < exportEvents.Count; i++)
+            {
+                ContainerExportEvent ev = exportEvents[i];
+                sb.AppendLine("    {");
+                AppendJsonProperty(sb, 6, "eventId", ev.EventId, true);
+                AppendJsonProperty(sb, 6, "barIndex", ev.Bar, true);
+                AppendJsonProperty(sb, 6, "eventType", ev.EventType, true);
+                AppendNullableBarProperty(sb, 6, "containerId", ev.ContainerId, true);
+                AppendIntArrayProperty(sb, 6, "relatedContainerIds", ev.RelatedContainerIds, true);
+                AppendNullableBarProperty(sb, 6, "level", ev.Level, true);
+                AppendJsonProperty(sb, 6, "reason", ev.Reason, true);
+                AppendIndent(sb, 6);
+                sb.Append("\"details\": { \"message\": ").Append(JsonValue(ev.Details)).AppendLine(" }");
+                sb.Append("    }");
+                if (i < exportEvents.Count - 1)
+                    sb.Append(",");
+                sb.AppendLine();
+            }
+            sb.Append("  ]");
+        }
+
+        private void AppendValidationWarningsJson(StringBuilder sb, List<ExportWarning> warnings)
+        {
+            sb.AppendLine("  \"validationWarnings\": [");
+            for (int i = 0; i < warnings.Count; i++)
+            {
+                ExportWarning warning = warnings[i];
+                sb.AppendLine("    {");
+                AppendJsonProperty(sb, 6, "warningId", warning.WarningId, true);
+                AppendJsonProperty(sb, 6, "barIndex", warning.Bar, true);
+                AppendNullableBarProperty(sb, 6, "containerId", warning.ContainerId, true);
+                AppendJsonProperty(sb, 6, "warningType", warning.WarningType, true);
+                AppendJsonProperty(sb, 6, "severity", warning.Severity, true);
+                AppendJsonProperty(sb, 6, "message", warning.Message, false);
+                sb.Append("    }");
+                if (i < warnings.Count - 1)
+                    sb.Append(",");
+                sb.AppendLine();
+            }
+            sb.Append("  ]");
+        }
+
+        private List<ExportWarning> BuildExportWarnings()
+        {
+            var warnings = new List<ExportWarning>();
+            foreach (PriceContainer container in containers)
+            {
+                if (container.StartBar > container.EndBar)
+                    AddExportWarning(warnings, container.EndBar, container.Id, "InvalidRange", "High", "Container startBar is greater than endBar.");
+                if (container.P1Bar == 0 && container.StartBar != 0)
+                    AddExportWarning(warnings, container.StartBar, container.Id, "MissingP1", "Medium", "Container P1 anchor is missing.");
+                if (container.P2Bar == 0 && container.StartBar != 0)
+                    AddExportWarning(warnings, container.StartBar, container.Id, "MissingP2", "Medium", "Container P2 anchor is missing.");
+                if (container.P3Bar == 0 && container.StartBar != 0)
+                    AddExportWarning(warnings, container.StartBar, container.Id, "MissingP3", "Medium", "Container P3 anchor is missing.");
+                if (container.P1Bar != 0 && container.P2Bar != 0 && container.P2Bar < container.P1Bar)
+                    AddExportWarning(warnings, container.P2Bar, container.Id, "InvalidAnchorOrdering", "High", "P2 occurs before P1.");
+                if (container.P1Bar != 0 && container.P3Bar != 0 && container.P3Bar < container.P1Bar)
+                    AddExportWarning(warnings, container.P3Bar, container.Id, "InvalidAnchorOrdering", "High", "P3 occurs before P1.");
+                if (container.ParentId != 0)
+                {
+                    PriceContainer parent = FindContainer(container.ParentId);
+                    if (parent == null)
+                        AddExportWarning(warnings, container.EndBar, container.Id, "BrokenParentChildReference", "High", "Parent container reference is missing.");
+                    else
+                    {
+                        if (!parent.ChildIds.Contains(container.Id))
+                            AddExportWarning(warnings, container.EndBar, container.Id, "BrokenParentChildReference", "High", "Parent does not include child reciprocal reference.");
+                        if (container.Level <= parent.Level)
+                            AddExportWarning(warnings, container.EndBar, container.Id, "UnexpectedLevelJump", "Medium", "Child level is not greater than parent level.");
+                        if (container.StartBar < parent.StartBar || container.EndBar > parent.EndBar)
+                            AddExportWarning(warnings, container.EndBar, container.Id, "ChildOutsideParent", "Medium", "Child container extends outside parent range.");
+                        if (HasParentCycle(container))
+                            AddExportWarning(warnings, container.EndBar, container.Id, "BrokenParentChildReference", "High", "Parent-child cycle detected.");
+                    }
+                }
+                foreach (int childId in container.ChildIds)
+                    if (FindContainer(childId) == null)
+                        AddExportWarning(warnings, container.EndBar, container.Id, "BrokenParentChildReference", "High", "Child container reference is missing: " + childId.ToString(CultureInfo.InvariantCulture));
+                if (!ContainerAppearsInMembership(container, container.StartBar) || !ContainerAppearsInMembership(container, container.EndBar))
+                    AddExportWarning(warnings, container.EndBar, container.Id, "MissingMembership", "Medium", "Container is missing from membership at start or end bar.");
+            }
+            return warnings;
+        }
+
+        private void AddExportWarning(List<ExportWarning> warnings, int bar, int containerId, string warningType, string severity, string message)
+        {
+            warnings.Add(new ExportWarning
+            {
+                WarningId = warnings.Count + 1,
+                Bar = bar,
+                ContainerId = containerId,
+                WarningType = warningType,
+                Severity = severity,
+                Message = message
+            });
+        }
+
         private PriceContainer FindContainer(int id)
         {
             foreach (PriceContainer container in containers)
                 if (container.Id == id)
                     return container;
             return null;
+        }
+
+        private string BuildDefaultJsonFileName(int start, int end)
+        {
+            return "APVA_Containers_"
+                + SanitizeFileNamePart(SafeInstrumentName())
+                + "_"
+                + SanitizeFileNamePart(SafeBarsPeriodName())
+                + "_"
+                + start.ToString(CultureInfo.InvariantCulture)
+                + "_"
+                + end.ToString(CultureInfo.InvariantCulture)
+                + "_"
+                + DateTime.Now.ToString("yyyyMMdd_HHmmss", CultureInfo.InvariantCulture)
+                + ".json";
+        }
+
+        private string SafeInstrumentName()
+        {
+            try
+            {
+                return Instrument == null ? "Unknown" : Instrument.FullName;
+            }
+            catch
+            {
+                return "Unknown";
+            }
+        }
+
+        private string SafeBarsPeriodName()
+        {
+            try
+            {
+                return BarsPeriod == null ? "Unknown" : BarsPeriod.ToString();
+            }
+            catch
+            {
+                return "Unknown";
+            }
+        }
+
+        private string SafeSessionTemplateName()
+        {
+            try
+            {
+                return Bars == null || Bars.TradingHours == null ? "Unknown" : Bars.TradingHours.Name;
+            }
+            catch
+            {
+                return "Unknown";
+            }
+        }
+
+        private string SanitizeFileName(string fileName)
+        {
+            string result = string.IsNullOrWhiteSpace(fileName) ? "APVA_Containers.json" : fileName;
+            foreach (char invalid in Path.GetInvalidFileNameChars())
+                result = result.Replace(invalid, '_');
+            return result;
+        }
+
+        private string SanitizeFileNamePart(string value)
+        {
+            string result = string.IsNullOrWhiteSpace(value) ? "Unknown" : value;
+            foreach (char invalid in Path.GetInvalidFileNameChars())
+                result = result.Replace(invalid, '_');
+            result = result.Replace(' ', '_');
+            return result;
+        }
+
+        private List<PriceContainer> ContainersForBar(int bar)
+        {
+            var result = new List<PriceContainer>();
+            foreach (PriceContainer container in containers)
+            {
+                if (container.StartBar <= bar && container.EndBar >= bar)
+                    result.Add(container);
+            }
+            result.Sort((a, b) =>
+            {
+                int level = a.Level.CompareTo(b.Level);
+                if (level != 0)
+                    return level;
+                return a.Id.CompareTo(b.Id);
+            });
+            return result;
+        }
+
+        private PriceContainer PrimaryContainer(List<PriceContainer> members)
+        {
+            if (members == null || members.Count == 0)
+                return null;
+            PriceContainer selected = members[0];
+            foreach (PriceContainer candidate in members)
+            {
+                if (candidate.Status == ContainerStatus.Active && selected.Status != ContainerStatus.Active)
+                    selected = candidate;
+                else if (candidate.Level < selected.Level)
+                    selected = candidate;
+            }
+            return selected;
+        }
+
+        private bool ContainerAppearsInMembership(PriceContainer container, int bar)
+        {
+            if (container == null)
+                return false;
+            List<PriceContainer> members = ContainersForBar(bar);
+            foreach (PriceContainer member in members)
+                if (member.Id == container.Id)
+                    return true;
+            return false;
+        }
+
+        private string[] RolesForContainerBar(PriceContainer container, int bar)
+        {
+            var roles = new List<string>();
+            if (bar == container.StartBar)
+                roles.Add("Start");
+            if (bar == container.EndBar)
+                roles.Add("End");
+            if (bar == container.P1Bar)
+                roles.Add("P1");
+            if (bar == container.P2Bar)
+                roles.Add("P2");
+            if (bar == container.P3Bar)
+                roles.Add("P3");
+            if (container.FttConfirmed && bar == container.FttCandidateBar)
+                roles.Add("FTT");
+            if (container.ActiveVe != null && bar == container.ActiveVe.StartBar)
+                roles.Add("VE");
+            if (container.Status == ContainerStatus.Broken && bar == container.EndBar)
+                roles.Add("Break");
+            if (roles.Count == 0)
+                roles.Add("Member");
+            return roles.ToArray();
+        }
+
+        private bool HasParentCycle(PriceContainer container)
+        {
+            int parentId = container.ParentId;
+            int guard = 0;
+            while (parentId != 0 && guard++ < containers.Count + 1)
+            {
+                if (parentId == container.Id)
+                    return true;
+                PriceContainer parent = FindContainer(parentId);
+                if (parent == null)
+                    return false;
+                parentId = parent.ParentId;
+            }
+            return guard > containers.Count;
+        }
+
+        private bool IsJoinedReason(PriceContainer container)
+        {
+            return container != null
+                && !string.IsNullOrEmpty(container.Reason)
+                && container.Reason.StartsWith("joined", StringComparison.OrdinalIgnoreCase);
+        }
+
+        private string[] ContainerWarningMessages(PriceContainer container)
+        {
+            var messages = new List<string>();
+            if (container.StartBar > container.EndBar)
+                messages.Add("Invalid range");
+            if (container.ParentId != 0 && FindContainer(container.ParentId) == null)
+                messages.Add("Missing parent");
+            if (container.ParentId != 0)
+            {
+                PriceContainer parent = FindContainer(container.ParentId);
+                if (parent != null && container.Level <= parent.Level)
+                    messages.Add("Child level is not greater than parent level");
+            }
+            return messages.ToArray();
+        }
+
+        private string DashStyleName(int level)
+        {
+            if (level <= 1)
+                return "Solid";
+            if (level == 2)
+                return "Dash";
+            if (level == 3)
+                return "Dot";
+            return "DashDotDot";
+        }
+
+        private void RecordExportEvent(int bar, string message)
+        {
+            if (!ExportJson && !DebugExport)
+                return;
+
+            int containerId = ExtractIntAfter(message, "id=");
+            if (containerId == 0)
+                containerId = ExtractIntAfter(message, "parent=");
+            PriceContainer container = containerId == 0 ? null : FindContainer(containerId);
+
+            var ev = new ContainerExportEvent
+            {
+                EventId = nextExportEventId++,
+                Bar = bar,
+                EventType = ClassifyExportEvent(message),
+                ContainerId = containerId,
+                Level = container == null ? ExtractIntAfter(message, "level=") : container.Level,
+                Reason = ExportEventReason(message),
+                Details = message
+            };
+
+            AddRelatedContainerId(ev.RelatedContainerIds, ExtractIntAfter(message, "child="));
+            AddRelatedContainerId(ev.RelatedContainerIds, ExtractIntAfter(message, "parent="));
+            AddRelatedContainerId(ev.RelatedContainerIds, ExtractIntAfter(message, "broken="));
+            AddRelatedContainerId(ev.RelatedContainerIds, ExtractIntAfter(message, "left="));
+            AddRelatedContainerId(ev.RelatedContainerIds, ExtractIntAfter(message, "right="));
+            exportEvents.Add(ev);
+        }
+
+        private void AddRelatedContainerId(List<int> related, int id)
+        {
+            if (id != 0 && !related.Contains(id))
+                related.Add(id);
+        }
+
+        private string ClassifyExportEvent(string message)
+        {
+            string lower = message == null ? string.Empty : message.ToLowerInvariant();
+            if (lower.Contains("created"))
+                return "ContainerCreated";
+            if (lower.Contains("extended"))
+                return "ContainerExtended";
+            if (lower.Contains("join rejected"))
+                return "ContainerJoinRejected";
+            if (lower.Contains("join accepted") || lower.Contains("joined"))
+                return "ContainerJoined";
+            if (lower.Contains("demotion"))
+                return "ContainerDemoted";
+            if (lower.Contains("adjust"))
+                return "ContainerAdjusted";
+            if (lower.Contains("wick violation"))
+                return "RtlWickViolationAdjusted";
+            if (lower.Contains("break"))
+                return "BreakConfirmed";
+            if (lower.Contains("lateral compressed"))
+                return "LateralCompressed";
+            if (lower.Contains("skipped"))
+                return "SkippedBar";
+            if (lower.Contains("warning"))
+                return "ValidationWarning";
+            if (lower.Contains("frozen"))
+                return "ContainerCompleted";
+            if (lower.Contains("line stopped"))
+                return "LineStoppedExtending";
+            return "ContainerAdjusted";
+        }
+
+        private string ExportEventReason(string message)
+        {
+            if (string.IsNullOrEmpty(message))
+                return "Unknown";
+            int separator = message.IndexOf(':');
+            if (separator > 0)
+                return message.Substring(0, separator);
+            return message.Length > 80 ? message.Substring(0, 80) : message;
+        }
+
+        private int ExtractIntAfter(string value, string token)
+        {
+            if (string.IsNullOrEmpty(value) || string.IsNullOrEmpty(token))
+                return 0;
+            int index = value.IndexOf(token, StringComparison.OrdinalIgnoreCase);
+            if (index < 0)
+                return 0;
+            index += token.Length;
+            while (index < value.Length && !char.IsDigit(value[index]) && value[index] != '-')
+                index++;
+            int start = index;
+            while (index < value.Length && (char.IsDigit(value[index]) || value[index] == '-'))
+                index++;
+            if (index <= start)
+                return 0;
+            int parsed;
+            return int.TryParse(value.Substring(start, index - start), NumberStyles.Integer, CultureInfo.InvariantCulture, out parsed) ? parsed : 0;
         }
 
         private bool BarBreaksLateral(AnalyzedBar bar, ContainerDirection direction)
@@ -4203,8 +5217,185 @@ namespace NinjaTrader.NinjaScript.Indicators
             return 1.35f;
         }
 
+        private void AppendJsonProperty(StringBuilder sb, int indent, string name, string value, bool comma)
+        {
+            AppendIndent(sb, indent);
+            sb.Append(JsonValue(name)).Append(": ").Append(JsonValue(value));
+            if (comma)
+                sb.Append(",");
+            sb.AppendLine();
+        }
+
+        private void AppendJsonProperty(StringBuilder sb, int indent, string name, int value, bool comma)
+        {
+            AppendIndent(sb, indent);
+            sb.Append(JsonValue(name)).Append(": ").Append(value.ToString(CultureInfo.InvariantCulture));
+            if (comma)
+                sb.Append(",");
+            sb.AppendLine();
+        }
+
+        private void AppendJsonProperty(StringBuilder sb, int indent, string name, double value, bool comma)
+        {
+            AppendIndent(sb, indent);
+            sb.Append(JsonValue(name)).Append(": ").Append(JsonNumber(value));
+            if (comma)
+                sb.Append(",");
+            sb.AppendLine();
+        }
+
+        private void AppendJsonProperty(StringBuilder sb, int indent, string name, bool value, bool comma)
+        {
+            AppendIndent(sb, indent);
+            sb.Append(JsonValue(name)).Append(": ").Append(value ? "true" : "false");
+            if (comma)
+                sb.Append(",");
+            sb.AppendLine();
+        }
+
+        private void AppendJsonNullProperty(StringBuilder sb, int indent, string name, bool comma)
+        {
+            AppendIndent(sb, indent);
+            sb.Append(JsonValue(name)).Append(": null");
+            if (comma)
+                sb.Append(",");
+            sb.AppendLine();
+        }
+
+        private void AppendNullableBarProperty(StringBuilder sb, int indent, string name, int value, bool comma)
+        {
+            if (value == 0)
+                AppendJsonNullProperty(sb, indent, name, comma);
+            else
+                AppendJsonProperty(sb, indent, name, value, comma);
+        }
+
+        private void AppendNullablePriceProperty(StringBuilder sb, int indent, string name, double value, bool comma)
+        {
+            if (double.IsNaN(value) || double.IsInfinity(value))
+                AppendJsonNullProperty(sb, indent, name, comma);
+            else
+                AppendJsonProperty(sb, indent, name, value, comma);
+        }
+
+        private void AppendIntArrayProperty(StringBuilder sb, int indent, string name, List<int> values, bool comma)
+        {
+            AppendIndent(sb, indent);
+            sb.Append(JsonValue(name)).Append(": [");
+            if (values != null)
+            {
+                for (int i = 0; i < values.Count; i++)
+                {
+                    if (i > 0)
+                        sb.Append(", ");
+                    sb.Append(values[i].ToString(CultureInfo.InvariantCulture));
+                }
+            }
+            sb.Append("]");
+            if (comma)
+                sb.Append(",");
+            sb.AppendLine();
+        }
+
+        private void AppendContainerIdArrayProperty(StringBuilder sb, int indent, string name, List<PriceContainer> values, bool comma)
+        {
+            AppendIndent(sb, indent);
+            sb.Append(JsonValue(name)).Append(": [");
+            if (values != null)
+            {
+                for (int i = 0; i < values.Count; i++)
+                {
+                    if (i > 0)
+                        sb.Append(", ");
+                    sb.Append(values[i].Id.ToString(CultureInfo.InvariantCulture));
+                }
+            }
+            sb.Append("]");
+            if (comma)
+                sb.Append(",");
+            sb.AppendLine();
+        }
+
+        private void AppendStringArrayProperty(StringBuilder sb, int indent, string name, string[] values, bool comma)
+        {
+            AppendIndent(sb, indent);
+            sb.Append(JsonValue(name)).Append(": [");
+            if (values != null)
+            {
+                for (int i = 0; i < values.Length; i++)
+                {
+                    if (i > 0)
+                        sb.Append(", ");
+                    sb.Append(JsonValue(values[i]));
+                }
+            }
+            sb.Append("]");
+            if (comma)
+                sb.Append(",");
+            sb.AppendLine();
+        }
+
+        private void AppendIndent(StringBuilder sb, int indent)
+        {
+            for (int i = 0; i < indent; i++)
+                sb.Append(' ');
+        }
+
+        private string JsonValue(string value)
+        {
+            if (value == null)
+                return "null";
+
+            var sb = new StringBuilder(value.Length + 2);
+            sb.Append('"');
+            foreach (char c in value)
+            {
+                switch (c)
+                {
+                    case '\\':
+                        sb.Append("\\\\");
+                        break;
+                    case '"':
+                        sb.Append("\\\"");
+                        break;
+                    case '\b':
+                        sb.Append("\\b");
+                        break;
+                    case '\f':
+                        sb.Append("\\f");
+                        break;
+                    case '\n':
+                        sb.Append("\\n");
+                        break;
+                    case '\r':
+                        sb.Append("\\r");
+                        break;
+                    case '\t':
+                        sb.Append("\\t");
+                        break;
+                    default:
+                        if (c < 32)
+                            sb.Append("\\u").Append(((int)c).ToString("x4", CultureInfo.InvariantCulture));
+                        else
+                            sb.Append(c);
+                        break;
+                }
+            }
+            sb.Append('"');
+            return sb.ToString();
+        }
+
+        private string JsonNumber(double value)
+        {
+            if (double.IsNaN(value) || double.IsInfinity(value))
+                return "null";
+            return value.ToString("G17", CultureInfo.InvariantCulture);
+        }
+
         private void LogDebug(int bar, string message)
         {
+            RecordExportEvent(bar, message);
+
             if (!Debug)
                 return;
 
@@ -4254,18 +5445,18 @@ namespace NinjaTrader.NinjaScript.Indicators
 	public partial class Indicator : NinjaTrader.Gui.NinjaScript.IndicatorRenderBase
 	{
 		private xPvaAutomatedContainers[] cachexPvaAutomatedContainers;
-		public xPvaAutomatedContainers xPvaAutomatedContainers(bool debug, int startBar, int endBar, bool enableLineageJoins)
+		public xPvaAutomatedContainers xPvaAutomatedContainers(bool debug, int startBar, int endBar, bool enableLineageJoins, bool exportJson, string jsonExportFolder, string jsonFileName, bool exportOnEveryBar, bool debugExport)
 		{
-			return xPvaAutomatedContainers(Input, debug, startBar, endBar, enableLineageJoins);
+			return xPvaAutomatedContainers(Input, debug, startBar, endBar, enableLineageJoins, exportJson, jsonExportFolder, jsonFileName, exportOnEveryBar, debugExport);
 		}
 
-		public xPvaAutomatedContainers xPvaAutomatedContainers(ISeries<double> input, bool debug, int startBar, int endBar, bool enableLineageJoins)
+		public xPvaAutomatedContainers xPvaAutomatedContainers(ISeries<double> input, bool debug, int startBar, int endBar, bool enableLineageJoins, bool exportJson, string jsonExportFolder, string jsonFileName, bool exportOnEveryBar, bool debugExport)
 		{
 			if (cachexPvaAutomatedContainers != null)
 				for (int idx = 0; idx < cachexPvaAutomatedContainers.Length; idx++)
-					if (cachexPvaAutomatedContainers[idx] != null && cachexPvaAutomatedContainers[idx].Debug == debug && cachexPvaAutomatedContainers[idx].StartBar == startBar && cachexPvaAutomatedContainers[idx].EndBar == endBar && cachexPvaAutomatedContainers[idx].EnableLineageJoins == enableLineageJoins && cachexPvaAutomatedContainers[idx].EqualsInput(input))
+					if (cachexPvaAutomatedContainers[idx] != null && cachexPvaAutomatedContainers[idx].Debug == debug && cachexPvaAutomatedContainers[idx].StartBar == startBar && cachexPvaAutomatedContainers[idx].EndBar == endBar && cachexPvaAutomatedContainers[idx].EnableLineageJoins == enableLineageJoins && cachexPvaAutomatedContainers[idx].ExportJson == exportJson && cachexPvaAutomatedContainers[idx].JsonExportFolder == jsonExportFolder && cachexPvaAutomatedContainers[idx].JsonFileName == jsonFileName && cachexPvaAutomatedContainers[idx].ExportOnEveryBar == exportOnEveryBar && cachexPvaAutomatedContainers[idx].DebugExport == debugExport && cachexPvaAutomatedContainers[idx].EqualsInput(input))
 						return cachexPvaAutomatedContainers[idx];
-			return CacheIndicator<xPvaAutomatedContainers>(new xPvaAutomatedContainers(){ Debug = debug, StartBar = startBar, EndBar = endBar, EnableLineageJoins = enableLineageJoins }, input, ref cachexPvaAutomatedContainers);
+			return CacheIndicator<xPvaAutomatedContainers>(new xPvaAutomatedContainers(){ Debug = debug, StartBar = startBar, EndBar = endBar, EnableLineageJoins = enableLineageJoins, ExportJson = exportJson, JsonExportFolder = jsonExportFolder, JsonFileName = jsonFileName, ExportOnEveryBar = exportOnEveryBar, DebugExport = debugExport }, input, ref cachexPvaAutomatedContainers);
 		}
 	}
 }
@@ -4274,14 +5465,14 @@ namespace NinjaTrader.NinjaScript.MarketAnalyzerColumns
 {
 	public partial class MarketAnalyzerColumn : MarketAnalyzerColumnBase
 	{
-		public Indicators.xPvaAutomatedContainers xPvaAutomatedContainers(bool debug, int startBar, int endBar, bool enableLineageJoins)
+		public Indicators.xPvaAutomatedContainers xPvaAutomatedContainers(bool debug, int startBar, int endBar, bool enableLineageJoins, bool exportJson, string jsonExportFolder, string jsonFileName, bool exportOnEveryBar, bool debugExport)
 		{
-			return indicator.xPvaAutomatedContainers(Input, debug, startBar, endBar, enableLineageJoins);
+			return indicator.xPvaAutomatedContainers(Input, debug, startBar, endBar, enableLineageJoins, exportJson, jsonExportFolder, jsonFileName, exportOnEveryBar, debugExport);
 		}
 
-		public Indicators.xPvaAutomatedContainers xPvaAutomatedContainers(ISeries<double> input , bool debug, int startBar, int endBar, bool enableLineageJoins)
+		public Indicators.xPvaAutomatedContainers xPvaAutomatedContainers(ISeries<double> input , bool debug, int startBar, int endBar, bool enableLineageJoins, bool exportJson, string jsonExportFolder, string jsonFileName, bool exportOnEveryBar, bool debugExport)
 		{
-			return indicator.xPvaAutomatedContainers(input, debug, startBar, endBar, enableLineageJoins);
+			return indicator.xPvaAutomatedContainers(input, debug, startBar, endBar, enableLineageJoins, exportJson, jsonExportFolder, jsonFileName, exportOnEveryBar, debugExport);
 		}
 	}
 }
@@ -4290,14 +5481,14 @@ namespace NinjaTrader.NinjaScript.Strategies
 {
 	public partial class Strategy : NinjaTrader.Gui.NinjaScript.StrategyRenderBase
 	{
-		public Indicators.xPvaAutomatedContainers xPvaAutomatedContainers(bool debug, int startBar, int endBar, bool enableLineageJoins)
+		public Indicators.xPvaAutomatedContainers xPvaAutomatedContainers(bool debug, int startBar, int endBar, bool enableLineageJoins, bool exportJson, string jsonExportFolder, string jsonFileName, bool exportOnEveryBar, bool debugExport)
 		{
-			return indicator.xPvaAutomatedContainers(Input, debug, startBar, endBar, enableLineageJoins);
+			return indicator.xPvaAutomatedContainers(Input, debug, startBar, endBar, enableLineageJoins, exportJson, jsonExportFolder, jsonFileName, exportOnEveryBar, debugExport);
 		}
 
-		public Indicators.xPvaAutomatedContainers xPvaAutomatedContainers(ISeries<double> input , bool debug, int startBar, int endBar, bool enableLineageJoins)
+		public Indicators.xPvaAutomatedContainers xPvaAutomatedContainers(ISeries<double> input , bool debug, int startBar, int endBar, bool enableLineageJoins, bool exportJson, string jsonExportFolder, string jsonFileName, bool exportOnEveryBar, bool debugExport)
 		{
-			return indicator.xPvaAutomatedContainers(input, debug, startBar, endBar, enableLineageJoins);
+			return indicator.xPvaAutomatedContainers(input, debug, startBar, endBar, enableLineageJoins, exportJson, jsonExportFolder, jsonFileName, exportOnEveryBar, debugExport);
 		}
 	}
 }
